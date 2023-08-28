@@ -210,7 +210,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-08-28 23:13:15" itemprop="dateModified" datetime="2023-08-28T23:13:15+09:00">2023-08-28</time>
+      <time title="Modified: 2023-08-28 23:15:17" itemprop="dateModified" datetime="2023-08-28T23:15:17+09:00">2023-08-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
 <h1 id="Lighthouse"><a href="#Lighthouse" class="headerlink" title="Lighthouse"></a>Lighthouse</h1><p>Lighthouse를 통해 구현한 사이트를 검사해본 결과 예상 외로 웹 접근성 측면에서 기대보다 낮은 점수를 받았다. 솔직히 좀 충격이었다. 이번 과제에서 접근성을 지키기 위해 WCAG2.1을 읽고 accessibility hidden style이나 WAI-ARIA 등의 활용으로 스크린리더 환경까지 고려했기 때문이다.</p>
 <p>그러나 예상치 못한 부분에서 접근성을 지키지 못한 경우들이 있었다. 바로 버튼이나 링크등에 이미지를 직접적으로 삽입하고 텍스트를 입력하지 않았을 때의 문제였다.</p>
 <p>Lighthouse를 통해 알게 된 웹 접근성의 취약점들을 개선하려 노력했다. 추가로 성능 면에서도 내가 개선이 가능한 부분들을 찾아내어 수정했다.</p>
-<h2 id="1-웹-접근성-취약점-개선"><a href="#1-웹-접근성-취약점-개선" class="headerlink" title="1) 웹 접근성 취약점 개선"></a>1) <strong>웹 접근성</strong> 취약점 개선</h2><p><img src="/source/images/yanolja/2023-08-28-23-00-44.png"></p>
+<h2 id="1-웹-접근성-취약점-개선"><a href="#1-웹-접근성-취약점-개선" class="headerlink" title="1) 웹 접근성 취약점 개선"></a>1) <strong>웹 접근성</strong> 취약점 개선</h2><p><img src="/images/yanolja/2023-08-28-23-00-44.png"></p>
 <p>텍스트가 없는 버튼을 디자인적 요소로 활용하여 링크를 연결한 것에 대한 지적이 있었다. 스크린리더 사용자의 입장에서 이러한 디자인적인 요소를 파악할 수 없는데, 파악할 수 없는 요소에 중요한 링크가 걸려있으니 문제가 있었다. WCAG2.1에서 의도적으로 스크린리더 사용자에게 정보를 전달하는 기능인 aria-label 속성을 확인하고 적용하였다.</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// aria-label 적용</span></span><br><span class="line">&lt;a href=<span class="string">&quot;/&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;content-box-arrow&quot;</span> aria-label=<span class="string">&quot;해당 페이지로 이동&quot;</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fa-solid fa-arrow-right&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
@@ -261,7 +261,7 @@
 
 <h2 id="2-웹-성능-개선"><a href="#2-웹-성능-개선" class="headerlink" title="2) 웹 성능 개선"></a>2) <strong>웹 성능</strong> 개선</h2><p>사이트에서 애니메이션과 이미지들이 많이 사용되다 보니 성능적으로 많이 낮은 점수가 나오는 것 같았다. 우선적으로 코드 등의 수정 보다는 이미지 파일 자체의 크기들을 낮추는 것에 집중하였다.</p>
 <p>이미지 최적화 프로그램을 통해 각 이미지들의 크기를 30% ~ 50% 낮춰주었고 유의미한 검사 결과의 차이를 얻었다. 추가로 Lazy Loding과 CDN을 활용한 이미지 최적화 방법들을 알게 되었는데 추후에 웹성능 개선을 위한 이미지 최적화 방식에 대해 제대로 알아보고 활용할 수 있게 하겠다고 다짐했다.</p>
-<h2 id="Lighthouse-점수-변화"><a href="#Lighthouse-점수-변화" class="headerlink" title="Lighthouse 점수 변화"></a>Lighthouse 점수 변화</h2><p><img src="/source/images/yanolja/html-css/2023-08-28-23-09-41.png"></p>
+<h2 id="Lighthouse-점수-변화"><a href="#Lighthouse-점수-변화" class="headerlink" title="Lighthouse 점수 변화"></a>Lighthouse 점수 변화</h2><p><img src="/images/yanolja/html-css/2023-08-28-23-09-41.png"></p>
 
       
     </div>
