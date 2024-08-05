@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. 변수의 정의2. 변수가 필요한 이유3. 자바스크립트 메모리 접근4. 자바스크립트 변수의 동작 변수의 정의변수란 하나의 값을 저장하기 위해 확보한 메모리 공간 자체, 또는 그 공간을 식별하기 위해 붙인 이름입니다. 변수가 필요한 이유110 + 20;  다음과 같은 식을 코드에서 실행한다고 생각해보겠습니다. 자바스크립트 엔진이 위의 식을 해석하면 10과">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Variables (변수)와 메모리 동작">
+<meta property="og:url" content="https://namgungjongmin.github.io/2023/07/09/js/4_%EB%B3%80%EC%88%98/index.html">
+<meta property="og:site_name" content="토끼굴을 정복하는 개발자 남궁종민의 블로그">
+<meta property="og:description" content="1. 변수의 정의2. 변수가 필요한 이유3. 자바스크립트 메모리 접근4. 자바스크립트 변수의 동작 변수의 정의변수란 하나의 값을 저장하기 위해 확보한 메모리 공간 자체, 또는 그 공간을 식별하기 위해 붙인 이름입니다. 변수가 필요한 이유110 + 20;  다음과 같은 식을 코드에서 실행한다고 생각해보겠습니다. 자바스크립트 엔진이 위의 식을 해석하면 10과">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
+<meta property="article:published_time" content="2023-07-09T12:19:24.000Z">
+<meta property="article:modified_time" content="2024-03-29T09:16:01.767Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="es6">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="변수">
+<meta property="article:tag" content="호이스팅">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2023/07/09/js/4_%EB%B3%80%EC%88%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://namgungjongmin.github.io/2023/07/09/js/4_%EB%B3%80%EC%88%98/","path":"2023/07/09/js/4_변수/","title":"Variables (변수)와 메모리 동작"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Variables (변수)와 메모리 동작 | 토끼굴을 정복하는 개발자 남궁종민의 블로그</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">토끼굴을 정복하는 개발자 남궁종민의 블로그</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%B3%80%EC%88%98%EC%9D%98-%EC%A0%95%EC%9D%98"><span class="nav-number">1.</span> <span class="nav-text">변수의 정의</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%B3%80%EC%88%98%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0"><span class="nav-number">2.</span> <span class="nav-text">변수가 필요한 이유</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%A0%91%EA%B7%BC"><span class="nav-number">3.</span> <span class="nav-text">자바스크립트 메모리 접근</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EB%A9%94%EB%AA%A8%EB%A6%AC%EC%97%90-%EC%A7%81%EC%A0%91%EC%A0%81%EC%9D%B8-%EC%A0%91%EA%B7%BC%EC%9D%84-%ED%97%88%EC%9A%A9%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94%EB%8B%A4"><span class="nav-number">3.1.</span> <span class="nav-text">자바스크립트는 메모리에 직접적인 접근을 허용하지 않는다!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EB%B3%80%EC%88%98%EB%A5%BC-%ED%86%B5%ED%95%B4-%EA%B0%84%EC%A0%91%EC%A0%81%EC%9C%BC%EB%A1%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC%EC%97%90-%EC%A0%91%EA%B7%BC%ED%95%9C%EB%8B%A4"><span class="nav-number">3.2.</span> <span class="nav-text">자바스크립트는 변수를 통해 간접적으로 메모리에 접근한다!</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%A7%A4%EB%8B%88%EC%A7%80%EB%93%9C-%EC%96%B8%EC%96%B4-VS-%EC%96%B8%EB%A7%A4%EB%8B%88%EC%A7%80%EB%93%9C-%EC%96%B8%EC%96%B4"><span class="nav-number">4.</span> <span class="nav-text">매니지드 언어 VS 언매니지드 언어</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%A7%A4%EB%8B%88%EC%A7%80%EB%93%9C-%EC%96%B8%EC%96%B4"><span class="nav-number">4.1.</span> <span class="nav-text">매니지드 언어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%96%B8%EB%A7%A4%EB%8B%88%EC%A7%80%EB%93%9C-%EC%96%B8%EC%96%B4"><span class="nav-number">4.2.</span> <span class="nav-text">언매니지드 언어</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EB%8F%99%EC%9E%91"><span class="nav-number">5.</span> <span class="nav-text">자바스크립트 변수의 동작</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8"><span class="nav-number">5.1.</span> <span class="nav-text">변수 선언</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%99%9C-undefined%EB%A1%9C-%EC%B4%88%EA%B8%B0%ED%99%94%ED%95%98%EB%8A%94-%EA%B3%BC%EC%A0%95%EC%9D%84-%EA%B1%B0%EC%B9%A0%EA%B9%8C"><span class="nav-number">5.1.1.</span> <span class="nav-text">왜 undefined로 초기화하는 과정을 거칠까?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8%EC%9D%98-%EC%8B%9C%EC%A0%90"><span class="nav-number">5.1.2.</span> <span class="nav-text">변수 선언의 시점</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B3%80%EC%88%98-%ED%95%A0%EB%8B%B9"><span class="nav-number">5.2.</span> <span class="nav-text">변수 할당</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B3%80%EC%88%98-%EC%B4%88%EA%B8%B0%ED%99%94%EC%99%80-%ED%95%A0%EB%8B%B9-%EC%8B%9C-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%8F%99%EC%9E%91"><span class="nav-number">5.2.1.</span> <span class="nav-text">변수 초기화와 할당 시 메모리 동작</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B0%80%EB%B9%84%EC%A7%80-%EC%BB%AC%EB%A0%89%ED%84%B0"><span class="nav-number">5.3.</span> <span class="nav-text">가비지 컬렉터</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/09/js/4_%EB%B3%80%EC%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="토끼굴을 정복하는 개발자 남궁종민의 블로그">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Variables (변수)와 메모리 동작 | 토끼굴을 정복하는 개발자 남궁종민의 블로그">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Variables (변수)와 메모리 동작
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-07-09 21:19:24" itemprop="dateCreated datePublished" datetime="2023-07-09T21:19:24+09:00">2023-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-03-29 18:16:01" itemprop="dateModified" datetime="2024-03-29T18:16:01+09:00">2024-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<p><a href="#%EB%B3%80%EC%88%98%EC%9D%98-%EC%A0%95%EC%9D%98">1. 변수의 정의</a><br><a href="#%EB%B3%80%EC%88%98%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0">2. 변수가 필요한 이유</a><br><a href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%A0%91%EA%B7%BC">3. 자바스크립트 메모리 접근</a><br><a href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EB%8F%99%EC%9E%91">4. 자바스크립트 변수의 동작</a></p>
+<h1 id="변수의-정의"><a href="#변수의-정의" class="headerlink" title="변수의 정의"></a>변수의 정의</h1><p>변수란 하나의 값을 저장하기 위해 확보한 메모리 공간 자체, 또는 그 공간을 식별하기 위해 붙인 이름입니다.</p>
+<h1 id="변수가-필요한-이유"><a href="#변수가-필요한-이유" class="headerlink" title="변수가 필요한 이유"></a>변수가 필요한 이유</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> + <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<p>다음과 같은 식을 코드에서 실행한다고 생각해보겠습니다.</p>
+<p>자바스크립트 엔진이 위의 식을 해석하면 10과 20은 컴퓨터의 메모리에 담기고 +연산자는 cpu에서 실행되게 됩니다. 이 때 메모리에 10과 20, 그리고 연산 결과 30은 2진수의 형태로 메모리 셀에 저장되게 됩니다.</p>
+<p>이렇게 30이라는 값을 연산하여 얻어냈다는 것은 그 값을 사용해 무엇인가를 하겠다는 의도가 있을 것입니다. 30이라는 값을 재사용하기 위해서는 저장된 메모리 공간에 대한 접근이 필요합니다.</p>
+<h1 id="자바스크립트-메모리-접근"><a href="#자바스크립트-메모리-접근" class="headerlink" title="자바스크립트 메모리 접근"></a>자바스크립트 메모리 접근</h1><h2 id="자바스크립트는-메모리에-직접적인-접근을-허용하지-않는다"><a href="#자바스크립트는-메모리에-직접적인-접근을-허용하지-않는다" class="headerlink" title="자바스크립트는 메모리에 직접적인 접근을 허용하지 않는다!"></a>자바스크립트는 메모리에 직접적인 접근을 허용하지 않는다!</h2><p>저장된 값을 사용하기 위해서 메모리에 접근하는 것이 필요하다 했습니다. 그러나 메모리에 직접적으로 접근하는 것은 치명적인 오류를 발생시킬 수 있습니다. 만약 실수로 운영체제가 사용하고 있는 값을 변경하게 되면 시스템이 멈출 수도 있습니다.</p>
+<p>또한 자바스크립트는 값이 저장될 메모리 주소를 코드가 실행될 때마다 메모리 상황에 따라 임의로 결정합니다. 따라서 동일한 코드를 실행해도 실행마다 값이 저장되는 메모리 주소가 변경되고, 이전 값이 저장된 주소를 알수도 없으며, 알려주지도 않기 때문에 값이 저장된 메모리를 직접적으로 찾는 것은 올바른 방법이 아닙니다.</p>
+<h2 id="자바스크립트는-변수를-통해-간접적으로-메모리에-접근한다"><a href="#자바스크립트는-변수를-통해-간접적으로-메모리에-접근한다" class="headerlink" title="자바스크립트는 변수를 통해 간접적으로 메모리에 접근한다!"></a>자바스크립트는 변수를 통해 간접적으로 메모리에 접근한다!</h2><p>따라서 자바스크립트에서는 메모리에 접근할 때 변수라는 요소를 통해 값이 저장된 메모리에 간접적으로 접근하여 안전하게 사용할 수 있습니다. 이러한 메모리 관리 방식을 가진 언어를 매니지드 언어라고 합니다.</p>
+<hr>
+<h1 id="매니지드-언어-VS-언매니지드-언어"><a href="#매니지드-언어-VS-언매니지드-언어" class="headerlink" title="매니지드 언어 VS 언매니지드 언어"></a>매니지드 언어 VS 언매니지드 언어</h1><p>프로그래밍 언어는 메모리 관리 방식에 따라서 매니지드 언어와 언매니지드 언어로 분류됩니다. 두 메모리 관리 방식은 성능과 생산성에 있어 장단점을 지닙니다.</p>
+<h2 id="매니지드-언어"><a href="#매니지드-언어" class="headerlink" title="매니지드 언어"></a>매니지드 언어</h2><p>자바스크립트와 같은 매니지드 언어는 메모리의 할당이나 해제를 언어 자체에서 담당하고 개발자의 직접적인 메모리 접근을 허용하지 않습니다. 즉, 개발자가 명시적으로 메모리를 제어할 수 없습니다. 메모리 접근은 변수를 통해 간접적으로 이루어지며, 메모리의 해제 또한 ‘가비지 컬렉터’를 통해 자동적으로 이루어집니다.</p>
+<p>이와 같은 특성을 지닌 매니지드 언어인 자바스크립트는 개발자가 직접 제어해야 하는 부분이 줄어든 만큼 일정한 생산성을 확보할 수 있다는 장점이 있지만 성능 면에서는 손실을 감수해야합니다.</p>
+<h2 id="언매니지드-언어"><a href="#언매니지드-언어" class="headerlink" title="언매니지드 언어"></a>언매니지드 언어</h2><p>C 언어와 같은 언매니지드 언어는 개발자가 명시적으로 메모리를 제어합니다. 개발자 주도로 메모리를 제어하기 때문에 개발자의 역량에 따라 최적의 성능을 확보할 수 있다는 장점이 있지만 반대의 경우 오히려 성능의 최적화가 힘들 수 있습니다. 또한 매니지드 언어에 비해 부족한 생산성이 단점이 될 수 있습니다.</p>
+<hr>
+<h1 id="자바스크립트-변수의-동작"><a href="#자바스크립트-변수의-동작" class="headerlink" title="자바스크립트 변수의 동작"></a>자바스크립트 변수의 동작</h1><h2 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h2><p>변수를 사용하기 위해 변수를 선언해야 합니다. 먼저 선언을 통해 자바스크립트 엔진에 식별자의 존재를 알립니다. 이 때 자바스크립트 엔진은 식별자가 참조할 메모리 공간을 확보하게 됩니다. 이후에 자바스크립트 엔진은 실행 컨텍스트에 식별자를 등록하게 됩니다.</p>
+<p>메모리의 공간을 확보한다 했으니 해당 메모리가 비어있다고 생각할 수 있지만, 사실 메모리는 비어있는 것이 아닌 이전에 다른 어플리케이션에서 사용하고 참조가 끊어진 쓰레기 값(garbage value)가 들어있으며 자바스크립트 엔진은 암묵적으로 undefined를 할당하여 초기화하게 됩니다.</p>
+<h3 id="왜-undefined로-초기화하는-과정을-거칠까"><a href="#왜-undefined로-초기화하는-과정을-거칠까" class="headerlink" title="왜 undefined로 초기화하는 과정을 거칠까?"></a>왜 undefined로 초기화하는 과정을 거칠까?</h3><p>초기화 과정을 거치지 않는다면 이전에 썼던 쓰레기 값이 들어있는 메모리셀을 참조하게 되기 때문에 할당 직전 값을 참조하게 될 경우 원하지 않는 동작이 일어날 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>위 코드를 살펴보겠습니다. test라는 식별자에 어떠한 값도 할당하지 않고 1을 더한 연산한 결과를 출력했기 때문에 숫자가 아니라는 NaN 값이 나오게됩니다. 하지만 초기화를 하지 않아 쓰레기 값으로 ‘1’과 같은 값이 들어있다고 가정해보면 자바스크립트의 암묵적 타입 변환을 통해 ‘11’이라는 값이 출력되게 됩니다.</p>
+<p>즉 초기화 과정을 거치지 않게 되면 코드 동작의 일관성을 저해하게 되며 개발자가 예상하지 못하는 결과를 출력할 수 있게 되기 때문에 초기화 과정이 필요합니다.</p>
+<h3 id="변수-선언의-시점"><a href="#변수-선언의-시점" class="headerlink" title="변수 선언의 시점"></a>변수 선언의 시점</h3><p>자바스크립트 엔진은 코드를 읽기 전에 가장 먼저(런타임 이전) 전체 코드에서 선언문을 전부 가져와 실행컨텍스트에 등록을 하게 됩니다. 이 후 변수 선언 키워드에 따라 초기화와 할당의 시점이 달라지게 됩니다. 변수 선언이 코드를 읽기 전에 가장 먼저 실행된다는 것을 다음 코드를 통해 확인할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test); <span class="comment">// output: undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test); <span class="comment">// output: 20</span></span><br></pre></td></tr></table></figure>
+
+<p>만약 코드가 실행되는 런타임에 변수가 선언되었다면, 선언문 위에 있는 console.log(test)는 아직 선언 이전이기 때문에 ‘식별자를 참조하려 했으나 식별자를 찾을 수가 없어!’라는 뜻의 Reference 에러를 내야합니다. 그러나 코드가 정상 동작하는 것을 위 코드에서 확인할 수 있습니다.</p>
+<p>이것을 통해 변수의 선언은 코드가 실행되는 런타임이 아닌 그 이전에 먼저 실행된다는 것과 undefined로 초기화까지 일어난다는 것을 알 수 있습니다. 이러한 현상을 ‘호이스팅’이라고 합니다. 자바스크립트의 모든 변수, 함수, 클래스는 이렇게 런타임 이전 식별자 정보를 실행컨텍스트에 먼저 등록하는 과정을 거치게 됩니다.<br><code>&#39;호이스팅&#39;에 대해서는 차후 다른 포스팅에서 자세히 다루겠습니다.</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test1); <span class="comment">// ReferenceError</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test2); <span class="comment">// ReferenceError</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> test = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> test = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test1);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test2);</span><br></pre></td></tr></table></figure>
+
+<p>그러나 위의 코드의 경우(let과 const 키워드를 사용한 변수 선언) ReferenceError를 내보내게 됩니다. 그 이유는 var 키워드와 ‘초기화 시점’이 다르기 때문입니다.</p>
+<p>let과 const의 경우 초기화 과정과 할당 과정이 선언과 분리되어 코드가 직접 실행되는 런타임에 이루어집니다. 위에서 말했듯이 초기화는 이전 쓰레기 값의 참조를 방지하기 위해 꼭 필요한 작업입니다. 따라서 초기화 시점이 다른 let과 const의 경우 초기화가 되기 이전 상황에서는 메모리에 접근할 수 없기 때문에 이러한 오류를 내보내게 됩니다.</p>
+<h2 id="변수-할당"><a href="#변수-할당" class="headerlink" title="변수 할당"></a>변수 할당</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드는 하나의 문처럼 보이지만 사실 두개의 문의 단축 표현입니다. 즉 자바스크립트는 변수 선언과 값의 할당을 2개의 문으로 나누어 각각 실행합니다. 따라서 단축 표현시에도 식별자 선언 후 undefined가 먼저 먼저 할당되어 초기화, 그 이후 100이라는 값이 할당이 되는 것은 변함이 없습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="comment">// 선언</span></span><br><span class="line">score = <span class="number">100</span>;</span><br><span class="line"><span class="comment">// 할당</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="변수-초기화와-할당-시-메모리-동작"><a href="#변수-초기화와-할당-시-메모리-동작" class="headerlink" title="변수 초기화와 할당 시 메모리 동작"></a>변수 초기화와 할당 시 메모리 동작</h3><p>변수에 값이 할당될 때, undefined가 저장되어있는 메모리 공간을 지우고 그 메모리 공간에 할당 값 80을 다시 넣어주는 것이 아닙니다. 값을 할당할 때에는 변수가 참조할 메모리 영역을 새로 확보하고 그 메모리 영역을 변수가 새로이 참조하게 됩니다.</p>
+<blockquote>
+<p>왜 undefined로 초기화 된 영역을 업데이트하는 것이 아니라 새로운 영역을 확보하고 값을 할당할까? 자바스크립트가 개발자의 메모리 제어를 허용하지 않기 때문이다. 메모리를 확보하고 그 메모리의 값을 바꾼다는 것 자체가 메모리를 제어하게 되는 것이다. 엔진은 자바스크립트 기본원리에 따라 매번 값의 생성시에 임의로 새로운 메모리 주소를 부여한다. 이 때문에 메모리 동작에 있어서 매니지드 언어는 성능 상 손해를 감수할 수 밖에 없다.</p>
+</blockquote>
+<p>변수 할당 전 undefined로 초기화 되는 과정은 변수의 값이 저장될 공간을 미리 확보하는 것이 아닌 할당 전 변수에 접근했을 때 예상치 못한 결과를 막기 위한 것을 다시 한번 기억해야합니다.</p>
+<p>재할당의 경우도 마찬가지입니다. score의 값을 200으로 재할당 한다면 기존 100이 저장된 메모리의 값을 변경하는 것이 아니라 새로운 메모리 공간을 확보하여 값을 저장합니다.</p>
+<h2 id="가비지-컬렉터"><a href="#가비지-컬렉터" class="headerlink" title="가비지 컬렉터"></a>가비지 컬렉터</h2><p>변수의 동작 과정에서 초기화, 할당, 재할당 시 새로운 메모리 공간을 확보하게 된다고 했습니다. 이 때 변수가 더 이상 참조하지 않게 되는 메모리 공간은 어떻게 될까요?<br>가비지 컬렉터가 메모리를 해제하여 메모리 누수를 방지합니다. 언제 가비지 컬렉터가 메모리를 해제하는지는 예측할 수 없습니다. 또한 가비지 컬렉터는 단순히 확보한 메모리 (더 이상 이 메모리를 참조할 수 없는 상태)를 해제할 뿐이지 메모리에 저장된 값 자체를 삭제하지는 않습니다.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/es6/" rel="tag"># es6</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%EB%B3%80%EC%88%98/" rel="tag"># 변수</a>
+              <a href="/tags/%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85/" rel="tag"># 호이스팅</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/10/fastXyanol_1/" rel="next" title="패스트캠퍼스X야놀자 테크스쿨 개강 (OT후기)">
+                  패스트캠퍼스X야놀자 테크스쿨 개강 (OT후기) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
