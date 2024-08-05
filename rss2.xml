@@ -3,7 +3,7 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>토끼굴을 정복하는 개발자 남궁종민의 블로그</title>
+    <title>Namgung Jong Min</title>
     <link>https://NamgungJongMin.github.io/</link>
     
     <atom:link href="https://namgungjongmin.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
