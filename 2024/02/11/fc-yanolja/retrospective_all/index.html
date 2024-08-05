@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="파이널 프로젝트가 끝나면서 7개월의 부트캠프 과정이 끝이 났습니다. 길다면 길고 짧다면 짧을 수 있는 시간인데 부트캠프를 진행하기 이전의 저와 수료한 이후의 저는 완전 다른 사람이 된 것 같아요. 사실 처음 시작할 때는 기본적인 클론 코딩도 버거워하던 저였는데 이제는 혼자서 프로젝트를 기획하고 개발하면서 이번엔 어떤 기술을 적용해볼까 행복한 고민을 하고">
+<meta property="og:type" content="article">
+<meta property="og:title" content="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_과정 종료 회고">
+<meta property="og:url" content="https://namgungjongmin.github.io/2024/02/11/fc-yanolja/retrospective_all/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="파이널 프로젝트가 끝나면서 7개월의 부트캠프 과정이 끝이 났습니다. 길다면 길고 짧다면 짧을 수 있는 시간인데 부트캠프를 진행하기 이전의 저와 수료한 이후의 저는 완전 다른 사람이 된 것 같아요. 사실 처음 시작할 때는 기본적인 클론 코딩도 버거워하던 저였는데 이제는 혼자서 프로젝트를 기획하고 개발하면서 이번엔 어떤 기술을 적용해볼까 행복한 고민을 하고">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/5e1e2ac9-3a7a-4a13-89bd-fa4abc0b669a/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/60508778-5e1c-4c71-ae9e-7bf9cabea2b2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/a1151c91-77e5-44a4-8d7e-f5a9a007dbd5/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/4e68c1bb-468b-4456-bf23-a69d4427aab5/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/20c6e43e-b2ce-4c19-97ed-19c6e7445c8c/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/35be0e28-007d-4ac5-8b20-3928a5c6eb75/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/53f51036-afa0-4b85-82a2-c46de47b42f0/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/86d0fba3-6ee5-4a0e-b7fa-80d91fd879f9/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/ae938868-7fcd-48e2-94bc-d34ddb98eb52/image.png">
+<meta property="article:published_time" content="2024-02-11T13:54:53.000Z">
+<meta property="article:modified_time" content="2024-08-05T17:10:52.977Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="패스트캠퍼스">
+<meta property="article:tag" content="부트캠프">
+<meta property="article:tag" content="국비지원취업">
+<meta property="article:tag" content="프론트엔드개발자">
+<meta property="article:tag" content="국비지원">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/5e1e2ac9-3a7a-4a13-89bd-fa4abc0b669a/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2024/02/11/fc-yanolja/retrospective_all/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2024/02/11/fc-yanolja/retrospective_all/","path":"2024/02/11/fc-yanolja/retrospective_all/","title":"패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_과정 종료 회고"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_과정 종료 회고 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%8C%8C%EC%9D%B4%EB%84%90-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%81%9D"><span class="nav-number">1.</span> <span class="nav-text">파이널 프로젝트 끝!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5"><span class="nav-number">2.</span> <span class="nav-text">사이트 핵심 기능</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%EC%97%AC%ED%96%89%EC%A7%80-%ED%88%AC%ED%91%9C"><span class="nav-number">2.1.</span> <span class="nav-text">1) 여행지 투표</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%ED%88%AC%ED%91%9C-%EA%B8%B0%EB%B0%98-%EC%9D%BC%EC%A0%95-%EC%9E%91%EC%84%B1"><span class="nav-number">2.2.</span> <span class="nav-text">2) 투표 기반 일정 작성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%EB%A3%A8%ED%8A%B8-%EC%B5%9C%EC%A0%81%ED%99%94"><span class="nav-number">2.3.</span> <span class="nav-text">3) 루트 최적화</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%EC%97%AC%ED%96%89-%EC%A0%95%EB%B3%B4-%EA%B2%80%EC%83%89"><span class="nav-number">2.4.</span> <span class="nav-text">4) 여행 정보 검색</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%9E%9C%EB%94%A9-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EB%A7%88%EC%BC%80%ED%8C%85"><span class="nav-number">3.</span> <span class="nav-text">랜딩 페이지 생성 및 마케팅</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%8A%B8%EB%A6%BD-%EB%B3%B4%ED%8A%B8-%EC%86%8C%EA%B0%9C-%EC%98%81%EC%83%81"><span class="nav-number">4.</span> <span class="nav-text">트립 보트 소개 영상</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84-%ED%9B%84-%EB%82%98%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8B%AC%EB%9D%BC%EC%A1%8C%EC%9D%84%EA%B9%8C"><span class="nav-number">5.</span> <span class="nav-text">부트캠프 후 나는 어떻게 달라졌을까?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%EC%9B%B9%ED%91%9C%EC%A4%80-%EB%B0%8F-%EC%9B%B9%EC%A0%91%EA%B7%BC%EC%84%B1-%EC%A0%81%EC%9A%A9"><span class="nav-number">5.1.</span> <span class="nav-text">1) 웹표준 및 웹접근성 적용</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%EB%8B%A4%EC%96%91%ED%95%9C-%EC%8A%A4%ED%83%80%EC%9D%BC-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EC%99%80-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC-%EA%B2%BD%ED%97%98"><span class="nav-number">5.2.</span> <span class="nav-text">2) 다양한 스타일 라이브러리와 프레임워크 경험</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%EB%8B%A4%EC%96%91%ED%95%9C-%ED%98%91%EC%97%85-%ED%88%B4%EA%B3%BC-git-%EC%A0%84%EB%9E%B5-%EC%9D%B4%EC%9A%A9-%EA%B2%BD%ED%97%98"><span class="nav-number">5.3.</span> <span class="nav-text">3) 다양한 협업 툴과 git 전략 이용 경험</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%EC%8A%A4%EC%8A%A4%EB%A1%9C-%ED%95%99%EC%8A%B5%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%84-%EC%9D%B5%ED%9E%98"><span class="nav-number">5.4.</span> <span class="nav-text">4) 스스로 학습하는 방법을 익힘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%EC%9C%A0%EC%A0%80-%EB%BF%90%EB%A7%8C%EC%9D%B4-%EC%95%84%EB%8B%88%EB%9D%BC-%EA%B8%B0%EC%97%85%EC%9D%98-%EC%9E%85%EC%9E%A5%EC%97%90%EC%84%9C%EB%8F%84-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9E%91%EC%84%B1%ED%95%A0-%EC%88%98-%EC%9E%88%EA%B2%8C-%EB%90%A8"><span class="nav-number">5.5.</span> <span class="nav-text">5) 유저 뿐만이 아니라 기업의 입장에서도 코드를 작성할 수 있게 됨</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84-%EC%88%98%EB%A3%8C"><span class="nav-number">6.</span> <span class="nav-text">부트캠프 수료!!!!!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%82%B4%EA%B0%80-%EC%B5%9C%EC%9A%B0%EC%88%98-%EC%88%98%EB%A3%8C%EC%83%9D"><span class="nav-number">7.</span> <span class="nav-text">내가 최우수 수료생!!</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/02/11/fc-yanolja/retrospective_all/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_과정 종료 회고 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_과정 종료 회고
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-02-11 22:54:53" itemprop="dateCreated datePublished" datetime="2024-02-11T22:54:53+09:00">2024-02-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%95%BC%EB%86%80%EC%9E%90-%ED%85%8C%ED%81%AC%EC%8A%A4%EC%BF%A8/" itemprop="url" rel="index"><span itemprop="name">야놀자 테크스쿨</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/02/11/fc-yanolja/retrospective_all/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/02/11/fc-yanolja/retrospective_all/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://velog.velcdn.com/images/vbghdl/post/5e1e2ac9-3a7a-4a13-89bd-fa4abc0b669a/image.png"></p>
+<blockquote>
+<p>파이널 프로젝트가 끝나면서 7개월의 부트캠프 과정이 끝이 났습니다. 길다면 길고 짧다면 짧을 수 있는 시간인데 부트캠프를 진행하기 이전의 저와 수료한 이후의 저는 완전 다른 사람이 된 것 같아요. 사실 처음 시작할 때는 기본적인 클론 코딩도 버거워하던 저였는데 이제는 혼자서 프로젝트를 기획하고 개발하면서 이번엔 어떤 기술을 적용해볼까 행복한 고민을 하고 있어요. 이번 포스팅은 저번에 포스팅 했던 파이널 프로젝트의 결과를 공유해보고, 제가 패스트캠퍼스 X 야놀자 부트캠프를 진행하면서 어떻게 달라졌는지 회고해보려고 해요. 추가로 좋은 소식도 하나 자랑해보려고 합니다. ㅎㅎ.</p>
+</blockquote>
+<h1 id="파이널-프로젝트-끝"><a href="#파이널-프로젝트-끝" class="headerlink" title="파이널 프로젝트 끝!"></a>파이널 프로젝트 끝!</h1><p>패스트캠퍼스 X 야놀자 부트캠프에서 진행한 RFP기반 기업 연계 프로젝트가 끝이 났습니다. 이번 프로젝트는 확실히 기획 분들과 디자이너 분이 계셔서 프론트엔드에서 와이어프레임을 짜고 디자인 했을 때보다 확실히 결과가 잘 나온 것 같아요! 만들어진 사이트를 보면서 “와! 진짜 서비스하고 있는 사이트처럼 생겼다”라고 생각했습니다. 저희가 부트캠프의 마지막을 장식한 프로젝트 결과물을 함께 감상해봐요.</p>
+<h1 id="사이트-핵심-기능"><a href="#사이트-핵심-기능" class="headerlink" title="사이트 핵심 기능"></a>사이트 핵심 기능</h1><p>저번 포스팅에서 투표 기반 여행 일정 앱을 만든다고 했었죠? 우리 앱의 핵심 기능은 다음과 같습니다. 하나씩 살펴봐요.</p>
+<h2 id="1-여행지-투표"><a href="#1-여행지-투표" class="headerlink" title="1) 여행지 투표"></a>1) 여행지 투표</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/60508778-5e1c-4c71-ae9e-7bf9cabea2b2/image.png"></p>
+<h2 id="2-투표-기반-일정-작성"><a href="#2-투표-기반-일정-작성" class="headerlink" title="2) 투표 기반 일정 작성"></a>2) 투표 기반 일정 작성</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/a1151c91-77e5-44a4-8d7e-f5a9a007dbd5/image.png"></p>
+<h2 id="3-루트-최적화"><a href="#3-루트-최적화" class="headerlink" title="3) 루트 최적화"></a>3) 루트 최적화</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/4e68c1bb-468b-4456-bf23-a69d4427aab5/image.png"></p>
+<h2 id="4-여행-정보-검색"><a href="#4-여행-정보-검색" class="headerlink" title="4) 여행 정보 검색"></a>4) 여행 정보 검색</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/20c6e43e-b2ce-4c19-97ed-19c6e7445c8c/image.png"></p>
+<h1 id="랜딩-페이지-생성-및-마케팅"><a href="#랜딩-페이지-생성-및-마케팅" class="headerlink" title="랜딩 페이지 생성 및 마케팅"></a>랜딩 페이지 생성 및 마케팅</h1><p>기획분들 덕분에 마케팅도 경험할 수 있었어요. 랜딩 페이지를 만들고 인스타그램과 페이스북 같은 SNS 마케팅을 통해 사람들에게 저희 앱을 노출시키고 랜딩페이지로 유도하여 사전 예약을 받게 하였습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/35be0e28-007d-4ac5-8b20-3928a5c6eb75/image.png"></p>
+<p>약 일주일 간 랜딩페이지 방문자 413명, CTA 입력폼 섹션 도달 인원 50명, 사전 출시 알림 신청 인원 41명으로 전환율 10%를 달성했습니다!</p>
+<h1 id="트립-보트-소개-영상"><a href="#트립-보트-소개-영상" class="headerlink" title="트립 보트 소개 영상"></a>트립 보트 소개 영상</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/53f51036-afa0-4b85-82a2-c46de47b42f0/image.png"><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9d4K_1AzSAA">https://www.youtube.com/watch?v=9d4K_1AzSAA</a></p>
+<h1 id="부트캠프-후-나는-어떻게-달라졌을까"><a href="#부트캠프-후-나는-어떻게-달라졌을까" class="headerlink" title="부트캠프 후 나는 어떻게 달라졌을까?"></a>부트캠프 후 나는 어떻게 달라졌을까?</h1><p>부트캠프를 진행하면서 총 4번의 협업 프로젝트를 통해 학습 기간 익혔던 기술들을 적용해볼 수 있었습니다. 부트캠프 이전과 달리 프로젝트마다 적용하게 되었거나 프로젝트를 통해 새로 얻게 된 지식들이 많은 것 같아요. 또 협업 프로젝트로 인해 다른 사람들과 어떻게 함께 개발해야 하는지를 알게 된 것이 너무 좋았습니다.</p>
+<h2 id="1-웹표준-및-웹접근성-적용"><a href="#1-웹표준-및-웹접근성-적용" class="headerlink" title="1) 웹표준 및 웹접근성 적용"></a>1) 웹표준 및 웹접근성 적용</h2><p>저는 패스트캠퍼스 X 야놀자 부트캠프에서 마크업 언어를 배우면서 특히나 웹표준과 웹접근성을 중요하게 생각했던 것 같아요. 어떻게 하면 시멘틱한 마크업을 할 수 있을까, 또 어떻게 해야 모든 사람에게 정보를 공유할 수 있을까 고민했습니다.</p>
+<p>웹표준을 지키기 위해 시멘틱한 마크업을 하려고 했고, 그러기 위해서는 각 태그별 특징을 명확히 인지할 필요가 있었습니다. 특히 각 태그의 특징을 아는 것은 웹 접근성 확보를 위해서도 꼭 필요한 부분이었기 때문에 단순한 기능 구현보다는 의미있는 코드를 작성하려고 노력하게 되었어요.</p>
+<p>예를들어 ol과 ul의 차이점에서 스크린리더가 어떻게 읽어주는지를 고려한다면 같은 리스트 태그라도 어떤 것을 쓰는게 맞을지 한번 더 고민했습니다. 또 스크린리더 사용자를 고려하는 코드들을 프로젝트마다 적용하게 되었어요. 특히나 각 섹션별 설명을 p태그로 넣어두고 디자인 요소를 해치지 않기 위해 accessibility hidden 스타일을 적용하여 읽어주기만 한다던가 반대로 디자인적으로만 사용되는 이미지 요소이기에 스크린리더가 읽어줄 필요가 없는 상황에서는 aria-hidden 속성을 적용하게 되었습니다.</p>
+<h2 id="2-다양한-스타일-라이브러리와-프레임워크-경험"><a href="#2-다양한-스타일-라이브러리와-프레임워크-경험" class="headerlink" title="2) 다양한 스타일 라이브러리와 프레임워크 경험"></a>2) 다양한 스타일 라이브러리와 프레임워크 경험</h2><p>또 다양한 스타일 라이브러리와 프레임워크를 경험하면서 “어떨 때 어떤 것을 써야겠다”하는 자신만의 기준도 생기게 되었습니다. 예를 들어 생산성이 중요한 프로젝트에서는 tailwindCSS와 같은 유틸리티 퍼스트 스타일 프레임워크를 통해 빠른 개발을 할 수 있었고, 충분한 기획과 디자인 시스템 아래에서 시작된 개발에서는 Sass를 이용하여 다양한 함수와 mixin을 통해 디자인 시스템에 맞춰 세팅을 해두고 개발에 들어간다면 훨씬 수월하게 개발이 진행된다는 것을 경험했어요.</p>
+<p>또 차크라 ui와 MUI와 같은 라이브러리를 통해 보다 쉽게 ui 컴포넌트를 구현해볼 수 있었습니다. 다만 ui 컴포넌트 라이브러리의 경우 커스터마이징이 오히려 생개발보다 힘든 경우도 있었기 때문에 기획의 디자인이 라이브러리 테마와 거리가 멀다면 오히려 적용하지 않거나 headless ui를 적용하는 것이 좋겠다는 생각을 했습니다.</p>
+<h2 id="3-다양한-협업-툴과-git-전략-이용-경험"><a href="#3-다양한-협업-툴과-git-전략-이용-경험" class="headerlink" title="3) 다양한 협업 툴과 git 전략 이용 경험"></a>3) 다양한 협업 툴과 git 전략 이용 경험</h2><p>총 4번의 협업프로젝트를 진행했습니다. 디자인, 기획, 백엔드, 프론트엔드가 함께 프로젝트를 경험하게 되면서 실제 기업에서 어떻게 함께 일하게 될지를 미리 경험해본 느낌이었어요. 또 다양한 협업 툴을 통해 일정을 관리하고 소통하면서 커뮤니케이션 능력을 익혔구요.</p>
+<p>또 프로젝트마다 다양한 프로젝트 관리 전략을 적용해보면서 협업을 경험할 수 있었습니다. jira나 github project 경험, 그리고 gitflow와 같은 브랜치 관리 전략 등을 적용해보면서 이제 실무에 들어가서도 다른 사람과 함께 협업할 능력을 갖추었다는 자신감을 가질 수 있게 되었습니다.</p>
+<h2 id="4-스스로-학습하는-방법을-익힘"><a href="#4-스스로-학습하는-방법을-익힘" class="headerlink" title="4) 스스로 학습하는 방법을 익힘"></a>4) 스스로 학습하는 방법을 익힘</h2><p>패스트캠퍼스 X 야놀자 부트캠프는 온라인으로 진행되었습니다. 제공된 강의를 통해 정해진 커리큘럼을 따라가면서 자기가 원하는 공부를 추가적으로 진행할 수 있었던 점이 저에게는 정말 큰 성장의 발판이 되었던 것 같아요.</p>
+<p>개발을 공부하다보면 배운 지식들에서 새로운 가지들이 자꾸 나오는 것을 경험했습니다. 이것들을 ‘앨리스의 토끼굴’이라고 표현하더라구요. 그래서 그런 지식들까지 다 공부해서 섭렵해버리겠다! 라는 생각을 제 모토로 삼았습니다. 그래서 제 프로필 소개가 ‘토끼굴을 정복하는 개발자’에요 ㅎㅎ.</p>
+<p>강의를 통해 html5를 배우면서 웹 접근성이라는 개념을 알게 되었고, 이렇게 연결된 지식들을 더 공부하기위해 WCAG2.1을 공부하면서 더 깊은 이해가 가능했어요. 만약 다른 커리큘럼 진행만을 강요하는 부트캠프였다면 이런식의 공부가 힘들었을 것 같아요.</p>
+<h2 id="5-유저-뿐만이-아니라-기업의-입장에서도-코드를-작성할-수-있게-됨"><a href="#5-유저-뿐만이-아니라-기업의-입장에서도-코드를-작성할-수-있게-됨" class="headerlink" title="5) 유저 뿐만이 아니라 기업의 입장에서도 코드를 작성할 수 있게 됨"></a>5) 유저 뿐만이 아니라 기업의 입장에서도 코드를 작성할 수 있게 됨</h2><p>프론트엔드 개발자가 유저 중심의 코드를 작성해야 한다는 것은 모두가 알고 계실 내용일 것 같아요. 그런데 기업의 입장에서도 고민을 해보는 것이 필요하다고 생각합니다. 여러 프로젝트를 진행하고 또 배포와 관련하여 여러 비용 처리를 경험하게 되면서 기업의 입장에서 코드를 작성하는 것이 필요한 일이라는 것을 깨닫게 되었습니다.</p>
+<p>예를들어 서버 비용을 줄이기 위해 서버에 fileList를 그대로 전달하는 것이 아닌 S3의 Presigned URL을 이용하여 따로 업로드하고, 그 url만 서버에 전달해주어 서버 비용을 낮출 수 있었어요.</p>
+<h1 id="부트캠프-수료"><a href="#부트캠프-수료" class="headerlink" title="부트캠프 수료!!!!!"></a>부트캠프 수료!!!!!</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/86d0fba3-6ee5-4a0e-b7fa-80d91fd879f9/image.png"></p>
+<p>드디어 부트캠프를 수료하게 되었네요. 7개월이 짧은 시간은 아니지만 저에게는 정말 순식간에 지나간 것 같습니다. 그만큼 부트캠프에 몰입하고 있었던 것 같아요. 좋은 사람들을 많이 만날 수 있었고, 함께 성장할 수 있었어요. 이런 기회를 준 패스트캠퍼스에 정말 감사하는 마음 뿐이랍니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/ae938868-7fcd-48e2-94bc-d34ddb98eb52/image.png"></p>
+<h1 id="내가-최우수-수료생"><a href="#내가-최우수-수료생" class="headerlink" title="내가 최우수 수료생!!"></a>내가 최우수 수료생!!</h1><p>너무나 감사하게도 이번 부트캠프 최우수 수료생으로 선정되었습니다. 과정 진행 동안의 프로젝트와 과제, 퀴즈 등을 종합하여 선정되었는데, 정말 수강생 분들끼리의 점수 차이가 미미하더라구요. 운이 좋았다는 생각과 동시에 그만큼 열심히 한 나 자신을 칭찬해주고 싶었습니다. 최우수 수료생에게는 모의 면접과 모의 코딩테스트 등 여러가지 취업을 위한 추가적인 혜택이 있었어요. 잘 활용해서 꼭 원하는 곳에 취업하도록 노력하겠습니다. 그 동안 감사했습니다!</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%ED%8C%A8%EC%8A%A4%ED%8A%B8%EC%BA%A0%ED%8D%BC%EC%8A%A4/" rel="tag"># 패스트캠퍼스</a>
+              <a href="/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/" rel="tag"># 부트캠프</a>
+              <a href="/tags/%EA%B5%AD%EB%B9%84%EC%A7%80%EC%9B%90%EC%B7%A8%EC%97%85/" rel="tag"># 국비지원취업</a>
+              <a href="/tags/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EA%B0%9C%EB%B0%9C%EC%9E%90/" rel="tag"># 프론트엔드개발자</a>
+              <a href="/tags/%EA%B5%AD%EB%B9%84%EC%A7%80%EC%9B%90/" rel="tag"># 국비지원</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/31/fc-yanolja/retrospective_final/" rel="prev" title="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_파이널 프로젝트 회고">
+                  <i class="fa fa-chevron-left"></i> 패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_파이널 프로젝트 회고
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
