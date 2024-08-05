@@ -21,14 +21,14 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="야놀자 테크스쿨 2일차다. 야놀자 부트 캠프 과정의 커리큘럼에서 놀랐던 점 중 하나인데 git과 관련된 수업을 가장먼저 진행하는 것이다. 개인적으로 매우 좋은 커리큘럼이라고 생각되는게 앞으로 공부할 여러 소스들을 github를 통해 관리하고 원격 저장소와 로컬 저장소를 연동시켜 필기한 내용들 또한 즉각적으로 관리하는 방법을 배울 수 있기 때문이다. 나는">
+    <meta name="description" content="cli와 gui의 차이cli: command line &#x2F; 시각적인 요소가 아닌 명령어를 통해 컴퓨터와 상호작용하는 방식입니다. gui: graphic user interface &#x2F; 평소에 폴더를 클릭하고, 그 폴더 안의 파일을 클릭해서 컴퓨터를 활용하는 방식입니다.  글로만 이루어진 화면을 토대로 어떤 폴더에 들어와있는지 구별할 줄 알고">
 <meta property="og:type" content="article">
-<meta property="og:title" content="패스트캠퍼스X야놀자 테크스쿨 2일차">
-<meta property="og:url" content="https://namgungjongmin.github.io/2023/07/11/fastXyanol_2/index.html">
+<meta property="og:title" content="Git &#x2F; Github (1)">
+<meta property="og:url" content="https://namgungjongmin.github.io/2023/07/11/git1/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="야놀자 테크스쿨 2일차다. 야놀자 부트 캠프 과정의 커리큘럼에서 놀랐던 점 중 하나인데 git과 관련된 수업을 가장먼저 진행하는 것이다. 개인적으로 매우 좋은 커리큘럼이라고 생각되는게 앞으로 공부할 여러 소스들을 github를 통해 관리하고 원격 저장소와 로컬 저장소를 연동시켜 필기한 내용들 또한 즉각적으로 관리하는 방법을 배울 수 있기 때문이다. 나는">
+<meta property="og:description" content="cli와 gui의 차이cli: command line &#x2F; 시각적인 요소가 아닌 명령어를 통해 컴퓨터와 상호작용하는 방식입니다. gui: graphic user interface &#x2F; 평소에 폴더를 클릭하고, 그 폴더 안의 파일을 클릭해서 컴퓨터를 활용하는 방식입니다.  글로만 이루어진 화면을 토대로 어떤 폴더에 들어와있는지 구별할 줄 알고">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="https://namgungjongmin.github.io/images/2023-07-10-23-14-24.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/de3743e2-1a36-4b65-a97d-e6205280f31b/image.png">
 <meta property="og:image" content="https://namgungjongmin.github.io/images/2023-07-11-14-20-10.png">
 <meta property="og:image" content="https://namgungjongmin.github.io/images/2023-07-11-14-24-34.png">
 <meta property="og:image" content="https://namgungjongmin.github.io/images/2023-07-11-14-28-47.png">
@@ -59,26 +59,22 @@
 <meta property="og:image" content="https://namgungjongmin.github.io/images/2023-07-11-18-18-41.png">
 <meta property="og:image" content="https://namgungjongmin.github.io/images/2023-07-11-18-19-58.png">
 <meta property="article:published_time" content="2023-07-11T14:11:55.000Z">
-<meta property="article:modified_time" content="2024-08-05T17:11:41.103Z">
+<meta property="article:modified_time" content="2024-08-05T17:25:33.419Z">
 <meta property="article:author" content="Namgung Jong Min">
-<meta property="article:tag" content="야놀자 테크스쿨">
-<meta property="article:tag" content="패스트캠퍼스">
-<meta property="article:tag" content="부트캠프">
-<meta property="article:tag" content="TIL">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="Github">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://namgungjongmin.github.io/images/2023-07-10-23-14-24.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/de3743e2-1a36-4b65-a97d-e6205280f31b/image.png">
 
 
-<link rel="canonical" href="https://namgungjongmin.github.io/2023/07/11/fastXyanol_2/">
+<link rel="canonical" href="https://namgungjongmin.github.io/2023/07/11/git1/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2023/07/11/fastXyanol_2/","path":"2023/07/11/fastXyanol_2/","title":"패스트캠퍼스X야놀자 테크스쿨 2일차"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2023/07/11/git1/","path":"2023/07/11/git1/","title":"Git / Github (1)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>패스트캠퍼스X야놀자 테크스쿨 2일차 | Namgung Jong Min</title>
+<title>Git / Github (1) | Namgung Jong Min</title>
   
 
 
@@ -156,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-x2F-Github-%ED%8A%B9%EA%B0%95-1"><span class="nav-number">1.</span> <span class="nav-text">Git&#x2F;Github 특강 (1)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cli%EC%99%80-gui%EC%9D%98-%EC%B0%A8%EC%9D%B4"><span class="nav-number">1.1.</span> <span class="nav-text">cli와 gui의 차이</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B8%B0%EB%B3%B8-%EB%AA%85%EB%A0%B9%EC%96%B4"><span class="nav-number">1.2.</span> <span class="nav-text">기본 명령어</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%EC%9D%B4%EB%9E%80"><span class="nav-number">1.3.</span> <span class="nav-text">Git이란</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0"><span class="nav-number">1.4.</span> <span class="nav-text">Git 사용해보기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-%EC%82%AC%EC%9A%A9-%EA%B0%9C%EA%B4%84%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">git 사용 개괄적으로 살펴보기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC-%EC%8B%9C%EC%9E%91"><span class="nav-number">1.4.2.</span> <span class="nav-text">버전 관리 시작</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-%ED%8F%B4%EB%8D%94-%EC%84%A4%EC%A0%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">git 폴더 설정</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0-x2F-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0"><span class="nav-number">1.4.4.</span> <span class="nav-text">git 상태 확인하기&#x2F;추가하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-%EC%83%81%ED%83%9C-%EB%90%98%EB%8F%8C%EB%A6%AC%EA%B8%B0"><span class="nav-number">1.4.5.</span> <span class="nav-text">git 상태 되돌리기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit-%ED%95%98%EA%B8%B0"><span class="nav-number">1.4.6.</span> <span class="nav-text">git commit 하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0"><span class="nav-number">1.4.7.</span> <span class="nav-text">git commit 메시지 수정하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%B6%94%EA%B0%80-%EC%BB%A4%EB%B0%8B%ED%95%98%EA%B3%A0-%EB%B2%84%EC%A0%84-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0"><span class="nav-number">1.4.8.</span> <span class="nav-text">추가 커밋하고 버전 확인하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B2%84%EC%A0%84-%EB%90%98%EB%8F%8C%EB%A6%AC%EA%B8%B0"><span class="nav-number">1.4.9.</span> <span class="nav-text">버전 되돌리기</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#revert-%ED%98%84%EC%9E%AC%EA%B9%8C%EC%A7%80%EC%9D%98-commit-%EA%B8%B0%EB%A1%9D%EC%9D%84-%EC%9C%A0%EC%A7%80%ED%95%98%EB%A9%B4%EC%84%9C-%ED%8A%B9%EC%A0%95%ED%95%9C-commit-%EC%9D%B4%EC%A0%84%EC%9C%BC%EB%A1%9C-%EB%90%98%EB%8F%8C%EB%A6%AC%EB%8A%94-%EB%AA%85%EB%A0%B9%EC%96%B4%EC%9E%85%EB%8B%88%EB%8B%A4"><span class="nav-number">1.4.9.1.</span> <span class="nav-text">revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reset-%ED%8A%B9%EC%A0%95-%EC%BB%A4%EB%B0%8B%EC%9C%BC%EB%A1%9C-%EB%8F%8C%EC%95%84%EA%B0%80%EB%A9%B4%EC%84%9C-%EA%B7%B8-%EC%BB%A4%EB%B0%8B-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%BB%A4%EB%B0%8B-%EA%B8%B0%EB%A1%9D%EC%9D%84-%EC%82%AD%EC%A0%9C%ED%95%98%EB%8A%94-%EB%AA%85%EB%A0%B9%EC%96%B4%EC%9E%85%EB%8B%88%EB%8B%A4-%EB%A7%88%EC%B9%98-%EA%B7%B8-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%BB%A4%EB%B0%8B%EC%9D%B4-%EC%97%86%EC%97%88%EB%8D%98-%EA%B2%83%EC%B2%98%EB%9F%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9E%85%EB%8B%88%EB%8B%A4"><span class="nav-number">1.4.9.2.</span> <span class="nav-text">reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github"><span class="nav-number">1.5.</span> <span class="nav-text">Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9B%90%EA%B2%A9%EC%A0%80%EC%9E%A5%EC%86%8C%EC%99%80-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0"><span class="nav-number">1.5.1.</span> <span class="nav-text">원격저장소와 연결하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9B%90%EA%B2%A9-%EC%A0%80%EC%9E%A5%EC%86%8C%EC%9D%98-%EB%B2%84%EC%A0%84%EC%9D%84-%EB%A1%9C%EC%BB%AC%EB%A1%9C-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0"><span class="nav-number">1.5.2.</span> <span class="nav-text">원격 저장소의 버전을 로컬로 가져오기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github%EB%A1%9C-%ED%98%91%EC%97%85%ED%95%98%EA%B8%B0"><span class="nav-number">1.5.3.</span> <span class="nav-text">github로 협업하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clone-%ED%95%98%EB%82%98%EC%9D%98-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EB%A1%9C-%EC%97%AC%EB%9F%AC%EB%AA%85%EC%9D%B4%EC%84%9C-%EC%9E%91%EC%97%85%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9B%90%EA%B2%A9-%EC%A0%80%EC%9E%A5%EC%86%8C-1%EA%B0%9C%EC%97%90-%EA%B0%99%EC%9D%B4-%EC%9E%91%EC%97%85%ED%95%A0-%EC%82%AC%EB%9E%8C%EC%9D%84-collaborator-%EB%A1%9C-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%ED%95%A8%EA%BB%98-%EC%9E%91%EC%97%85%ED%95%A9%EB%8B%88%EB%8B%A4"><span class="nav-number">1.5.4.</span> <span class="nav-text">clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-%ED%95%98%EB%82%98%EC%9D%98-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EB%A5%BC-%EA%B0%81%EC%9E%90%EA%B0%80-%EB%B3%B5%EC%82%AC%ED%95%98%EC%97%AC-%EC%9E%90%EA%B8%B0-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EC%97%90%EC%84%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B3%A0-%EC%9B%90%EB%B3%B8-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EC%97%90-%EC%9A%94%EC%B2%AD%EC%9D%84-%EB%B3%B4%EB%82%B4-%ED%95%A9%EC%B3%90%EA%B0%80%EB%A9%B4%EC%84%9C-%EC%9E%91%EC%97%85%ED%95%A9%EB%8B%88%EB%8B%A4"><span class="nav-number">1.5.5.</span> <span class="nav-text">fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다.</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cli%EC%99%80-gui%EC%9D%98-%EC%B0%A8%EC%9D%B4"><span class="nav-number">1.</span> <span class="nav-text">cli와 gui의 차이</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EA%B8%B0%EB%B3%B8-%EB%AA%85%EB%A0%B9%EC%96%B4"><span class="nav-number">2.</span> <span class="nav-text">기본 명령어</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%EC%9D%B4%EB%9E%80"><span class="nav-number">3.</span> <span class="nav-text">Git이란</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0"><span class="nav-number">4.</span> <span class="nav-text">Git 사용해보기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%EC%82%AC%EC%9A%A9-%EA%B0%9C%EA%B4%84%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0"><span class="nav-number">4.1.</span> <span class="nav-text">git 사용 개괄적으로 살펴보기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B2%84%EC%A0%84-%EA%B4%80%EB%A6%AC-%EC%8B%9C%EC%9E%91"><span class="nav-number">4.2.</span> <span class="nav-text">버전 관리 시작</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%ED%8F%B4%EB%8D%94-%EC%84%A4%EC%A0%95"><span class="nav-number">4.3.</span> <span class="nav-text">git 폴더 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0-x2F-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0"><span class="nav-number">4.4.</span> <span class="nav-text">git 상태 확인하기&#x2F;추가하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%EC%83%81%ED%83%9C-%EB%90%98%EB%8F%8C%EB%A6%AC%EA%B8%B0"><span class="nav-number">4.5.</span> <span class="nav-text">git 상태 되돌리기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-commit-%ED%95%98%EA%B8%B0"><span class="nav-number">4.6.</span> <span class="nav-text">git commit 하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-commit-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0"><span class="nav-number">4.7.</span> <span class="nav-text">git commit 메시지 수정하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%B6%94%EA%B0%80-%EC%BB%A4%EB%B0%8B%ED%95%98%EA%B3%A0-%EB%B2%84%EC%A0%84-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0"><span class="nav-number">4.8.</span> <span class="nav-text">추가 커밋하고 버전 확인하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B2%84%EC%A0%84-%EB%90%98%EB%8F%8C%EB%A6%AC%EA%B8%B0"><span class="nav-number">4.9.</span> <span class="nav-text">버전 되돌리기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#revert-%ED%98%84%EC%9E%AC%EA%B9%8C%EC%A7%80%EC%9D%98-commit-%EA%B8%B0%EB%A1%9D%EC%9D%84-%EC%9C%A0%EC%A7%80%ED%95%98%EB%A9%B4%EC%84%9C-%ED%8A%B9%EC%A0%95%ED%95%9C-commit-%EC%9D%B4%EC%A0%84%EC%9C%BC%EB%A1%9C-%EB%90%98%EB%8F%8C%EB%A6%AC%EB%8A%94-%EB%AA%85%EB%A0%B9%EC%96%B4%EC%9E%85%EB%8B%88%EB%8B%A4"><span class="nav-number">4.9.1.</span> <span class="nav-text">revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reset-%ED%8A%B9%EC%A0%95-%EC%BB%A4%EB%B0%8B%EC%9C%BC%EB%A1%9C-%EB%8F%8C%EC%95%84%EA%B0%80%EB%A9%B4%EC%84%9C-%EA%B7%B8-%EC%BB%A4%EB%B0%8B-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%BB%A4%EB%B0%8B-%EA%B8%B0%EB%A1%9D%EC%9D%84-%EC%82%AD%EC%A0%9C%ED%95%98%EB%8A%94-%EB%AA%85%EB%A0%B9%EC%96%B4%EC%9E%85%EB%8B%88%EB%8B%A4-%EB%A7%88%EC%B9%98-%EA%B7%B8-%EC%9D%B4%ED%9B%84%EC%9D%98-%EC%BB%A4%EB%B0%8B%EC%9D%B4-%EC%97%86%EC%97%88%EB%8D%98-%EA%B2%83%EC%B2%98%EB%9F%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9E%85%EB%8B%88%EB%8B%A4"><span class="nav-number">4.9.2.</span> <span class="nav-text">reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Github"><span class="nav-number">5.</span> <span class="nav-text">Github</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9B%90%EA%B2%A9%EC%A0%80%EC%9E%A5%EC%86%8C%EC%99%80-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0"><span class="nav-number">5.1.</span> <span class="nav-text">원격저장소와 연결하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9B%90%EA%B2%A9-%EC%A0%80%EC%9E%A5%EC%86%8C%EC%9D%98-%EB%B2%84%EC%A0%84%EC%9D%84-%EB%A1%9C%EC%BB%AC%EB%A1%9C-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0"><span class="nav-number">5.2.</span> <span class="nav-text">원격 저장소의 버전을 로컬로 가져오기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github%EB%A1%9C-%ED%98%91%EC%97%85%ED%95%98%EA%B8%B0"><span class="nav-number">5.3.</span> <span class="nav-text">github로 협업하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clone-%ED%95%98%EB%82%98%EC%9D%98-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EB%A1%9C-%EC%97%AC%EB%9F%AC%EB%AA%85%EC%9D%B4%EC%84%9C-%EC%9E%91%EC%97%85%ED%95%A9%EB%8B%88%EB%8B%A4-%EC%9B%90%EA%B2%A9-%EC%A0%80%EC%9E%A5%EC%86%8C-1%EA%B0%9C%EC%97%90-%EA%B0%99%EC%9D%B4-%EC%9E%91%EC%97%85%ED%95%A0-%EC%82%AC%EB%9E%8C%EC%9D%84-collaborator-%EB%A1%9C-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%ED%95%A8%EA%BB%98-%EC%9E%91%EC%97%85%ED%95%A9%EB%8B%88%EB%8B%A4"><span class="nav-number">5.4.</span> <span class="nav-text">clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork-%ED%95%98%EB%82%98%EC%9D%98-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EB%A5%BC-%EA%B0%81%EC%9E%90%EA%B0%80-%EB%B3%B5%EC%82%AC%ED%95%98%EC%97%AC-%EC%9E%90%EA%B8%B0-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EC%97%90%EC%84%9C-%EC%9E%91%EC%97%85%ED%95%98%EA%B3%A0-%EC%9B%90%EB%B3%B8-%EB%A0%88%ED%8F%AC%EC%A7%80%ED%86%A0%EB%A6%AC%EC%97%90-%EC%9A%94%EC%B2%AD%EC%9D%84-%EB%B3%B4%EB%82%B4-%ED%95%A9%EC%B3%90%EA%B0%80%EB%A9%B4%EC%84%9C-%EC%9E%91%EC%97%85%ED%95%A9%EB%8B%88%EB%8B%A4"><span class="nav-number">5.5.</span> <span class="nav-text">fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다.</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -182,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -229,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/11/fastXyanol_2/">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/11/git1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
@@ -242,12 +238,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="패스트캠퍼스X야놀자 테크스쿨 2일차 | Namgung Jong Min">
+      <meta itemprop="name" content="Git / Github (1) | Namgung Jong Min">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          패스트캠퍼스X야놀자 테크스쿨 2일차
+          Git / Github (1)
         </h1>
 
         <div class="post-meta-container">
@@ -266,7 +262,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
+          <a href="/categories/Git-Github/" itemprop="url" rel="index"><span itemprop="name">Git / Github</span></a>
         </span>
     </span>
 
@@ -286,8 +282,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/07/11/fastXyanol_2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/11/fastXyanol_2/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/07/11/git1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/11/git1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -301,17 +297,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="/../images/2023-07-10-23-14-24.png"></p>
-<p>야놀자 테크스쿨 2일차다. 야놀자 부트 캠프 과정의 커리큘럼에서 놀랐던 점 중 하나인데 git과 관련된 수업을 가장먼저 진행하는 것이다.</p>
-<p>개인적으로 매우 좋은 커리큘럼이라고 생각되는게 앞으로 공부할 여러 소스들을 github를 통해 관리하고 원격 저장소와 로컬 저장소를 연동시켜 필기한 내용들 또한 즉각적으로 관리하는 방법을 배울 수 있기 때문이다.</p>
-<p>나는 기존에 이미 git을 통해 프로젝트 뿐만 아니라 사소한 메모들이나 학습 내용들을 전부 버전관리하고 있었기 때문에 조금은 지루한 수업이었지만… 앞으로 개발자로서 계속 쓰일 것들이라 생각하고 수업 하나하나 놓치지 않고 다시 머리에 담기 위해 노력했다.</p>
-<p>특히 revert와 reset의 차이점에 대해서는 내가 모호하게 알고있었던 부분들이었는데 다시한번 확실히 되짚고 넘어가게 되어 다행이라는 생각이 들었다.</p>
-<h1 id="Git-x2F-Github-특강-1"><a href="#Git-x2F-Github-특강-1" class="headerlink" title="Git&#x2F;Github 특강 (1)"></a>Git&#x2F;Github 특강 (1)</h1><h2 id="cli와-gui의-차이"><a href="#cli와-gui의-차이" class="headerlink" title="cli와 gui의 차이"></a>cli와 gui의 차이</h2><p>cli: command line &#x2F; 시각적인 요소가 아닌 명령어를 통해 컴퓨터와 상호작용하는 방식입니다.</p>
+        <p><img src="https://velog.velcdn.com/images/vbghdl/post/de3743e2-1a36-4b65-a97d-e6205280f31b/image.png"></p>
+<h1 id="cli와-gui의-차이"><a href="#cli와-gui의-차이" class="headerlink" title="cli와 gui의 차이"></a>cli와 gui의 차이</h1><p>cli: command line &#x2F; 시각적인 요소가 아닌 명령어를 통해 컴퓨터와 상호작용하는 방식입니다.</p>
 <p>gui: graphic user interface &#x2F; 평소에 폴더를 클릭하고, 그 폴더 안의 파일을 클릭해서 컴퓨터를 활용하는 방식입니다.</p>
 <blockquote>
 <p>글로만 이루어진 화면을 토대로 어떤 폴더에 들어와있는지 구별할 줄 알고, 어떤 명령어를 입력했을 때 어떤 동작이 수행되는 지를 알아야 합니다.</p>
 </blockquote>
-<h2 id="기본-명령어"><a href="#기본-명령어" class="headerlink" title="기본 명령어"></a>기본 명령어</h2><p>ls : 현재 경로의 모든 파일&#x2F;폴더들을 리스팅<br><img src="/../images/2023-07-11-14-20-10.png"></p>
+<h1 id="기본-명령어"><a href="#기본-명령어" class="headerlink" title="기본 명령어"></a>기본 명령어</h1><p>ls : 현재 경로의 모든 파일&#x2F;폴더들을 리스팅<br><img src="/../images/2023-07-11-14-20-10.png"></p>
 <p>cd (경로) : 경로로 이동 &#x2F; cd .. : 이전 경로로 이동</p>
 <p><img src="/../images/2023-07-11-14-24-34.png"></p>
 <p>절대경로 vs 상대경로</p>
@@ -322,7 +314,7 @@
 <blockquote>
 <p>깃관련 오류가 생겼을 때 현재 자신이 있는 경로가 잘못되어있는 경우가 많다. 항상 자신의 경로를 먼저 확인하도록 한다.</p>
 </blockquote>
-<h2 id="Git이란"><a href="#Git이란" class="headerlink" title="Git이란"></a>Git이란</h2><p>버전 관리를 위한 프로그램입니다.<br>버전 관리라는건 특정한 프로젝트 등을 진행할 때, 진행 상황을 수시로 기록하면서, 필요할 때는 이전 상황으로 돌아갈 수 있게 해주는 등 종합적으로 폴더&#x2F;파일의 수정 사항을 관리하는 것을 말합니다. 만약 자기소개서를 작성한다 가정해보겠습니다.</p>
+<h1 id="Git이란"><a href="#Git이란" class="headerlink" title="Git이란"></a>Git이란</h1><p>버전 관리를 위한 프로그램입니다.<br>버전 관리라는건 특정한 프로젝트 등을 진행할 때, 진행 상황을 수시로 기록하면서, 필요할 때는 이전 상황으로 돌아갈 수 있게 해주는 등 종합적으로 폴더&#x2F;파일의 수정 사항을 관리하는 것을 말합니다. 만약 자기소개서를 작성한다 가정해보겠습니다.</p>
 <p>[1차 완]</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">안녕하세요</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -336,29 +328,29 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">안녕하세요. 제 이름은 남궁종민 입니다.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>이런식으로 수정의 수정을 거듭하면서 작성을 하게 되는데 이렇게 각각의 수정 사항을 원할 때마다 수시로 기록하면서 이전 수정 상태로 돌아갈 수 있도록 하는 기능이 바로 Git입니다!</p>
-<h2 id="Git-사용해보기"><a href="#Git-사용해보기" class="headerlink" title="Git 사용해보기"></a>Git 사용해보기</h2><h3 id="git-사용-개괄적으로-살펴보기"><a href="#git-사용-개괄적으로-살펴보기" class="headerlink" title="git 사용 개괄적으로 살펴보기"></a>git 사용 개괄적으로 살펴보기</h3><p>git add 명령어를 통해 어떤 파일을 관리할지 지정하고,<br>git commit 명령어로 현재 관리중인 파일을 하나의 버전으로 저장</p>
+<h1 id="Git-사용해보기"><a href="#Git-사용해보기" class="headerlink" title="Git 사용해보기"></a>Git 사용해보기</h1><h2 id="git-사용-개괄적으로-살펴보기"><a href="#git-사용-개괄적으로-살펴보기" class="headerlink" title="git 사용 개괄적으로 살펴보기"></a>git 사용 개괄적으로 살펴보기</h2><p>git add 명령어를 통해 어떤 파일을 관리할지 지정하고,<br>git commit 명령어로 현재 관리중인 파일을 하나의 버전으로 저장</p>
 <p><img src="/../images/2023-07-11-15-05-05.png"></p>
 <p>git은 아직 git add 를 통해 관리되기 전 파일을 untracked file 이라고 말하고, 관리되는 파일을 tracked file이라고 말합니다.<br>commit이 되기 전 상태를 staged 상태라고 말합니다.</p>
-<h3 id="버전-관리-시작"><a href="#버전-관리-시작" class="headerlink" title="버전 관리 시작"></a>버전 관리 시작</h3><p>우선 vscode를 실행하여 hello.txt라는 파일을 하나 만들고 ‘안녕하세요’라는 텍스트를 입력합니다.</p>
+<h2 id="버전-관리-시작"><a href="#버전-관리-시작" class="headerlink" title="버전 관리 시작"></a>버전 관리 시작</h2><p>우선 vscode를 실행하여 hello.txt라는 파일을 하나 만들고 ‘안녕하세요’라는 텍스트를 입력합니다.</p>
 <p><img src="/../images/2023-07-11-15-09-21.png"></p>
 <hr>
-<h3 id="git-폴더-설정"><a href="#git-폴더-설정" class="headerlink" title="git 폴더 설정"></a>git 폴더 설정</h3><p>git init 명령어를 통해 git 저장소를 처음으로 만들어줍니다.</p>
+<h2 id="git-폴더-설정"><a href="#git-폴더-설정" class="headerlink" title="git 폴더 설정"></a>git 폴더 설정</h2><p>git init 명령어를 통해 git 저장소를 처음으로 만들어줍니다.</p>
 <p>현재 폴더 자체를 git이 관리하고 있는 상태지만 아직 untracked 상태로 파일을 지켜보고 있지는 않은 상태입니다.</p>
 <p><img src="/../images/2023-07-11-15-14-10.png"></p>
 <hr>
 <p>git으로 폴더를 관리하는 순간 .git이라는 숨김 파일이 생성되고 git 관련 버전등이 파일 안에서 관리되게 됩니다.</p>
 <p><img src="/../images/2023-07-11-15-15-55.png"></p>
 <hr>
-<h3 id="git-상태-확인하기-x2F-추가하기"><a href="#git-상태-확인하기-x2F-추가하기" class="headerlink" title="git 상태 확인하기&#x2F;추가하기"></a>git 상태 확인하기&#x2F;추가하기</h3><p>git status 명령어를 통해 보면 폴더 내 파일들이 어떤 상태인지 확인할 수 있다. untracked 상태의 hello.txt 파일을 add하여 깃이 바라보게 해봅시다.</p>
+<h2 id="git-상태-확인하기-x2F-추가하기"><a href="#git-상태-확인하기-x2F-추가하기" class="headerlink" title="git 상태 확인하기&#x2F;추가하기"></a>git 상태 확인하기&#x2F;추가하기</h2><p>git status 명령어를 통해 보면 폴더 내 파일들이 어떤 상태인지 확인할 수 있다. untracked 상태의 hello.txt 파일을 add하여 깃이 바라보게 해봅시다.</p>
 <p><img src="/../images/2023-07-11-15-19-35.png"></p>
 <blockquote>
 <p>git 으로 staged 상태로 올려야 할 파일이 많을 때 git add . 을 입력하면 폴더 내 모든 파일을 관리하게 할 수 있지만, 각각의 기능 별로 add commit을 하는 실무의 특성상 좋은 습관은 아니다.</p>
 </blockquote>
 <hr>
-<h3 id="git-상태-되돌리기"><a href="#git-상태-되돌리기" class="headerlink" title="git 상태 되돌리기"></a>git 상태 되돌리기</h3><p>git reset 명령어를 사용하면 staged 상태의 파일을 untracked 상태로 되돌릴 수 있습니다.</p>
+<h2 id="git-상태-되돌리기"><a href="#git-상태-되돌리기" class="headerlink" title="git 상태 되돌리기"></a>git 상태 되돌리기</h2><p>git reset 명령어를 사용하면 staged 상태의 파일을 untracked 상태로 되돌릴 수 있습니다.</p>
 <p><img src="/../images/2023-07-11-15-24-32.png"></p>
 <hr>
-<h3 id="git-commit-하기"><a href="#git-commit-하기" class="headerlink" title="git commit 하기"></a>git commit 하기</h3><p>이후에는 git commit 명령어를 통해 버전으로 저장합니다.</p>
+<h2 id="git-commit-하기"><a href="#git-commit-하기" class="headerlink" title="git commit 하기"></a>git commit 하기</h2><p>이후에는 git commit 명령어를 통해 버전으로 저장합니다.</p>
 <p><img src="/../images/2023-07-11-15-30-18.png"></p>
 <p><img src="/../images/2023-07-11-15-31-57.png"></p>
 <p>제 경우에는 git 에디터 기본으로 vim으로 설정되어 있기 때문에 vim창이 떴지만 일반 유저 분들은 git commit -m “{커밋 메시지}” 를 적어주시면 됩니다.</p>
@@ -367,12 +359,12 @@
 <blockquote>
 <p>commit 관련해서도 지켜야할 규칙이나 컨벤션이 존재하지만 이는 기업 컨벤션마다 다르고 일반적인 규칙 등은 차후 다루겠습니다.</p>
 </blockquote>
-<h3 id="git-commit-메시지-수정하기"><a href="#git-commit-메시지-수정하기" class="headerlink" title="git commit 메시지 수정하기"></a>git commit 메시지 수정하기</h3><p>git commit –amend 명령어를 통해 수정할 수 있습니다.</p>
+<h2 id="git-commit-메시지-수정하기"><a href="#git-commit-메시지-수정하기" class="headerlink" title="git commit 메시지 수정하기"></a>git commit 메시지 수정하기</h2><p>git commit –amend 명령어를 통해 수정할 수 있습니다.</p>
 <p><img src="/../images/2023-07-11-15-40-50.png"></p>
 <p>가장 최근 커밋을 불러와 내가 원하는 방식으로 바꿀 수 있습니다.</p>
 <p><img src="/../images/2023-07-11-15-41-42.png"></p>
 <hr>
-<h3 id="추가-커밋하고-버전-확인하기"><a href="#추가-커밋하고-버전-확인하기" class="headerlink" title="추가 커밋하고 버전 확인하기"></a>추가 커밋하고 버전 확인하기</h3><p>text 내용을 바꾸고 추가로 add 후 commit을 해주었습니다.</p>
+<h2 id="추가-커밋하고-버전-확인하기"><a href="#추가-커밋하고-버전-확인하기" class="headerlink" title="추가 커밋하고 버전 확인하기"></a>추가 커밋하고 버전 확인하기</h2><p>text 내용을 바꾸고 추가로 add 후 commit을 해주었습니다.</p>
 <p><img src="/../images/2023-07-11-15-44-31.png"></p>
 <p>추가로 커밋한 버전이 로그에 잘 올라와있나 확인해봅시다.</p>
 <p><img src="/../images/2023-07-11-15-45-16.png"></p>
@@ -384,24 +376,24 @@
 <blockquote>
 <p>모든 수정사항을 하나의 커밋으로 저장하게 된다면 커밋에 여러 기능에 대한 업데이트가 혼재하는 상황이 발생하게 됩니다. 이것은 추후 작업의 진행사항을 파악하고, 버그를 찾아내는 것에 큰 걸림돌이 될 수 있습니다.</p>
 </blockquote>
-<h3 id="버전-되돌리기"><a href="#버전-되돌리기" class="headerlink" title="버전 되돌리기"></a>버전 되돌리기</h3><p>우선 커밋 버전으로 돌아가려면 각 커밋 버전을 지칭하는 대상을 알아야 합니다.<br><img src="/../images/2023-07-11-16-10-40.png"><br>로그를 통해 커밋의 고유 번호를 확인할 수 있습니다.</p>
+<h2 id="버전-되돌리기"><a href="#버전-되돌리기" class="headerlink" title="버전 되돌리기"></a>버전 되돌리기</h2><p>우선 커밋 버전으로 돌아가려면 각 커밋 버전을 지칭하는 대상을 알아야 합니다.<br><img src="/../images/2023-07-11-16-10-40.png"><br>로그를 통해 커밋의 고유 번호를 확인할 수 있습니다.</p>
 <p>2가지 방식이 있습니다.</p>
-<h4 id="revert-현재까지의-commit-기록을-유지하면서-특정한-commit-이전으로-되돌리는-명령어입니다"><a href="#revert-현재까지의-commit-기록을-유지하면서-특정한-commit-이전으로-되돌리는-명령어입니다" class="headerlink" title="revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다."></a>revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다.</h4><p><img src="/../images/2023-07-11-16-12-39.png"></p>
+<h3 id="revert-현재까지의-commit-기록을-유지하면서-특정한-commit-이전으로-되돌리는-명령어입니다"><a href="#revert-현재까지의-commit-기록을-유지하면서-특정한-commit-이전으로-되돌리는-명령어입니다" class="headerlink" title="revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다."></a>revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다.</h3><p><img src="/../images/2023-07-11-16-12-39.png"></p>
 <p>“추가수정사항” 이라는 텍스트를 추가하고 커밋했습니다. 세번째 줄이 없던 버전으로 돌아가고 싶다면</p>
 <p><img src="/../images/2023-07-11-16-13-19.png"><br>로그의 가장 최근 커밋이 없었던 때로 돌아가야 합니다.</p>
 <p>git revert [해당 커밋 고유번호] 를 입력하면 최근 수정사항의 커밋이 없던 때로 돌아가기 때문에 세번째 텍스트가 사라지게 됩니다.</p>
 <p><img src="/../images/2023-07-11-16-16-57.png"></p>
 <p>로그를 살펴보면 어떤 커밋을 없던 상태로 되돌렸는지 있었던 커밋, 되돌린 커밋 또한 로그에서 확인할 수 있습니다.</p>
 <p><img src="/../images/2023-07-11-16-19-57.png"></p>
-<h4 id="reset-특정-커밋으로-돌아가면서-그-커밋-이후의-커밋-기록을-삭제하는-명령어입니다-마치-그-이후의-커밋이-없었던-것처럼-만들어주는-것입니다"><a href="#reset-특정-커밋으로-돌아가면서-그-커밋-이후의-커밋-기록을-삭제하는-명령어입니다-마치-그-이후의-커밋이-없었던-것처럼-만들어주는-것입니다" class="headerlink" title="reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다"></a>reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다</h4><p>soft &#x2F; hard &#x2F; mixed 세가지의 옵션이 있습니다.</p>
+<h3 id="reset-특정-커밋으로-돌아가면서-그-커밋-이후의-커밋-기록을-삭제하는-명령어입니다-마치-그-이후의-커밋이-없었던-것처럼-만들어주는-것입니다"><a href="#reset-특정-커밋으로-돌아가면서-그-커밋-이후의-커밋-기록을-삭제하는-명령어입니다-마치-그-이후의-커밋이-없었던-것처럼-만들어주는-것입니다" class="headerlink" title="reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다"></a>reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다</h3><p>soft &#x2F; hard &#x2F; mixed 세가지의 옵션이 있습니다.</p>
 <p>soft - 파일은 그대로 두면서 커밋 기록만 되돌아갑니다. 수정 사항은 staged 상태가 됩니다.</p>
 <p>hard - 파일도 함께 되돌아갑니다.</p>
 <p>mixed - 파일을 그대로 두면서 커밋 기록이 돌아가는데 수정사항을 staged 상태가 아닌 untracked 상태로 둡니다.</p>
 <hr>
-<h2 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h2><p>git을 통해 관리하는 컴퓨터 내의 저장소를 local저장소라 합니다.</p>
+<h1 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h1><p>git을 통해 관리하는 컴퓨터 내의 저장소를 local저장소라 합니다.</p>
 <p><img src="/../images/2023-07-11-17-01-54.png"></p>
 <p>github 사이트를 통해 관리하는 곳을 원격저장소 remote 저장소라고 합니다. github 사이트에서 새로운 레포지토리를 만들었습니다.</p>
-<h3 id="원격저장소와-연결하기"><a href="#원격저장소와-연결하기" class="headerlink" title="원격저장소와 연결하기"></a>원격저장소와 연결하기</h3><p>git remote add origin [깃허브 클론주소] 명령어를 입력하여 github와 연동시켜줍니다.</p>
+<h2 id="원격저장소와-연결하기"><a href="#원격저장소와-연결하기" class="headerlink" title="원격저장소와 연결하기"></a>원격저장소와 연결하기</h2><p>git remote add origin [깃허브 클론주소] 명령어를 입력하여 github와 연동시켜줍니다.</p>
 <p><img src="/../images/2023-07-11-17-07-07.png"></p>
 <p><img src="/../images/2023-07-11-17-07-28.png"></p>
 <hr>
@@ -412,15 +404,15 @@
 <p>마크다운 관련 수업</p>
 <p>(배지 찾기 사이트)<br><a target="_blank" rel="noopener" href="https://github.com/alexandresanlim/Badges4-README.md-Profile">https://github.com/alexandresanlim/Badges4-README.md-Profile</a></p>
 <hr>
-<h3 id="원격-저장소의-버전을-로컬로-가져오기"><a href="#원격-저장소의-버전을-로컬로-가져오기" class="headerlink" title="원격 저장소의 버전을 로컬로 가져오기"></a>원격 저장소의 버전을 로컬로 가져오기</h3><p>md파일을 원격 저장소에서 수정해봅시다.</p>
+<h2 id="원격-저장소의-버전을-로컬로-가져오기"><a href="#원격-저장소의-버전을-로컬로-가져오기" class="headerlink" title="원격 저장소의 버전을 로컬로 가져오기"></a>원격 저장소의 버전을 로컬로 가져오기</h2><p>md파일을 원격 저장소에서 수정해봅시다.</p>
 <p><img src="/../images/2023-07-11-17-45-36.png"></p>
 <p>수정된 원격 저장소의 버전과 로컬 저장소의 버전이 다르기 때문에 동기화를 시켜주기 위해서는 pull시켜 주어야 합니다.</p>
 <p>명령어 git pull origin main을 통해 동기화 시켜줍니다.</p>
 <p><img src="/../images/2023-07-11-17-46-40.png"></p>
 <p>로컬 저장소의 상태가 원격 저장소와 완전히 같아졌습니다!</p>
 <hr>
-<h3 id="github로-협업하기"><a href="#github로-협업하기" class="headerlink" title="github로 협업하기"></a>github로 협업하기</h3><p>clone &#x2F; fork 두가지 방법</p>
-<h3 id="clone-하나의-레포지토리로-여러명이서-작업합니다-원격-저장소-1개에-같이-작업할-사람을-collaborator-로-추가하여-함께-작업합니다"><a href="#clone-하나의-레포지토리로-여러명이서-작업합니다-원격-저장소-1개에-같이-작업할-사람을-collaborator-로-추가하여-함께-작업합니다" class="headerlink" title="clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다."></a>clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다.</h3><p>git clone은 깃허브에 있는 저장소를 그대로 내 컴퓨터로 가져오고 싶을 때 쓰는 명령어입니다.</p>
+<h2 id="github로-협업하기"><a href="#github로-협업하기" class="headerlink" title="github로 협업하기"></a>github로 협업하기</h2><p>clone &#x2F; fork 두가지 방법</p>
+<h2 id="clone-하나의-레포지토리로-여러명이서-작업합니다-원격-저장소-1개에-같이-작업할-사람을-collaborator-로-추가하여-함께-작업합니다"><a href="#clone-하나의-레포지토리로-여러명이서-작업합니다-원격-저장소-1개에-같이-작업할-사람을-collaborator-로-추가하여-함께-작업합니다" class="headerlink" title="clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다."></a>clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다.</h2><p>git clone은 깃허브에 있는 저장소를 그대로 내 컴퓨터로 가져오고 싶을 때 쓰는 명령어입니다.</p>
 <p>단순히 파일 다운로드만을 하는 것이 아니라 commit 기록과 역사까지 전부 가져오기 때문에 이전 기록으로 돌아갈 수도 있고, pull &#x2F; push 등을 통해 실제 저장소에 반영할 수도 있습니다.</p>
 <p><img src="/../images/2023-07-11-18-18-41.png"></p>
 <p>원격 저장소를 클론했습니다. 그리고 원격 저장소에서 수정을 거친 뒤 pull을 받아보겠습니다.</p>
@@ -428,7 +420,7 @@
 <p><img src="/../images/2023-07-11-18-19-58.png"></p>
 <p>수정된 사항이 로컬 저장소에도 적용되는 것을 볼 수 있습니다.</p>
 <p>개발단위가 작은 소규모 개발팀 등에서 사용하는 방식입니다.</p>
-<h3 id="fork-하나의-레포지토리를-각자가-복사하여-자기-레포지토리에서-작업하고-원본-레포지토리에-요청을-보내-합쳐가면서-작업합니다"><a href="#fork-하나의-레포지토리를-각자가-복사하여-자기-레포지토리에서-작업하고-원본-레포지토리에-요청을-보내-합쳐가면서-작업합니다" class="headerlink" title="fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다."></a>fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다.</h3>
+<h2 id="fork-하나의-레포지토리를-각자가-복사하여-자기-레포지토리에서-작업하고-원본-레포지토리에-요청을-보내-합쳐가면서-작업합니다"><a href="#fork-하나의-레포지토리를-각자가-복사하여-자기-레포지토리에서-작업하고-원본-레포지토리에-요청을-보내-합쳐가면서-작업합니다" class="headerlink" title="fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다."></a>fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다.</h2>
     </div>
 
     
@@ -437,10 +429,6 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%EC%95%BC%EB%86%80%EC%9E%90-%ED%85%8C%ED%81%AC%EC%8A%A4%EC%BF%A8/" rel="tag"># 야놀자 테크스쿨</a>
-              <a href="/tags/%ED%8C%A8%EC%8A%A4%ED%8A%B8%EC%BA%A0%ED%8D%BC%EC%8A%A4/" rel="tag"># 패스트캠퍼스</a>
-              <a href="/tags/%EB%B6%80%ED%8A%B8%EC%BA%A0%ED%94%84/" rel="tag"># 부트캠프</a>
-              <a href="/tags/TIL/" rel="tag"># TIL</a>
               <a href="/tags/Git/" rel="tag"># Git</a>
               <a href="/tags/Github/" rel="tag"># Github</a>
           </div>
@@ -454,8 +442,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/07/12/fastXyanol-3/" rel="next" title="패스트캠퍼스X야놀자 테크스쿨 3일차">
-                  패스트캠퍼스X야놀자 테크스쿨 3일차 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/07/12/git2/" rel="next" title="Git / Github (2)">
+                  Git / Github (2) <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
