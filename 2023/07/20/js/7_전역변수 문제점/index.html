@@ -21,22 +21,23 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.  변수의 생명 주기변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니다">
+    <meta name="description" content="전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.  변수의 생명 주기변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니">
 <meta property="og:type" content="article">
 <meta property="og:title" content="전역 변수의 문제점과 해결 방안">
 <meta property="og:url" content="https://namgungjongmin.github.io/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.  변수의 생명 주기변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니다">
+<meta property="og:description" content="전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.  변수의 생명 주기변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/ef0b07bd-318f-4413-acfd-804cf1aaba12/image.png">
 <meta property="article:published_time" content="2023-07-20T14:41:21.000Z">
-<meta property="article:modified_time" content="2024-08-07T07:09:10.423Z">
+<meta property="article:modified_time" content="2024-08-07T07:14:39.376Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="es6">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="전역변수">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/ef0b07bd-318f-4413-acfd-804cf1aaba12/image.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/">
@@ -269,7 +270,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.</p>
+        <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<p>전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.</p>
 <hr>
 <h1 id="변수의-생명-주기"><a href="#변수의-생명-주기" class="headerlink" title="변수의 생명 주기"></a>변수의 생명 주기</h1><p>변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니다. 즉 생물과 유사한, 생성되고 소멸되는 생명 주기가 있습니다. 전역 변수의 문제점을 알아보기에 앞서 내용의 이해와 공감을 위해 지역 변수와의 생명 주기를 비교해보겠습니다.</p>
 <h1 id="지역-변수의-생명-주기"><a href="#지역-변수의-생명-주기" class="headerlink" title="지역 변수의 생명 주기"></a>지역 변수의 생명 주기</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>)&#123;</span><br><span class="line">  ---------------------------------- ①</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&#x27;local&#x27;</span>; ----------------- ②</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">  ---------------------------------- ③</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure>

@@ -21,24 +21,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다. 자바스크립트도 클래스가 있는데 왜 클래스 기반의 객체 지향 프로그래밍이라 칭하지 않는가?  ES6에 도입된 자바스크립트의 클래스는 함수이다. 따라서 생">
+    <meta name="description" content="자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다. 자바스크립트도 클래스가 있는데 왜 클래스 기반의 객체 지향 프로그래밍이라 칭하지 않는가?  ES6에 도입된 자바스크립트의 클래스는 함수이다. 따라서">
 <meta property="og:type" content="article">
 <meta property="og:title" content="프로토타입을 활용한 객체 지향 프로그래밍">
 <meta property="og:url" content="https://namgungjongmin.github.io/2023/08/01/js/14_%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다. 자바스크립트도 클래스가 있는데 왜 클래스 기반의 객체 지향 프로그래밍이라 칭하지 않는가?  ES6에 도입된 자바스크립트의 클래스는 함수이다. 따라서 생">
+<meta property="og:description" content="자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다. 자바스크립트도 클래스가 있는데 왜 클래스 기반의 객체 지향 프로그래밍이라 칭하지 않는가?  ES6에 도입된 자바스크립트의 클래스는 함수이다. 따라서">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/23d30346-5f0d-479f-8daf-737bd8e706aa/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/1375b18a-863f-48a3-9722-107ee34cf24f/image.png">
 <meta property="article:published_time" content="2023-08-01T12:42:31.000Z">
-<meta property="article:modified_time" content="2024-08-07T07:09:44.671Z">
+<meta property="article:modified_time" content="2024-08-07T07:14:35.937Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="es6">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="프로토타입">
 <meta property="article:tag" content="객체지향프로그래밍">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/23d30346-5f0d-479f-8daf-737bd8e706aa/image.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2023/08/01/js/14_%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">
@@ -271,7 +272,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다.</p>
+        <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<p>자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다.</p>
 <p><code>자바스크립트도 클래스가 있는데 왜 클래스 기반의 객체 지향 프로그래밍이라 칭하지 않는가?</code></p>
 <blockquote>
 <p>ES6에 도입된 자바스크립트의 클래스는 함수이다. 따라서 생성자 함수와 동일하게 프로토타입 기반의 인스턴스를 생성한다. 기존 프로토타입 기반의 객체 지향을 구현하는 방식을 폐지하고 새로운 객체 지향 모델을 제공하는 것이 아니라 단지 기존 방식을 기존 클래스 문법 형태에 맞춘 ‘문법적 설탕’이라고 볼 수 있다.</p>

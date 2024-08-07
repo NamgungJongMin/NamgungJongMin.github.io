@@ -21,21 +21,23 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="논리합 &#x2F; 논리곱 연산자우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.  논리합 (A or B)A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’이">
+    <meta name="description" content="논리합 &#x2F; 논리곱 연산자우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.  논리합 (A or B)A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’">
 <meta property="og:type" content="article">
 <meta property="og:title" content="논리연산자를 활용한 단축 평가">
 <meta property="og:url" content="https://namgungjongmin.github.io/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="논리합 &#x2F; 논리곱 연산자우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.  논리합 (A or B)A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’이">
+<meta property="og:description" content="논리합 &#x2F; 논리곱 연산자우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.  논리합 (A or B)A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
 <meta property="article:published_time" content="2023-07-18T04:01:50.000Z">
-<meta property="article:modified_time" content="2024-08-07T07:01:42.995Z">
+<meta property="article:modified_time" content="2024-08-07T07:14:22.583Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="es6">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="논리연산자">
 <meta property="article:tag" content="단축평가">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/">
@@ -268,7 +270,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="논리합-x2F-논리곱-연산자"><a href="#논리합-x2F-논리곱-연산자" class="headerlink" title="논리합 &#x2F; 논리곱 연산자"></a>논리합 &#x2F; 논리곱 연산자</h1><p>우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.</p>
+        <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<h1 id="논리합-x2F-논리곱-연산자"><a href="#논리합-x2F-논리곱-연산자" class="headerlink" title="논리합 &#x2F; 논리곱 연산자"></a>논리합 &#x2F; 논리곱 연산자</h1><p>우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.</p>
 <ul>
 <li><p>논리합 (A or B)<br>A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.<br>(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’이 된다.)</p>
 </li>
