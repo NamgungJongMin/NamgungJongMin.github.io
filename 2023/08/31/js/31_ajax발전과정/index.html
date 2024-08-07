@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="AJAX는 자바스크립트를 사용하여 브라우저가 서버에게 비동기 방식으로 데이터를 요청하고, 서버가 응답한 데이터를 수신하여 웹페이지를 동적으로 갱신하는 프로그래밍 방식입니다. 전통적인 웹페이지는 html 태그로 시작하여 html로 끝나는 완전한 HTML 문서를 서버로부터 전송받아 웹페이지 전체를 처음부터 다시 렌더링하는 방식으로 동작했습니다. 따라서 화면이">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax의 발전 과정">
+<meta property="og:url" content="https://namgungjongmin.github.io/2023/08/31/js/31_ajax%EB%B0%9C%EC%A0%84%EA%B3%BC%EC%A0%95/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="AJAX는 자바스크립트를 사용하여 브라우저가 서버에게 비동기 방식으로 데이터를 요청하고, 서버가 응답한 데이터를 수신하여 웹페이지를 동적으로 갱신하는 프로그래밍 방식입니다. 전통적인 웹페이지는 html 태그로 시작하여 html로 끝나는 완전한 HTML 문서를 서버로부터 전송받아 웹페이지 전체를 처음부터 다시 렌더링하는 방식으로 동작했습니다. 따라서 화면이">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2023-08-31T06:52:01.000Z">
+<meta property="article:modified_time" content="2024-08-07T07:12:45.209Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="es6">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Ajax">
+<meta property="article:tag" content="Promise">
+<meta property="article:tag" content="XMLHttpRequest">
+<meta property="article:tag" content="async&#x2F;await">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2023/08/31/js/31_ajax%EB%B0%9C%EC%A0%84%EA%B3%BC%EC%A0%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2023/08/31/js/31_ajax%EB%B0%9C%EC%A0%84%EA%B3%BC%EC%A0%95/","path":"2023/08/31/js/31_ajax발전과정/","title":"Ajax의 발전 과정"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Ajax의 발전 과정 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%A0%84%ED%86%B5%EC%A0%81-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EC%9D%98-%EB%8B%A8%EC%A0%90"><span class="nav-number">1.</span> <span class="nav-text">전통적 웹페이지의 단점</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XMLHttpRequest-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Http-%EC%9A%94%EC%B2%AD"><span class="nav-number">2.</span> <span class="nav-text">XMLHttpRequest 객체를 활용한 Http 요청</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%A0%84%ED%86%B5%EC%A0%81-Http-%EC%9A%94%EC%B2%AD-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90"><span class="nav-number">3.</span> <span class="nav-text">전통적 Http 요청 방식의 문제점</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%EC%BD%9C%EB%B0%B1-%ED%97%AC"><span class="nav-number">3.1.</span> <span class="nav-text">1) 콜백 헬</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%EC%97%90%EB%9F%AC-%ED%95%B8%EB%93%A4%EB%A7%81"><span class="nav-number">3.2.</span> <span class="nav-text">2) 에러 핸들링</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise%EC%9D%98-%EB%93%B1%EC%9E%A5"><span class="nav-number">4.</span> <span class="nav-text">Promise의 등장</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#async-x2F-await%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%9B%84%EC%86%8D-%EC%B2%98%EB%A6%AC"><span class="nav-number">5.</span> <span class="nav-text">async &#x2F; await를 이용한 후속 처리</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/31/js/31_ajax%EB%B0%9C%EC%A0%84%EA%B3%BC%EC%A0%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Ajax의 발전 과정 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ajax의 발전 과정
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-31 15:52:01" itemprop="dateCreated datePublished" datetime="2023-08-31T15:52:01+09:00">2023-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/31/js/31_ajax%EB%B0%9C%EC%A0%84%EA%B3%BC%EC%A0%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/31/js/31_ajax발전과정/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>AJAX는 자바스크립트를 사용하여 브라우저가 서버에게 비동기 방식으로 데이터를 요청하고, 서버가 응답한 데이터를 수신하여 웹페이지를 동적으로 갱신하는 프로그래밍 방식입니다.</p>
+<p>전통적인 웹페이지는 html 태그로 시작하여 html로 끝나는 완전한 HTML 문서를 서버로부터 전송받아 웹페이지 전체를 처음부터 다시 렌더링하는 방식으로 동작했습니다. 따라서 화면이 전환되면 서버로부터 새로운 HTML 문서를 전송받아 웹페이지를 처음부터 다시 렌더링 했습니다.</p>
+<hr>
+<h1 id="전통적-웹페이지의-단점"><a href="#전통적-웹페이지의-단점" class="headerlink" title="전통적 웹페이지의 단점"></a>전통적 웹페이지의 단점</h1><ol>
+<li><p>이전 웹페이지와 차이가 없어서 변경할 필요가 없는 부분들까지 새롭게 완전한 HTML을 전송받아야하기 때문에 불필요한 리소스가 발생합니다.</p>
+</li>
+<li><p>변경할 필요가 없는 부분을 처음부터 렌더링하기 때문에 페이지에 깜빡임 현상이 발생합니다.</p>
+</li>
+<li><p>클라이언트와 서버와의 통신이 동기 방식으로 동작하기 때문에 서버로부터 응답이 있을 때까지 추가적인 처리가 불가능합니다.</p>
+</li>
+</ol>
+<p>AJAX의 등장으로 서버로부터 웹페이지에 변경이 필요한 부분만 데이터를 전송받아 렌더링하는 것이 가능해졌고, 이로 인해 데스크탑에서 애플리케이션과 유사한 빠른 퍼포먼스와 부드러운 화면 전환이 가능해졌습니다.</p>
+<hr>
+<h1 id="XMLHttpRequest-객체를-활용한-Http-요청"><a href="#XMLHttpRequest-객체를-활용한-Http-요청" class="headerlink" title="XMLHttpRequest 객체를 활용한 Http 요청"></a>XMLHttpRequest 객체를 활용한 Http 요청</h1><p>자바스크립트의 전통적인 Http 요청 방식은 XMLHttpRequest 객체를 이용한 방법이었습니다. XMLHttpRequest를 이용한 방식에서는 비동기 처리를 위한 패턴으로 콜백 함수를 사용해야 했습니다. 이러한 콜백 함수를 이용한 패턴은 콜백 헬로 인해 가독성이 나쁘고 비동기 처리 중 발생한 에러의 처리가 곤란하며, 여러 개의 비동기 처리를 한번에 처리하는 데에도 한계가 있었습니다.</p>
+<p>아래 코드를 통해 전통적인 AJAX 이용에서 콜백 패턴이 필수적이었던 이유를 확인해보겠습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> todos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">get</span> = (<span class="params">url</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">  xhr.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>, url);</span><br><span class="line">  xhr.<span class="title function_">send</span>();</span><br><span class="line"></span><br><span class="line">  xhr.<span class="property">onload</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">response</span>));</span><br><span class="line">      todos = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">response</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(xhr.<span class="property">status</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">get</span>(<span class="string">&quot;https://jsonplaceholder.typicode.com/posts/1&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(todos); <span class="comment">// output: undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>서버로부터 응답이 도착하면 xhr 객체에서 load 이벤트가 발생합니다. 이때 xhr.onload 핸들러 프로퍼티에 바인딩한 이벤트 핸들러가 즉시 실행되지 않습니다. xhr.onload 이벤트 핸들러는 load 이벤트가 발생하면 일단 태스크큐에 저장되어 대기하다가, 콜 스택이 비면 이벤트 루프에 의해 콜 스택으로 푸쉬되어 실행됩니다.</p>
+<p>따라서 기존 콜스택이 전부 비워져야만 우리가 원하는 코드 (todos에 값을 할당하는 코드)가 실행되기 때문에 기대한 대로 동작하지 않습니다.</p>
+<p>이처럼 비동기 함수는 비동기 처리 결과를 외부에 반환할 수 없고, 상위 스코프의 변수에 할당할 수도 없습니다. 따라서 비동기 함수의 처리 결과에 대한 후속처리는 비동기 함수 내부에서 수행되어야 합니다. 이를 위해 비동기 함수 내부에 비동기 처리 결과에 대한 후석 처리를 수행하는 콜백 함수를 전달하는 것이 일반적입니다.</p>
+<h1 id="전통적-Http-요청-방식의-문제점"><a href="#전통적-Http-요청-방식의-문제점" class="headerlink" title="전통적 Http 요청 방식의 문제점"></a>전통적 Http 요청 방식의 문제점</h1><h2 id="1-콜백-헬"><a href="#1-콜백-헬" class="headerlink" title="1) 콜백 헬"></a>1) 콜백 헬</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">get</span> = (<span class="params">url, callback</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> xhr  <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">  xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, url);</span><br><span class="line">  xhr.<span class="title function_">send</span>();</span><br><span class="line"></span><br><span class="line">  xhr.<span class="property">onload</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">callback</span>(<span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">response</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(xhr.<span class="property">status</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">&#x27;https://jsonplaceholder.typicode.com&#x27;</span>;</span><br><span class="line"><span class="title function_">get</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/post/1`</span>, <span class="function">(<span class="params">&#123;userId&#125;</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(userId); <span class="comment">// output: 1</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">get</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/users/<span class="subst">$&#123;userId&#125;</span>`</span>, <span class="function"><span class="params">userInfo</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(userInfo); <span class="comment">// output: &#123;id: 1, name: jongmin, username: Eric&#125;</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>위 코드를 보면 GET요청을 통해 서버로부터 id가 1인 post를 취득하고 이 데이터를 사용하여 또 다시 GET 요청을 합니다. 이처럼 비동기 통신 내부에서 후속 처리를 위한 코드를 사용하는 콜백 패턴은 가독성을 저해하며 실수를 유발하는 원인이 됩니다.</p>
+<p>만약 비동기 통신으로 취득한 단계적 데이터들에 의존한 코드가 몇겹씩 쌓이다보면 정말 말 그대로 지옥같은 코드가 생성됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">get</span>(<span class="string">&#x27;step1&#x27;</span>, <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">get</span>(<span class="string">`step2/<span class="subst">$&#123;a&#125;</span>`</span>, <span class="function"><span class="params">b</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="string">`step3/<span class="subst">$&#123;b&#125;</span>`</span>, <span class="function"><span class="params">c</span> =&gt;</span> &#123;</span><br><span class="line">       <span class="title function_">get</span>(<span class="string">`step4/<span class="subst">$&#123;c&#125;</span>`</span>, <span class="function"><span class="params">d</span> =&gt;</span>&#123;</span><br><span class="line">         ...</span><br><span class="line">       &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-에러-핸들링"><a href="#2-에러-핸들링" class="headerlink" title="2) 에러 핸들링"></a>2) 에러 핸들링</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(e); <span class="comment">// 에러 캐치 불가</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>전통적 Http 요청 방식에서 사용되는 콜백 패턴의 가장 큰 문제점은 에러처리가 곤란하다는 점입니다. 비동기 코드의 동작 원리를 다시 생각해보면 setTimeOut 함수의 콜백 함수는 런타임 환경에서 모든 코드가 실행된 이후 콜 스택이 완전히 비워진 이후에야 이벤트 루프를 통해 태스크 큐에서 콜 스택으로 푸쉬됩니다. 이 때 try catch 문은 종료된 시점이기 때문에 에러가 캐치되지 않습니다.</p>
+<hr>
+<h1 id="Promise의-등장"><a href="#Promise의-등장" class="headerlink" title="Promise의 등장"></a>Promise의 등장</h1><p>전통적 Http 요청을 위한 콜백 패턴은 콜백 헬이나 에러 처리의 문제가 있었습니다. 이를 극복하기위해 ES6에서 Promise가 도입되었습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">promiseGet</span> = url =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> xhr  <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">  	xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, url);</span><br><span class="line"> 	xhr.<span class="title function_">send</span>();</span><br><span class="line"></span><br><span class="line">  	xhr.<span class="property">onload</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (xhr.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">callback</span>(<span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">response</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(xhr.<span class="property">status</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">promiseGet</span>(<span class="string">&#x27;http://jsonplaceholder.typicode.com/posts/1&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(v), <span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(e));</span><br></pre></td></tr></table></figure>
+
+<p>Promise는 후속처리 메서드를 통해 에러 핸들링을 할 수 있습니다. then의 첫번 째 콜백 함수로 비동기 처리 결과가 성공했을 때의 후속 조치를 할 수 있고, 두 번째 콜백 함수로 비동기 처리 결과가 실패했을 때의 후속 조치도 가능합니다. 또한 catch메서드를 통해 전체적인 에러 핸들링또한 가능합니다.</p>
+<p>또한 Promise는 체이닝을 통해 전통적 통신 방식에서의 콜백 헬도 해결이 가능합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">promiseGet</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/posts/1`</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">&#123; userId &#125;</span>) =&gt;</span> <span class="title function_">promiseGet</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/users/<span class="subst">$&#123;userId&#125;</span>`</span>))</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">userInfo</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(userInfo))</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(err));</span><br></pre></td></tr></table></figure>
+
+<p>then, catch finally 후속 처리 메서드는 콜백 함수가 반환한 Promise를 반환합니다. 또한 콜백 함수가 Promise가 아닌 값을 반환하더라도 그 값을 암묵적으로 resolve 또는 reject하여 프로미스를 생성하여 반환합니다. 그렇게 반환한 Promise를 이용하여 체이닝을 통해 후속 처리를 하기 때문에 전통적 방식의 콜백 헬을 방지했다는 점은 긍정적이지만 결국 Promise도 콜백 패턴을 사용하기 때문에 가독성을 저해할 수 있다는 점에서 문제가 있습니다.</p>
+<hr>
+<h1 id="async-x2F-await를-이용한-후속-처리"><a href="#async-x2F-await를-이용한-후속-처리" class="headerlink" title="async &#x2F; await를 이용한 후속 처리"></a>async &#x2F; await를 이용한 후속 처리</h1><p>기존 콜백 패턴을 이용한 비동기 통신의 단점을 ES8에 도입된 async&#x2F;await를 통해 해결할 수 있습니다. async&#x2F;await를 사용하면 Promise의 후속 처리 메서드 없이 동기 처리처럼 프로미스가 처리 결과를 반환하도록 구현할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; userId &#125; = <span class="keyword">await</span> <span class="title function_">promiseGet</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/posts/1`</span>);</span><br><span class="line">    <span class="keyword">const</span> userInfo = <span class="keyword">await</span> <span class="title function_">promiseGet</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/users/<span class="subst">$&#123;userId&#125;</span>`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(userInfo);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>async&#x2F;await는 Promise를 가독성 좋게 사용할 수 있는 방법입니다. 비동기 코드를 동기 코드 처럼 동작하도록 구현할 수 있습니다. 이것은 에러처리에서 기존 비동기적 특성 때문에 사용하지 못했던 try&#x2F;catch 문 또한 사용할 수 있다는 것을 의미합니다.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/es6/" rel="tag"># es6</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/Ajax/" rel="tag"># Ajax</a>
+              <a href="/tags/Promise/" rel="tag"># Promise</a>
+              <a href="/tags/XMLHttpRequest/" rel="tag"># XMLHttpRequest</a>
+              <a href="/tags/async-await/" rel="tag"># async/await</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/28/fc-yanolja/javascript-refactoring/" rel="prev" title="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_JavaScript 과제 리팩토링">
+                  <i class="fa fa-chevron-left"></i> 패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_JavaScript 과제 리팩토링
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/08/fc-yanolja/ot/" rel="next" title="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_OT">
+                  패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_OT <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

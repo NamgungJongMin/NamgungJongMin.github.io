@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="DOM 컬렉션 객체인 HTMLCollection 객체와 NodeList 객체는 DOM API가 여러 개의 값을 반환하기위한 객체입니다. 둘다 유사배열 객체이면서 이터러블이므로 for…of문을 포함한 여러 방법으로 순회가 가능합니다. 또한 스프레드 문법을 사용하여 배열로 간단히 변환할 수 있습니다. HTMLCollection과 NodeList는 노드 객체의">
+<meta property="og:type" content="article">
+<meta property="og:title" content="배열과 HTMLCollection &#x2F; NodeList 객체">
+<meta property="og:url" content="https://namgungjongmin.github.io/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="DOM 컬렉션 객체인 HTMLCollection 객체와 NodeList 객체는 DOM API가 여러 개의 값을 반환하기위한 객체입니다. 둘다 유사배열 객체이면서 이터러블이므로 for…of문을 포함한 여러 방법으로 순회가 가능합니다. 또한 스프레드 문법을 사용하여 배열로 간단히 변환할 수 있습니다. HTMLCollection과 NodeList는 노드 객체의">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/796a482a-63b4-4e9d-95a4-9bcd69875d04/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/a835d3fd-8389-43a6-bc4a-69fc34a4753a/image.png">
+<meta property="article:published_time" content="2023-08-17T14:12:11.000Z">
+<meta property="article:modified_time" content="2024-08-07T07:10:06.988Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="es6">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="배열">
+<meta property="article:tag" content="HTMLCollection">
+<meta property="article:tag" content="NodeList">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/796a482a-63b4-4e9d-95a4-9bcd69875d04/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/","path":"2023/08/17/js/23_nodelist_배열메서드/","title":"배열과 HTMLCollection / NodeList 객체"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>배열과 HTMLCollection / NodeList 객체 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTMLCollection-%EA%B0%9D%EC%B2%B4"><span class="nav-number">1.</span> <span class="nav-text">HTMLCollection 객체</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NodeList-%EA%B0%9D%EC%B2%B4"><span class="nav-number">2.</span> <span class="nav-text">NodeList 객체</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%95%88%EC%A0%84%ED%95%98%EA%B2%8C-DOM-%EC%BB%AC%EB%A0%89%EC%85%98-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95"><span class="nav-number">3.</span> <span class="nav-text">안전하게 DOM 컬렉션 객체를 활용하는 방법</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#forEach-%EB%A9%94%EC%84%9C%EB%93%9C"><span class="nav-number">4.</span> <span class="nav-text">forEach 메서드</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="배열과 HTMLCollection / NodeList 객체 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          배열과 HTMLCollection / NodeList 객체
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-17 23:12:11" itemprop="dateCreated datePublished" datetime="2023-08-17T23:12:11+09:00">2023-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/17/js/23_nodelist_배열메서드/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>DOM 컬렉션 객체인 HTMLCollection 객체와 NodeList 객체는 DOM API가 여러 개의 값을 반환하기위한 객체입니다. 둘다 유사배열 객체이면서 이터러블이므로 for…of문을 포함한 여러 방법으로 순회가 가능합니다. 또한 스프레드 문법을 사용하여 배열로 간단히 변환할 수 있습니다.</p>
+<p>HTMLCollection과 NodeList는 노드 객체의 상태를 실시간으로 반영하는 살아있는 객체라는 것입니다. HTMLCollection 객체는 언제나 ‘live 객체’로 동작하지만 NodeList 객체는 기본적으로 실시간으로 반영하지 않고 과거의 상태를 유지하지면 경우에 따라서는 live 객체로 동작합니다.</p>
+<h1 id="HTMLCollection-객체"><a href="#HTMLCollection-객체" class="headerlink" title="HTMLCollection 객체"></a>HTMLCollection 객체</h1><p>HTMLCollection 객체는 getElementsByTagName, getElementByClassName 메서가 반환하는 노드 객체입니다. HTMLCollection 객체는 노드 객체의 상태 변화를 실시간으로 반영하는 살아있는 DOM 컬렉션 객체로 ‘live 객체’라고 부르기도 합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>temporal<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.red</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: red;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.blue</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: blue;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="keyword">const</span> $elements = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;red&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="variable language_">console</span>.<span class="title function_">log</span>($elements); <span class="comment">// output: HTMLCollection(3) [li.red, li.red, li.red]</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; $elements.<span class="property">length</span>; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        $elements[i].<span class="property">className</span> = <span class="string">&#x27;blue&#x27;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="variable language_">console</span>.<span class="title function_">log</span>($elements); <span class="comment">// output: HTMLCollection(1) [li.red]</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>위 코드에서 class 값이 ‘red’인 요소를 모두 취득하고 for문을 통해 모든 요소의 class 값을 ‘blue’로 변경하였습니다. 우리가 생각할 때 모든 li 요소의 class 값이 ‘blue’로 변경될 것이라고 생각하지만 예상대로 동작하지 않습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/796a482a-63b4-4e9d-95a4-9bcd69875d04/image.png"></p>
+<p>이것은 HTMLCollection 객체가 live 객체의 특성을 가지고 있기 때문입니다. for문을 돌면서 i &#x3D;&#x3D;&#x3D; 0 에서 첫번째 li의 class의 값을 ‘blue’로 변경합니다. 이 때 $elements가 참조하는 컬렉션 객체는 실시간으로 상태를 반영하여 HTMLCollection(2)[li.red, li.red] 상태가 됩니다. 따라서 i &#x3D;&#x3D;&#x3D; 1 에서 적용되는 대상은 첫 선언한 요소들 중 세번째 li가 됩니다. 따라서 HTMLCollection 객체를 반복문을 통해 순회할 때에는 주의가 필요합니다.</p>
+<h1 id="NodeList-객체"><a href="#NodeList-객체" class="headerlink" title="NodeList 객체"></a>NodeList 객체</h1><p>HTMLCollection 객체의 부작용을 회피하기 위해 NodeList 객체를 이용하는 방법이 있습니다. querySellectorAll 메서드를 사용하면 DOM 컬렉션 객체인 NodeList를 반환합니다. 이 때 NodeList는 실시간으로 상태를 반영하지 않는 non-live 객체입니다. 그러나 childNodes 프로퍼티가 반환하는 NodeList객체는 live 객체로 동작합니다.</p>
+<h1 id="안전하게-DOM-컬렉션-객체를-활용하는-방법"><a href="#안전하게-DOM-컬렉션-객체를-활용하는-방법" class="headerlink" title="안전하게 DOM 컬렉션 객체를 활용하는 방법"></a>안전하게 DOM 컬렉션 객체를 활용하는 방법</h1><p>HTMLCollection의 경우 live 객체의 특성 때문에 개발자가 예상치 못한 결과를 초래할 수 있다는 위험성이 있고, NodeList의 경우는 대부분 non-live 객체로 동작하지만 일부 상황에선 live-객체로 동작하는 위험성이 있습니다. 따라서 Dom 컬렉션 객체를 직접적으로 참조하는 것보다 배열로 변환하여 활용하는 방법을 추천합니다. ES6의 스프레드 문법을 통해 간단히 배열로 변환할 수 있습니다. 배열로 변환하게 되면 배열의 프로토타입을 상속받아 여러 메서드들도 사용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $elements = [...<span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&quot;red&quot;</span>)];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>($elements); <span class="comment">// output: [li.red, li.red, li.red]</span></span><br><span class="line"></span><br><span class="line">$elements.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> &#123;</span><br><span class="line">  el.<span class="property">className</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/a835d3fd-8389-43a6-bc4a-69fc34a4753a/image.png"></p>
+<h1 id="forEach-메서드"><a href="#forEach-메서드" class="headerlink" title="forEach 메서드"></a>forEach 메서드</h1><p>HTMLCollection 객체는 forEach 메서드 사용이 불가능하고 NodeList 객체는 가능합니다. 보다 정확히 말하면 배열의 forEach 메서드는 배열만 사용이 가능하며 DOM 컬렉션 객체는 사용이 불가능합니다. 그 이유는 우리가 배열에서 사용하는 forEach 메서드가 Array.prototype의 프로퍼티를 상속받아 사용하고 있기 때문입니다. 따라서 비슷한 형태의 리스트 데이터지만 DOM 컬렉션 객체는 배열이 아니기 때문에 DOM을 조작하면서 기존의 배열의 문법들로 구현하는 것에는 한계가 있습니다.</p>
+<p><code>NodeList는 forEach가 되는데요?</code></p>
+<blockquote>
+<p>NodeList도 기존에는 forEach 메서드를 사용한 순회가 불가능 했습니다. 하지만 사용성을 위해 Web API에 추가된 기능입니다. 따라서 NodeList의 forEach 메서드는 배열의 forEach 메서드와 같은 동작을 하는 다른 메서드입니다.</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/es6/" rel="tag"># es6</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%EB%B0%B0%EC%97%B4/" rel="tag"># 배열</a>
+              <a href="/tags/HTMLCollection/" rel="tag"># HTMLCollection</a>
+              <a href="/tags/NodeList/" rel="tag"># NodeList</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/08/fc-yanolja/html-css/" rel="prev" title="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_HTML/CSS 과제 리팩토링">
+                  <i class="fa fa-chevron-left"></i> 패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_HTML/CSS 과제 리팩토링
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/19/js/24_innerHTML%EB%AC%B8%EC%A0%9C%EC%A0%90/" rel="next" title="배열과 HTMLCollection / NodeList 객체">
+                  배열과 HTMLCollection / NodeList 객체 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -186,7 +186,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/16/js/2_temp/">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/20/js/25_%EC%9D%B4%EB%B2%A4%ED%8A%B8%ED%95%B8%EB%93%A4%EB%A7%81%EB%B0%A9%EC%8B%9D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
@@ -204,7 +204,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/16/js/2_temp/" class="post-title-link" itemprop="url">임시 포스팅</a>
+          <a href="/2023/08/20/js/25_%EC%9D%B4%EB%B2%A4%ED%8A%B8%ED%95%B8%EB%93%A4%EB%A7%81%EB%B0%A9%EC%8B%9D/" class="post-title-link" itemprop="url">이벤트 핸들러 프로퍼티와 addEventListener 메서드의 차이점</a>
         </h2>
 
         <div class="post-meta-container">
@@ -215,7 +215,7 @@
       </span>
       <span class="post-meta-item-text">작성일</span>
 
-      <time title="Post created: 2023-07-16 17:08:20" itemprop="dateCreated datePublished" datetime="2023-07-16T17:08:20+09:00">2023-07-16</time>
+      <time title="Post created: 2023-08-20 17:22:41" itemprop="dateCreated datePublished" datetime="2023-08-20T17:22:41+09:00">2023-08-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -236,8 +236,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2023/07/16/js/2_temp/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/16/js/2_temp/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/08/20/js/25_%EC%9D%B4%EB%B2%A4%ED%8A%B8%ED%95%B8%EB%93%A4%EB%A7%81%EB%B0%A9%EC%8B%9D/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/20/js/25_이벤트핸들링방식/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -251,7 +251,769 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="임시-포스팅"><a href="#임시-포스팅" class="headerlink" title="임시 포스팅"></a>임시 포스팅</h1>
+          <p>이벤트 핸들러는 이벤트가 발생했을 때 브라우저에 호출을 위임한 함수입니다. 이벤트가 발생하면 자바스크립트 엔진은 브라우저에게 이벤트 핸들러의 호출을 위임하게 하는 것을 이벤트 핸들러 등록이라고 합니다. 이벤트 핸들러를 등록하는 방법은 총 3가지입니다. ‘이벤트 핸들러 어트리뷰트 방식’, ‘이벤트 핸들러 프로퍼티 방식’, ‘addEventListener 방식’으로 이벤트 핸들러를 등록합니다.</p>
+<p>이벤트 핸들러 어트리뷰트 방식은 오래된 코드에서 간혹 확인해볼 수 있기 때문에 이런 것이 있다고만 알아두는 것이 좋습니다. HTML과 자바스크립트는 마크업과 Interection이라는 서로 다른 관심사를 가지고 있기 때문에 혼재하는 것보다는 분리하는 것이 좋습니다. 이번 포스팅에서는 자바스크립트 내에서 핸들러를 등록하는 두가지 방식을 중점적으로 비교하겠습니다.</p>
+<hr>
+<h1 id="이벤트-핸들러-등록"><a href="#이벤트-핸들러-등록" class="headerlink" title="이벤트 핸들러 등록"></a>이벤트 핸들러 등록</h1><h2 id="이벤트-핸들러-어트리뷰트-방식"><a href="#이벤트-핸들러-어트리뷰트-방식" class="headerlink" title="이벤트 핸들러 어트리뷰트 방식"></a>이벤트 핸들러 어트리뷰트 방식</h2><p>위에 서술한대로 예전 DOM level0 때나 관심사의 분리를 통한 웹 구성을 하기 이전의 레거시 코드로 남아있는 경우가 많습니다. 그러나 모던 자바스크립트에서는 이벤트 핸들러 어트리뷰트 방식을 사용하는 경우가 있기 때문에 알아둘 필요는 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--<span class="title class_">Angular</span> --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;handleClick($event)&quot;</span>&gt;</span>button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&#123; <span class="comment">/* React */</span>&#125;</span><br><span class="line">&lt;button onClick=<span class="string">&quot;handleClick($event)&quot;</span>&gt;button&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="이벤트-핸들러-프로퍼티-방식"><a href="#이벤트-핸들러-프로퍼티-방식" class="headerlink" title="이벤트 핸들러 프로퍼티 방식"></a>이벤트 핸들러 프로퍼티 방식</h2><p>DOM 노드 객체는 이벤트에 대응하는 이벤트 핸들러 프로퍼티를 가지고 있으며, onclick과 같이 on 접두사와 이벤트의 종류를 나타내는 이벤트 타입으로 이루어져있습니다. 이벤트 핸들러를 등록하기 위해 이벤트를 발생시킬 대상 (이벤트 타깃)과 이벤트의 종류 (이벤트 타입) 그리고 이밴트 핸들러를 지정해주어야 합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$button.<span class="property">onclick</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Clicked!&quot;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="addEventListener-메서드-방식"><a href="#addEventListener-메서드-방식" class="headerlink" title="addEventListener 메서드 방식"></a>addEventListener 메서드 방식</h2><p>DOM Level 2에서 도입된 addEventListener 메서드 방식은 메서드를 사용하여 이벤트 핸들러를 등록할 수 있습니다. 첫번째 매개변수로 이벤트의 종류를 나타내는 이벤트 타입, 두번째 매개변수로 이벤트 핸들러를 전달합니다. 마지막 매개변수에는 이벤트를 캐치할 이벤트 전파단계를 지정합니다. 생략하거나 false를 지정하면 버블링 단계에서 이벤트를 캐치하고, true를 지정하면 캡처링 단계에서 이벤트를 캐치합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $button = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;button&quot;</span>);</span><br><span class="line"></span><br><span class="line">$button.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="이벤트-핸들러-프로퍼티와-addEventListener-메서드의-차이점"><a href="#이벤트-핸들러-프로퍼티와-addEventListener-메서드의-차이점" class="headerlink" title="이벤트 핸들러 프로퍼티와 addEventListener 메서드의 차이점"></a>이벤트 핸들러 프로퍼티와 addEventListener 메서드의 차이점</h1><p>스크립트 내에서 이벤트를 등록하는 두 방식에는 이벤트의 누적 여부, 이벤트 전파 정의 등의 차이가 있습니다.</p>
+<h2 id="이벤트-누적-여부"><a href="#이벤트-누적-여부" class="headerlink" title="이벤트 누적 여부"></a>이벤트 누적 여부</h2><p>이벤트 핸들러 프로퍼티는 이벤트 객체를 하나만 등록 가능합니다. 만약 2개의 이벤트 핸들러를 등록하게 되면 가장 마지막에 추가한 이벤트 핸들러가 이전 이벤트 핸들러를 덮어쓰게 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $test = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func1</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test1&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func2</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func3</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test3&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$test.<span class="property">onclick</span> = func1;</span><br><span class="line">$test.<span class="property">onclick</span> = func2;</span><br><span class="line">$test.<span class="property">onclick</span> = func3;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/a0c6baf0-96a5-4ea7-95e1-de6152a4fca2/image.png"></p>
+<p>그러나 addEventListener 메서드 방식의 경우 이벤트 핸들러가 누적되어 이벤트가 모두 실행되는 것을 확인할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $test = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func1</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test1&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func2</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func3</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test3&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$test.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, func1);</span><br><span class="line">$test.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, func2);</span><br><span class="line">$test.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, func3);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/270bbedb-7f54-4628-86db-e607728c1d02/image.png"></p>
+<h2 id="이벤트-전파-정의"><a href="#이벤트-전파-정의" class="headerlink" title="이벤트 전파 정의"></a>이벤트 전파 정의</h2><p>이벤트 핸들러 프로퍼티 방식과 달리 addEventListener 메서드 방식은 세 번째 매개변수로 버블링으로 작동될지, 캡쳐링으로 작동될지의 여부를 지정할 수 있습니다. 세 번째 매개변수가 true일 경우 캡쳐링을 사용하고false일 경우 버블링을 사용합니다.</p>
+<p>따라서 이벤트 핸들러 프로퍼티 방식은 기존 이벤트 타입별 기본 적용된 전파 방식을 그대로 따라야 하는 반면 addEventListener 방식은 필요에 따라 전파 방식을 지정하여 유연한 코드 작성이 가능합니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/19/js/24_innerHTML%EB%AC%B8%EC%A0%9C%EC%A0%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/19/js/24_innerHTML%EB%AC%B8%EC%A0%9C%EC%A0%90/" class="post-title-link" itemprop="url">배열과 HTMLCollection / NodeList 객체</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-19 21:32:31" itemprop="dateCreated datePublished" datetime="2023-08-19T21:32:31+09:00">2023-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/19/js/24_innerHTML%EB%AC%B8%EC%A0%9C%EC%A0%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/19/js/24_innerHTML문제점/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a>innerHTML</h1><p>Element.prototype.innerHTML 프로퍼티는 요소 노드의 HTML 마크업을 취득하거나 변경할 때 사용합니다. 요소 노드의 innerHTML 프로퍼티를 참조하면 요소 노드의 콘텐츠 영역 내의 모든 HTML 마크업을 문자열로 반환하게 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>temporal<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.red</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: red;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.blue</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: blue;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;list&#x27;</span>).<span class="property">innerHTML</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/224eb192-57ae-4acf-a38c-01553b3c11b9/image.png"></p>
+<p>innerHTML 프로퍼티에 문자열을 할당하여 간단히 DOM 조작이 가능합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>temporal<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.red</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: red;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.blue</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: blue;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;list&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-handlebars"><span class="language-xml"></span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"><span class="language-xml">      document.getElementById(&#x27;list&#x27;).innerHTML =</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"><span class="language-xml">        &#x27;<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span>&#x27;;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"><span class="language-xml">    </span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/fe397d63-89b4-4f56-9992-fce69cb3417f/image.png"></p>
+<hr>
+<h1 id="innerHTML-사용의-위험성"><a href="#innerHTML-사용의-위험성" class="headerlink" title="innerHTML 사용의 위험성"></a>innerHTML 사용의 위험성</h1><p>요소 노드의 innerHTML 프로퍼티에 할당한 HTML 마크업 문자열을 자바스크립트 엔진에 의해 파싱되어 DOM에 반영됩니다. 문제는 사용자로부터 입력받은 데이터를 innerHTML 프로퍼티에 할당하는 경우 엔진이 해당 라인을 파싱할 때 코드가 실행될 수 있는 위험이 있다는 것입니다. 만약 악의적 목적의 사용자가 input 값으로 악성 코드를 포함시킨다면 엔진이 파싱하는 과정에서 해당 코드가 평가되면서 실행되게 됩니다.</p>
+<p>이러한 공격을 크로스 사이트 스크립팅(XSS)라고 합니다.</p>
+<h2 id="innerHTML-프로퍼티에-스크립트-태그를-삽입하는-예시"><a href="#innerHTML-프로퍼티에-스크립트-태그를-삽입하는-예시" class="headerlink" title="innerHTML 프로퍼티에 스크립트 태그를 삽입하는 예시"></a>innerHTML 프로퍼티에 스크립트 태그를 삽입하는 예시</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;testForm&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>결과 보기<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border: 5px solid red; height: 40px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="keyword">const</span> $form = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;testForm&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="keyword">const</span> $textArea = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;test&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="keyword">const</span> $result = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;result&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="keyword">const</span> secretKey = <span class="string">&#x27;abcd1234ImportantKey&#x27;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  $form.<span class="title function_">addEventListener</span>(<span class="string">&#x27;submit&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    e.<span class="title function_">preventDefault</span>();</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    $result.<span class="property">innerHTML</span> = e.<span class="property">target</span>.<span class="property">test</span>.<span class="property">value</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/ef0b07bd-318f-4413-acfd-804cf1aaba12/image.png"></p>
+<hr>
+<h1 id="innerHTML-사용-시-XSS-방어하는-방법"><a href="#innerHTML-사용-시-XSS-방어하는-방법" class="headerlink" title="innerHTML 사용 시 XSS 방어하는 방법"></a>innerHTML 사용 시 XSS 방어하는 방법</h1><p>HTML5는 innerHTML 프로퍼티로 삽입된 script 요소 내의 자바스크립트 코드를 실행하지 않습니다. 그러나 위 예시처럼 태그 안의 onerror 등의 프로퍼티를 통해 실행되는 코드들까지는 막을 수 없습니다.</p>
+<p>innerHTML 프로퍼티는 DOM 조작을 간편하고 직관적으로 할 수 있다는 장점이 있지만 XSS에 취약한 단점을 가지고 있습니다. 이 단점을 해결하기 위해 HTML 새니티제이션을 사용할 수 있습니다.</p>
+<p>HTML 새니티제이션은 사용자로부터 입력받은 데이터에 의해 발생할 수 있는 XSS 공격을 예방하기 위해 잠재적 위험을 제거하는 기능입니다. 보통 DOMpurify 라이브러리 기능 등을 이용해 간편하게 구현이 가능합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">DOMPurify</span>.<span class="title function_">sanitize</span>(<span class="string">&#x27;&lt;img src=&quot;/&quot; onerror=&quot;alert(document.cookie)&gt;&#x27;</span>);</span><br><span class="line"><span class="comment">// =&gt; &lt;img src=&quot;/&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/" class="post-title-link" itemprop="url">배열과 HTMLCollection / NodeList 객체</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-17 23:12:11" itemprop="dateCreated datePublished" datetime="2023-08-17T23:12:11+09:00">2023-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/17/js/23_nodelist_배열메서드/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>DOM 컬렉션 객체인 HTMLCollection 객체와 NodeList 객체는 DOM API가 여러 개의 값을 반환하기위한 객체입니다. 둘다 유사배열 객체이면서 이터러블이므로 for…of문을 포함한 여러 방법으로 순회가 가능합니다. 또한 스프레드 문법을 사용하여 배열로 간단히 변환할 수 있습니다.</p>
+<p>HTMLCollection과 NodeList는 노드 객체의 상태를 실시간으로 반영하는 살아있는 객체라는 것입니다. HTMLCollection 객체는 언제나 ‘live 객체’로 동작하지만 NodeList 객체는 기본적으로 실시간으로 반영하지 않고 과거의 상태를 유지하지면 경우에 따라서는 live 객체로 동작합니다.</p>
+<h1 id="HTMLCollection-객체"><a href="#HTMLCollection-객체" class="headerlink" title="HTMLCollection 객체"></a>HTMLCollection 객체</h1><p>HTMLCollection 객체는 getElementsByTagName, getElementByClassName 메서가 반환하는 노드 객체입니다. HTMLCollection 객체는 노드 객체의 상태 변화를 실시간으로 반영하는 살아있는 DOM 컬렉션 객체로 ‘live 객체’라고 부르기도 합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>temporal<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.red</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: red;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      <span class="selector-class">.blue</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: blue;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Apple<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Banana<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="keyword">const</span> $elements = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;red&#x27;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="variable language_">console</span>.<span class="title function_">log</span>($elements); <span class="comment">// output: HTMLCollection(3) [li.red, li.red, li.red]</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; $elements.<span class="property">length</span>; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        $elements[i].<span class="property">className</span> = <span class="string">&#x27;blue&#x27;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      <span class="variable language_">console</span>.<span class="title function_">log</span>($elements); <span class="comment">// output: HTMLCollection(1) [li.red]</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>위 코드에서 class 값이 ‘red’인 요소를 모두 취득하고 for문을 통해 모든 요소의 class 값을 ‘blue’로 변경하였습니다. 우리가 생각할 때 모든 li 요소의 class 값이 ‘blue’로 변경될 것이라고 생각하지만 예상대로 동작하지 않습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/796a482a-63b4-4e9d-95a4-9bcd69875d04/image.png"></p>
+<p>이것은 HTMLCollection 객체가 live 객체의 특성을 가지고 있기 때문입니다. for문을 돌면서 i &#x3D;&#x3D;&#x3D; 0 에서 첫번째 li의 class의 값을 ‘blue’로 변경합니다. 이 때 $elements가 참조하는 컬렉션 객체는 실시간으로 상태를 반영하여 HTMLCollection(2)[li.red, li.red] 상태가 됩니다. 따라서 i &#x3D;&#x3D;&#x3D; 1 에서 적용되는 대상은 첫 선언한 요소들 중 세번째 li가 됩니다. 따라서 HTMLCollection 객체를 반복문을 통해 순회할 때에는 주의가 필요합니다.</p>
+<h1 id="NodeList-객체"><a href="#NodeList-객체" class="headerlink" title="NodeList 객체"></a>NodeList 객체</h1><p>HTMLCollection 객체의 부작용을 회피하기 위해 NodeList 객체를 이용하는 방법이 있습니다. querySellectorAll 메서드를 사용하면 DOM 컬렉션 객체인 NodeList를 반환합니다. 이 때 NodeList는 실시간으로 상태를 반영하지 않는 non-live 객체입니다. 그러나 childNodes 프로퍼티가 반환하는 NodeList객체는 live 객체로 동작합니다.</p>
+<h1 id="안전하게-DOM-컬렉션-객체를-활용하는-방법"><a href="#안전하게-DOM-컬렉션-객체를-활용하는-방법" class="headerlink" title="안전하게 DOM 컬렉션 객체를 활용하는 방법"></a>안전하게 DOM 컬렉션 객체를 활용하는 방법</h1><p>HTMLCollection의 경우 live 객체의 특성 때문에 개발자가 예상치 못한 결과를 초래할 수 있다는 위험성이 있고, NodeList의 경우는 대부분 non-live 객체로 동작하지만 일부 상황에선 live-객체로 동작하는 위험성이 있습니다. 따라서 Dom 컬렉션 객체를 직접적으로 참조하는 것보다 배열로 변환하여 활용하는 방법을 추천합니다. ES6의 스프레드 문법을 통해 간단히 배열로 변환할 수 있습니다. 배열로 변환하게 되면 배열의 프로토타입을 상속받아 여러 메서드들도 사용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $elements = [...<span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&quot;red&quot;</span>)];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>($elements); <span class="comment">// output: [li.red, li.red, li.red]</span></span><br><span class="line"></span><br><span class="line">$elements.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> &#123;</span><br><span class="line">  el.<span class="property">className</span> = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/a835d3fd-8389-43a6-bc4a-69fc34a4753a/image.png"></p>
+<h1 id="forEach-메서드"><a href="#forEach-메서드" class="headerlink" title="forEach 메서드"></a>forEach 메서드</h1><p>HTMLCollection 객체는 forEach 메서드 사용이 불가능하고 NodeList 객체는 가능합니다. 보다 정확히 말하면 배열의 forEach 메서드는 배열만 사용이 가능하며 DOM 컬렉션 객체는 사용이 불가능합니다. 그 이유는 우리가 배열에서 사용하는 forEach 메서드가 Array.prototype의 프로퍼티를 상속받아 사용하고 있기 때문입니다. 따라서 비슷한 형태의 리스트 데이터지만 DOM 컬렉션 객체는 배열이 아니기 때문에 DOM을 조작하면서 기존의 배열의 문법들로 구현하는 것에는 한계가 있습니다.</p>
+<p><code>NodeList는 forEach가 되는데요?</code></p>
+<blockquote>
+<p>NodeList도 기존에는 forEach 메서드를 사용한 순회가 불가능 했습니다. 하지만 사용성을 위해 Web API에 추가된 기능입니다. 따라서 NodeList의 forEach 메서드는 배열의 forEach 메서드와 같은 동작을 하는 다른 메서드입니다.</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/08/fc-yanolja/html-css/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/08/fc-yanolja/html-css/" class="post-title-link" itemprop="url">패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_HTML/CSS 과제 리팩토링</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-08 00:12:35" itemprop="dateCreated datePublished" datetime="2023-08-08T00:12:35+09:00">2023-08-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%95%BC%EB%86%80%EC%9E%90-%ED%85%8C%ED%81%AC%EC%8A%A4%EC%BF%A8/" itemprop="url" rel="index"><span itemprop="name">야놀자 테크스쿨</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/08/fc-yanolja/html-css/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/08/fc-yanolja/html-css/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/images/yanolja/2023-07-10-23-14-24.png"></p>
+<h1 id="과제를-진행하며-느낀점"><a href="#과제를-진행하며-느낀점" class="headerlink" title="과제를 진행하며 느낀점"></a>과제를 진행하며 느낀점</h1><p>지금까지 배웠던 것들을 전부 사용해서 많은 것을 해보고 싶었는데 막상 구현에 들어가니 막히는 것이 많았다.<br>막힐 때마다 구글링을 통해 확인하고 여러 시행착오를 거치게 되고, 계획했던 그날의 계획들이 모조리 깨지는 것을 보면서 단순 강의를 보고 배우는 것과 실제로 내가 고민하고 코드를 작성하는 것이 얼마나 차이가 큰지 새삼 느끼게 되었다.</p>
+<p>Sass를 사용하면서 mixin을 실제로 써보니 어떤 코드까지를 중복으로 판단해야 할지 몰라서 고민하며 시간을 보내기도 했고, html의 접근성을 공부하고 적용하기 위해 코드를 짤 때 항상 생각하고 작성했지만 실제 자동 감사 도구에서는 안좋은 점수를 맞기도 했다.</p>
+<p>또한 sprite-image의 활용이나 기획에 기반한 style 작성 등 초기에 계획했던 것들과 실제 내가 행한 5일은 많은 차이가 있었다. sprite-image는 이해가 부족하여 충분히 활용하지 못했고, Media Query 같은 경우에도 처음 기획한 코드 구성과 거리가 너무 멀었다. 시간에 쫓기고 시행착오를 반복하다 보니 마음이 급해졌고, 코드 또한 기획가 달리 점점 난잡해져갔다.</p>
+<p>의외로 시간을 많이 소모하게 된 것이 디렉터리 구조나 한&#x2F;영 font-face 구별과 같은 초기 세팅 관련한 부분이었는데, 처음엔 고생했지만, 다음 개발 시에는 훨씬 수월하게 할 수 있겠다는 자신감을 얻을 수 있었다.</p>
+<p>결국 기획에서 중요한건 경험이고, 그것을 기반으로 좀더 현실적이고 완전하게 계획을 세워 코드 작성을 진행하는 것을 목표로 더욱 열심히 해나가야겠다.</p>
+<h1 id="멘토님의-코드리뷰"><a href="#멘토님의-코드리뷰" class="headerlink" title="멘토님의 코드리뷰"></a>멘토님의 코드리뷰</h1><p>이번 개발에서 배웠던 기초에 더해 스스로 고민하고 찾아보면서 적용시킨 부분들이 있었다. 렌더링 성능에 대한 고민들이나 웹 접근성에서 스크린리더 사용자들을 최대한 고려한 코드를 작성한 것이 그것이다. 아직 초보자의 수박 겉핥기에 불과하겠지만, 멘토님은 그러한 고민을 한 것 자체에 대해 좋은 말씀을 해주셨다.</p>
+<p>추가로 코드에서 개선할 점들을 짚어주셨다.</p>
+<hr>
+<h2 id="1-유지보수성을-생각하여-모달창의-마크업-위치를-변경"><a href="#1-유지보수성을-생각하여-모달창의-마크업-위치를-변경" class="headerlink" title="1) 유지보수성을 생각하여 모달창의 마크업 위치를 변경"></a>1) <strong>유지보수성</strong>을 생각하여 모달창의 마크업 위치를 변경</h2><p>페이지에 사용되는 공통 모달 배경은 추후 유지보수면에서 문서 상단에 위치시키면 추후 유지보수에 유리하다고 하셨다. 모달의 마크업을 쉽게 찾아갈 수 있을지에 대해 생각해본적이 없었는데 좋은 방향을 알게되었고, 바로 코드에 적용했다.</p>
+<h2 id="2-중복되는-코드를-함수로-분리"><a href="#2-중복되는-코드를-함수로-분리" class="headerlink" title="2) 중복되는 코드를 함수로 분리"></a>2) <strong>중복되는 코드</strong>를 함수로 분리</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 기존 코드</span></span><br><span class="line">$prev.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (section2Order === <span class="number">0</span>) section2Order = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">else</span> section2Order = section2Order - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> innerWidth = <span class="variable language_">window</span>.<span class="property">innerWidth</span>;</span><br><span class="line">  <span class="keyword">const</span> widthBase = innerWidth &lt; <span class="number">1200</span> ? <span class="variable language_">window</span>.<span class="property">innerWidth</span> : <span class="number">1200</span>;</span><br><span class="line">  <span class="keyword">const</span> moveWidth = widthBase === <span class="number">1200</span> ? <span class="string">`<span class="subst">$&#123;(section2Order * widthBase) / <span class="number">10</span>&#125;</span>rem`</span> : <span class="string">&#x27;100vw&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// console.log(section2Order, widthBase, moveWidth);</span></span><br><span class="line"></span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.section2__container__flex&#x27;</span>).<span class="property">style</span>.<span class="property">transform</span> = <span class="string">`translate(-<span class="subst">$&#123;moveWidth&#125;</span>)`</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$next.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (section2Order === <span class="number">6</span>) section2Order = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">else</span> section2Order = section2Order + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> innerWidth = <span class="variable language_">window</span>.<span class="property">innerWidth</span>;</span><br><span class="line">  <span class="keyword">const</span> widthBase = innerWidth &lt; <span class="number">1200</span> ? <span class="variable language_">window</span>.<span class="property">innerWidth</span> : <span class="number">1200</span>;</span><br><span class="line">  <span class="keyword">const</span> moveWidth = widthBase === <span class="number">1200</span> ? <span class="string">`<span class="subst">$&#123;(section2Order * widthBase) / <span class="number">10</span>&#125;</span>rem`</span> : <span class="string">&#x27;100vw&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// console.log(section2Order, widthBase, moveWidth);</span></span><br><span class="line"></span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.section2__container__flex&#x27;</span>).<span class="property">style</span>.<span class="property">transform</span> = <span class="string">`translate(-<span class="subst">$&#123;moveWidth&#125;</span>)`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>코드의 가독성이 나쁜 것도 짚어주셨는데 중복되는 코드들은 함수로 빼내어 관리하는 것을 권장하셨다. 기존 코드를 보면, 이벤트 리스너에서 코드가 반복되는 것을 볼 수 있는데, 이러한 경우 섹션이동 동작을 제어하는 함수로 분리하여 관리하고 함수가 어떻게 동작할지에 대한 값을 인수로 넘겨주게 만들었다. 실제로 반복되는 코드가 사라져 가독성이 높아졌고, 유지보수면에서 하나의 함수만을 수정하면 되기 때문에 훨씬 좋아보였다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 리팩토링 코드</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">moveSection</span> = increment =&gt; &#123;</span><br><span class="line">  section2Order = increment ? <span class="title class_">Math</span>.<span class="title function_">min</span>(section2Order + <span class="number">1</span>, <span class="number">6</span>) : <span class="title class_">Math</span>.<span class="title function_">max</span>(section2Order - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> innerWidth = <span class="variable language_">window</span>.<span class="property">innerWidth</span>;</span><br><span class="line">  <span class="keyword">const</span> widthBase = innerWidth &lt; <span class="number">1200</span> ? innerWidth : <span class="number">1200</span>;</span><br><span class="line">  <span class="keyword">const</span> moveWidth = widthBase === <span class="number">1200</span> ? <span class="string">`<span class="subst">$&#123;(section2Order * widthBase) / <span class="number">10</span>&#125;</span>rem`</span> : <span class="string">&#x27;100vw&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.section2__container__flex&#x27;</span>).<span class="property">style</span>.<span class="property">transform</span> = <span class="string">`translate(-<span class="subst">$&#123;moveWidth&#125;</span>)`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$prev.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">moveSection</span>(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$next.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">moveSection</span>(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-웹성능을-최적화할-수-있는-코드를-작성"><a href="#3-웹성능을-최적화할-수-있는-코드를-작성" class="headerlink" title="3) 웹성능을 최적화할 수 있는 코드를 작성"></a>3) <strong>웹성능을 최적화</strong>할 수 있는 코드를 작성</h2><p>ascript에서 변수에 DOM요소를 할당할 때 내 코드에서는 querySelector를 사용했다. 하지만 멘토님께서는 성능상으로는 getElementById가 좋다고 하시며 페이지가 많아질 수록 성능 차이가 심해질 것이라고 하셨다. 당장 지금의 프로젝트에서는 페이지의 수가 한정되어 있기 때문에 큰 차이가 없으므로 리팩토링할 필요는 없지만 추후 프로젝트에서 웹성능을 감안한다면 querySelector보다는 id를 지정하여 getElementById를 사용하는 쪽으로 코드를 작성해야겠다.</p>
+<p>사실 DOM요소를 불러오는 방법에 대해 처음 듣는 이야기는 아니었다. getElementById가 더 성능이 좋다는 것도 알고있었다. 그러나 querySelector가 보다 성능은 낮지만 jquery보다는 성능이 좋다는 것을 알고있었고, jquery로도 복잡한 사이트들을 현업에서 구현하는데 querySelector로 복잡하지 않게 그냥 통일해서 사용하면 안될까? 라는 마음이 있었던 것 같다.</p>
+<p>그러나 확실히 웹성능 면에서 개선된 방식으로 코드를 작성하는 습관을 들이는 것이 좋다는 말씀에는 동의한다. 다음 프로젝트 개발시에는 id를 읽어오는 쪽으로 작성하겠다.</p>
+<h1 id="Lighthouse"><a href="#Lighthouse" class="headerlink" title="Lighthouse"></a>Lighthouse</h1><p>Lighthouse를 통해 구현한 사이트를 검사해본 결과 예상 외로 웹 접근성 측면에서 기대보다 낮은 점수를 받았다. 솔직히 좀 충격이었다. 이번 과제에서 접근성을 지키기 위해 WCAG2.1을 읽고 accessibility hidden style이나 WAI-ARIA 등의 활용으로 스크린리더 환경까지 고려했기 때문이다.</p>
+<p>그러나 예상치 못한 부분에서 접근성을 지키지 못한 경우들이 있었다. 바로 버튼이나 링크등에 이미지를 직접적으로 삽입하고 텍스트를 입력하지 않았을 때의 문제였다.</p>
+<p>Lighthouse를 통해 알게 된 웹 접근성의 취약점들을 개선하려 노력했다. 추가로 성능 면에서도 내가 개선이 가능한 부분들을 찾아내어 수정했다.</p>
+<h2 id="1-웹-접근성-취약점-개선"><a href="#1-웹-접근성-취약점-개선" class="headerlink" title="1) 웹 접근성 취약점 개선"></a>1) <strong>웹 접근성</strong> 취약점 개선</h2><p><img src="/images/yanolja/html-css/2023-08-28-23-00-44.png"></p>
+<p>텍스트가 없는 버튼을 디자인적 요소로 활용하여 링크를 연결한 것에 대한 지적이 있었다. 스크린리더 사용자의 입장에서 이러한 디자인적인 요소를 파악할 수 없는데, 파악할 수 없는 요소에 중요한 링크가 걸려있으니 문제가 있었다. WCAG2.1에서 의도적으로 스크린리더 사용자에게 정보를 전달하는 기능인 aria-label 속성을 확인하고 적용하였다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// aria-label 적용</span></span><br><span class="line">&lt;a href=<span class="string">&quot;/&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;content-box-arrow&quot;</span> aria-label=<span class="string">&quot;해당 페이지로 이동&quot;</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fa-solid fa-arrow-right&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// aria-label 적용</span></span><br><span class="line">&lt;div <span class="keyword">class</span>=<span class="string">&quot;carousel-btns&quot;</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;carousel-btns-item active&quot;</span> <span class="attr">data-num</span>=<span class="string">&quot;1&quot;</span> <span class="attr">aria-label</span>=<span class="string">&quot;첫 번째 이미지로 이동&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;carousel-btns-item&quot;</span> <span class="attr">data-num</span>=<span class="string">&quot;2&quot;</span> <span class="attr">aria-label</span>=<span class="string">&quot;두 번째 이미지로 이동&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;carousel-btns-item&quot;</span> <span class="attr">data-num</span>=<span class="string">&quot;3&quot;</span> <span class="attr">aria-label</span>=<span class="string">&quot;세 번째 이미지로 이동&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-웹-성능-개선"><a href="#2-웹-성능-개선" class="headerlink" title="2) 웹 성능 개선"></a>2) <strong>웹 성능</strong> 개선</h2><p>사이트에서 애니메이션과 이미지들이 많이 사용되다 보니 성능적으로 많이 낮은 점수가 나오는 것 같았다. 우선적으로 코드 등의 수정 보다는 이미지 파일 자체의 크기들을 낮추는 것에 집중하였다.</p>
+<p>이미지 최적화 프로그램을 통해 각 이미지들의 크기를 30% ~ 50% 낮춰주었고 유의미한 검사 결과의 차이를 얻었다. 추가로 Lazy Loding과 CDN을 활용한 이미지 최적화 방법들을 알게 되었는데 추후에 웹성능 개선을 위한 이미지 최적화 방식에 대해 제대로 알아보고 활용할 수 있게 하겠다고 다짐했다.</p>
+<h2 id="Lighthouse-점수-변화"><a href="#Lighthouse-점수-변화" class="headerlink" title="Lighthouse 점수 변화"></a>Lighthouse 점수 변화</h2><p><img src="/images/yanolja/html-css/2023-08-28-23-09-41.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/01/js/14_%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/01/js/14_%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" class="post-title-link" itemprop="url">프로토타입을 활용한 객체 지향 프로그래밍</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-01 21:42:31" itemprop="dateCreated datePublished" datetime="2023-08-01T21:42:31+09:00">2023-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/01/js/14_%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/01/js/14_객체지향프로그래밍/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>자바스크립트는 명령형, 함수형, 객체 지향 프로그래밍을 지원하는 ‘멀티 패러다임’ 프로그래밍 언어입니다. 다른 클래스 기반 객체 지향 프로그래밍과는 달리 프로토타입 기반의 객체 지향 프로그래밍을 구현합니다.</p>
+<p><code>자바스크립트도 클래스가 있는데 왜 클래스 기반의 객체 지향 프로그래밍이라 칭하지 않는가?</code></p>
+<blockquote>
+<p>ES6에 도입된 자바스크립트의 클래스는 함수이다. 따라서 생성자 함수와 동일하게 프로토타입 기반의 인스턴스를 생성한다. 기존 프로토타입 기반의 객체 지향을 구현하는 방식을 폐지하고 새로운 객체 지향 모델을 제공하는 것이 아니라 단지 기존 방식을 기존 클래스 문법 형태에 맞춘 ‘문법적 설탕’이라고 볼 수 있다.</p>
+</blockquote>
+<hr>
+<h1 id="객체-지향-프로그래밍이란"><a href="#객체-지향-프로그래밍이란" class="headerlink" title="객체 지향 프로그래밍이란?"></a>객체 지향 프로그래밍이란?</h1><p>객체 지향 프로그래밍은 전통적 명령형 프로그래밍 방식의 <strong>‘절차지향적’</strong> 관점에서 벗어나 객체의 집합으로 프로그램을 표현하려는 방식입니다. 객체 지향 프로그래밍은 실세계의 실체(사물이나 개념)을 인식하는 철학적 사고를 프로그래밍에 접목하려는 시도에서 시작합니다. 실체는 특징이나 속성을 가지고 있고 이를 통해 실제를 인식하거나 구별할 수 있습니다.</p>
+<p>예를 들어, 사람은 이름, 나이, 키, 체중, 직업, 학력 등 다양한 속성을 갖습니다. 우리는 속성을 통해 특정한 사람을 다른 사람과 구별하여 인식할 수 있습니다. 이러한 방식을 프로그래밍에 적용해보겠습니다. 만약 어떠한 사람의 이름과 나이, 직업에만 관심이 있다면 해당 속성만을 간추려내어 표현할 수 있습니다. 이것을 <strong>추상화</strong> 라고 합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;namgung jong min&quot;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">29</span>,</span><br><span class="line">  <span class="attr">job</span>: baeksu,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>개발자는 이름과 나이, 직업 속성으로 위 객체를 다른 객체와 구별하여 인식할 수 있습니다. 이처럼 속성을 통해 여러 값을 하나의 단위로 구성한 복합적 자료구조를 객체라고 합니다. 즉 객체 지향 프로그래밍은 독립적인 각 객체들의 그룹을 활용해 프로그래밍을 하는 방식입니다.</p>
+<h1 id="상태와-동작을-나타내는-객체"><a href="#상태와-동작을-나타내는-객체" class="headerlink" title="상태와 동작을 나타내는 객체"></a>상태와 동작을 나타내는 객체</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> circle = &#123;</span><br><span class="line">  <span class="attr">radius</span>: <span class="number">5</span>,</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getDiameter</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * <span class="variable language_">this</span>.<span class="property">radius</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getPerimeter</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="variable language_">this</span>.<span class="property">radius</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>원이라는 개념을 객체로 만들어보았습니다. 원에는 반지름이라는 속성이 있습니다. 이 속성을 활용하여 지름과 둘레를 구할 수 있습니다. 이 때 반지름은 원의 상태를 나타내는 데이터이며, 원의 지름과 둘레를 구하는 것은 동작입니다.</p>
+<p>이처럼 객체 지향 프로그래밍은 객체의 상태를 나타내는 데이터와 동작을 나타내는 데이터를 묶어서 생각합니다. 따라서 객체는 상태 데이터와 동작을 하나의 논리적인 단위로 묶은 복합적인 자료구조라고 할 수 있습니다.</p>
+<hr>
+<h1 id="프로토타입을-이용해-상속을-구현"><a href="#프로토타입을-이용해-상속을-구현" class="headerlink" title="프로토타입을 이용해 상속을 구현"></a>프로토타입을 이용해 상속을 구현</h1><p>상속은 객체 지향 프로그래밍의 핵심 개념으로, 어떤 객체의 프로퍼티 또는 메서드를 다른 객체가 상속받아 그대로 사용할 수 있는 것을 말합니다. 자바스크립트는 프로토타입을 기반으로 상속을 구현하여 불필요한 중복을 제거합니다. 중복을 제거하는 것은 개발 비용을 줄일 수 있는 방법이기 때문에 중요합니다.</p>
+<p>다음 생성자 함수를 살펴보겠습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Circle</span>(<span class="params">radius</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">radius</span> = radius;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">getArea</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="variable language_">this</span>.<span class="property">radius</span> ** <span class="number">2</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> circle1 = <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> circle2 = <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(circle1.<span class="property">getArea</span> === circle2.<span class="property">getArea</span>); <span class="comment">// output: false</span></span><br></pre></td></tr></table></figure>
+
+<p>위에서 Circle 생성자 함수는 인스턴스를 생성할 때마다 동일한 동작을 하는 getArea 메서드를 중복 생성하며 모든 인스턴스가 중복 소유합니다. getArea 메서드는 Circle 생성자 함수만이 소유하며 생성된 인스턴스들은 해당 메서드를 공유하여 사용하는 것이 바람직합니다.</p>
+<p>생성자 함수에 의해 생성된 모든 인스턴스가 동일한 메서드를 중복 소유하는 것은 메모리를 불필요하게 낭비합니다. 이번엔 상속을 통해 불필요한 중복을 제거해 보겠습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Circle</span>(<span class="params">radius</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">radius</span> = radius;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Circle</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getArea</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="property">PI</span> * <span class="variable language_">this</span>.<span class="property">radius</span> ** <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> circle1 = <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> circle2 = <span class="keyword">new</span> <span class="title class_">Circle</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(circle1.<span class="property">getArea</span> === circle2.<span class="property">getArea</span>); <span class="comment">// output: true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드에서 생성한 인스턴스가 getArea 메서드를 공유해서 사용할 수 있도록 프로토타입에 추가했습니다. 모든 인스턴스들은 자신의 프로토타입, 즉 상위 객체 역할을 하는 Circle.prototype의 모든 프로퍼티와 메서드를 상속받습니다. 즉 자신의 상태를 나타내는 radius 프로퍼티만 개별적으로 소유하고 내용이 동일한 메서드는 상속을 통해 공유하여 사용하는 것입니다.</p>
+<hr>
+<h1 id="생성자-함수-x2F-프로토타입-x2F-인스턴스의-관계"><a href="#생성자-함수-x2F-프로토타입-x2F-인스턴스의-관계" class="headerlink" title="생성자 함수 &#x2F; 프로토타입 &#x2F; 인스턴스의 관계"></a>생성자 함수 &#x2F; 프로토타입 &#x2F; 인스턴스의 관계</h1><p>프로토타입의 내부 동작을 이해하기 위해서 도표를 통해 생성자 함수와 프로토타입, 그리고 인스턴스의 관계를 살펴보겠습니다. 그 전에 내용의 이해를 위해 용어를 정리하고 가는 것이 필요합니다.</p>
+<h2 id="프로토타입-객체-프로토타입"><a href="#프로토타입-객체-프로토타입" class="headerlink" title="프로토타입 객체 (프로토타입)"></a>프로토타입 객체 (프로토타입)</h2><p>프로토타입 객체는 상속을 구현하기 위해 사용됩니다. 프로토타입은 어떤 객체의 상위 객체의 역할을 하는 객체로서 다른 객체의 공유 프로퍼티를 제공합니다. 상위 객체의 프로퍼티를 공유받은 하위 객체는 상위 객체의 프로퍼티를 자유롭게 사용할 수 있습니다.</p>
+<h2 id="프로토타입-내부-슬롯-Prototype"><a href="#프로토타입-내부-슬롯-Prototype" class="headerlink" title="프로토타입 내부 슬롯 ([[Prototype]])"></a>프로토타입 내부 슬롯 ([[Prototype]])</h2><p>모든 객체는 [[Prototype]]이라는 내부 슬롯을 가지며, 이 내부 슬롯의 값은 프로토타입의 참조입니다. 어떤 프로토타입이 저장될지는 객체 생성 방식에 의해 결정됩니다. 즉 객체 생성 방식에 따라 프로토타입이 결정되고 [[Prototype]]에 저장됩니다.</p>
+<h2 id="proto-접근자-프로퍼티"><a href="#proto-접근자-프로퍼티" class="headerlink" title="__proto__ 접근자 프로퍼티"></a>__proto__ 접근자 프로퍼티</h2><p>모든 객체는 __proto__ 접근자 프로퍼티를 통해 자신의 프로토타입, 즉 [[Prototype]] 내부 슬롯에 간접적으로 접근할 수 있습니다. 이 때 __proto__ 접근자 프로퍼티는 객체가 직접 소유하는 프로퍼티가 아닙니다. __proto__접근자 프로퍼티는 프로토타입이 소유하며 인스턴스는 해당 프로퍼티를 상속을 통해 사용합니다.</p>
+<p>프로토타입에 접근하기 위한 __proto__를 인스턴스가 아닌 프로토타입이 소유하는 이유는 단방향의 체인을 구성하기 위함입니다. 프로토타입 체인 상의 각 객체들은 __proto__ 접근자 프로퍼티를 상위 객체에서 상속받아 사용하며 이를 통해 프로토타입 체인을 구축합니다.</p>
+<p>중요한 것은 객체의 프로퍼티 자체에 접근하는 것이 아니라 반드시 __proto__를 통해서만 객체에 접근하여 프로퍼티를 검색한다는 점입니다. 프로토타입 객체에 개발자가 직접 관여하는 것은 상호 참조의 비정상적인 체인 형성에 대한 위험이 있습니다. 이는 프로토타입이 순환 참조의 체인을 형성하여 무한루프에 빠질 수 있기 때문에 프로토타입 체인은 반드시 단방향 링크드 리스트로 구현되어야 합니다.</p>
+<p>따라서 자바스크립트는 체크없이 객체에 직접 접근하여 프로토타입을 교체할 수 없도록 __proto__ 접근자 프로퍼티를 통해서만 프로토타입 객체에 접근할 수 있도록 구현되어 있습니다.</p>
+<h2 id="프로토타입-프로퍼티"><a href="#프로토타입-프로퍼티" class="headerlink" title="프로토타입 프로퍼티"></a>프로토타입 프로퍼티</h2><p>프로토타입 프로퍼티는 함수 객체만이 소유하는 프로퍼티로 생성자 함수가 생성할 인스턴스의 프로토타입을 가리킵니다. 따라서 prototype 프로퍼티는 생성자 함수로서 호출할 수 없는 함수, 즉 non-constructor인 화살표 함수와 ES6 메서드 축약 표현으로 정의한 메서드에서 존재하지 않습니다.</p>
+<hr>
+<h2 id="생성자-함수로-인스턴스-생성-시-프로토타입"><a href="#생성자-함수로-인스턴스-생성-시-프로토타입" class="headerlink" title="생성자 함수로 인스턴스 생성 시 프로토타입"></a>생성자 함수로 인스턴스 생성 시 프로토타입</h2><p>생성자 함수를 new 키워드를 통해 호출하면 [[Construct]] 내부 메서드가 호출되며 인스턴스가 생성됩니다. 이 때 생성자 함수가 생성될 때 함께 생성된 프로토타입과 인스턴스가 연결됩니다.</p>
+<p>생성자 함수가 생성한 인스턴스는 생성자 함수의 프로토타입 프로퍼티에 저장된 프로토타입을 상속받습니다. 인스턴스 입장에서 __proto__ 접근자 프로퍼티를 통해 프로토타입에 접근할 수 있습니다.</p>
+<p>모든 프로토타입은 constructor 프로퍼티를 갖습니다. 이 constructor 프로퍼티는 prototype 프로퍼티로 자신을 참조하고 있는 생성자 함수를 가리킵니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/23d30346-5f0d-479f-8daf-737bd8e706aa/image.png"></p>
+<h2 id="리터럴로-생성한-객체의-생성자함수와-프로토타입"><a href="#리터럴로-생성한-객체의-생성자함수와-프로토타입" class="headerlink" title="리터럴로 생성한 객체의 생성자함수와 프로토타입"></a>리터럴로 생성한 객체의 생성자함수와 프로토타입</h2><p>위에서 살펴본 것과 같이 생성자 함수로 생성된 인스턴스는 프로토타입의 constructor 프로퍼티에 의해 생성자 함수와 연결됩니다. 이 때 constructor 프로퍼티가 가리키는 생성자 함수는 인스턴스를 생성한 함수입니다.</p>
+<p>그렇다면 리터럴 표기법에 의해 생성된 객체의 constructor 프로퍼티가 가리키는 대상은 무엇일까요? 리터럴 표기법에 의해 생성된 객체의 경우 프로토타입의 constructor 프로퍼티가 가리키는 생성자 함수가 반드시 객체를 생성한 생성자 함수는 아닙니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj1.<span class="property">constructor</span> === <span class="title class_">Object</span>); <span class="comment">// output: true</span></span><br><span class="line"></span><br><span class="line">cosnt obj2 = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2.<span class="property">constructor</span> === <span class="title class_">Object</span>); <span class="comment">// output: true</span></span><br></pre></td></tr></table></figure>
+
+<p>위 코드에서 obj2는 Object 생성자 함수로 생성된 것이 아닙니다. 그러나 constructor 프로퍼티는 Object를 가리킵니다. 그렇다면 사실 객체 리터럴로 생선한 객체도 내부적으로는 Object 생성자 함수를 사용하여 생성되는 것은 아닐까요?</p>
+<p>ECMA Script 사양서에는 객체 리터럴이 평가될 때 추상 연산을 호출하여 빈 객체를 생성하고 프로퍼티를 추가하도록 정의되어있습니다. 그러나 Object 생성자 함수의 경우 undefined나 null을 인수로 전달하면서 호출할 때에만 추상 연산을 호출하여 객체를 생성합니다.</p>
+<p>따라서 객체 리터럴에 의해 생성된 객체는 Object 생성자 함수가 생성한 객체가 아닙니다.</p>
+<p>함수또한 마찬가지인데 함수 선언식으로 생성된 함수 객체는 Function 생성자 함수가 아니지만 객체의 프로토타입의 constructor 프로퍼티는 Function을 가리킵니다.</p>
+<hr>
+<p>생성자 함수가 아닌 리터럴 표기법에 의해 생성된 객체도 상속을 위해서는 프로토타입이 반드시 필요합니다. 따라서 자바스크립트는 리터럴 표기법으로 생성된 객체에도 가상적인 생성자 함수를 부여합니다. 프로토타입은 생성자 함수와 더불어 생성되며 prototype, constructor 프로퍼티에 의해 연결되어있기 때문입니다.</p>
+<h1 id="프로토타입-체인"><a href="#프로토타입-체인" class="headerlink" title="프로토타입 체인"></a>프로토타입 체인</h1><p>자바스크립트는 객체의 프로퍼티에 접근하려고 할 때 해당 객체에 접근하려는 프로퍼티가 없다면 [[Prototype]] 내부 슬롯의 참조를 따라 자신의 부모 역할을 하는 프로토타입의 프로퍼티를 순차적으로 검색합니다. 이를 프로토타입 체인이라고 합니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/1375b18a-863f-48a3-9722-107ee34cf24f/image.png"></p>
+<p>자바스크립트 엔진은 프로토타입 체인을 따라 프로퍼티와 메서드를 검색합니다. 즉 자바스크립트 엔진은 객체 간의 상속 관계로 이루어진 프로토타입의 계층적인 구조에서 객체의 프로퍼티를 검색하며 프로토타입 체인을 한마디로 말하자면 상속과 검색을 위한 매커니즘이라고 할 수 있습니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/" class="post-title-link" itemprop="url">전역 변수의 문제점과 해결 방안</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-07-20 23:41:21" itemprop="dateCreated datePublished" datetime="2023-07-20T23:41:21+09:00">2023-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/20/js/7_전역변수 문제점/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.</p>
+<hr>
+<h1 id="변수의-생명-주기"><a href="#변수의-생명-주기" class="headerlink" title="변수의 생명 주기"></a>변수의 생명 주기</h1><p>변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니다. 즉 생물과 유사한, 생성되고 소멸되는 생명 주기가 있습니다. 전역 변수의 문제점을 알아보기에 앞서 내용의 이해와 공감을 위해 지역 변수와의 생명 주기를 비교해보겠습니다.</p>
+<h1 id="지역-변수의-생명-주기"><a href="#지역-변수의-생명-주기" class="headerlink" title="지역 변수의 생명 주기"></a>지역 변수의 생명 주기</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>)&#123;</span><br><span class="line">  ---------------------------------- ①</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&#x27;local&#x27;</span>; ----------------- ②</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">  ---------------------------------- ③</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure>
+
+<p>지역 변수 x는 함수가 호출되기 이전까지는 생성되지 않습니다. foo 함수를 호출하지 않으면 함수 내부의 변수 선언문이 실행되지 않기 때문입니다. 변수 x의 선언은 함수가 호출되어 함수 몸체의 코드가 한 줄씩 실행되기 직전에 자바스크립트 엔진에 의해 실행됩니다.</p>
+<p>위 코드의 경우 ①에서 x 변수가 선언되고 undefined로 초기화됩니다. 이후 함수 몸체를 구성하는 문들이 순차적으로 실행되면서 ②에서 변수에 값이 할당 됩니다. 그리고 함수 몸체의 모든 코드를 실행하고 (③) 함수가 종료되면 x 변수도 소멸되어 생명 주기가 종료됩니다.</p>
+<p>따라서 함수 내부에서 선언된 지역 변수 x는 함수가 호출되어 실행되는 동안에만 유효하고 이는 지역 변수의 생명 주기가 함수의 생명 주기와 일치한다는 것을 말해줍니다.</p>
+<p>또한 지역 변수의 선언은 스코프 단위로 동작하게 됩니다. 이는 각 함수가 실행되는 시점의 지역 변수의 식별자 이름이 같다 하더라도 서로를 간섭하지 않는다는 것을 의미합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">&quot;global&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&quot;local&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&quot;local2&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local2&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>();</span><br><span class="line"><span class="title function_">bar</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="전역-변수의-생명-주기"><a href="#전역-변수의-생명-주기" class="headerlink" title="전역 변수의 생명 주기"></a>전역 변수의 생명 주기</h1><p>함수와 달리 전역 코드는 명시적인 호출 없이 실행됩니다. 즉 전역 코드는 어떠한 진입점이 없고 코드가 로드되자마자 곧바로 해석되고 실행됩니다. 함수가 함수 몸체의 모든 문이 실행되거나 반환문이 실행 되면 종료되는 것에 반해 전역 코드는 자바스크립트의 모든 코드가 실행되어 더 이상 실행할 문이 없을 때 종료됩니다.</p>
+<p>var 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 됩니다. 이는 전역 변수의 생명 주기가 전역 객체의 생명 주기와 일치한다는 것을 말합니다. 또한 let과 const 키워드로 선언한 전역 변수가 저장된 렉시컬 환경이 전역 객체와 연결되어 있기 때문에 마찬가지로 전역 객체와 생명 주기가 같습니다.</p>
+<p>브라우저 환경에서 전역 객체는 window이므로 전역 변수는 웹페이지를 닫을 때까지 유효합니다.</p>
+<hr>
+<h1 id="전역-변수의-문제점"><a href="#전역-변수의-문제점" class="headerlink" title="전역 변수의 문제점"></a>전역 변수의 문제점</h1><h2 id="암묵적-결합"><a href="#암묵적-결합" class="headerlink" title="암묵적 결합"></a>암묵적 결합</h2><p>전역 변수를 선언한 의도는 ‘코드 어디서든 참조하고 할당할 수 있는 변수를 사용하겠다.’ 라는 것입니다. 이는 모든 코드가 전역 변수를 참조하고 변경할 수 있는 <strong>암묵적 결합</strong> 을 허용하는 것입니다. 변수의 유효 범위가 크면 클 수록 코드의 가독성은 나빠지고 의도치 않은 변수의 접근이나 변경이 일어날 위험성도 증가합니다.</p>
+<h2 id="메모리-리소스의-증가"><a href="#메모리-리소스의-증가" class="headerlink" title="메모리 리소스의 증가"></a>메모리 리소스의 증가</h2><p>전역 변수는 생명주기가 깁니다. 웹페이지가 종료될 때까지 전역 변수의 정보를 메모리에 저장해두어야 합니다.</p>
+<h2 id="느린-참조-속도"><a href="#느린-참조-속도" class="headerlink" title="느린 참조 속도"></a>느린 참조 속도</h2><p>자바스크립트는 식별자를 검색할 때 현재 실행중인 실행 컨텍스트 스택의 렉시컬 환경에서 상위 컨텍스트의 렉시컬 환경으로 스코프 체인을 따라 검색을 실행합니다. 따라서 전역 변수는 스코프 체인 상의 종점에 존재하기 때문에 변수를 참조하기 위한 검색 속도가 가장 느립니다.</p>
+<h2 id="네임스페이스-오염"><a href="#네임스페이스-오염" class="headerlink" title="네임스페이스 오염"></a>네임스페이스 오염</h2><p>자바스크립트는 파일이 분리되어 있다 하더라도 전역 스코프를 공유합니다. 따라서 스크립트 파일들의 규모가 커지면 커질 수록 다른 파일들 내에서 동일한 이름으로 명명된 전역 변수나 전역 함수가 같은 스코프 내에 존재할 위험이 있으며, 이로 인한 의도치 않은 결과를 가져올 수 있습니다.</p>
+<h2 id="Injection-공격에-취약"><a href="#Injection-공격에-취약" class="headerlink" title="Injection 공격에 취약"></a>Injection 공격에 취약</h2><p>앞서 전역 변수의 생명 주기의 설명에서 전역 변수는 웹페이지를 닫을 때까지 유효하다고 했습니다. 이것은 웹페이지 내에서 여러 변수에 접근이 가능하다는 위험성을 내포합니다. 즉 XXS와 같은 Injection 공격에 취약합니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/ef0b07bd-318f-4413-acfd-804cf1aaba12/image.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;testForm&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>결과 보기<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border: 5px solid red; height: 40px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> $form = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;testForm&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> $textArea = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> $result = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;result&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> secretKey = <span class="string">&quot;abcd1234ImportantKey&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  $form.<span class="title function_">addEventListener</span>(<span class="string">&quot;submit&quot;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    e.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">    $result.<span class="property">innerHTML</span> = e.<span class="property">target</span>.<span class="property">test</span>.<span class="property">value</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>위 예시는 XXS 공격을 통해 자바스크립트 변수에 액세스하는 상황을 구현해본 것입니다. 이처럼 전역 변수는 웹페이지가 닫힐 때까지 유효하기 때문에 중요한 정보를 저장해둔다면 여러 스크립트 공격에 의해 정보가 탈취될 수 있습니다.</p>
+<hr>
+<h1 id="전역-변수의-사용을-억제하는-방법"><a href="#전역-변수의-사용을-억제하는-방법" class="headerlink" title="전역 변수의 사용을 억제하는 방법"></a>전역 변수의 사용을 억제하는 방법</h1><p>앞서 말한 내용들을 통해 전역 변수의 사용을 지양해야 된다는 것을 확인해보았습니다. 전역 변수를 반드시 사용해야 할 이유가 없다면 지역 변수를 사용해야 합니다. 변수의 스코프는 좁을 수록 좋습니다. 전역 변수의 사용을 억제하고 생명 주기를 짧게 가져가는 몇 가지 방법에 대해 알아보겠습니다.</p>
+<h2 id="즉시-실행-함수"><a href="#즉시-실행-함수" class="headerlink" title="즉시 실행 함수"></a>즉시 실행 함수</h2><p>즉시 실행 함수는 함수 정의와 동시에 런타임 내 단 한번만 호출되는 함수입니다. 모든 코드를 즉시 실행 함수로 감싸면 모든 변수는 즉시 실행 함수의 지역 변수가 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="comment">// ... 생략</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>이 방법을 사용하면 추가적인 스크립트의 스코프를 전역 스코프에서 분리할 수 있습니다. 따라서 여러 스크립트 간 식별자의 충돌을 피하기 위해 라이브러리 등에서 자주 사용됩니다.</p>
+<h2 id="모듈-패턴"><a href="#모듈-패턴" class="headerlink" title="모듈 패턴"></a>모듈 패턴</h2><p>모듈 패턴은 클래스를 모방해서 관련이 있는 변수와 함수를 모아 즉시 실행 함수로 감싸 하나의 모듈을 만듭니다. 모듈 패턴은 클로저를 기반으로 동작합니다.</p>
+<p>모듈 패턴을 사용하면 전역 변수의 사용을 억제할뿐만 아니라 캡슐화까지 구현할 수 있습니다. 캡슐화를 통해 코드 내에서 변수에 접근하는 것 자체를 차단할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> $counter = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.counter&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="title function_">increase</span>(<span class="params"></span>) &#123;</span><br><span class="line">      count += <span class="number">1</span>;</span><br><span class="line">      $counter.<span class="property">textContent</span> = count;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">decrease</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (count &gt; <span class="number">0</span>) count -= <span class="number">1</span>;</span><br><span class="line">      $counter.<span class="property">textContent</span> = count;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.increase&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, counter.<span class="property">increase</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.decrease&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, counter.<span class="property">decrease</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="ES6-모듈"><a href="#ES6-모듈" class="headerlink" title="ES6 모듈"></a>ES6 모듈</h2><p>ES6 모듈을 사용하면 더는 전역 변수를 사용할 수 없습니다. ES6모듈은 파일 자체의 독자적인 모듈 스코프를 제공합니다. 따라서 모듈 내에서 선언한 변수들은 더 이상 전역 변수가 아니며 window 객체의 프로퍼티도 아닙니다.</p>
+<p>모던 브라우저에서 ES6 모듈을 사용할 수 있는데 script 태그에 type&#x3D;”module” 어트리뷰트를 추가하면 로드된 자바스크립트 파일은 모듈로서 동작합니다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;app.mjs&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;lib.mjs&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/" class="post-title-link" itemprop="url">논리연산자를 활용한 단축 평가</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-07-18 13:01:50" itemprop="dateCreated datePublished" datetime="2023-07-18T13:01:50+09:00">2023-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/18/js/6_논리연산자_단축평가/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="논리합-x2F-논리곱-연산자"><a href="#논리합-x2F-논리곱-연산자" class="headerlink" title="논리합 &#x2F; 논리곱 연산자"></a>논리합 &#x2F; 논리곱 연산자</h1><p>우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.</p>
+<ul>
+<li><p>논리합 (A or B)<br>A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.<br>(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’이 된다.)</p>
+</li>
+<li><p>논리곱 (A and B)<br>A와 B의 각 명제가 모두 ‘참’일 때만 논리곱은 ‘참’이 된다.<br>(두 명제 중 하나라도 ‘거짓’일 경우 논리곱은 ‘거짓’이 된다.)</p>
+</li>
+</ul>
+<p>자바스크립트의 논리 연산도 동일한 원리로 동작합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> testTrue = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> testFalse = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(testTrue || testFalse); <span class="comment">// output: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(testTrue &amp;&amp; testFalse); <span class="comment">// output: false</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="논리합-x2F-논리곱을-사용한-단축-평가"><a href="#논리합-x2F-논리곱을-사용한-단축-평가" class="headerlink" title="논리합 &#x2F; 논리곱을 사용한 단축 평가"></a>논리합 &#x2F; 논리곱을 사용한 단축 평가</h1><p>자바스크립트 동작에서 우리가 주목할 특징은 <strong>“논리 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로만 평가된다.”</strong> 라는 점입니다. 그리고 논리 연산의 결과를 결정한 대상을 타입 변환없이 그대로 반환하게 됩니다.</p>
+<p>이 때 평가의 결과가 확정되었다면, 나머지 평가 과정을 생략하게 되는데 이를 <strong>단축평가</strong> 라고 합니다.</p>
+<h2 id="논리합-연산자의-평가-대상-A-B"><a href="#논리합-연산자의-평가-대상-A-B" class="headerlink" title="논리합 연산자의 평가 대상 (A || B)"></a>논리합 연산자의 평가 대상 (A || B)</h2><p>논리합 연산자는 두 피연사자 중 하나만 true여도 true를 반환합니다. 따라서 앞의 항 A의 값이 true라면 위에 말한 단축 평가의 동작 원리대로 나머지 평가 과정을 멈추고 A를 평가한 값을 그대로 반환하게 됩니다.<br><code>반환 결과: 평가된 A</code></p>
+<p>만약 A의 값이 false라면 논리합의 결과를 알기 위해서는 B의 값을 평가해야 합니다. B가 false라면 false를 반환, B가 true라면 true를 반환하게 됩니다. 즉 논리 연산의 결과는 B의 값에 따라 결정됩니다.<br><code>반환 결과: 평가된 B</code></p>
+<p>이를 활용하여 저희는 A의 평가 결과를 조건으로 반환 대상을 결정하는 코드를 if else문을 대체하여 표현식으로 사용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line">&#123;</span><br><span class="line">  !dirty || error ? <span class="language-xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span>&#x27;Error&#x27;<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span> : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드는 dirty의 값이 ‘참’일 때만 error 여부를 판별하여 error가 ‘참’일 경우 ‘Error’ 문자열을 렌더링하는 코드입니다. dirty의 값이 ‘거짓’일 경우 error 여부와 관계없이 ‘Error’ 문자열을 렌더링합니다.</p>
+<h3 id="null-병합-연산자-A-B"><a href="#null-병합-연산자-A-B" class="headerlink" title="*null 병합 연산자 (A ?? B)"></a>*null 병합 연산자 (A ?? B)</h3><p>논리합 연산자를 사용할 때 주의할 점은 연산자가 각 피연산자의 Truthy &#x2F; Falsy 값을 판단한다는 점입니다. 위 논리합 연산자의 예시에서 dirty값이 string 데이터 타입이라고 가정해봅시다.</p>
+<p><strong>개발자가 빈 문자열 또한 dirty 값이 있다고 가정</strong> 한다해도 빈 문자열 ‘’은 Falsy 값으로 판단되어 자바스크립트는 B를 평가하게 됩니다. 이것은 개발자의 의도대로 동작한 것이 아닙니다.</p>
+<p>Truty &#x2F; Falsy 값을 판별하는게 아니라 값 자체가 할당되지 않았거나(undefined) 명시적으로 빈 값이라고 표현된 요소(null)를 판단하고 싶다면 <strong>null 병합 연산자</strong> 를 사용할 수 있습니다. null 병합 연산자를 사용하면 피연산자가 null 또는 undefined인지 여부만을 판단하게 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line">&#123;</span><br><span class="line">  !dirty ?? error ? <span class="language-xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span>&#x27;Error&#x27;<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span> : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="논리곱-연산자의-평가-대상-A-amp-amp-B"><a href="#논리곱-연산자의-평가-대상-A-amp-amp-B" class="headerlink" title="논리곱 연산자의 평가 대상 (A &amp;&amp; B)"></a>논리곱 연산자의 평가 대상 (A &amp;&amp; B)</h2><p>논리곱 연산자는 두 피연산자가 모두 true일 경우만 true를 반환합니다. 따라서 앞의 항의 값이 false라면 위에 말한 단축 평가의 동작 원리대로 나머지 평가 과정을 멈추고 A를 평가한 값을 그대로 반환하게 됩니다.<br><code>반환 결과: 평가된 A</code></p>
+<p>만약 A의 값이 true라면 논리곱 연산자의 결과를 알기 위해서는 B의 값을 평가해야 합니다. B가 true라면 true를 반환 B가 false라면 false를 반환하게 됩니다. 즉 논리 연산의 결과는 B의 값에 따라 결정됩니다.<br><code>반환 결과: 평가된 B</code></p>
+<p>논리합 연산자와 마찬가지로 A의 평가 결과를 조건으로 반환 대상을 결정하는 코드를 if else문을 대체하여 표현식으로 사용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="comment">// dirty 값이 &#x27;참&#x27;일 경우에만 remove 버튼을 렌더링</span></span><br><span class="line">&#123;</span><br><span class="line">  dirty &amp;&amp; (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">className</span>=<span class="string">&#123;styles.removeBtn&#125;</span> <span class="attr">onClick</span>=<span class="string">&#123;resetEmail&#125;</span> <span class="attr">tabIndex</span>=<span class="string">&#123;-1&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">InputRemove</span> <span class="attr">className</span>=<span class="string">&#123;styles.removeBtn__icon&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="옵셔널-체이닝-연산자"><a href="#옵셔널-체이닝-연산자" class="headerlink" title="옵셔널 체이닝 연산자"></a>옵셔널 체이닝 연산자</h1><p>옵셔널 체이닝 연산자는 자바스크립트의 메서드 체이닝 여부를 대상 객체의 평가 결과에 따라 결정할 수 있는 방법입니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="keyword">const</span> data = axios.<span class="title function_">get</span>(<span class="string">&#x27;http://test/posts.com&#x27;</span>) <span class="comment">// [element1,element2,...]</span></span><br><span class="line"><span class="comment">// ... 생략</span></span><br><span class="line">&#123;data.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>)=&gt;</span> ...)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드의 경우 만약 http 요청으로 받아온 data의 값이 없을 경우 에러를 출력하여 페이지 렌더링이 불가능합니다. 만약 data가 있을 경우 해당 요소를 렌더링하고, 없다면 저 부분만을 제외한 상태로 정상적인 렌더링을 하기 위해 옵셔널 체이닝 연산자를 활용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="keyword">const</span> data = axios.<span class="title function_">get</span>(<span class="string">&#x27;http://test/posts.com&#x27;</span>) <span class="comment">// null / undefined</span></span><br><span class="line"><span class="comment">// ... 생략</span></span><br><span class="line">&#123;data?.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>)=&gt;</span> ...)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>옵셔널 체이닝 연산자를 사용하면 data의 값이 null이나 undefined인 경우에는 forEach 메서드를 실행하지 않고, 평가를 종료합니다.</p>
+
       
     </div>
 
@@ -891,144 +1653,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/09/js/1_%EB%B3%80%EC%88%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/27e39cdc-56ad-48e8-9487-2f17bd54feb8/image.png">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/09/js/1_%EB%B3%80%EC%88%98/" class="post-title-link" itemprop="url">Variables (변수)와 메모리 동작</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2023-07-09 21:19:24" itemprop="dateCreated datePublished" datetime="2023-07-09T21:19:24+09:00">2023-07-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/07/09/js/1_%EB%B3%80%EC%88%98/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/09/js/1_변수/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
-<p><a href="#%EB%B3%80%EC%88%98%EC%9D%98-%EC%A0%95%EC%9D%98">1. 변수의 정의</a><br><a href="#%EB%B3%80%EC%88%98%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0">2. 변수가 필요한 이유</a><br><a href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%A0%91%EA%B7%BC">3. 자바스크립트 메모리 접근</a><br><a href="#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B3%80%EC%88%98%EC%9D%98-%EB%8F%99%EC%9E%91">4. 자바스크립트 변수의 동작</a></p>
-<h1 id="변수의-정의"><a href="#변수의-정의" class="headerlink" title="변수의 정의"></a>변수의 정의</h1><p>변수란 하나의 값을 저장하기 위해 확보한 메모리 공간 자체, 또는 그 공간을 식별하기 위해 붙인 이름입니다.</p>
-<h1 id="변수가-필요한-이유"><a href="#변수가-필요한-이유" class="headerlink" title="변수가 필요한 이유"></a>변수가 필요한 이유</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> + <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
-
-<p>다음과 같은 식을 코드에서 실행한다고 생각해보겠습니다.</p>
-<p>자바스크립트 엔진이 위의 식을 해석하면 10과 20은 컴퓨터의 메모리에 담기고 +연산자는 cpu에서 실행되게 됩니다. 이 때 메모리에 10과 20, 그리고 연산 결과 30은 2진수의 형태로 메모리 셀에 저장되게 됩니다.</p>
-<p>이렇게 30이라는 값을 연산하여 얻어냈다는 것은 그 값을 사용해 무엇인가를 하겠다는 의도가 있을 것입니다. 30이라는 값을 재사용하기 위해서는 저장된 메모리 공간에 대한 접근이 필요합니다.</p>
-<h1 id="자바스크립트-메모리-접근"><a href="#자바스크립트-메모리-접근" class="headerlink" title="자바스크립트 메모리 접근"></a>자바스크립트 메모리 접근</h1><h2 id="자바스크립트는-메모리에-직접적인-접근을-허용하지-않는다"><a href="#자바스크립트는-메모리에-직접적인-접근을-허용하지-않는다" class="headerlink" title="자바스크립트는 메모리에 직접적인 접근을 허용하지 않는다!"></a>자바스크립트는 메모리에 직접적인 접근을 허용하지 않는다!</h2><p>저장된 값을 사용하기 위해서 메모리에 접근하는 것이 필요하다 했습니다. 그러나 메모리에 직접적으로 접근하는 것은 치명적인 오류를 발생시킬 수 있습니다. 만약 실수로 운영체제가 사용하고 있는 값을 변경하게 되면 시스템이 멈출 수도 있습니다.</p>
-<p>또한 자바스크립트는 값이 저장될 메모리 주소를 코드가 실행될 때마다 메모리 상황에 따라 임의로 결정합니다. 따라서 동일한 코드를 실행해도 실행마다 값이 저장되는 메모리 주소가 변경되고, 이전 값이 저장된 주소를 알수도 없으며, 알려주지도 않기 때문에 값이 저장된 메모리를 직접적으로 찾는 것은 올바른 방법이 아닙니다.</p>
-<h2 id="자바스크립트는-변수를-통해-간접적으로-메모리에-접근한다"><a href="#자바스크립트는-변수를-통해-간접적으로-메모리에-접근한다" class="headerlink" title="자바스크립트는 변수를 통해 간접적으로 메모리에 접근한다!"></a>자바스크립트는 변수를 통해 간접적으로 메모리에 접근한다!</h2><p>따라서 자바스크립트에서는 메모리에 접근할 때 변수라는 요소를 통해 값이 저장된 메모리에 간접적으로 접근하여 안전하게 사용할 수 있습니다. 이러한 메모리 관리 방식을 가진 언어를 매니지드 언어라고 합니다.</p>
-<hr>
-<h1 id="매니지드-언어-VS-언매니지드-언어"><a href="#매니지드-언어-VS-언매니지드-언어" class="headerlink" title="매니지드 언어 VS 언매니지드 언어"></a>매니지드 언어 VS 언매니지드 언어</h1><p>프로그래밍 언어는 메모리 관리 방식에 따라서 매니지드 언어와 언매니지드 언어로 분류됩니다. 두 메모리 관리 방식은 성능과 생산성에 있어 장단점을 지닙니다.</p>
-<h2 id="매니지드-언어"><a href="#매니지드-언어" class="headerlink" title="매니지드 언어"></a>매니지드 언어</h2><p>자바스크립트와 같은 매니지드 언어는 메모리의 할당이나 해제를 언어 자체에서 담당하고 개발자의 직접적인 메모리 접근을 허용하지 않습니다. 즉, 개발자가 명시적으로 메모리를 제어할 수 없습니다. 메모리 접근은 변수를 통해 간접적으로 이루어지며, 메모리의 해제 또한 ‘가비지 컬렉터’를 통해 자동적으로 이루어집니다.</p>
-<p>이와 같은 특성을 지닌 매니지드 언어인 자바스크립트는 개발자가 직접 제어해야 하는 부분이 줄어든 만큼 일정한 생산성을 확보할 수 있다는 장점이 있지만 성능 면에서는 손실을 감수해야합니다.</p>
-<h2 id="언매니지드-언어"><a href="#언매니지드-언어" class="headerlink" title="언매니지드 언어"></a>언매니지드 언어</h2><p>C 언어와 같은 언매니지드 언어는 개발자가 명시적으로 메모리를 제어합니다. 개발자 주도로 메모리를 제어하기 때문에 개발자의 역량에 따라 최적의 성능을 확보할 수 있다는 장점이 있지만 반대의 경우 오히려 성능의 최적화가 힘들 수 있습니다. 또한 매니지드 언어에 비해 부족한 생산성이 단점이 될 수 있습니다.</p>
-<hr>
-<h1 id="자바스크립트-변수의-동작"><a href="#자바스크립트-변수의-동작" class="headerlink" title="자바스크립트 변수의 동작"></a>자바스크립트 변수의 동작</h1><h2 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h2><p>변수를 사용하기 위해 변수를 선언해야 합니다. 먼저 선언을 통해 자바스크립트 엔진에 식별자의 존재를 알립니다. 이 때 자바스크립트 엔진은 식별자가 참조할 메모리 공간을 확보하게 됩니다. 이후에 자바스크립트 엔진은 실행 컨텍스트에 식별자를 등록하게 됩니다.</p>
-<p>메모리의 공간을 확보한다 했으니 해당 메모리가 비어있다고 생각할 수 있지만, 사실 메모리는 비어있는 것이 아닌 이전에 다른 어플리케이션에서 사용하고 참조가 끊어진 쓰레기 값(garbage value)가 들어있으며 자바스크립트 엔진은 암묵적으로 undefined를 할당하여 초기화하게 됩니다.</p>
-<h3 id="왜-undefined로-초기화하는-과정을-거칠까"><a href="#왜-undefined로-초기화하는-과정을-거칠까" class="headerlink" title="왜 undefined로 초기화하는 과정을 거칠까?"></a>왜 undefined로 초기화하는 과정을 거칠까?</h3><p>초기화 과정을 거치지 않는다면 이전에 썼던 쓰레기 값이 들어있는 메모리셀을 참조하게 되기 때문에 할당 직전 값을 참조하게 될 경우 원하지 않는 동작이 일어날 수 있습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
-<p>위 코드를 살펴보겠습니다. test라는 식별자에 어떠한 값도 할당하지 않고 1을 더한 연산한 결과를 출력했기 때문에 숫자가 아니라는 NaN 값이 나오게됩니다. 하지만 초기화를 하지 않아 쓰레기 값으로 ‘1’과 같은 값이 들어있다고 가정해보면 자바스크립트의 암묵적 타입 변환을 통해 ‘11’이라는 값이 출력되게 됩니다.</p>
-<p>즉 초기화 과정을 거치지 않게 되면 코드 동작의 일관성을 저해하게 되며 개발자가 예상하지 못하는 결과를 출력할 수 있게 되기 때문에 초기화 과정이 필요합니다.</p>
-<h3 id="변수-선언의-시점"><a href="#변수-선언의-시점" class="headerlink" title="변수 선언의 시점"></a>변수 선언의 시점</h3><p>자바스크립트 엔진은 코드를 읽기 전에 가장 먼저(런타임 이전) 전체 코드에서 선언문을 전부 가져와 실행컨텍스트에 등록을 하게 됩니다. 이 후 변수 선언 키워드에 따라 초기화와 할당의 시점이 달라지게 됩니다. 변수 선언이 코드를 읽기 전에 가장 먼저 실행된다는 것을 다음 코드를 통해 확인할 수 있습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test); <span class="comment">// output: undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test); <span class="comment">// output: 20</span></span><br></pre></td></tr></table></figure>
-
-<p>만약 코드가 실행되는 런타임에 변수가 선언되었다면, 선언문 위에 있는 console.log(test)는 아직 선언 이전이기 때문에 ‘식별자를 참조하려 했으나 식별자를 찾을 수가 없어!’라는 뜻의 Reference 에러를 내야합니다. 그러나 코드가 정상 동작하는 것을 위 코드에서 확인할 수 있습니다.</p>
-<p>이것을 통해 변수의 선언은 코드가 실행되는 런타임이 아닌 그 이전에 먼저 실행된다는 것과 undefined로 초기화까지 일어난다는 것을 알 수 있습니다. 이러한 현상을 ‘호이스팅’이라고 합니다. 자바스크립트의 모든 변수, 함수, 클래스는 이렇게 런타임 이전 식별자 정보를 실행컨텍스트에 먼저 등록하는 과정을 거치게 됩니다.<br><code>&#39;호이스팅&#39;에 대해서는 차후 다른 포스팅에서 자세히 다루겠습니다.</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test1); <span class="comment">// ReferenceError</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test2); <span class="comment">// ReferenceError</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> test = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> test = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test1);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test2);</span><br></pre></td></tr></table></figure>
-
-<p>그러나 위의 코드의 경우(let과 const 키워드를 사용한 변수 선언) ReferenceError를 내보내게 됩니다. 그 이유는 var 키워드와 ‘초기화 시점’이 다르기 때문입니다.</p>
-<p>let과 const의 경우 초기화 과정과 할당 과정이 선언과 분리되어 코드가 직접 실행되는 런타임에 이루어집니다. 위에서 말했듯이 초기화는 이전 쓰레기 값의 참조를 방지하기 위해 꼭 필요한 작업입니다. 따라서 초기화 시점이 다른 let과 const의 경우 초기화가 되기 이전 상황에서는 메모리에 접근할 수 없기 때문에 이러한 오류를 내보내게 됩니다.</p>
-<h2 id="변수-할당"><a href="#변수-할당" class="headerlink" title="변수 할당"></a>변수 할당</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-
-<p>위 코드는 하나의 문처럼 보이지만 사실 두개의 문의 단축 표현입니다. 즉 자바스크립트는 변수 선언과 값의 할당을 2개의 문으로 나누어 각각 실행합니다. 따라서 단축 표현시에도 식별자 선언 후 undefined가 먼저 먼저 할당되어 초기화, 그 이후 100이라는 값이 할당이 되는 것은 변함이 없습니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="comment">// 선언</span></span><br><span class="line">score = <span class="number">100</span>;</span><br><span class="line"><span class="comment">// 할당</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="변수-초기화와-할당-시-메모리-동작"><a href="#변수-초기화와-할당-시-메모리-동작" class="headerlink" title="변수 초기화와 할당 시 메모리 동작"></a>변수 초기화와 할당 시 메모리 동작</h3><p>변수에 값이 할당될 때, undefined가 저장되어있는 메모리 공간을 지우고 그 메모리 공간에 할당 값 80을 다시 넣어주는 것이 아닙니다. 값을 할당할 때에는 변수가 참조할 메모리 영역을 새로 확보하고 그 메모리 영역을 변수가 새로이 참조하게 됩니다.</p>
-<blockquote>
-<p>왜 undefined로 초기화 된 영역을 업데이트하는 것이 아니라 새로운 영역을 확보하고 값을 할당할까? 자바스크립트가 개발자의 메모리 제어를 허용하지 않기 때문이다. 메모리를 확보하고 그 메모리의 값을 바꾼다는 것 자체가 메모리를 제어하게 되는 것이다. 엔진은 자바스크립트 기본원리에 따라 매번 값의 생성시에 임의로 새로운 메모리 주소를 부여한다. 이 때문에 메모리 동작에 있어서 매니지드 언어는 성능 상 손해를 감수할 수 밖에 없다.</p>
-</blockquote>
-<p>변수 할당 전 undefined로 초기화 되는 과정은 변수의 값이 저장될 공간을 미리 확보하는 것이 아닌 할당 전 변수에 접근했을 때 예상치 못한 결과를 막기 위한 것을 다시 한번 기억해야합니다.</p>
-<p>재할당의 경우도 마찬가지입니다. score의 값을 200으로 재할당 한다면 기존 100이 저장된 메모리의 값을 변경하는 것이 아니라 새로운 메모리 공간을 확보하여 값을 저장합니다.</p>
-<h2 id="가비지-컬렉터"><a href="#가비지-컬렉터" class="headerlink" title="가비지 컬렉터"></a>가비지 컬렉터</h2><p>변수의 동작 과정에서 초기화, 할당, 재할당 시 새로운 메모리 공간을 확보하게 된다고 했습니다. 이 때 변수가 더 이상 참조하지 않게 되는 메모리 공간은 어떻게 될까요?<br>가비지 컬렉터가 메모리를 해제하여 메모리 누수를 방지합니다. 언제 가비지 컬렉터가 메모리를 해제하는지는 예측할 수 없습니다. 또한 가비지 컬렉터는 단순히 확보한 메모리 (더 이상 이 메모리를 참조할 수 없는 상태)를 해제할 뿐이지 메모리에 저장된 값 자체를 삭제하지는 않습니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="이전 페이지"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="이전 페이지"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="다음 페이지"></i></a>
   </nav>
 
 </div>
