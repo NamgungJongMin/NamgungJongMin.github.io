@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -16,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="이벤트 핸들러는 이벤트가 발생했을 때 브라우저에 호출을 위임한 함수입니다. 이벤트가 발생하면 자바스크립트 엔진은 브라우저에게 이벤트 핸들러의 호출을 위임하게 하는 것을 이벤트 핸들러 등록이라고 합니다. 이벤트 핸들러를 등록하는 방법은 총 3가지입니다. ‘이벤트 핸들러 어트리뷰트 방식’, ‘이벤트 핸들러 프로퍼티 방식’, ‘addEventListener 방">
 <meta property="og:type" content="article">
@@ -58,6 +57,8 @@
 
 
 
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -68,8 +69,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
@@ -89,7 +90,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
     </div>
   </div>
 </div>
@@ -104,15 +105,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -133,13 +128,13 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
       src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
   <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -159,36 +154,24 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -272,8 +255,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
 <p>이벤트 핸들러는 이벤트가 발생했을 때 브라우저에 호출을 위임한 함수입니다. 이벤트가 발생하면 자바스크립트 엔진은 브라우저에게 이벤트 핸들러의 호출을 위임하게 하는 것을 이벤트 핸들러 등록이라고 합니다. 이벤트 핸들러를 등록하는 방법은 총 3가지입니다. ‘이벤트 핸들러 어트리뷰트 방식’, ‘이벤트 핸들러 프로퍼티 방식’, ‘addEventListener 방식’으로 이벤트 핸들러를 등록합니다.</p>
 <p>이벤트 핸들러 어트리뷰트 방식은 오래된 코드에서 간혹 확인해볼 수 있기 때문에 이런 것이 있다고만 알아두는 것이 좋습니다. HTML과 자바스크립트는 마크업과 Interection이라는 서로 다른 관심사를 가지고 있기 때문에 혼재하는 것보다는 분리하는 것이 좋습니다. 이번 포스팅에서는 자바스크립트 내에서 핸들러를 등록하는 두가지 방식을 중점적으로 비교하겠습니다.</p>
 <hr>
@@ -319,12 +301,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/2023/08/19/js/24_innerHTML%EB%AC%B8%EC%A0%9C%EC%A0%90/" rel="prev" title="innerHTML 프로퍼티 사용의 위험성">
-                  <i class="fa fa-chevron-left"></i> innerHTML 프로퍼티 사용의 위험성
+                  <i class="fa fa-angle-left"></i> innerHTML 프로퍼티 사용의 위험성
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/2023/08/28/fc-yanolja/javascript-refactoring/" rel="next" title="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_JavaScript 과제 리팩토링">
-                  패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_JavaScript 과제 리팩토링 <i class="fa fa-chevron-right"></i>
+                  패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_JavaScript 과제 리팩토링 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -348,15 +330,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
@@ -374,10 +355,28 @@
   </footer>
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
 
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
 
 
 

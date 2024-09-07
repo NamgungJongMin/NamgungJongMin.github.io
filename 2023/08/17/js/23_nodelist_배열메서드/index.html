@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -16,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="DOM 컬렉션 객체인 HTMLCollection 객체와 NodeList 객체는 DOM API가 여러 개의 값을 반환하기위한 객체입니다. 둘다 유사배열 객체이면서 이터러블이므로 for…of문을 포함한 여러 방법으로 순회가 가능합니다. 또한 스프레드 문법을 사용하여 배열로 간단히 변환할 수 있습니다. HTMLCollection과 NodeList는 노드 객체의">
 <meta property="og:type" content="article">
@@ -58,6 +57,8 @@
 
 
 
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -68,8 +69,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
@@ -89,7 +90,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
     </div>
   </div>
 </div>
@@ -104,15 +105,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -133,13 +128,13 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
       src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
   <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -159,36 +154,24 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -272,8 +255,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
 <p>DOM 컬렉션 객체인 HTMLCollection 객체와 NodeList 객체는 DOM API가 여러 개의 값을 반환하기위한 객체입니다. 둘다 유사배열 객체이면서 이터러블이므로 for…of문을 포함한 여러 방법으로 순회가 가능합니다. 또한 스프레드 문법을 사용하여 배열로 간단히 변환할 수 있습니다.</p>
 <p>HTMLCollection과 NodeList는 노드 객체의 상태를 실시간으로 반영하는 살아있는 객체라는 것입니다. HTMLCollection 객체는 언제나 ‘live 객체’로 동작하지만 NodeList 객체는 기본적으로 실시간으로 반영하지 않고 과거의 상태를 유지하지면 경우에 따라서는 live 객체로 동작합니다.</p>
 <h1 id="HTMLCollection-객체"><a href="#HTMLCollection-객체" class="headerlink" title="HTMLCollection 객체"></a>HTMLCollection 객체</h1><p>HTMLCollection 객체는 getElementsByTagName, getElementByClassName 메서가 반환하는 노드 객체입니다. HTMLCollection 객체는 노드 객체의 상태 변화를 실시간으로 반영하는 살아있는 DOM 컬렉션 객체로 ‘live 객체’라고 부르기도 합니다.</p>
@@ -313,12 +295,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/2023/08/08/fc-yanolja/html-css/" rel="prev" title="패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_HTML/CSS 과제 리팩토링">
-                  <i class="fa fa-chevron-left"></i> 패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_HTML/CSS 과제 리팩토링
+                  <i class="fa fa-angle-left"></i> 패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_HTML/CSS 과제 리팩토링
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/2023/08/19/js/24_innerHTML%EB%AC%B8%EC%A0%9C%EC%A0%90/" rel="next" title="innerHTML 프로퍼티 사용의 위험성">
-                  innerHTML 프로퍼티 사용의 위험성 <i class="fa fa-chevron-right"></i>
+                  innerHTML 프로퍼티 사용의 위험성 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -342,15 +324,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
@@ -368,10 +349,28 @@
   </footer>
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
 
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
 
 
 

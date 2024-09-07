@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -16,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.13.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="과제를 진행하며 느낀점지금까지 배웠던 것들을 전부 사용해서 많은 것을 해보고 싶었는데 막상 구현에 들어가니 막히는 것이 많았다.막힐 때마다 구글링을 통해 확인하고 여러 시행착오를 거치게 되고, 계획했던 그날의 계획들이 모조리 깨지는 것을 보면서 단순 강의를 보고 배우는 것과 실제로 내가 고민하고 코드를 작성하는 것이 얼마나 차이가 큰지 새삼 느끼게 되었다">
 <meta property="og:type" content="article">
@@ -59,6 +58,8 @@
 
 
 
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -69,8 +70,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
@@ -90,7 +91,7 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
     </div>
   </div>
 </div>
@@ -105,15 +106,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -134,13 +129,13 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
       src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
   <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -160,36 +155,24 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -273,8 +256,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p><img src="/images/yanolja/2023-07-10-23-14-24.png"></p>
+    <div class="post-body" itemprop="articleBody"><p><img src="/images/yanolja/2023-07-10-23-14-24.png"></p>
 <h1 id="과제를-진행하며-느낀점"><a href="#과제를-진행하며-느낀점" class="headerlink" title="과제를 진행하며 느낀점"></a>과제를 진행하며 느낀점</h1><p>지금까지 배웠던 것들을 전부 사용해서 많은 것을 해보고 싶었는데 막상 구현에 들어가니 막히는 것이 많았다.<br>막힐 때마다 구글링을 통해 확인하고 여러 시행착오를 거치게 되고, 계획했던 그날의 계획들이 모조리 깨지는 것을 보면서 단순 강의를 보고 배우는 것과 실제로 내가 고민하고 코드를 작성하는 것이 얼마나 차이가 큰지 새삼 느끼게 되었다.</p>
 <p>Sass를 사용하면서 mixin을 실제로 써보니 어떤 코드까지를 중복으로 판단해야 할지 몰라서 고민하며 시간을 보내기도 했고, html의 접근성을 공부하고 적용하기 위해 코드를 짤 때 항상 생각하고 작성했지만 실제 자동 감사 도구에서는 안좋은 점수를 맞기도 했다.</p>
 <p>또한 sprite-image의 활용이나 기획에 기반한 style 작성 등 초기에 계획했던 것들과 실제 내가 행한 5일은 많은 차이가 있었다. sprite-image는 이해가 부족하여 충분히 활용하지 못했고, Media Query 같은 경우에도 처음 기획한 코드 구성과 거리가 너무 멀었다. 시간에 쫓기고 시행착오를 반복하다 보니 마음이 급해졌고, 코드 또한 기획가 달리 점점 난잡해져갔다.</p>
@@ -326,12 +308,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/2023/08/01/js/14_%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" rel="prev" title="프로토타입을 활용한 객체 지향 프로그래밍">
-                  <i class="fa fa-chevron-left"></i> 프로토타입을 활용한 객체 지향 프로그래밍
+                  <i class="fa fa-angle-left"></i> 프로토타입을 활용한 객체 지향 프로그래밍
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/2023/08/17/js/23_nodelist_%EB%B0%B0%EC%97%B4%EB%A9%94%EC%84%9C%EB%93%9C/" rel="next" title="배열과 HTMLCollection / NodeList 객체">
-                  배열과 HTMLCollection / NodeList 객체 <i class="fa fa-chevron-right"></i>
+                  배열과 HTMLCollection / NodeList 객체 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -355,15 +337,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
@@ -381,10 +362,28 @@
   </footer>
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
 
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
 
 
 
