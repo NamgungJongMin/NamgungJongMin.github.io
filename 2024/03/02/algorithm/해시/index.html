@@ -20,24 +20,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="코딩 테스트 문제 중에 데이터를 순회화며 결과를 키 값에 저장해야 할 때가 있습니다. 배열의 인덱스처럼 의미를 부여하여 사용하는 것이 아닌 의미를 지닌 키 값에 직접적으로 데이터를 매칭시킬 수 있는 방법이며, 검색에서의 시간복잡도 또한 O(1)로 효율적인 알고리즘입니다.  ▪︎ 해시 알고리즘 (Hash)기본적으로 배열에 key: value 값으로 데이터를">
+    <meta name="description" content="코딩 테스트 문제 중에 데이터를 순회화며 결과를 키 값에 저장해야 할 때가 있습니다. 배열의 인덱스처럼 의미를 부여하여 사용하는 것이 아닌 의미를 지닌 키 값에 직접적으로 데이터를 매칭시킬 수 있는 방법이며, 검색에서의 시간복잡도 또한 O(1)로 효율적인 알고리즘입니다.  ▪︎ 해시 알고리즘 (Hash)기본적으로 배열에 key: value 값으로 데이터">
 <meta property="og:type" content="article">
 <meta property="og:title" content="해시 ) KEY 값에 문자열을 부여해 데이터를 저장하는 방법">
 <meta property="og:url" content="https://namgungjongmin.github.io/2024/03/02/algorithm/%ED%95%B4%EC%8B%9C/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="코딩 테스트 문제 중에 데이터를 순회화며 결과를 키 값에 저장해야 할 때가 있습니다. 배열의 인덱스처럼 의미를 부여하여 사용하는 것이 아닌 의미를 지닌 키 값에 직접적으로 데이터를 매칭시킬 수 있는 방법이며, 검색에서의 시간복잡도 또한 O(1)로 효율적인 알고리즘입니다.  ▪︎ 해시 알고리즘 (Hash)기본적으로 배열에 key: value 값으로 데이터를">
+<meta property="og:description" content="코딩 테스트 문제 중에 데이터를 순회화며 결과를 키 값에 저장해야 할 때가 있습니다. 배열의 인덱스처럼 의미를 부여하여 사용하는 것이 아닌 의미를 지닌 키 값에 직접적으로 데이터를 매칭시킬 수 있는 방법이며, 검색에서의 시간복잡도 또한 O(1)로 효율적인 알고리즘입니다.  ▪︎ 해시 알고리즘 (Hash)기본적으로 배열에 key: value 값으로 데이터">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/a6f8e97b-881b-494c-8c68-123a2544cbc3/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/3f079d73-7378-4a1e-a5e6-3bba18b0f2e1/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/5607d50a-c95e-43a8-850c-0bc8f91c76e2/image.png">
 <meta property="article:published_time" content="2024-03-02T13:42:24.000Z">
-<meta property="article:modified_time" content="2025-02-07T14:38:31.441Z">
+<meta property="article:modified_time" content="2025-02-07T14:52:24.147Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="알고리즘">
 <meta property="article:tag" content="해시">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/a6f8e97b-881b-494c-8c68-123a2544cbc3/image.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2024/03/02/algorithm/%ED%95%B4%EC%8B%9C/">
@@ -253,7 +254,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
 <p>코딩 테스트 문제 중에 데이터를 순회화며 결과를 키 값에 저장해야 할 때가 있습니다. 배열의 인덱스처럼 의미를 부여하여 사용하는 것이 아닌 의미를 지닌 키 값에 직접적으로 데이터를 매칭시킬 수 있는 방법이며, 검색에서의 시간복잡도 또한 O(1)로 효율적인 알고리즘입니다.</p>
 </blockquote>
 <h1 id="▪︎-해시-알고리즘-Hash"><a href="#▪︎-해시-알고리즘-Hash" class="headerlink" title="▪︎ 해시 알고리즘 (Hash)"></a>▪︎ 해시 알고리즘 (Hash)</h1><p>기본적으로 배열에 key: value 값으로 데이터를 저장하면 구현이 가능합니다.</p>

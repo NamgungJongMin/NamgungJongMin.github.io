@@ -20,20 +20,22 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="▪︎ 적용할 정규식 개념▫︎ 검색 기준 패턴^문자열 특정 문자열로 시작합니다. (시작점) 문자열$ 특정 문자열로 끝납니다. (종착점) ▫︎ 갯수 반복 패턴 최소 한개 or 여러개  ▪︎ 숫자 앞 뒤의 반복되는 9를 제거하기▫︎ 숫자 앞의 반복되는 9 제거1234const num &#x3D; 99193;const changedNum &#x3D; Number(String(num">
+    <meta name="description" content="▪︎ 적용할 정규식 개념▫︎ 검색 기준 패턴^문자열 특정 문자열로 시작합니다. (시작점) 문자열$ 특정 문자열로 끝납니다. (종착점) ▫︎ 갯수 반복 패턴 최소 한개 or 여러개  ▪︎ 숫자 앞 뒤의 반복되는 9를 제거하기▫︎ 숫자 앞의 반복되는 9 제거1234const num &#x3D; 99193;const changedNum &#x3D; Number(String(nu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="method ) replace를 활용한 숫자 앞 뒤 대상 지우기">
 <meta property="og:url" content="https://namgungjongmin.github.io/2023/08/31/algorithm/replace%20%ED%99%9C%EC%9A%A9%20%EC%95%9E%EB%92%A4%20%EB%8C%80%EC%83%81%20%EC%A7%80%EC%9A%B0%EA%B8%B0/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="▪︎ 적용할 정규식 개념▫︎ 검색 기준 패턴^문자열 특정 문자열로 시작합니다. (시작점) 문자열$ 특정 문자열로 끝납니다. (종착점) ▫︎ 갯수 반복 패턴 최소 한개 or 여러개  ▪︎ 숫자 앞 뒤의 반복되는 9를 제거하기▫︎ 숫자 앞의 반복되는 9 제거1234const num &#x3D; 99193;const changedNum &#x3D; Number(String(num">
+<meta property="og:description" content="▪︎ 적용할 정규식 개념▫︎ 검색 기준 패턴^문자열 특정 문자열로 시작합니다. (시작점) 문자열$ 특정 문자열로 끝납니다. (종착점) ▫︎ 갯수 반복 패턴 최소 한개 or 여러개  ▪︎ 숫자 앞 뒤의 반복되는 9를 제거하기▫︎ 숫자 앞의 반복되는 9 제거1234const num &#x3D; 99193;const changedNum &#x3D; Number(String(nu">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 <meta property="article:published_time" content="2023-08-31T06:33:19.000Z">
-<meta property="article:modified_time" content="2025-02-07T14:41:05.279Z">
+<meta property="article:modified_time" content="2025-02-07T14:51:53.165Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="method">
 <meta property="article:tag" content="replace">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2023/08/31/algorithm/replace%20%ED%99%9C%EC%9A%A9%20%EC%95%9E%EB%92%A4%20%EB%8C%80%EC%83%81%20%EC%A7%80%EC%9A%B0%EA%B8%B0/">
@@ -249,7 +251,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="▪︎-적용할-정규식-개념"><a href="#▪︎-적용할-정규식-개념" class="headerlink" title="▪︎ 적용할 정규식 개념"></a>▪︎ 적용할 정규식 개념</h1><h2 id="▫︎-검색-기준-패턴"><a href="#▫︎-검색-기준-패턴" class="headerlink" title="▫︎ 검색 기준 패턴"></a>▫︎ 검색 기준 패턴</h2><p>^문자열 특정 문자열로 시작합니다. (시작점)</p>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<h1 id="▪︎-적용할-정규식-개념"><a href="#▪︎-적용할-정규식-개념" class="headerlink" title="▪︎ 적용할 정규식 개념"></a>▪︎ 적용할 정규식 개념</h1><h2 id="▫︎-검색-기준-패턴"><a href="#▫︎-검색-기준-패턴" class="headerlink" title="▫︎ 검색 기준 패턴"></a>▫︎ 검색 기준 패턴</h2><p>^문자열 특정 문자열로 시작합니다. (시작점)</p>
 <p>문자열$ 특정 문자열로 끝납니다. (종착점)</p>
 <h2 id="▫︎-갯수-반복-패턴"><a href="#▫︎-갯수-반복-패턴" class="headerlink" title="▫︎ 갯수 반복 패턴"></a>▫︎ 갯수 반복 패턴</h2><ul>
 <li>최소 한개 or 여러개</li>

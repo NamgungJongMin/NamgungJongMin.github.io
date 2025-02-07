@@ -20,19 +20,20 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.  ▪︎ 선택 정렬 선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요소">
+    <meta name="description" content="이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.  ▪︎ 선택 정렬 선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요">
 <meta property="og:type" content="article">
 <meta property="og:title" content="정렬 ) O(N^2)의 대표적인 정렬 방법">
 <meta property="og:url" content="https://namgungjongmin.github.io/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.  ▪︎ 선택 정렬 선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요소">
+<meta property="og:description" content="이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.  ▪︎ 선택 정렬 선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/0b922ac7-1511-4d62-bb81-03ce00f98da2/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/4f3f8406-d792-4914-a75a-9e06f078a8cd/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/13664fbe-8031-4527-bc60-650aadbbe08b/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/5fed9f67-2632-4b68-8d0f-46e5170ba6c9/image.png">
 <meta property="article:published_time" content="2024-03-07T03:42:44.000Z">
-<meta property="article:modified_time" content="2025-02-07T14:38:55.577Z">
+<meta property="article:modified_time" content="2025-02-07T14:52:17.953Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="알고리즘">
@@ -41,7 +42,7 @@
 <meta property="article:tag" content="삽입정렬">
 <meta property="article:tag" content="버블정렬">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/0b922ac7-1511-4d62-bb81-03ce00f98da2/image.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/">
@@ -257,7 +258,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
 <p>이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.</p>
 </blockquote>
 <h1 id="▪︎-선택-정렬"><a href="#▪︎-선택-정렬" class="headerlink" title="▪︎ 선택 정렬"></a>▪︎ 선택 정렬</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/0b922ac7-1511-4d62-bb81-03ce00f98da2/image.png" alt="Untitled"></p>

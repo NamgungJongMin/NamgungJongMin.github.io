@@ -20,24 +20,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="▪︎ 연결리스트 (Linked List) 연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다. 연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율적">
+    <meta name="description" content="▪︎ 연결리스트 (Linked List) 연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다. 연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율">
 <meta property="og:type" content="article">
 <meta property="og:title" content="자료구조 ) 연결리스트로 배열의 단점을 해결하기">
 <meta property="og:url" content="https://namgungjongmin.github.io/2023/08/24/algorithm/linkedList/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="▪︎ 연결리스트 (Linked List) 연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다. 연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율적">
+<meta property="og:description" content="▪︎ 연결리스트 (Linked List) 연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다. 연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/ec941b21-87c9-4399-9f39-16ecd9de1ff4/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/afeef0b1-5e5b-46c6-82c9-01ec85ed03d2/image.png">
 <meta property="article:published_time" content="2023-08-24T14:33:12.000Z">
-<meta property="article:modified_time" content="2025-02-07T14:41:23.867Z">
+<meta property="article:modified_time" content="2025-02-07T14:49:35.126Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="자료구조">
 <meta property="article:tag" content="LinkedList">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2023/08/24/algorithm/linkedList/">
@@ -253,7 +254,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="▪︎-연결리스트-Linked-List"><a href="#▪︎-연결리스트-Linked-List" class="headerlink" title="▪︎ 연결리스트 (Linked List)"></a>▪︎ 연결리스트 (Linked List)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png" alt="image.png"></p>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<h1 id="▪︎-연결리스트-Linked-List"><a href="#▪︎-연결리스트-Linked-List" class="headerlink" title="▪︎ 연결리스트 (Linked List)"></a>▪︎ 연결리스트 (Linked List)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png" alt="image.png"></p>
 <p>연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다.</p>
 <p>연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율적인 처리가 가능합니다. 예를들어 배열의 앞쪽에 새로운 데이터를 추가하는 push 메서드, 배열의 앞쪽의 데이터를 삭제하는 shift 메서드는 인덱스의 변경으로 인해 O(N)의 시간복잡도로 처리됩니다. 그러나 연결리스트에서 같은 동작을 수행한다면 새로운 노드를 생성하고 그 노드의 포인터만 앞쪽 노드로 가리켜주면 되기 때문에 O(1)의 시간복잡도로 처리가 가능합니다.</p>
 <h2 id="▫︎-연결리스트의-구현"><a href="#▫︎-연결리스트의-구현" class="headerlink" title="▫︎ 연결리스트의 구현"></a>▫︎ 연결리스트의 구현</h2><p>자바스크립트에서 연결리스트의 구현은 3단계로 구분할 수 있습니다.</p>

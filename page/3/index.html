@@ -369,7 +369,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="▪︎-적용할-정규식-개념"><a href="#▪︎-적용할-정규식-개념" class="headerlink" title="▪︎ 적용할 정규식 개념"></a>▪︎ 적용할 정규식 개념</h1><h2 id="▫︎-검색-기준-패턴"><a href="#▫︎-검색-기준-패턴" class="headerlink" title="▫︎ 검색 기준 패턴"></a>▫︎ 검색 기준 패턴</h2><p>^문자열 특정 문자열로 시작합니다. (시작점)</p>
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<h1 id="▪︎-적용할-정규식-개념"><a href="#▪︎-적용할-정규식-개념" class="headerlink" title="▪︎ 적용할 정규식 개념"></a>▪︎ 적용할 정규식 개념</h1><h2 id="▫︎-검색-기준-패턴"><a href="#▫︎-검색-기준-패턴" class="headerlink" title="▫︎ 검색 기준 패턴"></a>▫︎ 검색 기준 패턴</h2><p>^문자열 특정 문자열로 시작합니다. (시작점)</p>
 <p>문자열$ 특정 문자열로 끝납니다. (종착점)</p>
 <h2 id="▫︎-갯수-반복-패턴"><a href="#▫︎-갯수-반복-패턴" class="headerlink" title="▫︎ 갯수 반복 패턴"></a>▫︎ 갯수 반복 패턴</h2><ul>
 <li>최소 한개 or 여러개</li>
@@ -468,7 +469,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
 <p>배열을 조작하여 원하는 값을 도출할 때 배열을 조작하는 로직의 시간복잡도 때문에 고민하는 경우가 있습니다. 예를들어 O(N)의 시간복잡도로 구현해야하는 문제에서 순회문 안에서 배열의 앞의 원소를 추가&#x2F;삭제하거나 배열에서 가장 크거나 작은 값을 뽑아오는 경우가 그렇습니다. 저번 포스트에서는 배열의 앞쪽 원소를 조작할 때의 시간복잡도를 연결리스트 자료구조로 줄일 수 있다는 것을 확인하였습니다. 이번 포스트에서는 힙 자료구조를 통해 우선순위큐를 구현하여 배열 원소들 중 최대&#x2F;최소값을 O(logN)의 시간복잡도로 처리하는 방법을 알아보겠습니다.</p>
 </blockquote>
 <h1 id="▪︎-힙-Heap"><a href="#▪︎-힙-Heap" class="headerlink" title="▪︎ 힙 (Heap)"></a>▪︎ 힙 (Heap)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/d4c1cd8f-1e99-4430-adc6-49ea5a543c68/image.png" alt="image.png"></p>
@@ -721,7 +723,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="▪︎-연결리스트-Linked-List"><a href="#▪︎-연결리스트-Linked-List" class="headerlink" title="▪︎ 연결리스트 (Linked List)"></a>▪︎ 연결리스트 (Linked List)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png" alt="image.png"></p>
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<h1 id="▪︎-연결리스트-Linked-List"><a href="#▪︎-연결리스트-Linked-List" class="headerlink" title="▪︎ 연결리스트 (Linked List)"></a>▪︎ 연결리스트 (Linked List)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png" alt="image.png"></p>
 <p>연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다.</p>
 <p>연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율적인 처리가 가능합니다. 예를들어 배열의 앞쪽에 새로운 데이터를 추가하는 push 메서드, 배열의 앞쪽의 데이터를 삭제하는 shift 메서드는 인덱스의 변경으로 인해 O(N)의 시간복잡도로 처리됩니다. 그러나 연결리스트에서 같은 동작을 수행한다면 새로운 노드를 생성하고 그 노드의 포인터만 앞쪽 노드로 가리켜주면 되기 때문에 O(1)의 시간복잡도로 처리가 가능합니다.</p>
 <h2 id="▫︎-연결리스트의-구현"><a href="#▫︎-연결리스트의-구현" class="headerlink" title="▫︎ 연결리스트의 구현"></a>▫︎ 연결리스트의 구현</h2><p>자바스크립트에서 연결리스트의 구현은 3단계로 구분할 수 있습니다.</p>
@@ -833,7 +836,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
 <p>이번 포스팅에서는 가장 기본적인 자료구조인 스택과 큐에 대해 알아보고, 우리가 자바스크립트로 개발하면서 어떻게 적용되고 있었는지 확인해보겠습니다. 가볍게 이런식으로 사용되고 있었구나 정도만 확인하고 정확한 동작원리는 따로 자바스크립트 포스팅에서 자세히 다루겠습니다.</p>
 </blockquote>
 <h1 id="▪︎-스택-Stack"><a href="#▪︎-스택-Stack" class="headerlink" title="▪︎ 스택 (Stack)"></a>▪︎ 스택 (Stack)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/b9ccf143-506c-49b2-b27e-dbb43f468fa9/image.png" alt="image.png"></p>
@@ -1277,7 +1281,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <blockquote>
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
 <p>Javascript의 reduce method의 누산기를 통해 누적되는 값을 활용하는 문제를 해결할 수 있습니다. 배열을 순회하면서 동작 결과를 기록하고 판별한 값을 저장하면서 값을 바꾸거나 이용할 때 활용하면 좋습니다.</p>
 </blockquote>
 <h1 id="Try-Code"><a href="#Try-Code" class="headerlink" title="Try Code"></a>Try Code</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0 + 1 + 2 + 3 + 4</span></span><br><span class="line"><span class="keyword">const</span> initialValue = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> sumWithInitial = array1.<span class="title function_">reduce</span>(<span class="function">(<span class="params">accumulator, currentValue</span>) =&gt;</span> accumulator + currentValue, initialValue);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sumWithInitial);</span><br><span class="line"><span class="comment">// Expected output: 10</span></span><br></pre></td></tr></table></figure>

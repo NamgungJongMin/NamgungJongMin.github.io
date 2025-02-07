@@ -20,27 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="코딩테스트에서 그래프와 관련된 문제를 만났을 때, 해당 그래프를 순회하고 조작할 수 있는 정제된 형태의 데이터로 만들 필요가 있습니다. 이번 포스트에서는 여러 그래프의 종료들의 분석하는 방법과 함께 그래프 정보를 인접행렬 &#x2F; 인접리스트 데이터로 정제하는 방법에 대해 다뤄보겠습니다.  ▪︎ 무방향 그래프 무방향 그래프는 노드가 서로 양방향으로 연결">
+    <meta name="description" content="코딩테스트에서 그래프와 관련된 문제를 만났을 때, 해당 그래프를 순회하고 조작할 수 있는 정제된 형태의 데이터로 만들 필요가 있습니다. 이번 포스트에서는 여러 그래프의 종료들의 분석하는 방법과 함께 그래프 정보를 인접행렬 &#x2F; 인접리스트 데이터로 정제하는 방법에 대해 다뤄보겠습니다.  ▪︎ 무방향 그래프 무방향 그래프는 노드가 서로 양방향으로 연">
 <meta property="og:type" content="article">
 <meta property="og:title" content="그래프 ) 배열 데이터로 정제하기">
 <meta property="og:url" content="https://namgungjongmin.github.io/2024/03/25/algorithm/%EA%B7%B8%EB%9E%98%ED%94%84/index.html">
 <meta property="og:site_name" content="Namgung Jong Min">
-<meta property="og:description" content="코딩테스트에서 그래프와 관련된 문제를 만났을 때, 해당 그래프를 순회하고 조작할 수 있는 정제된 형태의 데이터로 만들 필요가 있습니다. 이번 포스트에서는 여러 그래프의 종료들의 분석하는 방법과 함께 그래프 정보를 인접행렬 &#x2F; 인접리스트 데이터로 정제하는 방법에 대해 다뤄보겠습니다.  ▪︎ 무방향 그래프 무방향 그래프는 노드가 서로 양방향으로 연결">
+<meta property="og:description" content="코딩테스트에서 그래프와 관련된 문제를 만났을 때, 해당 그래프를 순회하고 조작할 수 있는 정제된 형태의 데이터로 만들 필요가 있습니다. 이번 포스트에서는 여러 그래프의 종료들의 분석하는 방법과 함께 그래프 정보를 인접행렬 &#x2F; 인접리스트 데이터로 정제하는 방법에 대해 다뤄보겠습니다.  ▪︎ 무방향 그래프 무방향 그래프는 노드가 서로 양방향으로 연">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/f238072b-4c39-49e0-9a55-b049eecd5750/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/55c2451c-d4c9-447c-8b82-cbd9bcdef88d/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/7601dc13-cef7-4d7a-9ced-03d1bd1acdd7/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/afb6628e-d06b-437f-a4d0-b0c342c642e3/image.png">
 <meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/f9ba602a-af2f-45a3-ba4d-bdfae53610aa/image.png">
 <meta property="article:published_time" content="2024-03-25T05:35:52.000Z">
-<meta property="article:modified_time" content="2025-02-07T14:40:35.495Z">
+<meta property="article:modified_time" content="2025-02-07T14:51:58.288Z">
 <meta property="article:author" content="Namgung Jong Min">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="그래프">
 <meta property="article:tag" content="알고리즘">
 <meta property="article:tag" content="배열 변환">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/f238072b-4c39-49e0-9a55-b049eecd5750/image.png">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png">
 
 
 <link rel="canonical" href="https://namgungjongmin.github.io/2024/03/25/algorithm/%EA%B7%B8%EB%9E%98%ED%94%84/">
@@ -256,7 +257,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><blockquote>
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
 <p>코딩테스트에서 그래프와 관련된 문제를 만났을 때, 해당 그래프를 순회하고 조작할 수 있는 정제된 형태의 데이터로 만들 필요가 있습니다. 이번 포스트에서는 여러 그래프의 종료들의 분석하는 방법과 함께 그래프 정보를 인접행렬 &#x2F; 인접리스트 데이터로 정제하는 방법에 대해 다뤄보겠습니다.</p>
 </blockquote>
 <h1 id="▪︎-무방향-그래프"><a href="#▪︎-무방향-그래프" class="headerlink" title="▪︎ 무방향 그래프"></a>▪︎ 무방향 그래프</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/f238072b-4c39-49e0-9a55-b049eecd5750/image.png" alt="image.png"></p>
