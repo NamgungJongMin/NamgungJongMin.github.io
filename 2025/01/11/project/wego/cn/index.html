@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="프로젝트를 진행하면서 버튼 컴포넌트와 같은 공통 컴포넌트를 설계할 때, 확장성과 재사용성을 최우선으로 고려했습니다. 이를 위해 cva, clsx, tailwind-merge라는 세 가지 라이브러리를 조합하여 사용했는데요, 이번 글에서는 각 라이브러리의 특징과 이들을 조합했을 때의 시너지에 대해 공유하고자 합니다.  ▪︎ 각 라이브러리의 특징과 역할▫︎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEGO ) Tailwind CSS로 확장성과 재사용성을 고려한 공통 컴포넌트 설계하기">
+<meta property="og:url" content="https://namgungjongmin.github.io/2025/01/11/project/wego/cn/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="프로젝트를 진행하면서 버튼 컴포넌트와 같은 공통 컴포넌트를 설계할 때, 확장성과 재사용성을 최우선으로 고려했습니다. 이를 위해 cva, clsx, tailwind-merge라는 세 가지 라이브러리를 조합하여 사용했는데요, 이번 글에서는 각 라이브러리의 특징과 이들을 조합했을 때의 시너지에 대해 공유하고자 합니다.  ▪︎ 각 라이브러리의 특징과 역할▫︎">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+<meta property="article:published_time" content="2025-01-11T08:32:17.000Z">
+<meta property="article:modified_time" content="2025-02-07T17:17:21.997Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="WEGO">
+<meta property="article:tag" content="프로젝트">
+<meta property="article:tag" content="tailwind css">
+<meta property="article:tag" content="clsx">
+<meta property="article:tag" content="cva">
+<meta property="article:tag" content="tailwind merge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2025/01/11/project/wego/cn/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2025/01/11/project/wego/cn/","path":"2025/01/11/project/wego/cn/","title":"WEGO ) Tailwind CSS로 확장성과 재사용성을 고려한 공통 컴포넌트 설계하기"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>WEGO ) Tailwind CSS로 확장성과 재사용성을 고려한 공통 컴포넌트 설계하기 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EA%B0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EC%9D%98-%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%97%AD%ED%95%A0"><span class="nav-number">1.</span> <span class="nav-text">▪︎ 각 라이브러리의 특징과 역할</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-CVA-Class-Variance-Authority"><span class="nav-number">1.1.</span> <span class="nav-text">▫︎ CVA (Class Variance Authority)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-CLSX"><span class="nav-number">1.2.</span> <span class="nav-text">▫︎ CLSX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-Tailwind-Merge"><span class="nav-number">1.3.</span> <span class="nav-text">▫︎ Tailwind Merge</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%84%B8-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EB%A5%BC-%EC%A1%B0%ED%95%A9%ED%95%9C-%EC%9C%A0%ED%8B%B8%ED%95%A8%EC%88%98-%ED%99%9C%EC%9A%A9"><span class="nav-number">2.</span> <span class="nav-text">▪︎ 세 라이브러리를 조합한 유틸함수 활용</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%EA%B0%9C%EB%B0%9C-%EA%B2%BD%ED%97%98-%ED%96%A5%EC%83%81"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 개발 경험 향상</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%EC%84%B1-%EA%B0%9C%EC%84%A0"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 유지보수성 개선</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%ED%99%95%EC%9E%A5%EC%84%B1-%ED%99%95%EB%B3%B4"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. 확장성 확보</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%8B%9C"><span class="nav-number">3.</span> <span class="nav-text">▪︎ 컴포넌트 사용 예시</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9D%B8-%EC%82%AC%EC%9A%A9-%ED%8C%A8%ED%84%B4"><span class="nav-number">3.1.</span> <span class="nav-text">▫︎ 기본적인 사용 패턴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%ED%99%9C%EC%9A%A9-%ED%8C%A8%ED%84%B4"><span class="nav-number">3.2.</span> <span class="nav-text">▫︎ 활용 패턴</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%EC%99%80-%ED%99%95%EC%9E%A5"><span class="nav-number">4.</span> <span class="nav-text">▪︎ 유지보수와 확장</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%EC%83%88%EB%A1%9C%EC%9A%B4-%EB%94%94%EC%9E%90%EC%9D%B8-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EB%8C%80%EC%9D%91"><span class="nav-number">4.0.1.</span> <span class="nav-text">1. 새로운 디자인 요구사항 대응</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%EC%9D%BC%EA%B4%80%EC%84%B1-%EC%9C%A0%EC%A7%80"><span class="nav-number">4.0.2.</span> <span class="nav-text">2. 일관성 유지</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%ED%8C%80-%ED%98%91%EC%97%85"><span class="nav-number">4.0.3.</span> <span class="nav-text">3. 팀 협업</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%A7%88%EC%B9%98%EB%A9%B0"><span class="nav-number">5.</span> <span class="nav-text">▪︎ 마치며</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%8B%A4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90%EC%84%9C%EC%9D%98-%ED%9A%A8%EA%B3%BC"><span class="nav-number">5.1.</span> <span class="nav-text">▫︎ 실제 프로젝트에서의 효과</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/11/project/wego/cn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="WEGO ) Tailwind CSS로 확장성과 재사용성을 고려한 공통 컴포넌트 설계하기 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WEGO ) Tailwind CSS로 확장성과 재사용성을 고려한 공통 컴포넌트 설계하기
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-11 17:32:17" itemprop="dateCreated datePublished" datetime="2025-01-11T17:32:17+09:00">2025-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/11/project/wego/cn/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/11/project/wego/cn/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<blockquote>
+<p>프로젝트를 진행하면서 버튼 컴포넌트와 같은 공통 컴포넌트를 설계할 때, 확장성과 재사용성을 최우선으로 고려했습니다. 이를 위해 cva, clsx, tailwind-merge라는 세 가지 라이브러리를 조합하여 사용했는데요, 이번 글에서는 각 라이브러리의 특징과 이들을 조합했을 때의 시너지에 대해 공유하고자 합니다.</p>
+</blockquote>
+<h1 id="▪︎-각-라이브러리의-특징과-역할"><a href="#▪︎-각-라이브러리의-특징과-역할" class="headerlink" title="▪︎ 각 라이브러리의 특징과 역할"></a>▪︎ 각 <strong>라이브러리의 특징과 역할</strong></h1><h2 id="▫︎-CVA-Class-Variance-Authority"><a href="#▫︎-CVA-Class-Variance-Authority" class="headerlink" title="▫︎ CVA (Class Variance Authority)"></a>▫︎ <strong>CVA (Class Variance Authority)</strong></h2><p>Class Variance Authority(CVA)는 컴포넌트의 다양한 스타일 변형(variants)을 타입 안전하게 관리할 수 있게 해주는 라이브러리입니다. 특히 Tailwind CSS와 함께 사용할 때 그 진가를 발휘하는데, 이는 미리 정의된 스타일 조합을 타입 시스템의 보호 아래 안전하게 사용할 수 있게 해줍니다.</p>
+<p>우리 프로젝트의 버튼 컴포넌트에는 다음과 같이 variants를 정의해 사용하였습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">ButtonVariants</span> = <span class="title function_">cva</span>(</span><br><span class="line">  <span class="comment">// 기본 스타일</span></span><br><span class="line">  <span class="string">&quot;body-1-m rounded disabled:border disabled:border-line-normal disabled:bg-background-alternative disabled:text-label-alternative flex items-center justify-center&quot;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">variants</span>: &#123;</span><br><span class="line">      <span class="attr">fill</span>: &#123;</span><br><span class="line">        <span class="attr">default</span>: <span class="string">&quot;bg-label-normal text-white&quot;</span>,</span><br><span class="line">        <span class="attr">white</span>: <span class="string">&quot;bg-white border border-line-strong text-line-strong&quot;</span>,</span><br><span class="line">        <span class="attr">blue</span>: <span class="string">&quot;bg-primary-normal text-white hover:text-primary-normal hover:bg-blue-100&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">size</span>: &#123;</span><br><span class="line">        <span class="attr">default</span>: <span class="string">&quot;w-[335px] h-[52px]&quot;</span>,</span><br><span class="line">        <span class="attr">full</span>: <span class="string">&quot;w-full h-[52px]&quot;</span>,</span><br><span class="line">        <span class="comment">// ... 기타 사이즈 variants</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// ... 기타 variant 그룹들</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">defaultVariants</span>: &#123;</span><br><span class="line">      <span class="attr">fill</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">      <span class="attr">size</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">      <span class="attr">font</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>이러한 CVA의 사용은 다음과 같은 구체적인 이점을 제공합니다.</p>
+<ol>
+<li><strong>타입 안전성</strong>: TypeScript와 완벽하게 통합되어, 정의되지 않은 variant 조합을 사용하려 할 때 컴파일 단계에서 오류를 발견할 수 있습니다. 예를 들어, fill&#x3D;”invalid”와 같은 잘못된 값을 사용하려 하면 즉시 TypeScript 에러가 발생합니다.</li>
+<li><strong>중앙 집중화된 스타일 관리</strong>: 모든 스타일 variant를 한 파일에서 관리함으로써, 디자인 시스템의 일관성을 유지하기가 훨씬 쉬워집니다. 스타일 수정이 필요할 때도 한 곳만 수정하면 되므로 유지보수가 용이합니다.</li>
+<li><strong>자동 완성 지원</strong>: IDE에서 사용 가능한 variant 옵션들을 자동으로 제안받을 수 있어, 개발 생산성이 크게 향상됩니다.</li>
+</ol>
+<h2 id="▫︎-CLSX"><a href="#▫︎-CLSX" class="headerlink" title="▫︎ CLSX"></a>▫︎ <strong>CLSX</strong></h2><p>CLSX는 조건부 클래스명을 처리하기 위한 유틸리티 라이브러리입니다. 특히 React 컴포넌트에서 동적인 클래스명을 다룰 때 매우 유용합니다. 이 라이브러리는 다양한 형태의 입력을 처리할 수 있으며, 최종적으로 유효한 클래스명 문자열을 생성해줍니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; clsx, <span class="title class_">ClassValue</span> &#125; <span class="keyword">from</span> <span class="string">&quot;clsx&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// clsx 사용 예시</span></span><br><span class="line"><span class="keyword">const</span> className = <span class="title function_">clsx</span>(<span class="string">&quot;base-class&quot;</span>, isActive &amp;&amp; <span class="string">&quot;active&quot;</span>, &#123; <span class="string">&quot;is-disabled&quot;</span>: isDisabled &#125;, [</span><br><span class="line">  <span class="string">&quot;additional-class-1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;additional-class-2&quot;</span>,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<p>CLSX는 다음과 같은 강력한 기능들을 제공합니다.</p>
+<ol>
+<li><strong>다양한 입력 형식 지원</strong>: 문자열, 객체, 배열 등 어떤 형태로든 클래스명을 전달할 수 있습니다. 이는 다양한 상황에서 유연하게 클래스를 조합할 수 있게 해줍니다.</li>
+<li><strong>자동 정리</strong>: falsy 값(undefined, null, false 등)을 자동으로 필터링하여 깨끗한 클래스명 문자열을 생성합니다.</li>
+<li><strong>직관적인 문법</strong>: 복잡한 조건부 클래스 로직도 읽기 쉽고 이해하기 쉬운 형태로 작성할 수 있습니다.</li>
+</ol>
+<h2 id="▫︎-Tailwind-Merge"><a href="#▫︎-Tailwind-Merge" class="headerlink" title="▫︎ Tailwind Merge"></a>▫︎ <strong>Tailwind Merge</strong></h2><p>Tailwind Merge는 Tailwind CSS를 사용할 때 발생할 수 있는 클래스 충돌 문제를 우아하게 해결해주는 라이브러리입니다. 특히 재사용 가능한 컴포넌트를 만들 때 매우 유용한데, 이는 기본 스타일과 커스텀 스타일이 충돌할 때 가장 마지막에 선언된 스타일을 우선적으로 적용하는 방식으로 동작합니다.</p>
+<p>Tailwind Merge를 통해 해결할 수 있는 실제 문제 상황을 예시로 살펴보겠습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Tailwind Merge 없이 사용할 경우</span></span><br><span class="line">&lt;button className=<span class="string">&quot;px-4 py-2 text-sm text-blue-500 px-6&quot;</span>&gt;</span><br><span class="line">  <span class="comment">// px-4와 px-6이 충돌, 브라우저 CSS 규칙에 따라 먼저 선언된 px-4가 적용됨</span></span><br><span class="line">&lt;/button&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Tailwind Merge 사용</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;twMerge(</span>&quot;<span class="attr">px-4</span> <span class="attr">py-2</span> <span class="attr">text-sm</span> <span class="attr">text-blue-500</span>&quot;, &quot;<span class="attr">px-6</span>&quot;)&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">  // 의도한 대로 px-6이 적용됨</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>Tailwind Merge는 다음과 같은 핵심적인 문제들을 해결합니다.</p>
+<ol>
+<li><strong>충돌 해결</strong>: 같은 속성을 가진 클래스들이 충돌할 때, 가장 마지막에 선언된 클래스를 우선적으로 적용합니다. 이는 CSS의 일반적인 캐스케이딩 규칙과도 일치하는 직관적인 동작입니다.</li>
+<li><strong>최적화</strong>: 중복되거나 불필요한 클래스들을 자동으로 제거하여 최종적으로 깔끔한 클래스 문자열을 생성합니다.</li>
+<li><strong>모든 Tailwind 규칙 지원</strong>: Tailwind CSS의 모든 유틸리티 클래스와 변형자(modifiers)를 완벽하게 이해하고 처리할 수 있습니다.</li>
+</ol>
+<h1 id="▪︎-세-라이브러리를-조합한-유틸함수-활용"><a href="#▪︎-세-라이브러리를-조합한-유틸함수-활용" class="headerlink" title="▪︎ 세 라이브러리를 조합한 유틸함수 활용"></a>▪︎ 세 라이브러리를 조합한 유틸함수 활용</h1><p>이 세 라이브러리를 조합하여 사용할 때 발생하는 시너지는 매우 강력합니다. 각각의 라이브러리가 가진 장점들이 서로를 보완하면서, 더욱 강력하고 유지보수하기 쉬운 컴포넌트 시스템을 구축할 수 있게 됩니다.</p>
+<p>우리 프로젝트에 적용하기 위해 세 라이브러리를 조합한 유틸함수인 cn을 작성하였습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cn.tsx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; twMerge &#125; <span class="keyword">from</span> <span class="string">&quot;tailwind-merge&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; clsx, <span class="title class_">ClassValue</span> &#125; <span class="keyword">from</span> <span class="string">&quot;clsx&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">cn</span> = (<span class="params">...inputs: ClassValue[]</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">twMerge</span>(<span class="title function_">clsx</span>(inputs));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/ <span class="title class_">Button</span>.<span class="property">tsx</span> (유틸 함수 활용한 공통 컴포넌트)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Button</span> = forwardRef&lt;<span class="title class_">HTMLButtonElement</span>, <span class="title class_">Props</span>&gt;(</span><br><span class="line">  <span class="function">(<span class="params">&#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    fill,</span></span></span><br><span class="line"><span class="params"><span class="function">    size,</span></span></span><br><span class="line"><span class="params"><span class="function">    font,</span></span></span><br><span class="line"><span class="params"><span class="function">    hover,</span></span></span><br><span class="line"><span class="params"><span class="function">    hoverBorder,</span></span></span><br><span class="line"><span class="params"><span class="function">    className,</span></span></span><br><span class="line"><span class="params"><span class="function">    classNameCondition,</span></span></span><br><span class="line"><span class="params"><span class="function">    ...props</span></span></span><br><span class="line"><span class="params"><span class="function">  &#125;, ref</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&#123;cn(</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">ButtonVariants</span>(&#123; <span class="attr">fill</span>, <span class="attr">size</span>, <span class="attr">font</span>, <span class="attr">hover</span>, <span class="attr">hoverBorder</span> &#125;),</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">className</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">classNameCondition</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        )&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        &#123;<span class="attr">...props</span>&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      &gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;/* 버튼 내용 */&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-개발-경험-향상"><a href="#1-개발-경험-향상" class="headerlink" title="1. 개발 경험 향상"></a><strong>1. 개발 경험 향상</strong></h3><ul>
+<li><strong>타입 안전성</strong>: CVA를 통해 정의된 variants는 TypeScript의 타입 검사를 받게 되어, 잘못된 prop 사용을 방지할 수 있습니다.</li>
+<li><strong>자동 완성</strong>: IDE에서 사용 가능한 모든 variant 옵션들을 자동으로 제안받을 수 있어 개발 속도가 향상됩니다.</li>
+<li><strong>디버깅 용이성</strong>: 스타일 관련 문제가 발생했을 때, 문제의 원인을 쉽게 추적할 수 있습니다.</li>
+</ul>
+<h3 id="2-유지보수성-개선"><a href="#2-유지보수성-개선" class="headerlink" title="2. 유지보수성 개선"></a><strong>2. 유지보수성 개선</strong></h3><ul>
+<li><strong>중앙 집중화된 스타일 관리</strong>: 모든 기본 스타일 변형이 한 곳에서 관리되어 일관성 유지가 쉽습니다.</li>
+<li><strong>변경 용이성</strong>: 디자인 시스템의 변경이 필요할 때, variants 정의만 수정하면 되므로 변경 사항을 쉽게 적용할 수 있습니다.</li>
+<li><strong>코드 재사용</strong>: 잘 정의된 variant 시스템으로 인해 동일한 스타일을 여러 곳에서 일관되게 사용할 수 있습니다.</li>
+</ul>
+<h3 id="3-확장성-확보"><a href="#3-확장성-확보" class="headerlink" title="3. 확장성 확보"></a><strong>3. 확장성 확보</strong></h3><ul>
+<li><strong>커스텀 스타일링</strong>: className prop을 통해 기본 스타일을 확장하거나 재정의할 수 있습니다.</li>
+<li><strong>조건부 스타일링</strong>: classNameCondition을 통해 특정 조건에 따른 스타일 적용이 가능합니다.</li>
+<li><strong>새로운 변형 추가</strong>: 새로운 디자인 요구사항이 생겼을 때 variants에 쉽게 추가할 수 있습니다.</li>
+</ul>
+<h1 id="▪︎-컴포넌트-사용-예시"><a href="#▪︎-컴포넌트-사용-예시" class="headerlink" title="▪︎ 컴포넌트 사용 예시"></a>▪︎ 컴포넌트 사용 예시</h1><h2 id="▫︎-기본적인-사용-패턴"><a href="#▫︎-기본적인-사용-패턴" class="headerlink" title="▫︎ 기본적인 사용 패턴"></a>▫︎ 기본적인 사용 패턴</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 기본 버튼</span></span><br><span class="line">&lt;<span class="title class_">Button</span></span><br><span class="line">  fill=<span class="string">&quot;default&quot;</span></span><br><span class="line">  size=<span class="string">&quot;full&quot;</span></span><br><span class="line">  label=<span class="string">&quot;로그인&quot;</span></span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 모달 내 버튼</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">size</span>=<span class="string">&quot;modal&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">label</span>=<span class="string">&quot;취소&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">/&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>이러한 기본 사용에서는 미리 정의된 variants를 통해 일관된 디자인을 유지하면서도, 각 상황에 맞는 적절한 스타일을 적용할 수 있습니다.</p>
+<h2 id="▫︎-활용-패턴"><a href="#▫︎-활용-패턴" class="headerlink" title="▫︎ 활용 패턴"></a>▫︎ 활용 패턴</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 동적 스타일링이 필요한 경우</span></span><br><span class="line">&lt;<span class="title class_">Button</span></span><br><span class="line">  fill=<span class="string">&quot;blue&quot;</span></span><br><span class="line">  size=<span class="string">&quot;modal&quot;</span></span><br><span class="line">  className=&#123;<span class="title function_">cn</span>(</span><br><span class="line">    <span class="string">&quot;mt-4&quot;</span>,</span><br><span class="line">    isSpecial &amp;&amp; <span class="string">&quot;border-2 border-primary-normal&quot;</span>,</span><br><span class="line">    isPriority ? <span class="string">&quot;shadow-lg&quot;</span> : <span class="string">&quot;shadow-sm&quot;</span></span><br><span class="line">  )&#125;</span><br><span class="line">  label=<span class="string">&quot;확인&quot;</span></span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 조건부 스타일링이 필요한 경우</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">size</span>=<span class="string">&quot;default&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">classNameCondition</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    &#x27;<span class="attr">opacity-50</span> <span class="attr">cursor-not-allowed</span>&#x27;<span class="attr">:</span> <span class="attr">isDisabled</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    &#x27;<span class="attr">shadow-md</span>&#x27;<span class="attr">:</span> <span class="attr">isActive</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    &#x27;<span class="attr">ring-2</span> <span class="attr">ring-primary-normal</span>&#x27;<span class="attr">:</span> <span class="attr">isFocused</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">label</span>=<span class="string">&quot;제출하기&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">disabled</span>=<span class="string">&#123;isDisabled&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">/&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>활용 패턴에서는 다음과 같은 이점을 얻을 수 있습니다.</p>
+<ul>
+<li>className을 통해 상황에 따른 추가적인 스타일을 적용할 수 있습니다.</li>
+<li>classNameCondition을 사용하여 여러 조건에 따른 스타일 변화를 한 번에 관리할 수 있습니다.</li>
+<li>기본 variants와 커스텀 스타일을 자연스럽게 조합할 수 있습니다.</li>
+</ul>
+<h1 id="▪︎-유지보수와-확장"><a href="#▪︎-유지보수와-확장" class="headerlink" title="▪︎ 유지보수와 확장"></a>▪︎ 유지보수와 확장</h1><p>이러한 설계는 장기적인 관점에서 큰 이점을 제공합니다.</p>
+<h3 id="1-새로운-디자인-요구사항-대응"><a href="#1-새로운-디자인-요구사항-대응" class="headerlink" title="1. 새로운 디자인 요구사항 대응"></a>1. <strong>새로운 디자인 요구사항 대응</strong></h3><ul>
+<li>새로운 variant를 추가하기 쉽습니다.</li>
+<li>기존 스타일을 수정하더라도 타입 시스템이 변경이 필요한 곳을 알려줍니다.</li>
+</ul>
+<h3 id="2-일관성-유지"><a href="#2-일관성-유지" class="headerlink" title="2. 일관성 유지"></a><strong>2. 일관성 유지</strong></h3><ul>
+<li>모든 버튼이 동일한 스타일 시스템을 따르게 됩니다.</li>
+<li>디자인 토큰의 변경이 용이합니다.</li>
+</ul>
+<h3 id="3-팀-협업"><a href="#3-팀-협업" class="headerlink" title="3. 팀 협업"></a><strong>3. 팀 협업</strong></h3><ul>
+<li>명확한 사용 방법과 타입 지원으로 다른 개발자들도 쉽게 사용할 수 있습니다.</li>
+<li>문서화가 용이합니다.</li>
+</ul>
+<h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>이번 글에서는 CVA, CLSX, Tailwind Merge를 조합하여 어떻게 확장 가능하고 유지보수하기 좋은 버튼 컴포넌트를 구현했는지 살펴보았습니다. 이러한 설계 방식을 통해 얻은 주요 이점들을 정리해보면 다음과 같습니다:</p>
+<h2 id="▫︎-실제-프로젝트에서의-효과"><a href="#▫︎-실제-프로젝트에서의-효과" class="headerlink" title="▫︎ 실제 프로젝트에서의 효과"></a><strong>▫︎ 실제 프로젝트에서의 효과</strong></h2><ol>
+<li><strong>개발 생산성 향상</strong><ul>
+<li>타입 시스템의 지원으로 실수를 사전에 방지할 수 있었습니다.</li>
+<li>자동 완성 기능으로 개발 속도가 크게 향상되었습니다.</li>
+<li>반복적인 스타일링 코드 작성이 줄어들었습니다.</li>
+</ul>
+</li>
+<li><strong>디자인 시스템 일관성 확보</strong><ul>
+<li>중앙에서 관리되는 스타일 variants로 인해 일관된 UI를 유지할 수 있었습니다.</li>
+<li>디자인 변경 사항을 쉽게 적용할 수 있었습니다.</li>
+<li>새로운 디자인 요구사항에도 유연하게 대응할 수 있었습니다.</li>
+</ul>
+</li>
+<li><strong>코드 품질 향상</strong><ul>
+<li>타입 안전성으로 인해 런타임 에러가 감소했습니다.</li>
+<li>스타일 관련 버그를 쉽게 추적하고 해결할 수 있었습니다.</li>
+<li>코드베이스가 커져도 유지보수가 어렵지 않았습니다.</li>
+</ul>
+</li>
+</ol>
+<p>이러한 접근 방식은 단순히 스타일링 문제를 해결하는 것을 넘어서, 확장 가능하고 유지보수하기 좋은 컴포넌트 시스템을 구축하는 데 큰 도움이 되었습니다. 특히 팀 단위의 개발에서 일관성을 유지하면서도 유연한 확장이 가능한 구조를 만들 수 있었다는 점에서 큰 의미가 있었습니다.</p>
+<p>앞으로도 이러한 경험을 바탕으로, 더 나은 컴포넌트 시스템을 구축해 나가도록 하겠습니다.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEGO/" rel="tag"># WEGO</a>
+              <a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag"># 프로젝트</a>
+              <a href="/tags/tailwind-css/" rel="tag"># tailwind css</a>
+              <a href="/tags/clsx/" rel="tag"># clsx</a>
+              <a href="/tags/cva/" rel="tag"># cva</a>
+              <a href="/tags/tailwind-merge/" rel="tag"># tailwind merge</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/" rel="prev" title="WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현">
+                  <i class="fa fa-angle-left"></i> WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
