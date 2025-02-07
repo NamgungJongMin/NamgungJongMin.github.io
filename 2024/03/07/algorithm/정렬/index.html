@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.  ▪︎ 선택 정렬 선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요소">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;정렬&gt; O(N^2)의 대표적인 정렬 방법">
+<meta property="og:url" content="https://namgungjongmin.github.io/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.  ▪︎ 선택 정렬 선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요소">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/0b922ac7-1511-4d62-bb81-03ce00f98da2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/4f3f8406-d792-4914-a75a-9e06f078a8cd/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/13664fbe-8031-4527-bc60-650aadbbe08b/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/5fed9f67-2632-4b68-8d0f-46e5170ba6c9/image.png">
+<meta property="article:published_time" content="2024-03-07T03:42:44.000Z">
+<meta property="article:modified_time" content="2025-02-07T10:47:26.085Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="알고리즘">
+<meta property="article:tag" content="정렬">
+<meta property="article:tag" content="선택정렬">
+<meta property="article:tag" content="삽입정렬">
+<meta property="article:tag" content="버블정렬">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/0b922ac7-1511-4d62-bb81-03ce00f98da2/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/","path":"2024/03/07/algorithm/정렬/","title":"\u003c정렬> O(N^2)의 대표적인 정렬 방법"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title><정렬> O(N^2)의 대표적인 정렬 방법 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%84%A0%ED%83%9D-%EC%A0%95%EB%A0%AC"><span class="nav-number">1.</span> <span class="nav-text">▪︎ 선택 정렬</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%82%BD%EC%9E%85-%EC%A0%95%EB%A0%AC"><span class="nav-number">2.</span> <span class="nav-text">▪︎ 삽입 정렬</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%B2%84%EB%B8%94-%EC%A0%95%EB%A0%AC"><span class="nav-number">3.</span> <span class="nav-text">▪︎ 버블 정렬</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%AC%B8%EC%A0%9C-%EC%A0%81%EC%9A%A9"><span class="nav-number">4.</span> <span class="nav-text">▪︎ 문제 적용</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%84%A0%ED%83%9D-%EC%A0%95%EB%A0%AC-%ED%92%80%EC%9D%B4"><span class="nav-number">4.1.</span> <span class="nav-text">▫︎ 선택 정렬 풀이</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%82%BD%EC%9E%85-%EC%A0%95%EB%A0%AC-%ED%92%80%EC%9D%B4"><span class="nav-number">4.2.</span> <span class="nav-text">▫︎ 삽입 정렬 풀이</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EB%B2%84%EB%B8%94-%EC%A0%95%EB%A0%AC-%ED%92%80%EC%9D%B4"><span class="nav-number">4.3.</span> <span class="nav-text">▫︎ 버블 정렬 풀이</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="<정렬> O(N^2)의 대표적인 정렬 방법 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          <정렬> O(N^2)의 대표적인 정렬 방법
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-03-07 12:42:44" itemprop="dateCreated datePublished" datetime="2024-03-07T12:42:44+09:00">2024-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/03/07/algorithm/%EC%A0%95%EB%A0%AC/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/07/algorithm/정렬/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>이번 포스트에서는 정렬 알고리즘의 가장 기본이 되는 세 가지의 알고리즘을 알아보고 같은 문제를 각각의 알고리즘을 적용하여 풀이해보겠습니다. O(n^2)의 시간복잡도를 가지는 효율이 낮은 정렬 방법들이지만, 코딩테스트 문제의 시간 조건이 충분할 때 간단하게 구현할 수 있습니다.</p>
+</blockquote>
+<h1 id="▪︎-선택-정렬"><a href="#▪︎-선택-정렬" class="headerlink" title="▪︎ 선택 정렬"></a>▪︎ 선택 정렬</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/0b922ac7-1511-4d62-bb81-03ce00f98da2/image.png" alt="Untitled"></p>
+<p>선택 정렬은 배열의 모든 요소를 비교하여 해당되는 위치에 요소를 삽입함으로써 정렬을 완성하는 알고리즘입니다.</p>
+<ol>
+<li>첫 요소를 기준삼아 시작합니다.</li>
+<li>배열에서 최솟값을 찾아 첫 요소와 교환합니다.</li>
+<li>두 번째 요소부터 시작해 최솟값을 찾아 두 번째 요소와 교환합니다.</li>
+<li>2의 과정을 매 위치에서 반복합니다.</li>
+</ol>
+<h1 id="▪︎-삽입-정렬"><a href="#▪︎-삽입-정렬" class="headerlink" title="▪︎ 삽입 정렬"></a>▪︎ 삽입 정렬</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/4f3f8406-d792-4914-a75a-9e06f078a8cd/image.png" alt="Untitled"></p>
+<p>삽입 정렬은 매 순서마다 해당 요소를 삽입할 위치를 찾아 정렬을 완성하는 알고리즘입니다.</p>
+<ol>
+<li>정렬되지 않은 첫 요소를 목표로 진행합니다.</li>
+<li>두 번째 요소가 첫 번째 요소보다 작다면 자리를 교환합니다.</li>
+<li>세 번째 요소와 두 번째 요소를 비교하여 교환하고, 교환했다면 그 이전 요소와 다시 비교 &#x2F; 두 번째 요소보다 크다면 네 번째 요소로 넘어갑니다.</li>
+<li>2의 과정을 매 위치에서 반복합니다.</li>
+</ol>
+<h1 id="▪︎-버블-정렬"><a href="#▪︎-버블-정렬" class="headerlink" title="▪︎ 버블 정렬"></a>▪︎ 버블 정렬</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/13664fbe-8031-4527-bc60-650aadbbe08b/image.png" alt="Untitled"></p>
+<p>버블 정렬은 인접한 두 요소를 비교하여 정렬하는 알고리즘입니다. 가장 큰 요소부터 마지막 인덱스에 위치시키기 때문에 요소의 이동이 마치 거품이 수면으로 올라오는 듯한 모습을 보입니다.</p>
+<ol>
+<li>정렬되지 않은 마지막 요소를 목표로 진행합니다.</li>
+<li>첫 요소와 다음 요소를 비교 첫 요소가 크다면 두 번째 요소와 자리를 교환합니다.</li>
+<li>두 번째 요소와 그 다음 요소를 비교 두 번째 요소가 크다면 세 번째 요소와 자리를 교환합니다.</li>
+<li>동작을 반복하면 마지막 요소에 배열의 가장 큰 값이 위치하게 됩니다.</li>
+<li>이후 1-3 과정을 반복합니다.</li>
+</ol>
+<h1 id="▪︎-문제-적용"><a href="#▪︎-문제-적용" class="headerlink" title="▪︎ 문제 적용"></a>▪︎ 문제 적용</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/5fed9f67-2632-4b68-8d0f-46e5170ba6c9/image.png" alt="Untitled"></p>
+<h2 id="▫︎-선택-정렬-풀이"><a href="#▫︎-선택-정렬-풀이" class="headerlink" title="▫︎ 선택 정렬 풀이"></a>▫︎ 선택 정렬 풀이</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = [...arr];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i; j &lt; arr.<span class="property">length</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (answer[i] &lt;= answer[j]) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">      [answer[i], answer[j]] = [answer[j], answer[i]];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-삽입-정렬-풀이"><a href="#▫︎-삽입-정렬-풀이" class="headerlink" title="▫︎ 삽입 정렬 풀이"></a>▫︎ 삽입 정렬 풀이</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> answer = [...arr];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; answer.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">      <span class="keyword">if</span> (answer[j] &lt; answer[j - <span class="number">1</span>]) [answer[j], answer[j - <span class="number">1</span>]] = [answer[j - <span class="number">1</span>], answer[j]];</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-버블-정렬-풀이"><a href="#▫︎-버블-정렬-풀이" class="headerlink" title="▫︎ 버블 정렬 풀이"></a>▫︎ 버블 정렬 풀이</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = [...arr];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = arr.<span class="property">length</span> - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; arr.<span class="property">length</span> - i; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (answer[j] &lt;= answer[j + <span class="number">1</span>]) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">      [answer[j], answer[j + <span class="number">1</span>]] = [answer[j + <span class="number">1</span>], answer[j]];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="tag"># 알고리즘</a>
+              <a href="/tags/%EC%A0%95%EB%A0%AC/" rel="tag"># 정렬</a>
+              <a href="/tags/%EC%84%A0%ED%83%9D%EC%A0%95%EB%A0%AC/" rel="tag"># 선택정렬</a>
+              <a href="/tags/%EC%82%BD%EC%9E%85%EC%A0%95%EB%A0%AC/" rel="tag"># 삽입정렬</a>
+              <a href="/tags/%EB%B2%84%EB%B8%94%EC%A0%95%EB%A0%AC/" rel="tag"># 버블정렬</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/02/algorithm/%ED%95%B4%EC%8B%9C/" rel="prev" title="<해시> KEY 값에 문자열을 부여해 데이터를 저장하는 방법">
+                  <i class="fa fa-angle-left"></i> <해시> KEY 값에 문자열을 부여해 데이터를 저장하는 방법
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/11/algorithm/%EA%B7%B8%EB%A6%AC%EB%94%94/" rel="next" title="<그리디> 현재의 최적의 선택을 미래의 최적의 선택으로">
+                  <그리디> 현재의 최적의 선택을 미래의 최적의 선택으로 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

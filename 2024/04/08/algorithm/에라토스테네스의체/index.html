@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="▪︎ 에라토스테네스의 체에라토스테네스의 체는 빠르게 범위 내 소수들을 찾는 방법입니다. 하나의 수에 대해 소수인지 아닌지를 판별하는 것은 O(N)으로 해결이 가능하지만 범위 내에서 소수들을 찾기 위해서는 추가로 범위 내에 존재하는 K개의 수가 곱해진 O(N*K)의 시간복잡도를 가질 것입니다. 그러나 에라토스테네스의 체를 이용하면 O(N * log logN)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;에라토스테네스의 체&gt; 범위 내 소수 구하기">
+<meta property="og:url" content="https://namgungjongmin.github.io/2024/04/08/algorithm/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98%EC%B2%B4/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="▪︎ 에라토스테네스의 체에라토스테네스의 체는 빠르게 범위 내 소수들을 찾는 방법입니다. 하나의 수에 대해 소수인지 아닌지를 판별하는 것은 O(N)으로 해결이 가능하지만 범위 내에서 소수들을 찾기 위해서는 추가로 범위 내에 존재하는 K개의 수가 곱해진 O(N*K)의 시간복잡도를 가질 것입니다. 그러나 에라토스테네스의 체를 이용하면 O(N * log logN)">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sieve_of_Eratosthenes_animation.gif">
+<meta property="article:published_time" content="2024-04-08T02:15:21.000Z">
+<meta property="article:modified_time" content="2025-02-07T10:47:07.686Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="알고리즘">
+<meta property="article:tag" content="에라토스테네스의 체">
+<meta property="article:tag" content="소수 찾기">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sieve_of_Eratosthenes_animation.gif">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2024/04/08/algorithm/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98%EC%B2%B4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2024/04/08/algorithm/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98%EC%B2%B4/","path":"2024/04/08/algorithm/에라토스테네스의체/","title":"\u003c에라토스테네스의 체> 범위 내 소수 구하기"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title><에라토스테네스의 체> 범위 내 소수 구하기 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98-%EC%B2%B4"><span class="nav-number">1.</span> <span class="nav-text">▪︎ 에라토스테네스의 체</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98-%EC%B2%B4-%EC%9B%90%EB%A6%AC"><span class="nav-number">1.1.</span> <span class="nav-text">▫︎ 에라토스테네스의 체 원리</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98-%EC%B2%B4-%EA%B5%AC%ED%98%84"><span class="nav-number">1.2.</span> <span class="nav-text">▫︎ 에라토스테네스의 체 구현</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-Example-of-Apply"><span class="nav-number">2.</span> <span class="nav-text">▪︎ Example of Apply</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-100%EB%B3%B4%EB%8B%A4-%EC%9E%91%EC%9D%80-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0"><span class="nav-number">2.1.</span> <span class="nav-text">▫︎ 100보다 작은 소수 찾기</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/04/08/algorithm/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98%EC%B2%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="<에라토스테네스의 체> 범위 내 소수 구하기 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          <에라토스테네스의 체> 범위 내 소수 구하기
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-04-08 11:15:21" itemprop="dateCreated datePublished" datetime="2024-04-08T11:15:21+09:00">2024-04-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/04/08/algorithm/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98%EC%B2%B4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/08/algorithm/에라토스테네스의체/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="▪︎-에라토스테네스의-체"><a href="#▪︎-에라토스테네스의-체" class="headerlink" title="▪︎ 에라토스테네스의 체"></a>▪︎ 에라토스테네스의 체</h1><p>에라토스테네스의 체는 빠르게 범위 내 소수들을 찾는 방법입니다. 하나의 수에 대해 소수인지 아닌지를 판별하는 것은 O(N)으로 해결이 가능하지만 범위 내에서 소수들을 찾기 위해서는 추가로 범위 내에 존재하는 K개의 수가 곱해진 O(N*K)의 시간복잡도를 가질 것입니다. 그러나 에라토스테네스의 체를 이용하면 O(N * log logN)의 시간복잡도로 이를 해결할 수 있습니다.</p>
+<h2 id="▫︎-에라토스테네스의-체-원리"><a href="#▫︎-에라토스테네스의-체-원리" class="headerlink" title="▫︎ 에라토스테네스의 체 원리"></a>▫︎ 에라토스테네스의 체 원리</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Sieve_of_Eratosthenes_animation.gif" alt="gif"></p>
+<ul>
+<li><strong>_출처 : <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98_%EC%B2%B4">https://ko.wikipedia.org/wiki/에라토스테네스의_체</a>_</strong></li>
+</ul>
+<p>step 1) 2부터 소수를 구하고자 하는 구간의 모든 수를 나열한다. 그림에서 회색 사각형으로 두른 수들이 여기에 해당한다.</p>
+<p>step 2) 2는 소수이므로 오른쪽에 2를 쓴다. (빨간색)</p>
+<p>step 3) 자기 자신을 제외한 2의 배수를 모두 지운다.</p>
+<p>step 4) 남아있는 수 가운데 3은 소수이므로 오른쪽에 3을 쓴다. (초록색)</p>
+<p>step 5) 자기 자신을 제외한 3의 배수를 모두 지운다.</p>
+<p>step 6) 남아있는 수 가운데 5는 소수이므로 오른쪽에 5를 쓴다. (파란색)</p>
+<p>step 7) 자기 자신을 제외한 5의 배수를 모두 지운다.</p>
+<p>step 8) 남아있는 수 가운데 7은 소수이므로 오른쪽에 7을 쓴다. (노란색)</p>
+<p>step 9) 자기 자신을 제외한 7의 배수를 모두 지운다.</p>
+<p>step 10) 위의 과정을 반복하면 구하는 구간의 모든 소수가 남는다. (보라색)</p>
+<blockquote>
+<p>범위 최대값의 제곱근보다 작거나 같은 자연수의 배수들만 지우면 된다. 위 예시의 경우 10까지만 배수들을 지워주는 동작을 시행한다.</p>
+</blockquote>
+<h2 id="▫︎-에라토스테네스의-체-구현"><a href="#▫︎-에라토스테네스의-체-구현" class="headerlink" title="▫︎ 에라토스테네스의 체 구현"></a>▫︎ 에라토스테네스의 체 구현</h2><ol>
+<li>2부터 소수를 구하고자하는 구간의 모든 수를 배열의 인덱스를 key로 삼아 0과 1을 제외하고 모두 true로 초기화합니다.</li>
+<li>생성한 배열을 순회하면서 value가 false인 경우 스킵하고, true인 경우 배열 내 해당 index의 배수에 위치하는 모든 값들을 false로 재할당합니다.</li>
+<li>초기 생성한 배열에서 true를 값으로 가진 인덱스들이 소수입니다.</li>
+</ol>
+<h1 id="▪︎-Example-of-Apply"><a href="#▪︎-Example-of-Apply" class="headerlink" title="▪︎ Example of Apply"></a>▪︎ Example of Apply</h1><h2 id="▫︎-100보다-작은-소수-찾기"><a href="#▫︎-100보다-작은-소수-찾기" class="headerlink" title="▫︎ 100보다 작은 소수 찾기"></a>▫︎ 100보다 작은 소수 찾기</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 소수 체크 테이블</span></span><br><span class="line"><span class="keyword">const</span> check = <span class="title class_">Array</span>(<span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="number">101</span>)).<span class="title function_">fill</span>(<span class="literal">true</span>).<span class="title function_">fill</span>(<span class="literal">false</span>, <span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 100의 제곱근인 10보다 작은 자연수의 배수들만 지우기</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">2</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!check[i]) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = i * <span class="number">2</span>; j &lt;= <span class="number">100</span>; j += i) &#123;</span><br><span class="line">    check[j] = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 소수 배열</span></span><br><span class="line"><span class="keyword">const</span> prime = [];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 체크 테이블의 값이 true인 index가 소수</span></span><br><span class="line">check.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el, idx</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (el) prime.<span class="title function_">push</span>(idx);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(prime);</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="tag"># 알고리즘</a>
+              <a href="/tags/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98-%EC%B2%B4/" rel="tag"># 에라토스테네스의 체</a>
+              <a href="/tags/%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0/" rel="tag"># 소수 찾기</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/01/algorithm/dxdy%ED%85%8C%ED%81%AC%EB%8B%89/" rel="prev" title="<DXDY 테크닉> 2차원 배열에서 4방향 움직이기">
+                  <i class="fa fa-angle-left"></i> <DXDY 테크닉> 2차원 배열에서 4방향 움직이기
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/16/algorithm/kmp/" rel="next" title="<KMP> 문자열에서 특정한 문자열을 찾는 것을 O(N)으로 해결하기">
+                  <KMP> 문자열에서 특정한 문자열을 찾는 것을 O(N)으로 해결하기 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="▪︎ 재귀 함수재귀 함수란 자기 자신을 호출하는 함수를 말합니다. 종료 조건이 충족될 때까지 반복적으로 자신을 호출하면서 주어진 동작을 수행합니다. 재귀 함수는 순회할 대상의 상태를 변경하면서 각 대상마다 비슷한 동작을 수행해야 할 때 효율적으로 사용할 수 있습니다. [1, 2, 3, 4, 5, 6] 이라는 배열안의 모든 숫자의 합을 구하는 코드를 작성한다">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;재귀함수&gt;멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현">
+<meta property="og:url" content="https://namgungjongmin.github.io/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="▪︎ 재귀 함수재귀 함수란 자기 자신을 호출하는 함수를 말합니다. 종료 조건이 충족될 때까지 반복적으로 자신을 호출하면서 주어진 동작을 수행합니다. 재귀 함수는 순회할 대상의 상태를 변경하면서 각 대상마다 비슷한 동작을 수행해야 할 때 효율적으로 사용할 수 있습니다. [1, 2, 3, 4, 5, 6] 이라는 배열안의 모든 숫자의 합을 구하는 코드를 작성한다">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/a3d4d3dc-678b-41f8-aeb1-577b763694e2/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/7d8d03e1-e393-4e81-a4ee-00100ad54d93/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/c1a979e2-f25c-4090-834f-e176722b6787/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/af2cb58f-e093-48d0-85ce-c5422c8dabbc/image.png">
+<meta property="article:published_time" content="2024-03-20T07:32:32.000Z">
+<meta property="article:modified_time" content="2025-02-07T10:47:21.716Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="알고리즘">
+<meta property="article:tag" content="재귀함수">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/a3d4d3dc-678b-41f8-aeb1-577b763694e2/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/","path":"2024/03/20/algorithm/재귀함수/","title":"\u003c재귀함수>멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title><재귀함수>멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%9E%AC%EA%B7%80-%ED%95%A8%EC%88%98"><span class="nav-number">1.</span> <span class="nav-text">▪︎ 재귀 함수</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%9E%AC%EA%B7%80-%ED%95%A8%EC%88%98%EC%9D%98-%EA%B5%AC%EC%84%B1"><span class="nav-number">1.1.</span> <span class="nav-text">▫︎ 재귀 함수의 구성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%9E%AC%EA%B7%80-%ED%95%A8%EC%88%98%EC%9D%98-depth"><span class="nav-number">1.2.</span> <span class="nav-text">▫︎ 재귀 함수의 depth</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%B9%B4%EB%93%9C%EB%A5%BC-%EB%BD%91%EC%95%84%EB%B3%B4%EC%9E%90"><span class="nav-number">2.</span> <span class="nav-text">▪︎ 카드를 뽑아보자</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%88%9C%EC%97%B4"><span class="nav-number">2.1.</span> <span class="nav-text">▫︎ 순열</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%A1%B0%ED%95%A9"><span class="nav-number">2.2.</span> <span class="nav-text">▫︎ 조합</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-Depth%EA%B0%80-%EC%9C%A0%EB%8F%99%EC%A0%81%EC%9D%B4%EB%9D%BC%EB%A9%B4"><span class="nav-number">3.</span> <span class="nav-text">▪︎ Depth가 유동적이라면?</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="<재귀함수>멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          <재귀함수>멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-03-20 16:32:32" itemprop="dateCreated datePublished" datetime="2024-03-20T16:32:32+09:00">2024-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/20/algorithm/재귀함수/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="▪︎-재귀-함수"><a href="#▪︎-재귀-함수" class="headerlink" title="▪︎ 재귀 함수"></a>▪︎ 재귀 함수</h1><p>재귀 함수란 자기 자신을 호출하는 함수를 말합니다. 종료 조건이 충족될 때까지 반복적으로 자신을 호출하면서 주어진 동작을 수행합니다. 재귀 함수는 순회할 대상의 상태를 변경하면서 각 대상마다 비슷한 동작을 수행해야 할 때 효율적으로 사용할 수 있습니다.</p>
+<p>[1, 2, 3, 4, 5, 6] 이라는 배열안의 모든 숫자의 합을 구하는 코드를 작성한다고 해보겠습니다. 이 경우 간단하게 배열을 for문으로 순회하는 것으로 풀이가 가능합니다.</p>
+<p>[1, 2, 3, [1, 2, [4, 5], 3], 5, 6] 이러한 형태의 배열은 어떨까요? 3중 for문으로 배열들을 순회하면 가능할 것입니다. 그러나 문제에서 주어지는 입력값이 계속 바뀔 수 있고, 어느정도 중첩될지 예측할 수 없는 상황이라면 기존처럼 코드를 구현하기에는 한계가 있을 것입니다. 이 때 재귀함수를 사용하면 효율적이고 가독성있는 코드 작성이 가능합니다.</p>
+<h2 id="▫︎-재귀-함수의-구성"><a href="#▫︎-재귀-함수의-구성" class="headerlink" title="▫︎ 재귀 함수의 구성"></a>▫︎ 재귀 함수의 구성</h2><p>재귀 함수는 크게 종료 조건과 실행할 동작으로 나누어 구성할 수 있습니다. 실행할 동작에서 주어진 데이터들을 가공하고 동작을 수행하면서 자기 자신을 계속 호출하다가 정해놓은 종료 조건에 다달았을 때 함수를 return하게 하는 것입니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">recursive</span> = (<span class="params">depth, ...</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span>( 종료 조건 ) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 동작</span></span><br><span class="line">  <span class="title function_">recursive</span>(depth+<span class="number">1</span>, ...)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">recursive</span>(<span class="number">1</span>, ...)</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-재귀-함수의-depth"><a href="#▫︎-재귀-함수의-depth" class="headerlink" title="▫︎ 재귀 함수의 depth"></a>▫︎ 재귀 함수의 depth</h2><p>재귀 함수를 자바스크립트 코드로 처음 구현할 때, 코드의 동작을 따라가며 이해하는 것이 어렵습니다. 그러나 depth 개념을 적용하여 코드를 구현한다면 원활한 이해가 가능합니다. depth는 재귀 함수가 호출된 깊이, 즉 자신을 몇번째 호출했는지에 대한 데이터입니다.</p>
+<p>순열과 조합을 예시로 지금까지의 내용들을 적용하여 재귀함수를 이해해보겠습니다.</p>
+<h1 id="▪︎-카드를-뽑아보자"><a href="#▪︎-카드를-뽑아보자" class="headerlink" title="▪︎ 카드를 뽑아보자"></a>▪︎ 카드를 뽑아보자</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/a3d4d3dc-678b-41f8-aeb1-577b763694e2/image.png" alt="image.png"></p>
+<h2 id="▫︎-순열"><a href="#▫︎-순열" class="headerlink" title="▫︎ 순열"></a>▫︎ 순열</h2><p>순열은 순서를 고려하여 카드들을 뽑는 방법입니다. 카드를 하나씩 뽑되, 뽑은 카드는 제외하고 남은 카드들 중에서 하나씩 뽑는 것을 반복하면 됩니다. 그러다가 원하는 개수의 카드를 뽑았을 때 동작을 멈추면 됩니다. 재귀를 사용하면 효율적인 이유는 카드를 뽑는 동작들이 모두 ‘주어진 배열들을 순회하며 하나를 선택한다’라는 같은 동작을 하기 때문입니다. 각 카드를 뽑는 동작, 몇 번째 카드를 뽑는 상황인지에 따라 depth가 부여됩니다. (첫 번째 카드를 뽑으면 depth 1 …)</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/7d8d03e1-e393-4e81-a4ee-00100ad54d93/image.png" alt="image.png"></p>
+<p>이제 우리는 재귀 함수를 구현하기 위해 세가지만 고려하면 됩니다.</p>
+<ol>
+<li>종료 조건</li>
+<li>시행할 동작</li>
+<li>필요한 데이터</li>
+</ol>
+<ol>
+<li><p>종료 조건은 우리가 카드를 3개 다 뽑았을 경우입니다. 따라서 3의 depth까지만 함수를 실행하고 재귀를 멈추면 됩니다.</p>
+</li>
+<li><p>시행할 동작은 남은 카드들 중 한개를 뽑는 것입니다. 카드 배열들을 for문으로 순회하면서 각 자리에 하나씩 넣어주면 됩니다.</p>
+</li>
+<li><p>필요한 데이터는 다음 세가지입니다. depth, 남은 카드들의 정보를 담은 배열, 뽑은 카드들의 배열</p>
+</li>
+</ol>
+<p>위 정보를 바탕으로 처음 소개한 재귀 함수와 동일한 구성으로 코드를 구현해보면 다음과 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 순열</span></span><br><span class="line"><span class="keyword">const</span> answer = [];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">permutation</span> = (<span class="params">depth, leftCards, arr</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 종료 조건</span></span><br><span class="line">  <span class="keyword">if</span> (depth &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    answer.<span class="title function_">push</span>(arr);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 동작</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftCards.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> cardsArr = leftCards.<span class="title function_">filter</span>(<span class="function">(<span class="params">_, idx</span>) =&gt;</span> idx !== i); <span class="comment">// 다음에 뽑을 수 있는 카드들의 배열</span></span><br><span class="line">    <span class="title function_">permutation</span>(depth + <span class="number">1</span>, cardsArr, [...arr, leftCards[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">permutation</span>(<span class="number">1</span>, cards, []);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-조합"><a href="#▫︎-조합" class="headerlink" title="▫︎ 조합"></a>▫︎ 조합</h2><p>조합은 순서를 고려하지 않고 카드들을 뽑는 방법입니다. 뽑은 카드를 제외하고 다시 카드를 뽑되, 순서가 달라도 같은 카드들을 뽑으면 안되기 때문에 순회할 때 뽑은 카드 뒤쪽의 카드들만을 대상으로 합니다. 이외에는 순열과 같습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/c1a979e2-f25c-4090-834f-e176722b6787/image.png" alt="image.png"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 조합</span></span><br><span class="line"><span class="keyword">const</span> answer = [];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">combination</span> = (<span class="params">depth, leftCards, arr</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 종료 조건</span></span><br><span class="line">  <span class="keyword">if</span> (depth &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    answer.<span class="title function_">push</span>(arr);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 함수</span></span><br><span class="line">  <span class="keyword">if</span> (leftCards.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftCards.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> cardsArr = leftCards.<span class="title function_">slice</span>(i + <span class="number">1</span>); <span class="comment">// 다음에 뽑을 수 있는 카드들의 배열</span></span><br><span class="line">    <span class="title function_">combination</span>(depth + <span class="number">1</span>, cardsArr, [...arr, leftCards[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">combination</span>(<span class="number">1</span>, cards, []);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-Depth가-유동적이라면"><a href="#▪︎-Depth가-유동적이라면" class="headerlink" title="▪︎ Depth가 유동적이라면?"></a>▪︎ Depth가 유동적이라면?</h1><p>위에 설명한 depth 데이터는 재귀가 몇번째까지 타고 들어가며 실행되는지를 쉽게 이해하기 위해 추가한 개념입니다. depth 개념으로 순열과 조합을 구현해보면서 재귀의 동작에 대해 기본적인 이해가 생겼다면 depth에 기반한 재귀가 아닌 함수 그 자체가 데이터를 변동하며 스스로를 호출하는 경우를 생각해보겠습니다.</p>
+<p>위의 depth를 이용한 재귀 함수의 구현은 모든 상황에서 사용할 수는 없습니다. 예를들어 얼만큼 함수를 다시 호출할지가 정해지지 않은 문제의 경우가 그렇습니다. 위의 예시에서는 ‘5장 중 3장의 카드를 뽑는다’ 였지만, 만약 숫자가 적힌 5장의 카드 중 임의의 수의 카드를 뽑아 손안의 카드와 남은 카드를 비교하는 문제에서는 depth를 기준으로 하여 재귀 함수를 호출할 수 없습니다. 아래 문제를 살펴보겠습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/af2cb58f-e093-48d0-85ce-c5422c8dabbc/image.png" alt="image.png"></p>
+<p>이 문제에서 필요한 정보는 각 부분집합의 경우들과 그와 매치되는 남은 원소들입니다. 위 카드 예시에 대입해보자면 임의의 개수의 카드를 뽑아 순서에 상관하지 않고 뽑는 경우(조합)와 같습니다. 따라서 depth가 아닌 다른 데이터들을 바탕으로 함수를 구성해야 합니다.</p>
+<p>임의의 개수의 원소를 뽑는다는 것은 0개 ~ 모든 원소의 개수까지를 뽑아본다는 것입니다. 따라서 조합을 실행하며 선택된 원소의 이전 원소들은 제외하고 남은 원소들의 수가 0이 될 때 함수를 종료하면 될 것 같습니다. 또한 문제를 푸는데 필요한 정보인 각 부분집합, 즉 뽑은 원소들의 배열과 그에 매칭된 남은 원소들이므로 이 둘을 데이터로하여 재귀 함수를 구성하면 문제를 풀 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> answer = <span class="string">&quot;NO&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> arr1 = [];</span><br><span class="line"><span class="keyword">let</span> arr2 = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">recursive</span> = (<span class="params">leftArr, picks</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (leftArr.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftArr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newArr = [...picks, leftArr[i]]; <span class="comment">// 전체 배열에서 뽑을 수 있는 (남아있는) 카드들</span></span><br><span class="line">    <span class="title function_">recursive</span>(leftArr.<span class="title function_">slice</span>(i + <span class="number">1</span>), newArr); <span class="comment">// i번째 카드를 뽑았다면 i 이후의 카드들이 남아있게 된다.</span></span><br><span class="line">    arr1.<span class="title function_">push</span>(newArr);</span><br><span class="line">    arr2.<span class="title function_">push</span>(arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> !newArr.<span class="title function_">includes</span>(el)));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">recursive</span>(arr, []);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr1.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">if</span> (arr1[i].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur, <span class="number">0</span>) === arr2[i].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur, <span class="number">0</span>)) answer = <span class="string">&quot;YES&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="tag"># 알고리즘</a>
+              <a href="/tags/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/" rel="tag"># 재귀함수</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/11/algorithm/%EA%B7%B8%EB%A6%AC%EB%94%94/" rel="prev" title="<그리디> 현재의 최적의 선택을 미래의 최적의 선택으로">
+                  <i class="fa fa-angle-left"></i> <그리디> 현재의 최적의 선택을 미래의 최적의 선택으로
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/25/algorithm/%EA%B7%B8%EB%9E%98%ED%94%84/" rel="next" title="<그래프> 배열 데이터로 정제하기">
+                  <그래프> 배열 데이터로 정제하기 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
