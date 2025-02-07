@@ -9,11 +9,11 @@
     <atom:link href="https://namgungjongmin.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 07 Feb 2025 13:55:39 GMT</pubDate>
+    <pubDate>Fri, 07 Feb 2025 14:34:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>&lt;KMP 알고리즘&gt; 문자열에서 특정한 문자열을 찾는 것을 O(N)으로 해결하기</title>
+      <title>&lt;KMP&gt; 문자열에서 특정한 문자열을 찾는 것을 O(N)으로 해결하기</title>
       <link>https://namgungjongmin.github.io/2024/04/16/algorithm/kmp/</link>
       <guid>https://namgungjongmin.github.io/2024/04/16/algorithm/kmp/</guid>
       <pubDate>Tue, 16 Apr 2024 07:25:46 GMT</pubDate>
