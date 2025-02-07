@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="웹 애플리케이션에서 인증된 사용자와 비인증 사용자에 대한 페이지 접근 제어는 매우 중요합니다. 특히 사용자 경험(UX)을 해치지 않으면서 안전하게 구현하는 것이 핵심인데요. 이번 글에서는 Next.js의 미들웨어를 활용해 어떻게 더 나은 인증 플로우를 구현했는지 공유하고자 합니다.  ▪︎ 기존 인증 구현의 문제점유저의 인증 여부를 판단하기 위해 toke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현">
+<meta property="og:url" content="https://namgungjongmin.github.io/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="웹 애플리케이션에서 인증된 사용자와 비인증 사용자에 대한 페이지 접근 제어는 매우 중요합니다. 특히 사용자 경험(UX)을 해치지 않으면서 안전하게 구현하는 것이 핵심인데요. 이번 글에서는 Next.js의 미들웨어를 활용해 어떻게 더 나은 인증 플로우를 구현했는지 공유하고자 합니다.  ▪︎ 기존 인증 구현의 문제점유저의 인증 여부를 판단하기 위해 toke">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+<meta property="article:published_time" content="2025-01-08T14:12:21.000Z">
+<meta property="article:modified_time" content="2025-02-07T16:28:49.972Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="WEGO">
+<meta property="article:tag" content="프로젝트">
+<meta property="article:tag" content="next.js">
+<meta property="article:tag" content="미들웨어">
+<meta property="article:tag" content="유저 인증">
+<meta property="article:tag" content="리다이렉트">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/","path":"2025/01/08/project/wego/미들웨어/","title":"WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EA%B8%B0%EC%A1%B4-%EC%9D%B8%EC%A6%9D-%EA%B5%AC%ED%98%84%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90"><span class="nav-number">1.</span> <span class="nav-text">▪︎ 기존 인증 구현의 문제점</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EA%B9%9C%EB%B9%A1%EC%9E%84-%ED%98%84%EC%83%81-Flash-of-Unauthorized-Content"><span class="nav-number">1.1.</span> <span class="nav-text">▫︎ 깜빡임 현상 (Flash of Unauthorized Content)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%A4%91%EB%B3%B5-%EC%BD%94%EB%93%9C-%EB%B0%9C%EC%83%9D"><span class="nav-number">1.2.</span> <span class="nav-text">▫︎ 중복 코드 발생</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88"><span class="nav-number">2.</span> <span class="nav-text">▪︎ 미들웨어를 활용한 해결 방안</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%A4%91%EC%95%99-%EC%A7%91%EC%A4%91%ED%99%94%EB%90%9C-%EC%9D%B8%EC%A6%9D-%EB%A1%9C%EC%A7%81"><span class="nav-number">2.1.</span> <span class="nav-text">▫︎ 중앙 집중화된 인증 로직</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%ED%99%98%EA%B2%BD%EB%B3%84-%ED%86%A0%ED%81%B0-%EA%B2%80%EC%A6%9D-%EC%A0%84%EB%9E%B5"><span class="nav-number">2.2.</span> <span class="nav-text">▫︎ 환경별 토큰 검증 전략</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EA%B5%AC%ED%98%84-%EC%8B%9C-%EA%B3%A0%EB%A0%A4-%EC%82%AC%ED%95%AD"><span class="nav-number">2.3.</span> <span class="nav-text">▫︎ 구현 시 고려 사항</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 성능 최적화</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%EC%84%9C%EB%B2%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%A7%80%EC%9B%90"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 서버 컴포넌트 지원</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4%EC%9D%98-Edge-Runtime%EC%9D%84-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EB%AA%A8%ED%82%B9-%EC%8B%9C%EC%8A%A4%ED%85%9C"><span class="nav-number">3.</span> <span class="nav-text">▪︎ 미들웨어의 Edge Runtime을 고려한 모킹 시스템</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EB%AA%A8%ED%82%B9-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9D%98-%EC%A3%BC%EC%9A%94-%ED%8A%B9%EC%A7%95"><span class="nav-number">3.1.</span> <span class="nav-text">▫︎ 모킹 시스템의 주요 특징:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%A7%88%EC%B9%98%EB%A9%B0"><span class="nav-number">4.</span> <span class="nav-text">▪︎ 마치며</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-08 23:12:21" itemprop="dateCreated datePublished" datetime="2025-01-08T23:12:21+09:00">2025-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/08/project/wego/미들웨어/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<blockquote>
+<p>웹 애플리케이션에서 인증된 사용자와 비인증 사용자에 대한 페이지 접근 제어는 매우 중요합니다. 특히 사용자 경험(UX)을 해치지 않으면서 안전하게 구현하는 것이 핵심인데요. 이번 글에서는 Next.js의 미들웨어를 활용해 어떻게 더 나은 인증 플로우를 구현했는지 공유하고자 합니다.</p>
+</blockquote>
+<h1 id="▪︎-기존-인증-구현의-문제점"><a href="#▪︎-기존-인증-구현의-문제점" class="headerlink" title="▪︎ 기존 인증 구현의 문제점"></a>▪︎ <strong>기존 인증 구현의 문제점</strong></h1><p>유저의 인증 여부를 판단하기 위해 token 검증만을 위한 api를 백엔드 측에 요청했습니다. 백엔드 측에서는 요청의 쿠키에서 accessToken을 읽어 그 검증 여부에 따라 결과를 반환해줬습니다. 우리 프론트에서는 인가 필요 페이지에서 그 결과가 성공이면 페이지를 보여주고, 실패면 로그인 페이지로 리다이렉트 시키는 로직이 필요했습니다.</p>
+<p>처음에는 컴포넌트 내부에서 api 요청을 하고 그 결과에 따라 리다이렉트 여부를 결정했습니다. 그러나 이 경우 api 요청에 대한 결과를 받는 동안 잠깐동안 페이지의 레이아웃이 보여지는 플리킹 현상이 발생했습니다. 추가로 각 컴포넌트마다 토큰 인증에 따른 리다이렉트 로직을 작성해주어야 했습니다.</p>
+<h2 id="▫︎-깜빡임-현상-Flash-of-Unauthorized-Content"><a href="#▫︎-깜빡임-현상-Flash-of-Unauthorized-Content" class="headerlink" title="▫︎ 깜빡임 현상 (Flash of Unauthorized Content)"></a>▫︎ <strong>깜빡임 현상 (Flash of Unauthorized Content)</strong></h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 컴포넌트 내부에서 인증 체크 시 발생하는 문제</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ProtectedPage</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 인증 체크 후 리다이렉트</span></span><br><span class="line">    <span class="keyword">if</span> (!isAuthenticated) &#123;</span><br><span class="line">      router.<span class="title function_">push</span>(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>보호된 콘텐츠<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>; <span class="comment">// 잠깐 보였다가 사라짐</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-중복-코드-발생"><a href="#▫︎-중복-코드-발생" class="headerlink" title="▫︎ 중복 코드 발생"></a>▫︎ <strong>중복 코드 발생</strong></h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 여러 서버 컴포넌트에서 반복되는 인증 체크 로직</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">Page1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = <span class="keyword">await</span> <span class="title function_">checkAuth</span>();</span><br><span class="line">  <span class="keyword">if</span> (!isAuthenticated) &#123;</span><br><span class="line">    <span class="title function_">redirect</span>(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">Page2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = <span class="keyword">await</span> <span class="title function_">checkAuth</span>();</span><br><span class="line">  <span class="keyword">if</span> (!isAuthenticated) &#123;</span><br><span class="line">    <span class="title function_">redirect</span>(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-미들웨어를-활용한-해결-방안"><a href="#▪︎-미들웨어를-활용한-해결-방안" class="headerlink" title="▪︎ 미들웨어를 활용한 해결 방안"></a>▪︎ 미들웨어를 활용한 해결 방안</h1><h2 id="▫︎-중앙-집중화된-인증-로직"><a href="#▫︎-중앙-집중화된-인증-로직" class="headerlink" title="▫︎ 중앙 집중화된 인증 로직"></a>▫︎ <strong>중앙 집중화된 인증 로직</strong></h2><p>미들웨어의 가장 큰 장점은 모든 페이지 요청에 대해 선제적으로 실행된다는 점입니다. 이를 활용하여 인증 로직을 중앙에서 관리할 수 있습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// middleware.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">middleware</span> = (<span class="params">request: NextRequest</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 정적 파일 요청은 미들웨어 처리하지 않음</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    request.<span class="property">nextUrl</span>.<span class="property">pathname</span>.<span class="title function_">startsWith</span>(<span class="string">&quot;/_next&quot;</span>) ||</span><br><span class="line">    request.<span class="property">nextUrl</span>.<span class="property">pathname</span>.<span class="title function_">includes</span>(<span class="string">&quot;/api/&quot;</span>) ||</span><br><span class="line">    request.<span class="property">nextUrl</span>.<span class="property">pathname</span>.<span class="title function_">match</span>(<span class="regexp">/\.(ico|png|svg|jpg|jpeg|gif)$/</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">NextResponse</span>.<span class="title function_">next</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> response = <span class="title class_">NextResponse</span>.<span class="title function_">next</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 로그인 여부에 따라 리다이렉트</span></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">authRedirect</span>(request, response);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 주목할 점은 다음과 같습니다.</p>
+<ul>
+<li><strong>성능 최적화</strong>: 정적 파일에 대한 요청은 미들웨어를 거치지 않도록 처리했습니다. 이는 불필요한 인증 검사를 줄여 성능을 향상시킵니다.</li>
+<li><strong>확장성</strong>: authRedirect 함수를 별도로 분리하여, 추후 인증 로직이 변경되거나 추가되어도 유연하게 대응할 수 있습니다.</li>
+<li><strong>유지보수성</strong>: 인증 관련 로직이 한 곳에 집중되어 있어, 변경이 필요할 때 이 파일만 수정하면 됩니다.</li>
+</ul>
+<h2 id="▫︎-환경별-토큰-검증-전략"><a href="#▫︎-환경별-토큰-검증-전략" class="headerlink" title="▫︎ 환경별 토큰 검증 전략"></a>▫︎ <strong>환경별 토큰 검증 전략</strong></h2><p>개발 환경과 프로덕션 환경에서의 토큰 검증 방식을 분리하여 관리했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">authRedirect</span> = <span class="keyword">async</span> (<span class="params">request: NextRequest, response: NextResponse</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> verifyResponse =</span><br><span class="line">    process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;development&quot;</span> ? <span class="keyword">await</span> <span class="title function_">verifyTokenMock</span>(request) : <span class="keyword">await</span> <span class="title function_">verifyToken</span>(request);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 토큰 유효성 검증이 필요한 페이지 처리</span></span><br><span class="line">  <span class="keyword">if</span> ((<span class="title class_">Object</span>.<span class="title function_">values</span>(<span class="variable constant_">NEED_LOGIN_PATH</span>) <span class="keyword">as</span> <span class="built_in">string</span>[]).<span class="title function_">includes</span>(request.<span class="property">nextUrl</span>.<span class="property">pathname</span>)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (verifyResponse.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> loginUrl = <span class="keyword">new</span> <span class="title function_">URL</span>(<span class="string">&quot;/login&quot;</span>, request.<span class="property">nextUrl</span>.<span class="property">origin</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">NextResponse</span>.<span class="title function_">redirect</span>(loginUrl);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 로그인된 사용자가 접근하면 안 되는 페이지 처리</span></span><br><span class="line">  <span class="keyword">if</span> ((<span class="title class_">Object</span>.<span class="title function_">values</span>(<span class="variable constant_">NEED_LOGOUT_PATH</span>) <span class="keyword">as</span> <span class="built_in">string</span>[]).<span class="title function_">includes</span>(request.<span class="property">nextUrl</span>.<span class="property">pathname</span>)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (verifyResponse.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> mainUrl = <span class="keyword">new</span> <span class="title function_">URL</span>(<span class="string">&quot;/&quot;</span>, request.<span class="property">nextUrl</span>.<span class="property">origin</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">NextResponse</span>.<span class="title function_">redirect</span>(mainUrl);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>환경 분기</strong>: process.env.NODE_ENV를 통해 개발&#x2F;프로덕션 환경을 구분하여 적절한 검증 로직을 실행합니다.</li>
+<li><strong>페이지 접근 제어</strong>:<ul>
+<li>NEED_LOGIN_PATH: 로그인이 필요한 페이지들 (예: 마이페이지, 리뷰 작성 등)</li>
+<li>NEED_LOGOUT_PATH: 비로그인 상태에서만 접근 가능한 페이지들 (예: 로그인, 회원가입)</li>
+</ul>
+</li>
+<li><strong>명확한 리다이렉션</strong>: 인증 상태에 따라 적절한 페이지로 리다이렉트합니다.</li>
+</ul>
+<h2 id="▫︎-구현-시-고려-사항"><a href="#▫︎-구현-시-고려-사항" class="headerlink" title="▫︎ 구현 시 고려 사항"></a>▫︎ 구현 시 고려 사항</h2><h3 id="1-성능-최적화"><a href="#1-성능-최적화" class="headerlink" title="1. 성능 최적화"></a>1. 성능 최적화</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="attr">matcher</span>: [<span class="string">&quot;/((?!api|_next/static|_next/image|favicon.ico).*)&quot;</span>],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>선택적 실행</strong>: 모든 요청이 아닌, 필요한 경로에 대해서만 미들웨어가 실행되도록 설정</li>
+<li><strong>정적 리소스 제외</strong>: 이미지, 스타일시트 등 정적 리소스는 미들웨어 처리에서 제외</li>
+</ul>
+<h3 id="2-서버-컴포넌트-지원"><a href="#2-서버-컴포넌트-지원" class="headerlink" title="2. 서버 컴포넌트 지원"></a>2. <strong>서버 컴포넌트 지원</strong></h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">setPathnameHeader</span> = (<span class="params">request: NextRequest, response: NextResponse</span>) =&gt; &#123;</span><br><span class="line">  response.<span class="property">headers</span>.<span class="title function_">set</span>(<span class="string">&quot;x-pathname&quot;</span>, request.<span class="property">nextUrl</span>.<span class="property">pathname</span>);</span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>경로 정보 전달</strong>: 서버 컴포넌트에서 현재 경로 정보가 필요한 경우를 위해 헤더에 포함</li>
+<li><strong>확장성</strong>: 추후 서버 컴포넌트에서 필요한 추가 정보도 헤더를 통해 전달 가능</li>
+</ul>
+<h1 id="▪︎-미들웨어의-Edge-Runtime을-고려한-모킹-시스템"><a href="#▪︎-미들웨어의-Edge-Runtime을-고려한-모킹-시스템" class="headerlink" title="▪︎ 미들웨어의 Edge Runtime을 고려한 모킹 시스템"></a>▪︎ 미들웨어의 <strong>Edge Runtime을 고려한 모킹 시스템</strong></h1><p>Next.js 미들웨어는 Edge Runtime에서 실행되기 때문에, api 모킹을 위해 개발 환경에서 사용하고 있던 MSW와 같은 모킹 도구를 사용할 수 없었습니다. 이를 해결하기 위한 전용 모킹 시스템을 구현했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// middleware-mock.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mockResponses = &#123;</span><br><span class="line">  <span class="string">&quot;/auth/token/verify&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">success</span>: &#123;</span><br><span class="line">      <span class="attr">status</span>: <span class="number">200</span>,</span><br><span class="line">      <span class="attr">body</span>: &#123; <span class="attr">ok</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;Token is valid&quot;</span> &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">error</span>: &#123;</span><br><span class="line">      <span class="attr">status</span>: <span class="number">401</span>,</span><br><span class="line">      <span class="attr">body</span>: &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">message</span>: <span class="string">&quot;Unauthorized&quot;</span> &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">mockFetch</span> = <span class="keyword">async</span> (<span class="params">url: <span class="built_in">string</span>, options?: RequestInit</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> endpoint = <span class="keyword">new</span> <span class="title function_">URL</span>(url).<span class="property">pathname</span>;</span><br><span class="line">  <span class="keyword">const</span> mock = mockResponses[endpoint <span class="keyword">as</span> keyof <span class="keyword">typeof</span> mockResponses];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!mock) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">fetch</span>(url); <span class="comment">// 모킹되지 않은 엔드포인트는 실제 요청 수행</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> cookies = options?.<span class="property">headers</span> &amp;&amp; <span class="string">&quot;Cookie&quot;</span> <span class="keyword">in</span> options.<span class="property">headers</span> ? options.<span class="property">headers</span>.<span class="property">Cookie</span> : <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">const</span> hasAccessToken = cookies.<span class="title function_">includes</span>(<span class="string">&quot;accessToken=&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 쿠키의 토큰 존재 여부에 따라 적절한 응답 반환</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Response</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(hasAccessToken ? mock.<span class="property">success</span>.<span class="property">body</span> : mock.<span class="property">error</span>.<span class="property">body</span>), &#123;</span><br><span class="line">    <span class="attr">status</span>: hasAccessToken ? mock.<span class="property">success</span>.<span class="property">status</span> : mock.<span class="property">error</span>.<span class="property">status</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123; <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span> &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-모킹-시스템의-주요-특징"><a href="#▫︎-모킹-시스템의-주요-특징" class="headerlink" title="▫︎ 모킹 시스템의 주요 특징:"></a>▫︎ <strong>모킹 시스템의 주요 특징</strong>:</h2><ul>
+<li><strong>엔드포인트 기반 모킹</strong>: 각 엔드포인트별로 성공&#x2F;실패 응답을 미리 정의합니다.</li>
+<li><strong>토큰 기반 응답</strong>: 쿠키의 토큰 존재 여부에 따라 다른 응답을 반환합니다.</li>
+<li><strong>유연한 확장</strong>: 새로운 엔드포인트 추가가 용이한 구조입니다.</li>
+<li><strong>폴백 메커니즘</strong>: 모킹되지 않은 엔드포인트는 실제 API를 호출합니다.</li>
+<li><strong>이러한 모킹 시스템의 장점</strong>:<ul>
+<li>개발 효율성: 백엔드 API 완성 전에도 프론트엔드 개발 진행 가능</li>
+<li>안정성: 예측 가능한 응답으로 일관된 개발 환경 제공</li>
+<li>디버깅 용이성: 인증 관련 문제 발생 시 빠른 원인 파악 가능</li>
+</ul>
+</li>
+</ul>
+<h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>Next.js의 미들웨어를 활용한 인증 플로우 구현은 단순히 기능적인 요구사항을 충족시키는 것을 넘어, 사용자 경험과 코드 품질 모두를 개선하는 결과를 가져왔습니다. 특히 페이지 전환 시의 깜빡임 현상 제거와 인증 로직의 중앙 집중화는 프로젝트의 품질을 한 단계 높이는 중요한 요소가 되었습니다.</p>
+<p>앞으로도 사용자 경험을 해치지 않으면서도 안전한 인증 시스템을 구축하기 위한 고민을 계속해 나갈 예정입니다.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEGO/" rel="tag"># WEGO</a>
+              <a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag"># 프로젝트</a>
+              <a href="/tags/next-js/" rel="tag"># next.js</a>
+              <a href="/tags/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/" rel="tag"># 미들웨어</a>
+              <a href="/tags/%EC%9C%A0%EC%A0%80-%EC%9D%B8%EC%A6%9D/" rel="tag"># 유저 인증</a>
+              <a href="/tags/%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%ED%8A%B8/" rel="tag"># 리다이렉트</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/08/project/wego/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BD%94%EB%93%9C/" rel="prev" title="WEGO ) 테스트 코드로 더 안정적인 프로젝트 만들기: Jest를 활용한 실전 테스트 적용">
+                  <i class="fa fa-angle-left"></i> WEGO ) 테스트 코드로 더 안정적인 프로젝트 만들기: Jest를 활용한 실전 테스트 적용
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
