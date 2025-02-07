@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,136 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/" class="post-title-link" itemprop="url">재귀함수 ) 멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-03-20 16:32:32" itemprop="dateCreated datePublished" datetime="2024-03-20T16:32:32+09:00">2024-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/20/algorithm/재귀함수/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<h1 id="▪︎-재귀-함수"><a href="#▪︎-재귀-함수" class="headerlink" title="▪︎ 재귀 함수"></a>▪︎ 재귀 함수</h1><p>재귀 함수란 자기 자신을 호출하는 함수를 말합니다. 종료 조건이 충족될 때까지 반복적으로 자신을 호출하면서 주어진 동작을 수행합니다. 재귀 함수는 순회할 대상의 상태를 변경하면서 각 대상마다 비슷한 동작을 수행해야 할 때 효율적으로 사용할 수 있습니다.</p>
+<p>[1, 2, 3, 4, 5, 6] 이라는 배열안의 모든 숫자의 합을 구하는 코드를 작성한다고 해보겠습니다. 이 경우 간단하게 배열을 for문으로 순회하는 것으로 풀이가 가능합니다.</p>
+<p>[1, 2, 3, [1, 2, [4, 5], 3], 5, 6] 이러한 형태의 배열은 어떨까요? 3중 for문으로 배열들을 순회하면 가능할 것입니다. 그러나 문제에서 주어지는 입력값이 계속 바뀔 수 있고, 어느정도 중첩될지 예측할 수 없는 상황이라면 기존처럼 코드를 구현하기에는 한계가 있을 것입니다. 이 때 재귀함수를 사용하면 효율적이고 가독성있는 코드 작성이 가능합니다.</p>
+<h2 id="▫︎-재귀-함수의-구성"><a href="#▫︎-재귀-함수의-구성" class="headerlink" title="▫︎ 재귀 함수의 구성"></a>▫︎ 재귀 함수의 구성</h2><p>재귀 함수는 크게 종료 조건과 실행할 동작으로 나누어 구성할 수 있습니다. 실행할 동작에서 주어진 데이터들을 가공하고 동작을 수행하면서 자기 자신을 계속 호출하다가 정해놓은 종료 조건에 다달았을 때 함수를 return하게 하는 것입니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">recursive</span> = (<span class="params">depth, ...</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span>( 종료 조건 ) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 동작</span></span><br><span class="line">  <span class="title function_">recursive</span>(depth+<span class="number">1</span>, ...)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">recursive</span>(<span class="number">1</span>, ...)</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-재귀-함수의-depth"><a href="#▫︎-재귀-함수의-depth" class="headerlink" title="▫︎ 재귀 함수의 depth"></a>▫︎ 재귀 함수의 depth</h2><p>재귀 함수를 자바스크립트 코드로 처음 구현할 때, 코드의 동작을 따라가며 이해하는 것이 어렵습니다. 그러나 depth 개념을 적용하여 코드를 구현한다면 원활한 이해가 가능합니다. depth는 재귀 함수가 호출된 깊이, 즉 자신을 몇번째 호출했는지에 대한 데이터입니다.</p>
+<p>순열과 조합을 예시로 지금까지의 내용들을 적용하여 재귀함수를 이해해보겠습니다.</p>
+<h1 id="▪︎-카드를-뽑아보자"><a href="#▪︎-카드를-뽑아보자" class="headerlink" title="▪︎ 카드를 뽑아보자"></a>▪︎ 카드를 뽑아보자</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/a3d4d3dc-678b-41f8-aeb1-577b763694e2/image.png" alt="image.png"></p>
+<h2 id="▫︎-순열"><a href="#▫︎-순열" class="headerlink" title="▫︎ 순열"></a>▫︎ 순열</h2><p>순열은 순서를 고려하여 카드들을 뽑는 방법입니다. 카드를 하나씩 뽑되, 뽑은 카드는 제외하고 남은 카드들 중에서 하나씩 뽑는 것을 반복하면 됩니다. 그러다가 원하는 개수의 카드를 뽑았을 때 동작을 멈추면 됩니다. 재귀를 사용하면 효율적인 이유는 카드를 뽑는 동작들이 모두 ‘주어진 배열들을 순회하며 하나를 선택한다’라는 같은 동작을 하기 때문입니다. 각 카드를 뽑는 동작, 몇 번째 카드를 뽑는 상황인지에 따라 depth가 부여됩니다. (첫 번째 카드를 뽑으면 depth 1 …)</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/7d8d03e1-e393-4e81-a4ee-00100ad54d93/image.png" alt="image.png"></p>
+<p>이제 우리는 재귀 함수를 구현하기 위해 세가지만 고려하면 됩니다.</p>
+<ol>
+<li>종료 조건</li>
+<li>시행할 동작</li>
+<li>필요한 데이터</li>
+</ol>
+<ol>
+<li><p>종료 조건은 우리가 카드를 3개 다 뽑았을 경우입니다. 따라서 3의 depth까지만 함수를 실행하고 재귀를 멈추면 됩니다.</p>
+</li>
+<li><p>시행할 동작은 남은 카드들 중 한개를 뽑는 것입니다. 카드 배열들을 for문으로 순회하면서 각 자리에 하나씩 넣어주면 됩니다.</p>
+</li>
+<li><p>필요한 데이터는 다음 세가지입니다. depth, 남은 카드들의 정보를 담은 배열, 뽑은 카드들의 배열</p>
+</li>
+</ol>
+<p>위 정보를 바탕으로 처음 소개한 재귀 함수와 동일한 구성으로 코드를 구현해보면 다음과 같습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 순열</span></span><br><span class="line"><span class="keyword">const</span> answer = [];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">permutation</span> = (<span class="params">depth, leftCards, arr</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 종료 조건</span></span><br><span class="line">  <span class="keyword">if</span> (depth &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    answer.<span class="title function_">push</span>(arr);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 동작</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftCards.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> cardsArr = leftCards.<span class="title function_">filter</span>(<span class="function">(<span class="params">_, idx</span>) =&gt;</span> idx !== i); <span class="comment">// 다음에 뽑을 수 있는 카드들의 배열</span></span><br><span class="line">    <span class="title function_">permutation</span>(depth + <span class="number">1</span>, cardsArr, [...arr, leftCards[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">permutation</span>(<span class="number">1</span>, cards, []);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-조합"><a href="#▫︎-조합" class="headerlink" title="▫︎ 조합"></a>▫︎ 조합</h2><p>조합은 순서를 고려하지 않고 카드들을 뽑는 방법입니다. 뽑은 카드를 제외하고 다시 카드를 뽑되, 순서가 달라도 같은 카드들을 뽑으면 안되기 때문에 순회할 때 뽑은 카드 뒤쪽의 카드들만을 대상으로 합니다. 이외에는 순열과 같습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/c1a979e2-f25c-4090-834f-e176722b6787/image.png" alt="image.png"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 조합</span></span><br><span class="line"><span class="keyword">const</span> answer = [];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">combination</span> = (<span class="params">depth, leftCards, arr</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 종료 조건</span></span><br><span class="line">  <span class="keyword">if</span> (depth &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    answer.<span class="title function_">push</span>(arr);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 함수</span></span><br><span class="line">  <span class="keyword">if</span> (leftCards.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftCards.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> cardsArr = leftCards.<span class="title function_">slice</span>(i + <span class="number">1</span>); <span class="comment">// 다음에 뽑을 수 있는 카드들의 배열</span></span><br><span class="line">    <span class="title function_">combination</span>(depth + <span class="number">1</span>, cardsArr, [...arr, leftCards[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">combination</span>(<span class="number">1</span>, cards, []);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-Depth가-유동적이라면"><a href="#▪︎-Depth가-유동적이라면" class="headerlink" title="▪︎ Depth가 유동적이라면?"></a>▪︎ Depth가 유동적이라면?</h1><p>위에 설명한 depth 데이터는 재귀가 몇번째까지 타고 들어가며 실행되는지를 쉽게 이해하기 위해 추가한 개념입니다. depth 개념으로 순열과 조합을 구현해보면서 재귀의 동작에 대해 기본적인 이해가 생겼다면 depth에 기반한 재귀가 아닌 함수 그 자체가 데이터를 변동하며 스스로를 호출하는 경우를 생각해보겠습니다.</p>
+<p>위의 depth를 이용한 재귀 함수의 구현은 모든 상황에서 사용할 수는 없습니다. 예를들어 얼만큼 함수를 다시 호출할지가 정해지지 않은 문제의 경우가 그렇습니다. 위의 예시에서는 ‘5장 중 3장의 카드를 뽑는다’ 였지만, 만약 숫자가 적힌 5장의 카드 중 임의의 수의 카드를 뽑아 손안의 카드와 남은 카드를 비교하는 문제에서는 depth를 기준으로 하여 재귀 함수를 호출할 수 없습니다. 아래 문제를 살펴보겠습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/af2cb58f-e093-48d0-85ce-c5422c8dabbc/image.png" alt="image.png"></p>
+<p>이 문제에서 필요한 정보는 각 부분집합의 경우들과 그와 매치되는 남은 원소들입니다. 위 카드 예시에 대입해보자면 임의의 개수의 카드를 뽑아 순서에 상관하지 않고 뽑는 경우(조합)와 같습니다. 따라서 depth가 아닌 다른 데이터들을 바탕으로 함수를 구성해야 합니다.</p>
+<p>임의의 개수의 원소를 뽑는다는 것은 0개 ~ 모든 원소의 개수까지를 뽑아본다는 것입니다. 따라서 조합을 실행하며 선택된 원소의 이전 원소들은 제외하고 남은 원소들의 수가 0이 될 때 함수를 종료하면 될 것 같습니다. 또한 문제를 푸는데 필요한 정보인 각 부분집합, 즉 뽑은 원소들의 배열과 그에 매칭된 남은 원소들이므로 이 둘을 데이터로하여 재귀 함수를 구성하면 문제를 풀 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> answer = <span class="string">&quot;NO&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> arr1 = [];</span><br><span class="line"><span class="keyword">let</span> arr2 = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">recursive</span> = (<span class="params">leftArr, picks</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (leftArr.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftArr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newArr = [...picks, leftArr[i]]; <span class="comment">// 전체 배열에서 뽑을 수 있는 (남아있는) 카드들</span></span><br><span class="line">    <span class="title function_">recursive</span>(leftArr.<span class="title function_">slice</span>(i + <span class="number">1</span>), newArr); <span class="comment">// i번째 카드를 뽑았다면 i 이후의 카드들이 남아있게 된다.</span></span><br><span class="line">    arr1.<span class="title function_">push</span>(newArr);</span><br><span class="line">    arr2.<span class="title function_">push</span>(arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> !newArr.<span class="title function_">includes</span>(el)));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">recursive</span>(arr, []);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr1.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">if</span> (arr1[i].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur, <span class="number">0</span>) === arr2[i].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur, <span class="number">0</span>)) answer = <span class="string">&quot;YES&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1215,140 +1345,6 @@
 <p>개발 환경에서는 MSW가 api 요청을 탈취해서 모킹 서버로부터 저희가 정한 응답을 받고 데이터들을 페이지에 렌더링할 수 있습니다. 이게 정말 좋았던게 백엔드와의 협의를 통해 엔드포인트만 정해둔다면 이후 배포시에도 코드의 변경없이 실제 서버로 그대로 요청을 보낼 수 있다는 것이 신세계였습니다.</p>
 <p>프로젝트 막바지에는 위의 이미지처럼 모킹 함수 내에 return문을 추가시켜서 모킹하지 않고 바로 서버로 요청을 보내보면서 테스트 해볼 수 있었어요!</p>
 <h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><p>파이널 프로젝트도 끝나가고 이제는 수료도 코앞으로 다가왔습니다. 6개월 가량 정말 길거라고 생각한 것이 무색하게 후딱 지나가버렸어요. 패스트캠퍼스 X 야놀자 부트캠프 덕분에 스스로 자신감도 생기고 무엇보다 어떻게 개발자로서 발전해나갈지 깨닫는 계기가 된 것 같아요. 이번 마지막 프로젝트도 잘 마치고 다음 포스팅엔 마지막으로 부트캠프를 진행하며 느꼈던 총 후기로 돌아오겠습니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/12/15/fc-yanolja/retrospective_mini/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/15/fc-yanolja/retrospective_mini/" class="post-title-link" itemprop="url">패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_미니프로젝트 회고</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2023-12-15 20:44:16" itemprop="dateCreated datePublished" datetime="2023-12-15T20:44:16+09:00">2023-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%EC%95%BC%EB%86%80%EC%9E%90-%ED%85%8C%ED%81%AC%EC%8A%A4%EC%BF%A8/" itemprop="url" rel="index"><span itemprop="name">야놀자 테크스쿨</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/12/15/fc-yanolja/retrospective_mini/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/12/15/fc-yanolja/retrospective_mini/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/5e1e2ac9-3a7a-4a13-89bd-fa4abc0b669a/image.png"></p>
-<blockquote>
-<p>이번 포스팅은 패스트캠퍼스 X 야놀자 부트캠프에서 진행한 ‘미니 프로젝트’를 진행하며 겪은 경험과 과정, 그리고 느낀점들을 공유하려고 합니다. 처음으로 경험했던 백엔드와의 협업 프로젝트였는데요! 이번 프로젝트를 하면서 팀장 역할도 맡게 되어서 부담감도 있었던 프로젝트였던 것 같아요. 하지만 함께 노력해준 팀원들과 멘토님의 도움 덕분에 수월하게 진행된 것 같습니다. 패스트캠퍼스 X 야놀자 부트캠프의 미니프로젝트! 어떻게 진행이 되었나 함께 보실까요?</p>
-</blockquote>
-<h1 id="프로젝트의-시작"><a href="#프로젝트의-시작" class="headerlink" title="프로젝트의 시작"></a>프로젝트의 시작</h1><p>이번 프로젝트에서는 ‘숙박 예약 API 서비스’를 과제로 전달받았습니다. 프로젝트 RFP를 통해 프로젝트 정의서와 기능적 요구사항들을 전달받고 해당 기능들을 백엔드 팀과의 협업을 통해 구현해나가야 했어요. 11월20일 ~ 12월01일 2주간 정말 열심히 개발했답니다.</p>
-<h1 id="기획과-디자인"><a href="#기획과-디자인" class="headerlink" title="기획과 디자인"></a>기획과 디자인</h1><p>프로젝트의 기획은 피그마를 통해 구체화하였습니다. 팀 전체가 모여 와이어프레임과 세부 디자인을 결정하고 세부적으로 백엔드 팀원분들과의 상의를 통해 우선 순위 기능들, 구현하기 힘들거나 후순위인 기능들을 정리하였습니다.</p>
-<p><a target="_blank" rel="noopener" href="https://www.figma.com/file/uRO4rM5NR5F1WTIsv6ALWD/12%EA%B1%B8%EC%A7%80%EB%A7%90%EC%A1%B0?type=design&node-id=0:1&mode=design&t=kG7h2ykBGJ5rrZpc-1">Figma URL</a><br><img src="https://velog.velcdn.com/images/vbghdl/post/efb0515a-20f2-4e2d-8ff5-d5eb61a70948/image.png"></p>
-<h1 id="기술-선택"><a href="#기술-선택" class="headerlink" title="기술 선택"></a>기술 선택</h1><p>기획이 완료되어 가면서 개발시 어떠한 기술들을 쓸 것인가에 대해 팀원들과 이야기를 나누었습니다. 제일 먼저 저희가 주목한 부분은 ‘어떤 기술을 써야 기업에 이익을 극대화할 수 있을 것인가?’였습니다. 숙박 예약 사이트의 각각의 숙박업소들이 나와있는 페이지와 객실 정보들을 확인하는 페이지들의 노출도가 높을 수록 우리 사이트를 접근하는 유저들이 많을 것이고, 그것이 기업의 이익과 연결된다고 생각했습니다. 따라서 이전 프로젝트와는 달리 NEXT.JS를 사용하기로 하였습니다.</p>
-<p>NEXT.JS는 서버 컴포넌트가 있기 때문에 SSR이 가능합니다. 즉 자바스크립트 기반으로 빈 문서를 가져와 렌더링하는 리액트의 CSR과는 달리 우리가 서버 컴포넌트로 활용하고자 하는 페이지는 해당 정보를 문서에서 그려올 수 있기 때문에 검색 엔진 최적화에 유리합니다. 바로 우리 페이지를 더 쉽고, 많이 노출시킬 수 있다는 뜻이에요!</p>
-<p>이후에는 백엔드에서 전달해준 API 명세등을 미리 타입으로 지정해두기 위해 Typescript도 도입했습니다. API 명세에 없는 키값을 입력하거나 타이핑 오타 등으로 일어날 오류를 런타임환경에서 확인하고 수정할 수 있었어요.</p>
-<p>마지막으로 스타일 프레임워크는 TailwindCss를 선택했습니다. TailwindCss를 선택한 이유는 2주라는 짧은 시간 동안 처음 진행해보는 백엔드와의 협업 프로젝트였기 때문에 개발 생산성이 중요하다고 생각했기 때문입니다. 유틸리티 퍼스트 방식을 도입하면서 화면에 그려지는 레이아웃들을 직접 확인하면서 바로바로 적용해나갈 수 있어 확실히 빠른 개발 진행이 가능했습니다.</p>
-<h1 id="협업-방식과-개발-전략-설정"><a href="#협업-방식과-개발-전략-설정" class="headerlink" title="협업 방식과 개발 전략 설정"></a>협업 방식과 개발 전략 설정</h1><p>다음으로 정해야 할 것은 ‘어떻게 협업할 것인가?’였습니다.</p>
-<h2 id="ZEP"><a href="#ZEP" class="headerlink" title="ZEP"></a>ZEP</h2><p>전체적인 회의 진행과 기본 커뮤니케이션은 ZEP을 통해 이루어졌습니다. ZEP은 화면공유, 음성채팅, 영상채팅 등이 가능한 협업 툴인데요, 마치 게임처럼 아기자기한 캐릭터들을 이동해가면서 커뮤니케이션을 할 수 있어서 너무 재미있었어요.<br><img src="https://velog.velcdn.com/images/vbghdl/post/51cd3359-aa51-4580-97e5-65505fc04b9e/image.png"></p>
-<blockquote>
-<p>저희 프로젝트 방은 이렇게 생겼어요. 프론트 책상에서 회의를 하다가 백엔드 팀에게 질문사항이 생기면 ‘쫑쫑쫑’ 백엔드 테이블로 걸어가서 물어보곤 했답니다.</p>
-</blockquote>
-<h2 id="Trello"><a href="#Trello" class="headerlink" title="Trello"></a>Trello</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/c0648461-9a00-46ac-b0b0-3930689c3eec/image.png"><br>다음으로는 백엔드와 프론트엔드 사이에서 맡은 역할 별로 요구사항이나 수정사항, 또는 오류 등에 대해 1:1로 요청을 보내기에 trello가 편하다고 생각되어서 도입하게 되었습니다. 같은 프론트엔드 팀원이나 백엔드 팀원에게 요청을 보낼 때 간단하게 카드를 달아놓을 수 있습니다. 해당 주제에 대한 카드에서 댓글을 통해 서로 의견을 주고 받거나 진행사항을 공유할 수 있었습니다.</p>
-<h2 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h2><p>마지막으로는 가장 주축이 되었던 모두의 Github입니다! 프론트엔드 팀의 개발에 있어서 프로세스를 정해두었어요.</p>
-<ol>
-<li>분담한 역할에 따라 구현할 기능에 대한 개발 내용을 미리 이슈로 등록한다.<br><img src="https://velog.velcdn.com/images/vbghdl/post/dc6cf5c5-b1a3-4cc8-ba1d-f2baf3c0e05b/image.png"></li>
-<li>개인이 개발한 내용은 반드시 PR을 통해 팀원들과 공유하고 코드리뷰와 approval을 거친 뒤에 브랜치에 적용한다.<br><img src="https://velog.velcdn.com/images/vbghdl/post/eaf59b90-91fa-43a7-9461-f01cca5c8b7f/image.png"></li>
-</ol>
-<p>이 때 각 팀원 별로 브랜치를 분기해서 PR을 보냈어야 했는데 이를 단순화하기 위해 Gitflow도 도입했습니다! 저희가 사용한 브랜치 분기 전략은 밑의 링크에서 확인하실 수 있어요.</p>
-<p><a target="_blank" rel="noopener" href="https://warp-pirate-416.notion.site/caba5079fcc64628bebb8bd56a768054">브랜치 분기 전략</a></p>
-<h1 id="프로젝트-진행"><a href="#프로젝트-진행" class="headerlink" title="프로젝트 진행"></a>프로젝트 진행</h1><p>프로젝트는 2주 동안 정말 눈코 뜰 새 없이 빠르게 지나갔습니다. 그나마 다행인 점은 기획 단계에서 백엔드와의 상의를 통해 전체적인 그림을 잘 잡아놨기에, 큰 충돌 없이 잘 진행될 수 있었어요.</p>
-<p>저는 인증관련 페이지들과 기능들을 맡아 구현하게 되었습니다.</p>
-<blockquote>
-<p>이 때 NEXT.JS에서 쿠키 관련 이슈 때문에 너무 고생을 했는데… 이 부분은 차후에 NEXT.JS의 쿠키 사용에서의 이슈와 해결 방법이라는 주제로 다시 포스팅 하도록 할게요!</p>
-</blockquote>
-<p>또 저는 팀장으로서 전체적으로 팀원들의 개발 진행 사항이나 오류들을 파악해야 했습니다. 코드 리뷰도 정말 열심히 봤구요. 저의 역량은 이 모든 것을 자연스럽게 할 수 있을 정도로 충분하지 않다고 생각했고, 처음에 팀장을 맡았을 때에도 너무 부담이었던 부분이었습니다. 그러나 우리는 팀!<br>혼자서 모든 것을 해결한 것이 아니었어요. 팀원들의 도움과 스스로의 노력이 더해졌을 때 프로젝트는 정말 순조롭게 흘러갈 수 있었습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/cf69a43c-d3e0-47a9-b38a-a5ccc778d0ca/image.png"></p>
-<blockquote>
-<p>쌓여가는 Close PR과 우리들의 피, 땀 , 눈물…</p>
-</blockquote>
-<h1 id="프로젝트-완성과-리팩토링"><a href="#프로젝트-완성과-리팩토링" class="headerlink" title="프로젝트 완성과 리팩토링"></a>프로젝트 완성과 리팩토링</h1><p>드디어 2주가 지나고 저희 프로젝트가 완성되었습니다. 너무 힘든 2주였지만 완성된 결과물들이 제대로 동작하는 것들을 보면서 피로가 싹 날아가는 느낌이었어요! (물론 아직 부족한 점이 많아요…)</p>
-<p><a target="_blank" rel="noopener" href="https://www.stayinn.site/">STAYINN 사이트 링크</a><br><img src="https://velog.velcdn.com/images/vbghdl/post/7c08d8de-82ae-4e25-95fe-6c6994310eee/image.png"></p>
-<h2 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="OVERVIEW"></a>OVERVIEW</h2><p><a target="_blank" rel="noopener" href="https://drive.google.com/file/d/14apsd5GBasq9pUgUAFFZjZgJzqrIvaB2/view?usp=sharing"><img src="https://github.com/Dont12/KDT_Y_FE_Mini-Project/assets/79249376/3e556cb5-0763-4335-991f-7d8e36c73962" alt="시연영상"></a></p>
-<h1 id="리팩토링"><a href="#리팩토링" class="headerlink" title="리팩토링"></a>리팩토링</h1><p>프로젝트가 끝난 뒤에는 2주간의 리팩토링 기간이 주어졌습니다. 각 팀원별로 맡은 부분에서 아쉬웠던 부분이나 추가적인 기능 구현들을 진행했습니다.</p>
-<p>저의 경우에는 가장 주된 리팩토링 기능이 인가 여부에 따라 페이지를 라우팅하는 부분이였어요. 우리 사이트의 메인 페이지나 숙박&#x2F;객실 정보들을 보여주는 페이지의 경우는 로그인이 없어도 이용할 수 있지만, 마이페이지, 장바구니 페이지, 예약 하기 등에서는 반드시 로그인이 필요하기 때문에 로그인 페이지로 리다이렉트 시켜주는 로직이 필요했거든요.</p>
-<p>기존 프로젝트에서 제가 구현한 방식은 페이지가 렌더링 되면서 로그인한 유저 정보를 API 요청하고 로그인이 되어있지 않아 요청이 실패하면 리다이렉트 시켜주는 방식이었습니다. 문제는 이렇게 구현했을 경우에는 페이지가 렌더링 되면서 요청하기 때문에 잠시동안 해당 페이지가 보여지다가 로그인 페이지로 넘어가는 깜빡거림 현상이 있었습니다.</p>
-<p>이를 해결하기 위해 해당 페이지로 이동할 때 렌더링 이전 유저 정보를 요청하고 그 결과에 따라 렌더링 여부를 결정하는 것이 필요했어요. 이를 위해 미들웨어를 작성했습니다.</p>
-<p>이 때 미들웨어를 작성하면서 쿠키 이슈가 생겼는데, 백엔드 단에서 Set-cookie를 해주더라도 next서버에는 쿠키라는 개념이 없기 때문에 next서버에서의 요청에서 쿠키가 담겨가지 않아 인증 요청을 할 수가 없었습니다. 이를 해결하기 위해 로그인시 브라우저에 Set-cookie된 토큰들을 직접 next서버에 변수로 불러와 header의 cookie로 직접 넣어서 api 요청을 해주어야 했어요. ‘next-client-cookies&#x2F;server’의 CookiesProvider를 RootLayout에 감싸주어 서버 컴포넌트와 클라이언트 컴포넌트에서 쿠키들을 공유할 수 있게 했습니다. 이후엔 Set-cookie한 토큰들의 값을 로그인시 읽어와 CookiesProvider에 따로 set 해주어 미들웨어에서 토큰들을 읽을 수 있게 하였고, 마찬가지로 로그아웃 시에는 따로 CookiesProvider의 토큰 값들을 remove 해주는 로직을 추가해주는 것으로 해결했습니다.</p>
-<h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><p>2주간의 협업 프로젝트는 저의 역량을 한층 더 끌어올려준 것을 넘어서 다른 사람들과의 협업이 어떻게 진행되고 그 안에서 제가 어떤 방식으로 다른 사람들에게 내 요구를 전할지, 어떻게 표현할지를 생각해보는 계기가 되었습니다. 어느덧 벌써 ‘파이널 프로젝트’를 앞두고 있는데요. 이 경험을 잘 살려서 파이널 프로젝트 또한 잘 마무리하고 찾아뵙겠습니다!</p>
 
       
     </div>

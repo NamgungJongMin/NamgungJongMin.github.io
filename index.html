@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,170 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/" class="post-title-link" itemprop="url">WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-17 21:52:55" itemprop="dateCreated datePublished" datetime="2025-01-17T21:52:55+09:00">2025-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/17/project/wego/인증폼구현/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<h1 id="▪︎-로그인-폼-구현-과정과-고민들"><a href="#▪︎-로그인-폼-구현-과정과-고민들" class="headerlink" title="▪︎ 로그인 폼 구현 과정과 고민들"></a>▪︎ 로그인 폼 구현 과정과 고민들</h1><h2 id="▫︎-상태-관리-방식의-선택"><a href="#▫︎-상태-관리-방식의-선택" class="headerlink" title="▫︎ 상태 관리 방식의 선택"></a>▫︎ 상태 관리 방식의 선택</h2><p>로그인 폼을 구현할 때 가장 먼저 고민했던 것은 입력값을 어떤 방식으로 관리할 것인가였습니다. React에서는 크게 두 가지 접근 방식이 있습니다:</p>
+<h3 id="제어-컴포넌트-Controlled-Component"><a href="#제어-컴포넌트-Controlled-Component" class="headerlink" title="제어 컴포넌트 (Controlled Component)"></a><strong>제어 컴포넌트 (Controlled Component)</strong></h3><ul>
+<li>리액트가 폼 데이터를 완전히 제어</li>
+<li>useState를 사용하여 상태 관리</li>
+<li>실시간으로 입력값 검증 가능</li>
+</ul>
+<h3 id="비제어-컴포넌트-Uncontrolled-Component"><a href="#비제어-컴포넌트-Uncontrolled-Component" class="headerlink" title="비제어 컴포넌트 (Uncontrolled Component)"></a><strong>비제어 컴포넌트 (Uncontrolled Component)</strong></h3><ul>
+<li>DOM이 폼 데이터를 처리</li>
+<li>useRef를 사용하여 DOM에 직접 접근</li>
+<li>필요할 때만 값을 참조</li>
+</ul>
+<p>저는 다음과 같은 3가지 이유로 useState를 선택하여 구현하였습니다.</p>
+<h3 id="1-상태의-본질"><a href="#1-상태의-본질" class="headerlink" title="1. 상태의 본질"></a>1. 상태의 본질</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">LoginForm</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> email = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;email&#x27;</span> &#125;);</span><br><span class="line">    <span class="keyword">const</span> password = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;password&#x27;</span> &#125;);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>입력값은 시간에 따라 변화하는 애플리케이션의 상태</li>
+<li>UI에 즉시 반영되어야 하는 데이터</li>
+<li>상태 변화에 따른 부수 효과(유효성 검증) 필요</li>
+</ul>
+<h3 id="2-실시간-유효성-검증"><a href="#2-실시간-유효성-검증" class="headerlink" title="2. 실시간 유효성 검증"></a>2. 실시간 유효성 검증</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> validate = (&#123; name, value, password &#125;: <span class="title class_">ValidateOptions</span>): <span class="function"><span class="params">boolean</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;email&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">email</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>사용자 경험 향상을 위한 즉각적인 피드백 필요</li>
+<li>상태 변화를 감지하여 자동으로 검증 수행</li>
+</ul>
+<h3 id="3-제어-컴포넌트의-이점"><a href="#3-제어-컴포넌트의-이점" class="headerlink" title="3. 제어 컴포넌트의 이점"></a>3. 제어 컴포넌트의 이점</h3><ul>
+<li>폼 데이터에 대한 완벽한 제어 가능</li>
+<li>입력값 포맷팅이나 제한 용이</li>
+<li>여러 입력 필드 간의 연동 용이</li>
+</ul>
+<h2 id="▫︎-로직을-분리하여-기능-구현"><a href="#▫︎-로직을-분리하여-기능-구현" class="headerlink" title="▫︎ 로직을 분리하여 기능 구현"></a>▫︎ 로직을 분리하여 기능 구현</h2><p>코드의 재사용성과 유지보수성을 높이기 위해 다음과 같이 구조를 분리했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hooks/useAuthInput.ts</span></span><br><span class="line"><span class="comment">// 상태 관리와 이벤트 핸들링을 위한 커스텀 훅</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">useAuthInput</span> = (<span class="params">&#123; name, password &#125;: Props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [value, setValue] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [isValid, setIsValid] = useState&lt;<span class="built_in">boolean</span> | <span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> debouncedValidate = <span class="title function_">useMemo</span>(</span><br><span class="line">    <span class="function">() =&gt;</span></span><br><span class="line">      <span class="title function_">debounce</span>(<span class="function">(<span class="params">newValue: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!newValue) &#123;</span><br><span class="line">          <span class="title function_">setIsValid</span>(<span class="literal">null</span>);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> validationResult = <span class="title function_">validate</span>(&#123; name, <span class="attr">value</span>: newValue, password &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">setIsValid</span>(validationResult);</span><br><span class="line">      &#125;, <span class="number">250</span>),</span><br><span class="line">    [name, password]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleChange = <span class="title function_">useCallback</span>(</span><br><span class="line">    <span class="function">(<span class="params">e: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> newValue = e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line"></span><br><span class="line">      <span class="title function_">setValue</span>(newValue);</span><br><span class="line">      <span class="title function_">debouncedValidate</span>(newValue);</span><br><span class="line">    &#125;,</span><br><span class="line">    [debouncedValidate]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      debouncedValidate.<span class="title function_">cancel</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, [debouncedValidate]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    value,</span><br><span class="line">    isValid,</span><br><span class="line">    setValue,</span><br><span class="line">    setIsValid,</span><br><span class="line">    handleChange,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/validateAuthInput.ts</span></span><br><span class="line"><span class="comment">// 유효성 검증 로직</span></span><br><span class="line"><span class="keyword">const</span> validate = (&#123; name, value, password &#125;: <span class="title class_">ValidateOptions</span>): <span class="function"><span class="params">boolean</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;email&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">email</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;password&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">password</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;passwordConfirm&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> password ? value === password : <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;currentPassword&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">currentPassword</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;newPassword&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">newPassword</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;name&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">name</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;nickname&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">nickname</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;contact&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">contact</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;birthDate&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">birthDate</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;verifyNumber&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">verifyNumber</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// components/auth/form/loginForm.tsx</span></span><br><span class="line"><span class="comment">// UI 컴포넌트</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">LoginForm</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> email = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;email&quot;</span> &#125;);</span><br><span class="line">  <span class="keyword">const</span> password = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;password&quot;</span> &#125;);</span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">mutate</span>: login, <span class="attr">isPending</span>: isLoggingIn &#125; = <span class="title function_">useLogin</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleLogin</span> = (<span class="params">e: React.FormEvent&lt;HTMLFormElement&gt;</span>) =&gt; &#123;</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line"></span><br><span class="line">    <span class="title function_">login</span>(&#123;</span><br><span class="line">      <span class="attr">email</span>: email.<span class="property">value</span>,</span><br><span class="line">      <span class="attr">password</span>: password.<span class="property">value</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">className</span>=<span class="string">&quot;mb-4 w-full&quot;</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleLogin&#125;</span> <span class="attr">data-testid</span>=<span class="string">&quot;login-form&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthText</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">size</span>=<span class="string">&quot;full&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;email.value&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">isValid</span>=<span class="string">&#123;email.isValid&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;email.handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthPassword</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;password&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;password.value&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">isValid</span>=<span class="string">&#123;password.isValid&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;password.handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">label</span>=<span class="string">&quot;로그인&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">size</span>=<span class="string">&quot;full&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;mt-[180px] hover:bg-primary-normal&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">disabled</span>=<span class="string">&#123;!email.isValid</span> || !<span class="attr">password.isValid</span>&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">showSpinner</span>=<span class="string">&#123;isLoggingIn&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>이러한 구조는 각 부분의 책임이 명확하다는 점, 테스트가 용이하다는 점, 코드의 재사용성이 향상된다는 장점이 있습니다.</p>
+<h1 id="▪︎-상태-공존과-리렌더링-최적화"><a href="#▪︎-상태-공존과-리렌더링-최적화" class="headerlink" title="▪︎ 상태 공존과 리렌더링 최적화"></a>▪︎ <strong>상태 공존과 리렌더링 최적화</strong></h1><h2 id="▫︎-상태-공존-State-Colocation"><a href="#▫︎-상태-공존-State-Colocation" class="headerlink" title="▫︎ 상태 공존 (State Colocation)"></a>▫︎ 상태 공존 (State Colocation)</h2><p>상태 공존이란 하나의 컴포넌트 내에서 여러 개의 독립적인 상태가 함께 존재하는 상황을 말합니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">LoginForm</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> email = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;email&quot;</span> &#125;); <span class="comment">// 상태 1</span></span><br><span class="line">  <span class="keyword">const</span> password = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;password&quot;</span> &#125;); <span class="comment">// 상태 2</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthText</span> &#123;<span class="attr">...email</span>&#125; /&gt;</span> // 이메일 입력 시 패스워드도 리렌더링</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthPassword</span> &#123;<span class="attr">...password</span>&#125; /&gt;</span> // 패스워드 입력 시 이메일도 리렌더링</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>상태 공존으로 인해 한 입력 필드의 상태 변화가 다른 필드의 불필요한 리렌더링을 유발한다는 문제점이 있었습니다. 이것은 성능 저하로 이어지고 결국 사용자 경험을 저하시키는 결과를 낳을 수 있었습니다.</p>
+<p>이를 위해 메모이제이션 기능을 이용한 최적화 전략을 사용하기로 했습니다.</p>
+<h2 id="▫︎-memoization을-통한-최적화"><a href="#▫︎-memoization을-통한-최적화" class="headerlink" title="▫︎ memoization을 통한 최적화"></a>▫︎ memoization을 통한 최적화</h2><h3 id="React-memo를-통한-컴포넌트-메모이제이션"><a href="#React-memo를-통한-컴포넌트-메모이제이션" class="headerlink" title="React.memo를 통한 컴포넌트 메모이제이션"></a>React.memo를 통한 컴포넌트 메모이제이션</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">AuthText</span> = <span class="title function_">memo</span>(</span><br><span class="line">  <span class="function">(<span class="params">&#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">type</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    name,</span></span></span><br><span class="line"><span class="params"><span class="function">    value,</span></span></span><br><span class="line"><span class="params"><span class="function">    isValid,</span></span></span><br><span class="line"><span class="params"><span class="function">  &#125;: <span class="comment">// ...</span></span></span></span><br><span class="line"><span class="params"><span class="function">  Props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>props가 변경되지 않은 컴포넌트의 리렌더링 방지</li>
+<li>각 입력 필드가 독립적으로 렌더링</li>
+</ul>
+<h3 id="useCallback을-통한-이벤트-핸들러-메모이제이션"><a href="#useCallback을-통한-이벤트-핸들러-메모이제이션" class="headerlink" title="useCallback을 통한 이벤트 핸들러 메모이제이션"></a>useCallback을 통한 이벤트 핸들러 메모이제이션</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleChange = <span class="title function_">useCallback</span>(</span><br><span class="line">  <span class="function">(<span class="params">e: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newValue = e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line">    <span class="title function_">setValue</span>(newValue);</span><br><span class="line">    <span class="title function_">debouncedValidate</span>(newValue);</span><br><span class="line">  &#125;,</span><br><span class="line">  [debouncedValidate]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>매 렌더링마다 새로운 함수가 생성되는 것을 방지</li>
+<li>의존성 배열에 debouncedValidate만 포함하여 불필요한 재생성 방지</li>
+</ul>
+<h3 id="useMemo를-통한-검증-함수-메모이제이션"><a href="#useMemo를-통한-검증-함수-메모이제이션" class="headerlink" title="useMemo를 통한 검증 함수 메모이제이션"></a>useMemo를 통한 검증 함수 메모이제이션</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debouncedValidate = <span class="title function_">useMemo</span>(</span><br><span class="line">  <span class="function">() =&gt;</span></span><br><span class="line">    <span class="title function_">debounce</span>(<span class="function">(<span class="params">newValue: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!newValue) &#123;</span><br><span class="line">        <span class="title function_">setIsValid</span>(<span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> validationResult = <span class="title function_">validate</span>(&#123; name, <span class="attr">value</span>: newValue, password &#125;);</span><br><span class="line">      <span class="title function_">setIsValid</span>(validationResult);</span><br><span class="line">    &#125;, <span class="number">250</span>),</span><br><span class="line">  [name, password]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>고비용 연산인 debounce 함수의 재생성 방지</li>
+<li>의존성이 변경될 때만 새로운 함수 생성</li>
+</ul>
+<h1 id="▪︎-결과"><a href="#▪︎-결과" class="headerlink" title="▪︎ 결과"></a>▪︎ 결과</h1><p>이러한 최적화 전략들을 적용한 결과 다음과 같은 점들이 개선되었습니다.</p>
+<h3 id="1-성능-향상"><a href="#1-성능-향상" class="headerlink" title="1. 성능 향상"></a>1. 성능 향상</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[리렌더링 패턴]</span><br><span class="line">최적화 전: Input1 변경 → 모든 Input 리렌더링</span><br><span class="line">최적화 후: Input1 변경 → Input1만 리렌더링</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-메모리-사용-개선"><a href="#2-메모리-사용-개선" class="headerlink" title="2. 메모리 사용 개선"></a>2. 메모리 사용 개선</h3><ul>
+<li>불필요한 함수 생성 감소</li>
+<li>효율적인 메모리 관리</li>
+</ul>
+<h3 id="3-사용자-경험-개선"><a href="#3-사용자-경험-개선" class="headerlink" title="3. 사용자 경험 개선"></a>3. 사용자 경험 개선</h3><ul>
+<li>입력 지연 감소</li>
+<li>부드러운 UI 업데이트</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1374,136 +1538,6 @@
 <p><img src="https://velog.velcdn.com/images/vbghdl/post/f9ba602a-af2f-45a3-ba4d-bdfae53610aa/image.png" alt="image.png"></p>
 <p>인접리스트에서는 graph의 행의 인덱스 만이 노드를 키값으로 의미를 지니게 되고, 열의 인덱스는 인접행렬과 달리 의미를 지니지 않습니다. 각 노드 행에 연결된 노드에 대한 정보를 push해주면 됩니다.</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 인접리스트</span></span><br><span class="line"><span class="keyword">const</span> N = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> input = [</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> graph = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="title class_">Array</span>(N + <span class="number">1</span>), <span class="function">() =&gt;</span> <span class="title class_">Array</span>(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> &#123;</span><br><span class="line">  graph[el[<span class="number">0</span>]].<span class="title function_">push</span>(el[<span class="number">1</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(graph);</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/" class="post-title-link" itemprop="url">재귀함수 ) 멍청한 내 동생도 이해시킨 자바스크립트 재귀함수 구현</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2024-03-20 16:32:32" itemprop="dateCreated datePublished" datetime="2024-03-20T16:32:32+09:00">2024-03-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2024/03/20/algorithm/%EC%9E%AC%EA%B7%80%ED%95%A8%EC%88%98/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/20/algorithm/재귀함수/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
-<h1 id="▪︎-재귀-함수"><a href="#▪︎-재귀-함수" class="headerlink" title="▪︎ 재귀 함수"></a>▪︎ 재귀 함수</h1><p>재귀 함수란 자기 자신을 호출하는 함수를 말합니다. 종료 조건이 충족될 때까지 반복적으로 자신을 호출하면서 주어진 동작을 수행합니다. 재귀 함수는 순회할 대상의 상태를 변경하면서 각 대상마다 비슷한 동작을 수행해야 할 때 효율적으로 사용할 수 있습니다.</p>
-<p>[1, 2, 3, 4, 5, 6] 이라는 배열안의 모든 숫자의 합을 구하는 코드를 작성한다고 해보겠습니다. 이 경우 간단하게 배열을 for문으로 순회하는 것으로 풀이가 가능합니다.</p>
-<p>[1, 2, 3, [1, 2, [4, 5], 3], 5, 6] 이러한 형태의 배열은 어떨까요? 3중 for문으로 배열들을 순회하면 가능할 것입니다. 그러나 문제에서 주어지는 입력값이 계속 바뀔 수 있고, 어느정도 중첩될지 예측할 수 없는 상황이라면 기존처럼 코드를 구현하기에는 한계가 있을 것입니다. 이 때 재귀함수를 사용하면 효율적이고 가독성있는 코드 작성이 가능합니다.</p>
-<h2 id="▫︎-재귀-함수의-구성"><a href="#▫︎-재귀-함수의-구성" class="headerlink" title="▫︎ 재귀 함수의 구성"></a>▫︎ 재귀 함수의 구성</h2><p>재귀 함수는 크게 종료 조건과 실행할 동작으로 나누어 구성할 수 있습니다. 실행할 동작에서 주어진 데이터들을 가공하고 동작을 수행하면서 자기 자신을 계속 호출하다가 정해놓은 종료 조건에 다달았을 때 함수를 return하게 하는 것입니다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">recursive</span> = (<span class="params">depth, ...</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span>( 종료 조건 ) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 동작</span></span><br><span class="line">  <span class="title function_">recursive</span>(depth+<span class="number">1</span>, ...)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">recursive</span>(<span class="number">1</span>, ...)</span><br></pre></td></tr></table></figure>
-
-<h2 id="▫︎-재귀-함수의-depth"><a href="#▫︎-재귀-함수의-depth" class="headerlink" title="▫︎ 재귀 함수의 depth"></a>▫︎ 재귀 함수의 depth</h2><p>재귀 함수를 자바스크립트 코드로 처음 구현할 때, 코드의 동작을 따라가며 이해하는 것이 어렵습니다. 그러나 depth 개념을 적용하여 코드를 구현한다면 원활한 이해가 가능합니다. depth는 재귀 함수가 호출된 깊이, 즉 자신을 몇번째 호출했는지에 대한 데이터입니다.</p>
-<p>순열과 조합을 예시로 지금까지의 내용들을 적용하여 재귀함수를 이해해보겠습니다.</p>
-<h1 id="▪︎-카드를-뽑아보자"><a href="#▪︎-카드를-뽑아보자" class="headerlink" title="▪︎ 카드를 뽑아보자"></a>▪︎ 카드를 뽑아보자</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/a3d4d3dc-678b-41f8-aeb1-577b763694e2/image.png" alt="image.png"></p>
-<h2 id="▫︎-순열"><a href="#▫︎-순열" class="headerlink" title="▫︎ 순열"></a>▫︎ 순열</h2><p>순열은 순서를 고려하여 카드들을 뽑는 방법입니다. 카드를 하나씩 뽑되, 뽑은 카드는 제외하고 남은 카드들 중에서 하나씩 뽑는 것을 반복하면 됩니다. 그러다가 원하는 개수의 카드를 뽑았을 때 동작을 멈추면 됩니다. 재귀를 사용하면 효율적인 이유는 카드를 뽑는 동작들이 모두 ‘주어진 배열들을 순회하며 하나를 선택한다’라는 같은 동작을 하기 때문입니다. 각 카드를 뽑는 동작, 몇 번째 카드를 뽑는 상황인지에 따라 depth가 부여됩니다. (첫 번째 카드를 뽑으면 depth 1 …)</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/7d8d03e1-e393-4e81-a4ee-00100ad54d93/image.png" alt="image.png"></p>
-<p>이제 우리는 재귀 함수를 구현하기 위해 세가지만 고려하면 됩니다.</p>
-<ol>
-<li>종료 조건</li>
-<li>시행할 동작</li>
-<li>필요한 데이터</li>
-</ol>
-<ol>
-<li><p>종료 조건은 우리가 카드를 3개 다 뽑았을 경우입니다. 따라서 3의 depth까지만 함수를 실행하고 재귀를 멈추면 됩니다.</p>
-</li>
-<li><p>시행할 동작은 남은 카드들 중 한개를 뽑는 것입니다. 카드 배열들을 for문으로 순회하면서 각 자리에 하나씩 넣어주면 됩니다.</p>
-</li>
-<li><p>필요한 데이터는 다음 세가지입니다. depth, 남은 카드들의 정보를 담은 배열, 뽑은 카드들의 배열</p>
-</li>
-</ol>
-<p>위 정보를 바탕으로 처음 소개한 재귀 함수와 동일한 구성으로 코드를 구현해보면 다음과 같습니다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 순열</span></span><br><span class="line"><span class="keyword">const</span> answer = [];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">permutation</span> = (<span class="params">depth, leftCards, arr</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 종료 조건</span></span><br><span class="line">  <span class="keyword">if</span> (depth &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    answer.<span class="title function_">push</span>(arr);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 동작</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftCards.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> cardsArr = leftCards.<span class="title function_">filter</span>(<span class="function">(<span class="params">_, idx</span>) =&gt;</span> idx !== i); <span class="comment">// 다음에 뽑을 수 있는 카드들의 배열</span></span><br><span class="line">    <span class="title function_">permutation</span>(depth + <span class="number">1</span>, cardsArr, [...arr, leftCards[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">permutation</span>(<span class="number">1</span>, cards, []);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
-
-<h2 id="▫︎-조합"><a href="#▫︎-조합" class="headerlink" title="▫︎ 조합"></a>▫︎ 조합</h2><p>조합은 순서를 고려하지 않고 카드들을 뽑는 방법입니다. 뽑은 카드를 제외하고 다시 카드를 뽑되, 순서가 달라도 같은 카드들을 뽑으면 안되기 때문에 순회할 때 뽑은 카드 뒤쪽의 카드들만을 대상으로 합니다. 이외에는 순열과 같습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/c1a979e2-f25c-4090-834f-e176722b6787/image.png" alt="image.png"></p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cards = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 조합</span></span><br><span class="line"><span class="keyword">const</span> answer = [];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">combination</span> = (<span class="params">depth, leftCards, arr</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 종료 조건</span></span><br><span class="line">  <span class="keyword">if</span> (depth &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    answer.<span class="title function_">push</span>(arr);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// depth별 실행할 함수</span></span><br><span class="line">  <span class="keyword">if</span> (leftCards.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftCards.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> cardsArr = leftCards.<span class="title function_">slice</span>(i + <span class="number">1</span>); <span class="comment">// 다음에 뽑을 수 있는 카드들의 배열</span></span><br><span class="line">    <span class="title function_">combination</span>(depth + <span class="number">1</span>, cardsArr, [...arr, leftCards[i]]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">combination</span>(<span class="number">1</span>, cards, []);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
-
-<h1 id="▪︎-Depth가-유동적이라면"><a href="#▪︎-Depth가-유동적이라면" class="headerlink" title="▪︎ Depth가 유동적이라면?"></a>▪︎ Depth가 유동적이라면?</h1><p>위에 설명한 depth 데이터는 재귀가 몇번째까지 타고 들어가며 실행되는지를 쉽게 이해하기 위해 추가한 개념입니다. depth 개념으로 순열과 조합을 구현해보면서 재귀의 동작에 대해 기본적인 이해가 생겼다면 depth에 기반한 재귀가 아닌 함수 그 자체가 데이터를 변동하며 스스로를 호출하는 경우를 생각해보겠습니다.</p>
-<p>위의 depth를 이용한 재귀 함수의 구현은 모든 상황에서 사용할 수는 없습니다. 예를들어 얼만큼 함수를 다시 호출할지가 정해지지 않은 문제의 경우가 그렇습니다. 위의 예시에서는 ‘5장 중 3장의 카드를 뽑는다’ 였지만, 만약 숫자가 적힌 5장의 카드 중 임의의 수의 카드를 뽑아 손안의 카드와 남은 카드를 비교하는 문제에서는 depth를 기준으로 하여 재귀 함수를 호출할 수 없습니다. 아래 문제를 살펴보겠습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/af2cb58f-e093-48d0-85ce-c5422c8dabbc/image.png" alt="image.png"></p>
-<p>이 문제에서 필요한 정보는 각 부분집합의 경우들과 그와 매치되는 남은 원소들입니다. 위 카드 예시에 대입해보자면 임의의 개수의 카드를 뽑아 순서에 상관하지 않고 뽑는 경우(조합)와 같습니다. 따라서 depth가 아닌 다른 데이터들을 바탕으로 함수를 구성해야 합니다.</p>
-<p>임의의 개수의 원소를 뽑는다는 것은 0개 ~ 모든 원소의 개수까지를 뽑아본다는 것입니다. 따라서 조합을 실행하며 선택된 원소의 이전 원소들은 제외하고 남은 원소들의 수가 0이 될 때 함수를 종료하면 될 것 같습니다. 또한 문제를 푸는데 필요한 정보인 각 부분집합, 즉 뽑은 원소들의 배열과 그에 매칭된 남은 원소들이므로 이 둘을 데이터로하여 재귀 함수를 구성하면 문제를 풀 수 있습니다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> n = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> answer = <span class="string">&quot;NO&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> arr1 = [];</span><br><span class="line"><span class="keyword">let</span> arr2 = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">recursive</span> = (<span class="params">leftArr, picks</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (leftArr.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; leftArr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newArr = [...picks, leftArr[i]]; <span class="comment">// 전체 배열에서 뽑을 수 있는 (남아있는) 카드들</span></span><br><span class="line">    <span class="title function_">recursive</span>(leftArr.<span class="title function_">slice</span>(i + <span class="number">1</span>), newArr); <span class="comment">// i번째 카드를 뽑았다면 i 이후의 카드들이 남아있게 된다.</span></span><br><span class="line">    arr1.<span class="title function_">push</span>(newArr);</span><br><span class="line">    arr2.<span class="title function_">push</span>(arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> !newArr.<span class="title function_">includes</span>(el)));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">recursive</span>(arr, []);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr1.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">if</span> (arr1[i].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur, <span class="number">0</span>) === arr2[i].<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur, <span class="number">0</span>)) answer = <span class="string">&quot;YES&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answer);</span><br></pre></td></tr></table></figure>
 
       
     </div>

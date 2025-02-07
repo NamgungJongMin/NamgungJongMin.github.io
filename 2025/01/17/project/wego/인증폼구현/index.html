@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="▪︎ 로그인 폼 구현 과정과 고민들▫︎ 상태 관리 방식의 선택로그인 폼을 구현할 때 가장 먼저 고민했던 것은 입력값을 어떤 방식으로 관리할 것인가였습니다. React에서는 크게 두 가지 접근 방식이 있습니다: 제어 컴포넌트 (Controlled Component) 리액트가 폼 데이터를 완전히 제어 useState를 사용하여 상태 관리 실시간으로 입력값 검">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화">
+<meta property="og:url" content="https://namgungjongmin.github.io/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="▪︎ 로그인 폼 구현 과정과 고민들▫︎ 상태 관리 방식의 선택로그인 폼을 구현할 때 가장 먼저 고민했던 것은 입력값을 어떤 방식으로 관리할 것인가였습니다. React에서는 크게 두 가지 접근 방식이 있습니다: 제어 컴포넌트 (Controlled Component) 리액트가 폼 데이터를 완전히 제어 useState를 사용하여 상태 관리 실시간으로 입력값 검">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+<meta property="article:published_time" content="2025-01-17T12:52:55.000Z">
+<meta property="article:modified_time" content="2025-02-07T23:12:56.260Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="WEGO">
+<meta property="article:tag" content="프로젝트">
+<meta property="article:tag" content="custom hook">
+<meta property="article:tag" content="메모이제이션">
+<meta property="article:tag" content="로그인">
+<meta property="article:tag" content="리렌더링 최적화">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/","path":"2025/01/17/project/wego/인증폼구현/","title":"WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%8F%BC-%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95%EA%B3%BC-%EA%B3%A0%EB%AF%BC%EB%93%A4"><span class="nav-number">1.</span> <span class="nav-text">▪︎ 로그인 폼 구현 과정과 고민들</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EC%84%A0%ED%83%9D"><span class="nav-number">1.1.</span> <span class="nav-text">▫︎ 상태 관리 방식의 선택</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%A0%9C%EC%96%B4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-Controlled-Component"><span class="nav-number">1.1.1.</span> <span class="nav-text">제어 컴포넌트 (Controlled Component)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B9%84%EC%A0%9C%EC%96%B4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-Uncontrolled-Component"><span class="nav-number">1.1.2.</span> <span class="nav-text">비제어 컴포넌트 (Uncontrolled Component)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%EC%83%81%ED%83%9C%EC%9D%98-%EB%B3%B8%EC%A7%88"><span class="nav-number">1.1.3.</span> <span class="nav-text">1. 상태의 본질</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EC%9C%A0%ED%9A%A8%EC%84%B1-%EA%B2%80%EC%A6%9D"><span class="nav-number">1.1.4.</span> <span class="nav-text">2. 실시간 유효성 검증</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%EC%A0%9C%EC%96%B4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%9D%98-%EC%9D%B4%EC%A0%90"><span class="nav-number">1.1.5.</span> <span class="nav-text">3. 제어 컴포넌트의 이점</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EB%A1%9C%EC%A7%81%EC%9D%84-%EB%B6%84%EB%A6%AC%ED%95%98%EC%97%AC-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84"><span class="nav-number">1.2.</span> <span class="nav-text">▫︎ 로직을 분리하여 기능 구현</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EC%83%81%ED%83%9C-%EA%B3%B5%EC%A1%B4%EA%B3%BC-%EB%A6%AC%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%B5%9C%EC%A0%81%ED%99%94"><span class="nav-number">2.</span> <span class="nav-text">▪︎ 상태 공존과 리렌더링 최적화</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%83%81%ED%83%9C-%EA%B3%B5%EC%A1%B4-State-Colocation"><span class="nav-number">2.1.</span> <span class="nav-text">▫︎ 상태 공존 (State Colocation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-memoization%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94"><span class="nav-number">2.2.</span> <span class="nav-text">▫︎ memoization을 통한 최적화</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-memo%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98"><span class="nav-number">2.2.1.</span> <span class="nav-text">React.memo를 통한 컴포넌트 메모이제이션</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useCallback%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC-%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98"><span class="nav-number">2.2.2.</span> <span class="nav-text">useCallback을 통한 이벤트 핸들러 메모이제이션</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useMemo%EB%A5%BC-%ED%86%B5%ED%95%9C-%EA%B2%80%EC%A6%9D-%ED%95%A8%EC%88%98-%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98"><span class="nav-number">2.2.3.</span> <span class="nav-text">useMemo를 통한 검증 함수 메모이제이션</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EA%B2%B0%EA%B3%BC"><span class="nav-number">3.</span> <span class="nav-text">▪︎ 결과</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 성능 향상</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%82%AC%EC%9A%A9-%EA%B0%9C%EC%84%A0"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. 메모리 사용 개선</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%BD%ED%97%98-%EA%B0%9C%EC%84%A0"><span class="nav-number">3.0.3.</span> <span class="nav-text">3. 사용자 경험 개선</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-17 21:52:55" itemprop="dateCreated datePublished" datetime="2025-01-17T21:52:55+09:00">2025-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/17/project/wego/인증폼구현/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<h1 id="▪︎-로그인-폼-구현-과정과-고민들"><a href="#▪︎-로그인-폼-구현-과정과-고민들" class="headerlink" title="▪︎ 로그인 폼 구현 과정과 고민들"></a>▪︎ 로그인 폼 구현 과정과 고민들</h1><h2 id="▫︎-상태-관리-방식의-선택"><a href="#▫︎-상태-관리-방식의-선택" class="headerlink" title="▫︎ 상태 관리 방식의 선택"></a>▫︎ 상태 관리 방식의 선택</h2><p>로그인 폼을 구현할 때 가장 먼저 고민했던 것은 입력값을 어떤 방식으로 관리할 것인가였습니다. React에서는 크게 두 가지 접근 방식이 있습니다:</p>
+<h3 id="제어-컴포넌트-Controlled-Component"><a href="#제어-컴포넌트-Controlled-Component" class="headerlink" title="제어 컴포넌트 (Controlled Component)"></a><strong>제어 컴포넌트 (Controlled Component)</strong></h3><ul>
+<li>리액트가 폼 데이터를 완전히 제어</li>
+<li>useState를 사용하여 상태 관리</li>
+<li>실시간으로 입력값 검증 가능</li>
+</ul>
+<h3 id="비제어-컴포넌트-Uncontrolled-Component"><a href="#비제어-컴포넌트-Uncontrolled-Component" class="headerlink" title="비제어 컴포넌트 (Uncontrolled Component)"></a><strong>비제어 컴포넌트 (Uncontrolled Component)</strong></h3><ul>
+<li>DOM이 폼 데이터를 처리</li>
+<li>useRef를 사용하여 DOM에 직접 접근</li>
+<li>필요할 때만 값을 참조</li>
+</ul>
+<p>저는 다음과 같은 3가지 이유로 useState를 선택하여 구현하였습니다.</p>
+<h3 id="1-상태의-본질"><a href="#1-상태의-본질" class="headerlink" title="1. 상태의 본질"></a>1. 상태의 본질</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">LoginForm</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> email = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;email&#x27;</span> &#125;);</span><br><span class="line">    <span class="keyword">const</span> password = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;password&#x27;</span> &#125;);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>입력값은 시간에 따라 변화하는 애플리케이션의 상태</li>
+<li>UI에 즉시 반영되어야 하는 데이터</li>
+<li>상태 변화에 따른 부수 효과(유효성 검증) 필요</li>
+</ul>
+<h3 id="2-실시간-유효성-검증"><a href="#2-실시간-유효성-검증" class="headerlink" title="2. 실시간 유효성 검증"></a>2. 실시간 유효성 검증</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> validate = (&#123; name, value, password &#125;: <span class="title class_">ValidateOptions</span>): <span class="function"><span class="params">boolean</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;email&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">email</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>사용자 경험 향상을 위한 즉각적인 피드백 필요</li>
+<li>상태 변화를 감지하여 자동으로 검증 수행</li>
+</ul>
+<h3 id="3-제어-컴포넌트의-이점"><a href="#3-제어-컴포넌트의-이점" class="headerlink" title="3. 제어 컴포넌트의 이점"></a>3. 제어 컴포넌트의 이점</h3><ul>
+<li>폼 데이터에 대한 완벽한 제어 가능</li>
+<li>입력값 포맷팅이나 제한 용이</li>
+<li>여러 입력 필드 간의 연동 용이</li>
+</ul>
+<h2 id="▫︎-로직을-분리하여-기능-구현"><a href="#▫︎-로직을-분리하여-기능-구현" class="headerlink" title="▫︎ 로직을 분리하여 기능 구현"></a>▫︎ 로직을 분리하여 기능 구현</h2><p>코드의 재사용성과 유지보수성을 높이기 위해 다음과 같이 구조를 분리했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hooks/useAuthInput.ts</span></span><br><span class="line"><span class="comment">// 상태 관리와 이벤트 핸들링을 위한 커스텀 훅</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">useAuthInput</span> = (<span class="params">&#123; name, password &#125;: Props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [value, setValue] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [isValid, setIsValid] = useState&lt;<span class="built_in">boolean</span> | <span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> debouncedValidate = <span class="title function_">useMemo</span>(</span><br><span class="line">    <span class="function">() =&gt;</span></span><br><span class="line">      <span class="title function_">debounce</span>(<span class="function">(<span class="params">newValue: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!newValue) &#123;</span><br><span class="line">          <span class="title function_">setIsValid</span>(<span class="literal">null</span>);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> validationResult = <span class="title function_">validate</span>(&#123; name, <span class="attr">value</span>: newValue, password &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">setIsValid</span>(validationResult);</span><br><span class="line">      &#125;, <span class="number">250</span>),</span><br><span class="line">    [name, password]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleChange = <span class="title function_">useCallback</span>(</span><br><span class="line">    <span class="function">(<span class="params">e: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> newValue = e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line"></span><br><span class="line">      <span class="title function_">setValue</span>(newValue);</span><br><span class="line">      <span class="title function_">debouncedValidate</span>(newValue);</span><br><span class="line">    &#125;,</span><br><span class="line">    [debouncedValidate]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      debouncedValidate.<span class="title function_">cancel</span>();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, [debouncedValidate]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    value,</span><br><span class="line">    isValid,</span><br><span class="line">    setValue,</span><br><span class="line">    setIsValid,</span><br><span class="line">    handleChange,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/validateAuthInput.ts</span></span><br><span class="line"><span class="comment">// 유효성 검증 로직</span></span><br><span class="line"><span class="keyword">const</span> validate = (&#123; name, value, password &#125;: <span class="title class_">ValidateOptions</span>): <span class="function"><span class="params">boolean</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (name) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;email&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">email</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;password&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">password</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;passwordConfirm&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> password ? value === password : <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;currentPassword&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">currentPassword</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;newPassword&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">newPassword</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;name&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">name</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;nickname&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">nickname</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;contact&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">contact</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;birthDate&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">birthDate</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;verifyNumber&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="variable constant_">REGEX</span>.<span class="property">verifyNumber</span>.<span class="title function_">test</span>(value);</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// components/auth/form/loginForm.tsx</span></span><br><span class="line"><span class="comment">// UI 컴포넌트</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">LoginForm</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> email = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;email&quot;</span> &#125;);</span><br><span class="line">  <span class="keyword">const</span> password = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;password&quot;</span> &#125;);</span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">mutate</span>: login, <span class="attr">isPending</span>: isLoggingIn &#125; = <span class="title function_">useLogin</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleLogin</span> = (<span class="params">e: React.FormEvent&lt;HTMLFormElement&gt;</span>) =&gt; &#123;</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line"></span><br><span class="line">    <span class="title function_">login</span>(&#123;</span><br><span class="line">      <span class="attr">email</span>: email.<span class="property">value</span>,</span><br><span class="line">      <span class="attr">password</span>: password.<span class="property">value</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">className</span>=<span class="string">&quot;mb-4 w-full&quot;</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleLogin&#125;</span> <span class="attr">data-testid</span>=<span class="string">&quot;login-form&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthText</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;email&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">size</span>=<span class="string">&quot;full&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;email.value&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">isValid</span>=<span class="string">&#123;email.isValid&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;email.handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthPassword</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;password&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;password.value&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">isValid</span>=<span class="string">&#123;password.isValid&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;password.handleChange&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">label</span>=<span class="string">&quot;로그인&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">size</span>=<span class="string">&quot;full&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;mt-[180px] hover:bg-primary-normal&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">disabled</span>=<span class="string">&#123;!email.isValid</span> || !<span class="attr">password.isValid</span>&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">showSpinner</span>=<span class="string">&#123;isLoggingIn&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>이러한 구조는 각 부분의 책임이 명확하다는 점, 테스트가 용이하다는 점, 코드의 재사용성이 향상된다는 장점이 있습니다.</p>
+<h1 id="▪︎-상태-공존과-리렌더링-최적화"><a href="#▪︎-상태-공존과-리렌더링-최적화" class="headerlink" title="▪︎ 상태 공존과 리렌더링 최적화"></a>▪︎ <strong>상태 공존과 리렌더링 최적화</strong></h1><h2 id="▫︎-상태-공존-State-Colocation"><a href="#▫︎-상태-공존-State-Colocation" class="headerlink" title="▫︎ 상태 공존 (State Colocation)"></a>▫︎ 상태 공존 (State Colocation)</h2><p>상태 공존이란 하나의 컴포넌트 내에서 여러 개의 독립적인 상태가 함께 존재하는 상황을 말합니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">LoginForm</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> email = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;email&quot;</span> &#125;); <span class="comment">// 상태 1</span></span><br><span class="line">  <span class="keyword">const</span> password = <span class="title function_">useAuthInput</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;password&quot;</span> &#125;); <span class="comment">// 상태 2</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthText</span> &#123;<span class="attr">...email</span>&#125; /&gt;</span> // 이메일 입력 시 패스워드도 리렌더링</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AuthPassword</span> &#123;<span class="attr">...password</span>&#125; /&gt;</span> // 패스워드 입력 시 이메일도 리렌더링</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>상태 공존으로 인해 한 입력 필드의 상태 변화가 다른 필드의 불필요한 리렌더링을 유발한다는 문제점이 있었습니다. 이것은 성능 저하로 이어지고 결국 사용자 경험을 저하시키는 결과를 낳을 수 있었습니다.</p>
+<p>이를 위해 메모이제이션 기능을 이용한 최적화 전략을 사용하기로 했습니다.</p>
+<h2 id="▫︎-memoization을-통한-최적화"><a href="#▫︎-memoization을-통한-최적화" class="headerlink" title="▫︎ memoization을 통한 최적화"></a>▫︎ memoization을 통한 최적화</h2><h3 id="React-memo를-통한-컴포넌트-메모이제이션"><a href="#React-memo를-통한-컴포넌트-메모이제이션" class="headerlink" title="React.memo를 통한 컴포넌트 메모이제이션"></a>React.memo를 통한 컴포넌트 메모이제이션</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">AuthText</span> = <span class="title function_">memo</span>(</span><br><span class="line">  <span class="function">(<span class="params">&#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">type</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    name,</span></span></span><br><span class="line"><span class="params"><span class="function">    value,</span></span></span><br><span class="line"><span class="params"><span class="function">    isValid,</span></span></span><br><span class="line"><span class="params"><span class="function">  &#125;: <span class="comment">// ...</span></span></span></span><br><span class="line"><span class="params"><span class="function">  Props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>props가 변경되지 않은 컴포넌트의 리렌더링 방지</li>
+<li>각 입력 필드가 독립적으로 렌더링</li>
+</ul>
+<h3 id="useCallback을-통한-이벤트-핸들러-메모이제이션"><a href="#useCallback을-통한-이벤트-핸들러-메모이제이션" class="headerlink" title="useCallback을 통한 이벤트 핸들러 메모이제이션"></a>useCallback을 통한 이벤트 핸들러 메모이제이션</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleChange = <span class="title function_">useCallback</span>(</span><br><span class="line">  <span class="function">(<span class="params">e: React.ChangeEvent&lt;HTMLInputElement&gt;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newValue = e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line">    <span class="title function_">setValue</span>(newValue);</span><br><span class="line">    <span class="title function_">debouncedValidate</span>(newValue);</span><br><span class="line">  &#125;,</span><br><span class="line">  [debouncedValidate]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>매 렌더링마다 새로운 함수가 생성되는 것을 방지</li>
+<li>의존성 배열에 debouncedValidate만 포함하여 불필요한 재생성 방지</li>
+</ul>
+<h3 id="useMemo를-통한-검증-함수-메모이제이션"><a href="#useMemo를-통한-검증-함수-메모이제이션" class="headerlink" title="useMemo를 통한 검증 함수 메모이제이션"></a>useMemo를 통한 검증 함수 메모이제이션</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debouncedValidate = <span class="title function_">useMemo</span>(</span><br><span class="line">  <span class="function">() =&gt;</span></span><br><span class="line">    <span class="title function_">debounce</span>(<span class="function">(<span class="params">newValue: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!newValue) &#123;</span><br><span class="line">        <span class="title function_">setIsValid</span>(<span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> validationResult = <span class="title function_">validate</span>(&#123; name, <span class="attr">value</span>: newValue, password &#125;);</span><br><span class="line">      <span class="title function_">setIsValid</span>(validationResult);</span><br><span class="line">    &#125;, <span class="number">250</span>),</span><br><span class="line">  [name, password]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>고비용 연산인 debounce 함수의 재생성 방지</li>
+<li>의존성이 변경될 때만 새로운 함수 생성</li>
+</ul>
+<h1 id="▪︎-결과"><a href="#▪︎-결과" class="headerlink" title="▪︎ 결과"></a>▪︎ 결과</h1><p>이러한 최적화 전략들을 적용한 결과 다음과 같은 점들이 개선되었습니다.</p>
+<h3 id="1-성능-향상"><a href="#1-성능-향상" class="headerlink" title="1. 성능 향상"></a>1. 성능 향상</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[리렌더링 패턴]</span><br><span class="line">최적화 전: Input1 변경 → 모든 Input 리렌더링</span><br><span class="line">최적화 후: Input1 변경 → Input1만 리렌더링</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-메모리-사용-개선"><a href="#2-메모리-사용-개선" class="headerlink" title="2. 메모리 사용 개선"></a>2. 메모리 사용 개선</h3><ul>
+<li>불필요한 함수 생성 감소</li>
+<li>효율적인 메모리 관리</li>
+</ul>
+<h3 id="3-사용자-경험-개선"><a href="#3-사용자-경험-개선" class="headerlink" title="3. 사용자 경험 개선"></a>3. 사용자 경험 개선</h3><ul>
+<li>입력 지연 감소</li>
+<li>부드러운 UI 업데이트</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEGO/" rel="tag"># WEGO</a>
+              <a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag"># 프로젝트</a>
+              <a href="/tags/custom-hook/" rel="tag"># custom hook</a>
+              <a href="/tags/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98/" rel="tag"># 메모이제이션</a>
+              <a href="/tags/%EB%A1%9C%EA%B7%B8%EC%9D%B8/" rel="tag"># 로그인</a>
+              <a href="/tags/%EB%A6%AC%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag"># 리렌더링 최적화</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/15/project/wego/debounce/" rel="prev" title="WEGO ) input validate 함수에 debounce를 적용하여 리소스 낭비 방지하기">
+                  <i class="fa fa-angle-left"></i> WEGO ) input validate 함수에 debounce를 적용하여 리소스 낭비 방지하기
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

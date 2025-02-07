@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,119 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/24/algorithm/linkedList/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/24/algorithm/linkedList/" class="post-title-link" itemprop="url">자료구조 ) 연결리스트로 배열의 단점을 해결하기</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-24 23:33:12" itemprop="dateCreated datePublished" datetime="2023-08-24T23:33:12+09:00">2023-08-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/24/algorithm/linkedList/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/24/algorithm/linkedList/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<h1 id="▪︎-연결리스트-Linked-List"><a href="#▪︎-연결리스트-Linked-List" class="headerlink" title="▪︎ 연결리스트 (Linked List)"></a>▪︎ 연결리스트 (Linked List)</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/38a7a1ff-4965-4d80-bc72-ce02654e27d2/image.png" alt="image.png"></p>
+<p>연결리스트는 각 노드가 데이터와 포인터를 가지고 한 줄로 연결되어있는 방식으로 데이터를 저장하는 자료 구조입니다. 이름처럼 데이터를 담고있는 노드들이 연결되어 있는데, 노드의 포인터가 다음이나 이전의 노드와의 연결을 담당하게 됩니다.</p>
+<p>연결리스트는 배열과 비교하여 구조를 변경하고 데이터를 삽입 삭제하는데에 있어 효율적인 처리가 가능합니다. 예를들어 배열의 앞쪽에 새로운 데이터를 추가하는 push 메서드, 배열의 앞쪽의 데이터를 삭제하는 shift 메서드는 인덱스의 변경으로 인해 O(N)의 시간복잡도로 처리됩니다. 그러나 연결리스트에서 같은 동작을 수행한다면 새로운 노드를 생성하고 그 노드의 포인터만 앞쪽 노드로 가리켜주면 되기 때문에 O(1)의 시간복잡도로 처리가 가능합니다.</p>
+<h2 id="▫︎-연결리스트의-구현"><a href="#▫︎-연결리스트의-구현" class="headerlink" title="▫︎ 연결리스트의 구현"></a>▫︎ 연결리스트의 구현</h2><p>자바스크립트에서 연결리스트의 구현은 3단계로 구분할 수 있습니다.</p>
+<ol>
+<li>노드 클래스 생성</li>
+<li>연결리스트 클래스 생성</li>
+<li>연결리스트 메서드 추가</li>
+</ol>
+<p>이 때 노드를 정의하면서 다음 노드의 위치를 가리키는 포인터만을 정의한다면 단방향 연결리스트, 이전 노드의 위치를 가리키는 포인터를 추가로 정의한다면 양방향 연결리스트를 만들 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 노드 클래스 생성</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">next</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// this.prev = null;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 연결리스트 클래스 생성</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkedList</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tail</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 필요한 연결리스트의 메서드들을 추가</span></span><br><span class="line">  <span class="title function_">add</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> node = <span class="keyword">new</span> <span class="title class_">Node</span>(value);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">head</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">tail</span>.<span class="property">next</span> = node;</span><br><span class="line">      <span class="comment">// node.prev = this.tail;</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">head</span> = node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tail</span> = node;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">length</span>++;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">remove</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span> = <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">next</span>;</span><br><span class="line">    <span class="comment">// this.head.prev = null;</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">length</span>--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getHead</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">value</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-Example-of-Apply"><a href="#▪︎-Example-of-Apply" class="headerlink" title="▪︎ Example of Apply"></a>▪︎ Example of Apply</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/ec941b21-87c9-4399-9f39-16ecd9de1ff4/image.png" alt="image.png"></p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/afeef0b1-5e5b-46c6-82c9-01ec85ed03d2/image.png" alt="image.png"></p>
+<ul>
+<li><em><a target="_blank" rel="noopener" href="https://www.acmicpc.net/problem/2164">https://www.acmicpc.net/problem/2164</a></em></li>
+</ul>
+<h2 id="▫︎-일반적인-배열-조작으로-풀이"><a href="#▫︎-일반적인-배열-조작으로-풀이" class="headerlink" title="▫︎ 일반적인 배열 조작으로 풀이"></a>▫︎ 일반적인 배열 조작으로 풀이</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> input = fs.<span class="title function_">readFileSync</span>(<span class="string">&quot;linkedlist.txt&quot;</span>).<span class="title function_">toString</span>().<span class="title function_">trim</span>();</span><br><span class="line"><span class="keyword">const</span> cards = <span class="title class_">Array</span>(+input)</span><br><span class="line">  .<span class="title function_">fill</span>(<span class="number">0</span>)</span><br><span class="line">  .<span class="title function_">map</span>(<span class="function">(<span class="params">_, idx</span>) =&gt;</span> idx + <span class="number">1</span>);</span><br><span class="line"><span class="comment">// cards = [1,2,3,4,5,6]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (cards.<span class="property">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">  cards.<span class="title function_">shift</span>();</span><br><span class="line">  cards.<span class="title function_">push</span>(cards.<span class="title function_">shift</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(...cards); <span class="comment">// output: 4</span></span><br></pre></td></tr></table></figure>
+
+<p>위 코드의 while문 한번의 시행에서 배열의 원소 중 하나만이 삭제되기 때문에 N-1번의 시행 횟수를 가집니다. 또한 while문 안에서 카드의 앞 요소를 삭제하는 shift 메서드는 배열의 길이만큼 순회하게됩니다. 따라서 O(N^2)의 시간복잡도를 가지며 이것은 입력에 따라 시간제한 2초 (2*10^8)를 초과할 수 있으므로 조건에 맞는 풀이가 아닙니다. 따라서 O(N)의 시간복잡도로 풀 수 있도록 연결리스트 자료구조를 적용해보겠습니다.</p>
+<h2 id="▫︎-연결리스트-자료구조를-적용하여-풀이"><a href="#▫︎-연결리스트-자료구조를-적용하여-풀이" class="headerlink" title="▫︎ 연결리스트 자료구조를 적용하여 풀이"></a>▫︎ 연결리스트 자료구조를 적용하여 풀이</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> input = fs.<span class="title function_">readFileSync</span>(<span class="string">&quot;linkedlist.txt&quot;</span>).<span class="title function_">toString</span>().<span class="title function_">trim</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">next</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">prev</span> = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkedList</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tail</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">add</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> node = <span class="keyword">new</span> <span class="title class_">Node</span>(value);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">head</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">tail</span>.<span class="property">next</span> = node;</span><br><span class="line">      node.<span class="property">prev</span> = <span class="variable language_">this</span>.<span class="property">tail</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">head</span> = node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">tail</span> = node;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">length</span>++;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">remove</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span> = <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">next</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">prev</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">length</span>--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getHead</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">head</span>.<span class="property">value</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cards = <span class="keyword">new</span> <span class="title class_">LinkedList</span>();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= +input; i++) &#123;</span><br><span class="line">  cards.<span class="title function_">add</span>(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (cards.<span class="property">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">  cards.<span class="title function_">remove</span>();</span><br><span class="line">  cards.<span class="title function_">add</span>(cards.<span class="title function_">getHead</span>());</span><br><span class="line">  cards.<span class="title function_">remove</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(cards.<span class="title function_">getHead</span>());</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1226,214 +1339,6 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="keyword">const</span> data = axios.<span class="title function_">get</span>(<span class="string">&#x27;http://test/posts.com&#x27;</span>) <span class="comment">// null / undefined</span></span><br><span class="line"><span class="comment">// ... 생략</span></span><br><span class="line">&#123;data?.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>)=&gt;</span> ...)&#125;</span><br></pre></td></tr></table></figure>
 
 <p>옵셔널 체이닝 연산자를 사용하면 data의 값이 null이나 undefined인 경우에는 forEach 메서드를 실행하지 않고, 평가를 종료합니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/13/git3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/13/git3/" class="post-title-link" itemprop="url">Git / Github (Git 관리 전략과 Branch Protection)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2023-07-13 22:00:17" itemprop="dateCreated datePublished" datetime="2023-07-13T22:00:17+09:00">2023-07-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Git-Github/" itemprop="url" rel="index"><span itemprop="name">Git / Github</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/07/13/git3/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/13/git3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/de3743e2-1a36-4b65-a97d-e6205280f31b/image.png"></p>
-<h2 id="Git-관리-전략"><a href="#Git-관리-전략" class="headerlink" title="Git 관리 전략"></a>Git 관리 전략</h2><p>기본적으로 하나의 중심 브랜치로만 관리하는 것을 <strong>trunk</strong> 라고 하고, 거기서 필요할 때만 브랜치를 분기하는 것을 <strong>trunk based flow</strong> 라고 표현합니다.</p>
-<p>현업에서는 다양한 방식으로 브랜치를 관리하는데 가장 대표적인 방식으로 git flow, github flow, gitlab flow 세가지를 살펴보겠습니다.</p>
-<h2 id="Git-flow"><a href="#Git-flow" class="headerlink" title="Git flow"></a>Git flow</h2><p><img src="/../images/230713/2023-07-13-16-06-53.png"></p>
-<p>git flow는 총 5 종류의 브랜치를 활용해서 개발하는 깃 관리 전략입니다.</p>
-<p>여기서 master, develop 브랜치는 영구적으로 존재하지만, hotfix, release, feature 브랜치의 경우는 필요할 때마다 브랜치를 만들고, merge가 되면 삭제하게 됩니다.</p>
-<blockquote>
-<p>merge시에 각 브랜치별 기록을 상세히 남기기 위해 항상 –no-ff 옵션을 붙입니다.</p>
-</blockquote>
-<p>전체적인 merge 순서 : feature -&gt; develop -&gt; release -&gt; master</p>
-<h3 id="master-브랜치-main"><a href="#master-브랜치-main" class="headerlink" title="master 브랜치 (main)"></a>master 브랜치 (main)</h3><p>소비자가 사용하는 서비스 (배포된 코드)가 존재하는 브랜치 입니다. release 브랜치로부터 pr(pull request)를 받습니다.</p>
-<h3 id="hotfix-브랜치"><a href="#hotfix-브랜치" class="headerlink" title="hotfix 브랜치"></a>hotfix 브랜치</h3><p>이미 <strong>배포 된</strong> 서비스에 대한 긴급 버그 수정을 진행하는 브랜치로 수정 완료 후 develop과 master 브랜치에 각각 pr을 날려 반영하게 됩니다.</p>
-<h3 id="release-브랜치"><a href="#release-브랜치" class="headerlink" title="release 브랜치"></a>release 브랜치</h3><p>배포 전에 서비스를 테스트하는 브랜치입니다.</p>
-<h3 id="develop-브랜치"><a href="#develop-브랜치" class="headerlink" title="develop 브랜치"></a>develop 브랜치</h3><p>개발 단계의 코드가 있는 개발 중심 브랜치입니다.<br>개발 자체는 feature 브랜치를 따로 분기해서 개발하여 develop브랜치에 병합시키는 작업을 반복하게 됩니다.</p>
-<h3 id="feature-브랜치"><a href="#feature-브랜치" class="headerlink" title="feature 브랜치"></a>feature 브랜치</h3><p>특정한 <strong>단위 기능</strong>을 개발하는 브랜치 입니다. 기능 별로 개발 된 코드는 develop 브랜치로 pr을 보내게 됩니다.</p>
-<h2 id="Github-flow"><a href="#Github-flow" class="headerlink" title="Github flow"></a>Github flow</h2><p><img src="/../images/230713/2023-07-13-16-16-41.png"></p>
-<p>Github flow는 2 종류의 브랜치를 사용합니다. Git flow에 비해 작은 규모의 팀에서 빠른 개발과 업데이트가 중요한 서비스에서 효율적인 관리를 위해 사용합니다.</p>
-<blockquote>
-<p>반대로 Git flow는 큰 규모의 팀에서 안정성이 매우 중요한 서비스에서 사용됩니다.</p>
-</blockquote>
-<h3 id="master-브랜치-main-1"><a href="#master-브랜치-main-1" class="headerlink" title="master 브랜치 (main)"></a>master 브랜치 (main)</h3><p>소비자가 사용하는 서비스 (배포된 코드)가 존재하는 브랜치입니다.</p>
-<h3 id="feature-브랜치-1"><a href="#feature-브랜치-1" class="headerlink" title="feature 브랜치"></a>feature 브랜치</h3><p>특정한 단위 기능을 구현하는 브랜치입니다.</p>
-<blockquote>
-<p>feature브랜치는 만들 때 Git flow보다 더 구체적으로, 상세하게 작업명을 작성하게 됩니다.</p>
-</blockquote>
-<h2 id="Gitlab-flow"><a href="#Gitlab-flow" class="headerlink" title="Gitlab flow"></a>Gitlab flow</h2><p><img src="/../images/230713/2023-07-13-16-18-57.png"></p>
-<p>Git flow의 체계적인 관리와 Github flow의 단순함을 합쳐 절충적으로 관리하는 방식으로 4 종류의 브랜치를 사용합니다.</p>
-<h3 id="production-브랜치"><a href="#production-브랜치" class="headerlink" title="production 브랜치"></a>production 브랜치</h3><p>소비자가 사용하는 서비스 (배포된 코드)가 존재하는 브랜치입니다.</p>
-<h3 id="pre-production-브랜치"><a href="#pre-production-브랜치" class="headerlink" title="pre-production 브랜치"></a>pre-production 브랜치</h3><p>배포 전에 제품을 테스트하는 브랜치입니다.</p>
-<h3 id="master-브랜치-main-2"><a href="#master-브랜치-main-2" class="headerlink" title="master 브랜치 (main)"></a>master 브랜치 (main)</h3><p>개발 단계의 코드가 있는 개발 중심 브랜치입니다.<br>Git flow의 develop 브랜치와 역할이 같습니다.</p>
-<h3 id="feature-브랜치-2"><a href="#feature-브랜치-2" class="headerlink" title="feature 브랜치"></a>feature 브랜치</h3><p>특정한 단위 기능을 구현하는 브랜치로 브랜치 명은 Github flow처럼 자세하게 작성합니다.</p>
-<hr>
-<h2 id="Commit-convention"><a href="#Commit-convention" class="headerlink" title="Commit convention"></a>Commit convention</h2><p><img src="/../images/230713/2023-07-13-16-35-24.png"></p>
-<p>커밋 메시지는 커밋을 할 때, 이 커밋이 어떤 개발에 해당되고, 어떤 변경사항이 있는지를 작성하는 것을 말합니다.</p>
-<blockquote>
-<p>커밋 메시지를 잘 작성하면, 우리는 단순히 커밋 이력만으로도 현재까지 어떤 개발이 진행되었는지, 어떤 문제가 발생했고 해결했는지를 알 수 있게 됩니다.</p>
-</blockquote>
-<h3 id="커밋-메시지-규칙"><a href="#커밋-메시지-규칙" class="headerlink" title="커밋 메시지 규칙"></a>커밋 메시지 규칙</h3><p>보통 아래와 같은 7가지 규칙을 지키게 됩니다.<br>(출처: <a target="_blank" rel="noopener" href="https://cbea.ms/git-commit/">https://cbea.ms/git-commit/</a>)</p>
-<ol>
-<li>제목과 본문은 한 줄을 띄워서 작성한다.</li>
-<li>제목은 영문 기준 50자 내외로 작성한다.</li>
-<li>제목 첫 글자는 대문자로 작성한다.</li>
-<li>제목 끝에 마침표(.)는 찍지 않는다</li>
-<li>제목은 개조식으로 작성한다. (Update code, Fix bug 등으로만 작성)</li>
-<li>본문은 영문 기준 72자마다 줄바꿈을 한다.</li>
-<li>본문은 <strong>무엇을</strong>, <strong>왜</strong>에 맞춰서 작성한다.</li>
-</ol>
-<h4 id="타입-작성"><a href="#타입-작성" class="headerlink" title="타입 작성"></a>타입 작성</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Feat: &quot;로그인 함수 추가&quot;</span><br></pre></td></tr></table></figure>
-
-<p>제목은 [타입: “내용”] 형식으로 작성합니다.</p>
-<p>단순히 제목의 내용만 적는 것이 아니라 앞에 Feat: 이라는 단어가 붙어있는데요, 이는 해당 커밋의 타입을 명시하는 부분입니다.</p>
-<ul>
-<li>Feat : 새로운 기능 추가</li>
-<li>Fix : 버그 수정</li>
-<li>Env : 개발 환경 관련 설정</li>
-<li>Style : 코드 스타일 수정 (세미 콜론, 인덴트 등의 스타일적인 부분만)</li>
-<li>Refactor : 코드 리팩토링 (더 효율적인 코드로 변경 등)</li>
-<li>Design : CSS 등 디자인 추가&#x2F;수정</li>
-<li>Comment : 주석 추가&#x2F;수정</li>
-<li>Docs : 내부 문서 추가&#x2F;수정</li>
-<li>Test : 테스트 추가&#x2F;수정</li>
-<li>Chore : 빌드 관련 코드 수정</li>
-<li>Rename : 파일 및 폴더명 수정</li>
-<li>Remove : 파일 삭제</li>
-</ul>
-<hr>
-<h2 id="issue-pull-request-template"><a href="#issue-pull-request-template" class="headerlink" title="issue, pull request template"></a>issue, pull request template</h2><p><strong>template</strong>은 issue나 request를 작성하기 위한 틀을 말합니다.<br>우리가 issue나 pull request를 작성할 때 일일이 목차를 직접 작성하게 되면 시간이 오래 걸리게 됩니다. 또한 issue 나 pull request를 작성하는 팀원들 간의 양식을 지킬 수 있게 됩니다.</p>
-<h3 id="vscode에서-template-설정해보기"><a href="#vscode에서-template-설정해보기" class="headerlink" title="vscode에서 template 설정해보기"></a>vscode에서 template 설정해보기</h3><p>git으로 관리되는 폴더 내부에 .github 폴더를 만든다.<br><img src="/../images/230713/2023-07-24-11-09-32.png"></p>
-<p>main 브랜치로 push한 이후에 github내에서 이슈 생성으로 들어가보면 템플릿이 적용된 것을 확인할 수 있습니다.</p>
-<p><img src="/../images/230713/2023-07-24-11-10-52.png"></p>
-<blockquote>
-<p>issue의 경우, 단순 작업 정리 용도가 아닌, 다양한 목적으로 생산될 수 있습니다.</p>
-</blockquote>
-<p>때문에 여러 개의 issue template를 만들 수 있는 github 자체 기능이 있습니다.</p>
-<p>깃허브 레포지토리 설정에 들어가 General 메뉴에서 스크롤을 내리다보면 아래와 같이 setup templates 버튼이 보입니다.<br><img src="/../images/230713/2023-07-24-11-36-45.png"></p>
-<p>기본적으로 깃허브에서 기본적으로 마크다운을 어느정도 작성해 놓은 템플릿을 추가할 수 있는데, preview and edit 버튼을 눌러서 수정도 가능합니다.<br><img src="/../images/230713/2023-07-24-11-37-06.png"></p>
-<p><img src="/../images/230713/2023-07-24-11-38-12.png"></p>
-<hr>
-<h2 id="Branch-Protection"><a href="#Branch-Protection" class="headerlink" title="Branch Protection"></a>Branch Protection</h2><p>지금까지 예시에서는 main 브랜치에 바로 push를 했는데요, main 브랜치에 바로 push하는 행위는 위험합니다.</p>
-<p>그게 바로 pull request를 사용해야 하는 이유인데요 주니어 개발자가 에러가 나는 코드를 잘못해서 바로 main 브랜치에 push를 하게 된다면 서비스 사용자는 갑자기 에러를 마주하게 될 것입니다.</p>
-<p>때문에 실수를 방지하기 위해서 main 브랜치에 push하는 것을 원천적으로 차단해버려야 합니다.</p>
-<p>우리는 github에서 branch protection이라는 방식으로 이를 해결할 수 있습니다.</p>
-<hr>
-<p>레포지토리 설정에 들어가서 왼쪽에서 브랜치를 선택하면 add rule 버튼을 확인할 수 있습니다.</p>
-<p><img src="/../images/230713/2023-07-24-11-42-17.png"></p>
-<p>여기에 보호하고자 하는 브랜치 이름을 적어주면 됩니다. 또한 여기서 pattern도 지정이 가능합니다.(feature*라고 작성하면 feature라는 접두어를 가진 모든 브랜치에 protection이 적용됩니다.)</p>
-<p><img src="/../images/230713/2023-07-24-11-43-50.png"></p>
-<p>이제 main 브랜치가 보호되었습니다. main 브랜치에 직접 push를 해보면, 보호된 브랜치라서 push가 불가능하다고 에러가 나오게 됩니다.</p>
-<p><img src="/../images/230713/2023-07-24-11-44-55.png"></p>
-<hr>
-<h2 id="git사용-꿀팁-x2F-pull-오류를-만났을-때"><a href="#git사용-꿀팁-x2F-pull-오류를-만났을-때" class="headerlink" title="git사용 꿀팁 &#x2F; pull 오류를 만났을 때"></a>git사용 꿀팁 &#x2F; pull 오류를 만났을 때</h2><p><img src="/../images/230713/2023-07-24-12-00-33.png"></p>
-<p>위 에러는 현재 가진 로컬 브랜치의 커밋 이력과, 리모트 브랜치의 커밋 이력이 충돌하는 경우입니다. 여러번의 push 요청이 오게되면 git 입장에서는 이력을 어떻게 합치는 것이 좋은지 선택하지 못하게됩니다.</p>
-<p><strong>git pull의 근본적인 원리</strong>는 github쪽의 리모트 브랜치와 로컬 브랜치를 merge, rebase를 통해 합치는 것으로 이루어집니다. 그런데 해당 에러는 git이 pull을 할 때 정확히 merge, rebase 혹은 fast-forward merge 중에 무엇을 선택할지 모르겠으니 사용자에게 지정해달라고 하는 것입니다.</p>
-<blockquote>
-<p>main 브랜치에 대해서 직접 push하지 않고 pull request를 통해서만 merge를 하게 되면 이 에러가 발생하지 않을 것입니다.</p>
-</blockquote>
-<p>보통 개발 블로그에서 git config pull.rebase false 같은 명령어를 입력하라고 할텐데, 이렇게 git 절정 자체를 바꾸기 보단,</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin main --no-ff</span><br></pre></td></tr></table></figure>
-
-<p>와 같이 내가 원하는 pull 형태가 어떤 것인지 지정해주는 것이 좋습니다.<br>이후에 conflict가 발생한 부분을 수정한 뒤에 commit까지 해주면 해결이 됩니다.</p>
-<hr>
-<h2 id="git으로-관리하지-않을-대상-설정"><a href="#git으로-관리하지-않을-대상-설정" class="headerlink" title="git으로 관리하지 않을 대상 설정"></a>git으로 관리하지 않을 대상 설정</h2><p>개발을 하다보면, 분명 암호 파일을 프로젝트 폴더 내부에서 관리하게 되는 경우가 발생합니다.</p>
-<p>이 경우 github에 해당 파일을 올리게 되면 모두가 암호를 볼 수 있겠죠?<br><img src="/../images/230713/2023-07-24-12-13-57.png"></p>
-<p>또한 로그, 컴파일 파일 같은 용량이 큰 파일: Java 컴파일 파일(.class), 모듈파일(vendor, node_modules)같은 파일들 또한 git으로 다 관리하기에 무리가 있습니다.</p>
-<p>이런 경우 우리는 .gitignore을 이용할 수 있습니다.</p>
-<p>프로젝트 폴더 내부에서 특정한 파일만 제외하고 싶을 때, .gitignore라는 파일을 만들고, 파일 내부에 제외하고자 하는 파일명 혹은 폴더명을 적어주시면 됩니다.</p>
-<p><img src="/../images/230713/2023-07-24-12-19-53.png"></p>
-<blockquote>
-<p>vscode 상에서 해당 파일의 색깔이 회색으로 바뀌는 것을 확인할 수 있습니다.</p>
-</blockquote>
-<h3 id="이미-key-파일이-git으로-관리되고-있을-때"><a href="#이미-key-파일이-git으로-관리되고-있을-때" class="headerlink" title="이미 key 파일이 git으로 관리되고 있을 때"></a>이미 key 파일이 git으로 관리되고 있을 때</h3><p>git에서 이미 해당 파일을 add, commit까지 하여서 git이 대상 파일을 인지하고 있다면 파일이 cache (임시 저장소) 안에 남아있기 때문에, .gitignore 안에 파일명을 추가해도 제외되지 않습니다.</p>
-<p>이미 git으로 관리되는 파일을 제외하기 위해서는 임시저장소의 파일을 삭제해주는 작업이 필요합니다.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>git이 자체적으로 가지고있는 캐시들을 삭제하는 명령어입니다.</p>
-</blockquote>
 
       
     </div>
