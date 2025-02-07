@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,206 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/12/git2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/12/git2/" class="post-title-link" itemprop="url">Git / Github (Branch)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-07-12 22:37:02" itemprop="dateCreated datePublished" datetime="2023-07-12T22:37:02+09:00">2023-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git-Github/" itemprop="url" rel="index"><span itemprop="name">Git / Github</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/07/12/git2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/12/git2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/de3743e2-1a36-4b65-a97d-e6205280f31b/image.png"></p>
+<h1 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h1><p>git에는 branch라는 개념이 있습니다. branch는 분기라는 뜻을 가지고 있는데요, 말그대로 버전 관리의 분기점을 만드는 기능입니다.<br>버전 관리를 분기한다는 것은 현재 작업중인 상태(파일, 커밋기록) 그대로, 아예 별도로 관리되는 새로운 폴더를 하나 더 만드는 것입니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/b2201dd7-cf63-478a-9002-21e2ede127eb/image.png"></p>
+<p>기업별 자기소개서를 쓴다고 한다면 각 기업에 맞는 특화된 자기소개서를 준비해야 하겠지요? 여기서 자기소개서라는 뿌리는 같지만 분기별로 나누어 각각의 새로운 관리 대상을 버전관리하게 되는데 이것이 브랜치 입니다. 브랜치를 통해 우리는 원할 때마다 브랜치를 옮겨다니면서 작업을 할 수 있게 됩니다.</p>
+<p>개발에 있어서는 개발 절차 상의 안전성 때문에 사용하게 됩니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-44-27.png"></p>
+<ul>
+<li>현재 작업 중인 내용을 유지하면서, 파일과 커밋 기록을 별도로 관리하고자 할 때 브랜치를 분기하게 됩니다.</li>
+<li>브랜치를 분기하게 되면, 그때부터는 파일과 커밋 기록이 완전히 별도로 관리됩니다.</li>
+<li>브랜치는 얼마든지 추가로 더 만들 수 있는데, 항상 원본 브랜치가 있어야 분기할 수 있습니다.</li>
+</ul>
+<h2 id="branch-생성"><a href="#branch-생성" class="headerlink" title="branch 생성"></a>branch 생성</h2><p>branch 라는 폴더를 만들고 hello.txt 파일을 만들어 안녕하세요 라는 텍스트를 입력하겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-15-25.png"></p>
+<p>그상태로 git init을 사용해 git으로 폴더를 관리해줍니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-15-59.png"></p>
+<blockquote>
+<p>main 이라는 브랜치 명을 쓰게 된 것은 2020년의 흑인 운동의 일환으로 master &#x2F; slave 등의 용어에 대한 정화의 필요하다는 의식이 생기게 되면서 Github에서 기본 브랜치 명을 master에서 main 으로 변경되게 되었고 git 자체적으로도 main 브랜치를 기본 이름으로 쓰도록 권장되고 있습니다.</p>
+</blockquote>
+<p>git init을 할 때 브랜치 명이 master로 기본 설정 되어있다면 아래 명령어를 통해 main으로 바꿀 수 있습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-18-32.png"></p>
+<p>이제 add commit을 해서 현재 파일 상태를 기록해주겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-19-20.png"></p>
+<p>분기를 해보겠습니다. 브랜치를 전환할 때는 git switch 명령어를 통해 브랜치를 전환할 수 있습니다. 이 때 새로운 브랜치를 만들면서 전환하고 싶다면 -c 옵션을 같이 입력해주시면 됩니다. (브랜치를 만들기만하고 이동하고 싶지 않을 때는 git branch [브랜치명] 명령어를 이용하면 됩니다.)</p>
+<p><img src="/../images/230712/2023-07-12-14-21-25.png"></p>
+<p>git branch –list 명령어를 통해 현재 보유하고있는 브랜치들을 확인할 수 있습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-22-32.png"></p>
+<p>이제 develop 브랜치에서 파일에 ‘수고하세요’라는 텍스트를 입력하고 커밋해보겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-23-45.png"></p>
+<p>develop 브랜치에서는 새로운 커밋이 생겼는데 main 브랜치에선 어떨까요?<br>main 브랜치를 옮겨가서 로그를 확인해봅시다.</p>
+<p><img src="/../images/230712/2023-07-12-14-24-32.png"></p>
+<p>develop 브랜치와 main 브랜치의 커밋이 별도로 관리된다는 것을 확인할 수 있습니다.</p>
+<p>develop 브랜치로 돌아가 다시 분기해보겠습니다. test 브랜치를 새로 만들어 주겠습니다. 그리고 텍스트도 추가해주겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-22-44-43.png"></p>
+<h2 id="브랜치-삭제"><a href="#브랜치-삭제" class="headerlink" title="브랜치 삭제"></a>브랜치 삭제</h2><p>이제 만든 test 브랜치를 삭제해보겠습니다.<br>삭제에는 git branch -D (브랜치명) 명령어를 사용합니다. 삭제하려는 브랜치를 제외한 다른 브랜치로 옮겨서 명령어를 입력해줍니다.<br>git branch –list로 결과도 확인해보겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-28-51.png"></p>
+<h2 id="브랜치-병합"><a href="#브랜치-병합" class="headerlink" title="브랜치 병합"></a>브랜치 병합</h2><p>git merge 명령어는 서로 다른 branch의 작업 내용을 하나의 branch 로 통합하기 위한 명령어 입니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-45-14.png"></p>
+<p>이 때 통합하는 merge 행위 자체가 하나의 커밋으로서 남게 됩니다.</p>
+<p>새로운 폴더를 생성해서 실습해보겠습니다. hello.txt를 생성해서 다음과 같은 텍스트를 입력해주고 git init을 통해 관리하게 하겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-48-53.png"></p>
+<hr>
+<p>이후에는 develop 브랜치를 만들어서 텍스트를 추가하고 다시 커밋까지 해주겠습니다.<br><img src="/../images/230712/2023-07-12-14-53-54.png"><br><img src="/../images/230712/2023-07-12-14-53-42.png"></p>
+<p>다시 main 브랜치로 전환해서 텍스트를 또 추가하고 커밋을 해주겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-14-55-51.png"></p>
+<hr>
+<p>이제 merge 명령어를 통해 main브랜치에서 develop브랜치를 병합해보겠습니다.<br>‘메인브랜치로 가서 -&gt; develop 을 병합한다’</p>
+<p><img src="/../images/230712/2023-07-12-14-58-49.png"><br><img src="/../images/230712/2023-07-12-14-59-01.png"></p>
+<p>두 브랜치에서 각각 작성된 텍스트가 main 브랜치에서 병합되어 전부 나타나는 것을 확인했습니다.</p>
+<p>아래 명령어를 통해서 커밋 기록이 어떤식으로 이루어져있는지를 좀 더 직관적으로 확인할 수 있습니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --decorate --oneline</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/230712/2023-07-12-15-02-45.png"></p>
+<p>위에 설명한 그림처럼 커밋 기록이 이루어진 것을 확인할 수 있습니다.</p>
+<h2 id="merge-conflict"><a href="#merge-conflict" class="headerlink" title="merge conflict"></a>merge conflict</h2><p>바로 위 예시에서 왜 중간 공간을 띄어놓고 각각 2번줄 4번줄에 텍스트를 추가했을까요?</p>
+<p>두 브랜치를 병합할 때 만약 각 브랜치에서 서로 같은 부분을 수정했다면 git의 입장에서 어떤 브랜치를 우선해야할지 결정할 수 없게 됩니다.</p>
+<p>이 때 사용자에게 둘중 어떤 것을 기준하여 확정할지를 정해달라고 하는 말을 건네는 것이 바로 merge conflict 입니다!</p>
+<p>(merge conflict 예시)<br><img src="/../images/230712/2023-07-12-15-13-17.png"></p>
+<p>여기서 accept current change를 선택하면 현재 우리가 있는 main브랜치의 내용을 따르게 되고, accept incoming change를 누르면 병합하는 develop 브랜치를 따르게 됩니다. 또는 직접 내용을 수정해서 merge하는 것도 가능합니다.</p>
+<blockquote>
+<p>Git으로 협업할 때 중요한 부분을 배울 수 있습니다. 여러 사람이 동시에 한 파일의 같은 부분을 작업해서는 안된다는 것입니다. 애초에 작업을 분담해 서로 다른 파일&#x2F; 다른 부분을 작업하도록 분담하는 것이 conflict를 방지하기 위한 방법입니다.</p>
+</blockquote>
+<hr>
+<h2 id="fast-forward"><a href="#fast-forward" class="headerlink" title="fast-forward"></a>fast-forward</h2><p>main 브랜치에서 develop 브랜치로 분기를 하고 main 브랜치를 건드리지는 않은 상태에서 develop 브랜치만을 수정하고 merge하는 경우를 상상해봅시다.</p>
+<p><img src="/../images/230712/2023-07-12-15-23-25.png"></p>
+<p>병합을 시도하면 fast-forword라는 문구가 뜨게되는데요, 위 상황같은 경우에는 merge conflict가 날 상황도 생기지 않고 그저 main에서 계속 작업을 했을 때와 같은 상황으로 보여지는데 이 경우를 fast-forward라고 합니다.</p>
+<p>이 경우에는 따로 merge 커밋이 생기지도 않고 그저 develop 브랜치의 커밋이 main 브랜치에 병합되면서 아래와 같은 커밋 기록이 만들어지게 됩니다.</p>
+<p><img src="/../images/230712/2023-07-12-15-25-41.png"></p>
+<p>만약 기존처럼 줄기가 나눠진 형태로 커밋 기록을 남기고 싶다면 –no-ff를 붙여 merge명령어를 입력하면 됩니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge develop --no--ff</span><br></pre></td></tr></table></figure>
+
+<h3 id="fast-forward의-장단점"><a href="#fast-forward의-장단점" class="headerlink" title="fast-forward의 장단점"></a>fast-forward의 장단점</h3><ul>
+<li>장점: 분기점이 남지 않기 때문에 커밋 기록을 더 직관적으로 볼 수 있다.</li>
+<li>단점: merge했다는 기록도 없고, 분기점도 없다.</li>
+</ul>
+<h2 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h2><p>rebase는 특정 브랜치를 기준으로 놓고 커밋 이력을 정렬하는 명령어입니다. non-fast-forward를 fast-forward로 만드는 명령어라고 생각하시면 됩니다.</p>
+<p>아래와 같은 형태로 브랜치가 나눠져 있다면<br><img src="/../images/230712/2023-07-12-15-47-42.png"></p>
+<p>줄기가 나뉘지 않고 fast-forward로 커밋 이력이 정리되게 됩니다.<br><img src="/../images/230712/2023-07-12-15-48-29.png"><br><img src="/../images/230712/2023-07-12-15-48-43.png"></p>
+<h1 id="Pull-Request"><a href="#Pull-Request" class="headerlink" title="Pull Request"></a>Pull Request</h1><p>pull request는 ‘나의 담당 브랜치에서 작업이 완료되었으니, 이 브랜치의 코드를 가져가서 병합해주세요’라는 요청을 보내는 것입니다.</p>
+<p>pull request를 하는 이유는</p>
+<ol>
+<li>내가 작성한 코드가 바로 적용되었을 때 발생할 수 있는 문제를 미리 방지</li>
+<li>현재 코드에 대한 코드 리뷰를 진행</li>
+<li>프로젝트에 대한 진행 상황을 관리<br>등이 있습니다.</li>
+</ol>
+<h2 id="pull-request-사용한-병합"><a href="#pull-request-사용한-병합" class="headerlink" title="pull request 사용한 병합"></a>pull request 사용한 병합</h2><p>intro.txt 파일을 만들어서 텍스트를 입력해주고 git init &gt; add &gt; commit 해주겠습니다.</p>
+<p>또 각 목차별로 branch를 만들어서 각 내용을 작성하고 이를 main 브랜치로 병합하겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-10-23.png"><br><img src="/../images/230712/2023-07-12-16-10-32.png"></p>
+<hr>
+<p>이후에는 github에서 레포지토리를 새로 만들어 로컬저장소와 연결해주겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-14-13.png"><br><img src="/../images/230712/2023-07-12-16-14-27.png"></p>
+<p>git push –all 명령어를 이용해 모든 브랜치와 commit 내역을 github로 올리겠습니다.</p>
+<p>그러면 github에서 각 브랜치들을 확인할 수 있고 main을 기반으로 각 브랜치를 머지해 달라는 메시지도 확인할 수 있습니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-16-13.png"></p>
+<p>github에서 pull request 요청을 보내 main에 각 브랜치의 내용을 병합할 수 있습니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-16-55.png"></p>
+<p>보통 pull request를 작성할 때에는 해당 부분을 왜 작성했고, 이전에 비해 어떤 것이 바뀌었는지, 그리고 코드리뷰 관련 요청사항등을 작성하게 됩니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-19-16.png"></p>
+<p>그러면 pull request 페이지가 생성되고 그 페이지에서 개발자들간 코멘트를 주거나 코드리뷰를 하는 등 활동을 할 수 있습니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-20-47.png"><br><img src="/../images/230712/2023-07-12-16-21-12.png"></p>
+<hr>
+<p>Confirm merge 버튼을 누르게 되면 main에 name 브랜치가 merge 되는 것을 확인할 수 있습니다.</p>
+<p>또한 브랜치를 merge하여 브랜치의 사용이유가 사라졌으니 삭제해 달라는 메시지가 뜨는 것도 확인할 수 있습니다. 버튼을 눌러 삭제해주겠습니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-28-21.png"></p>
+<p>main 에 병합된 name 브랜치의 내용들을 확인할 수 있습니다.<br><img src="/../images/230712/2023-07-12-16-24-07.png"><br><img src="/../images/230712/2023-07-12-16-25-12.png"></p>
+<hr>
+<h2 id="github-수정사항-가져오기"><a href="#github-수정사항-가져오기" class="headerlink" title="github 수정사항 가져오기"></a>github 수정사항 가져오기</h2><p>원격저장소인 github의 수정사항을 로컬 저장소에도 반영해야겠죠?<br>이 때 사용하는 명령어는 git pull 입니다.</p>
+<p><img src="/../images/230712/2023-07-12-16-32-38.png"></p>
+<p>다만 여기서 원격 저장소에서 삭제한 브랜치는 로컬 저장소에 반영이 되지 않기 때문에 수동적으로 지워주셔야 합니다.</p>
+<p>git branch -D 명령어를 이용합니다.<br><img src="/../images/230712/2023-07-12-16-34-26.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
