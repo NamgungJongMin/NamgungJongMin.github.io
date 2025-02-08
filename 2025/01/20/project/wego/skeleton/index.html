@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"namgungjongmin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="웹 애플리케이션에서 데이터 로딩은 피할 수 없는 과정입니다. 특히 네트워크 상태가 불안정하거나 대량의 데이터를 처리해야 하는 경우, 사용자는 빈 화면이나 로딩 스피너를 보며 기다려야 합니다. 이러한 대기 시간은 사용자 경험을 저하시키는 주요 요인이 됩니다. 이 문제를 해결하기 위해 저희는 스켈레톤 UI를 구현하여 적용했습니다.  ▪︎ Skeleton U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEGO ) Skeleton UI를 활용한 웹 성능 및 사용자 경험 최적화">
+<meta property="og:url" content="https://namgungjongmin.github.io/2025/01/20/project/wego/skeleton/index.html">
+<meta property="og:site_name" content="Namgung Jong Min">
+<meta property="og:description" content="웹 애플리케이션에서 데이터 로딩은 피할 수 없는 과정입니다. 특히 네트워크 상태가 불안정하거나 대량의 데이터를 처리해야 하는 경우, 사용자는 빈 화면이나 로딩 스피너를 보며 기다려야 합니다. 이러한 대기 시간은 사용자 경험을 저하시키는 주요 요인이 됩니다. 이 문제를 해결하기 위해 저희는 스켈레톤 UI를 구현하여 적용했습니다.  ▪︎ Skeleton U">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+<meta property="og:image" content="https://velog.velcdn.com/images/vbghdl/post/9360c31a-bde2-404e-8f58-a4a0c28f1b19/image.gif">
+<meta property="article:published_time" content="2025-01-20T14:32:35.000Z">
+<meta property="article:modified_time" content="2025-02-08T04:21:00.274Z">
+<meta property="article:author" content="Namgung Jong Min">
+<meta property="article:tag" content="WEGO">
+<meta property="article:tag" content="프로젝트">
+<meta property="article:tag" content="Skeleton UI">
+<meta property="article:tag" content="FCP 최적화">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png">
+
+
+<link rel="canonical" href="https://namgungjongmin.github.io/2025/01/20/project/wego/skeleton/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://namgungjongmin.github.io/2025/01/20/project/wego/skeleton/","path":"2025/01/20/project/wego/skeleton/","title":"WEGO ) Skeleton UI를 활용한 웹 성능 및 사용자 경험 최적화"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>WEGO ) Skeleton UI를 활용한 웹 성능 및 사용자 경험 최적화 | Namgung Jong Min</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/rss2.xml" title="Namgung Jong Min" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Namgung Jong Min</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">토끼굴을 개척하는 개발자</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>정보</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-Skeleton-UI-%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95"><span class="nav-number">1.</span> <span class="nav-text">▪︎ Skeleton UI 구현 과정</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EA%B8%B0%EB%B3%B8-%EC%8A%A4%ED%83%80%EC%9D%BC-%EC%84%A4%EC%A0%95"><span class="nav-number">1.1.</span> <span class="nav-text">▫︎ 기본 스타일 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EA%B0%80%EB%8A%A5%ED%95%9C-%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="nav-number">1.2.</span> <span class="nav-text">▫︎ 재사용 가능한 스켈레톤 컴포넌트</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%8B%A4%EC%A0%9C-%EC%A0%81%EC%9A%A9-%EC%97%AC%ED%96%89-%EC%B9%B4%EB%93%9C-%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4"><span class="nav-number">1.3.</span> <span class="nav-text">▫︎ 실제 적용 (여행 카드 스켈레톤)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%97%90-%EC%A0%81%EC%9A%A9%ED%95%A0-Skeleton-UI-%EC%9E%91%EC%84%B1"><span class="nav-number">1.3.1.</span> <span class="nav-text">컴포넌트에 적용할 Skeleton UI 작성</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%97%AC%ED%96%89-%EC%B9%B4%EB%93%9C%EC%97%90-%EC%A0%81%EC%9A%A9"><span class="nav-number">1.3.2.</span> <span class="nav-text">마이페이지 여행 카드에 적용</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-%EC%99%84%EC%84%B1%EB%90%9C-Skeleton-UI"><span class="nav-number">1.4.</span> <span class="nav-text">▫︎ 완성된 Skeleton UI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%ED%9A%A8%EA%B3%BC"><span class="nav-number">2.</span> <span class="nav-text">▪︎ 효과</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%96%AB%EF%B8%8E-FCP-First-Contentful-Paint-%EC%B5%9C%EC%A0%81%ED%99%94"><span class="nav-number">2.1.</span> <span class="nav-text">▫︎ FCP(First Contentful Paint) 최적화</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%96%AA%EF%B8%8E-%EB%A7%88%EC%B9%98%EB%A9%B0"><span class="nav-number">3.</span> <span class="nav-text">▪︎ 마치며</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Namgung Jong Min"
+      src="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+  <p class="site-author-name" itemprop="name">Namgung Jong Min</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NamgungJongMin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NamgungJongMin" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jmnamgung@gmail.com" title="E-Mail → mailto:jmnamgung@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/20/project/wego/skeleton/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="WEGO ) Skeleton UI를 활용한 웹 성능 및 사용자 경험 최적화 | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WEGO ) Skeleton UI를 활용한 웹 성능 및 사용자 경험 최적화
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-20 23:32:35" itemprop="dateCreated datePublished" datetime="2025-01-20T23:32:35+09:00">2025-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/20/project/wego/skeleton/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/20/project/wego/skeleton/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<blockquote>
+<p>웹 애플리케이션에서 데이터 로딩은 피할 수 없는 과정입니다. 특히 네트워크 상태가 불안정하거나 대량의 데이터를 처리해야 하는 경우, 사용자는 빈 화면이나 로딩 스피너를 보며 기다려야 합니다. 이러한 대기 시간은 사용자 경험을 저하시키는 주요 요인이 됩니다. 이 문제를 해결하기 위해 저희는 스켈레톤 UI를 구현하여 적용했습니다.</p>
+</blockquote>
+<h1 id="▪︎-Skeleton-UI-구현-과정"><a href="#▪︎-Skeleton-UI-구현-과정" class="headerlink" title="▪︎ Skeleton UI 구현 과정"></a>▪︎ Skeleton UI 구현 과정</h1><h2 id="▫︎-기본-스타일-설정"><a href="#▫︎-기본-스타일-설정" class="headerlink" title="▫︎ 기본 스타일 설정"></a>▫︎ 기본 스타일 설정</h2><p>먼저 Tailwind 설정 파일에서 스켈레톤 UI의 기본 스타일을 정의했습니다. 스켈레톤 UI의 핵심은 로딩 상태를 시각적으로 표현하는 애니메이션입니다. 이를 위해 그라데이션 효과와 움직임을 결합했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tailwind.config.ts</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">addUtilities</span>(&#123;</span><br><span class="line">  <span class="string">&quot;.skeleton-style&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">background</span>: <span class="string">&quot;linear-gradient(90deg, #E5E7EB 35%, #F3F4F6 50%, #E5E7EB 65%)&quot;</span>,</span><br><span class="line">    <span class="attr">backgroundSize</span>: <span class="string">&quot;300% auto&quot;</span>,</span><br><span class="line">    <span class="attr">animation</span>: <span class="string">&quot;skeleton-loading 1.5s ease-in-out infinite&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;@keyframes skeleton-loading&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;0%&quot;</span>: &#123; <span class="attr">backgroundPosition</span>: <span class="string">&quot;100% 0&quot;</span> &#125;,</span><br><span class="line">    <span class="string">&quot;100%&quot;</span>: &#123; <span class="attr">backgroundPosition</span>: <span class="string">&quot;0 0&quot;</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>이 설정은 세 가지 주요 요소로 구성됩니다.</p>
+<ul>
+<li>그라데이션 배경: 밝은 회색(#F3F4F6)에서 어두운 회색(#E5E7EB)으로 자연스럽게 변화</li>
+<li>배경 크기: 실제 요소보다 3배 큰 배경을 설정하여 부드러운 이동 효과 구현</li>
+<li>애니메이션: 1.5초 동안 배경이 좌우로 움직이며 무한 반복</li>
+</ul>
+<h2 id="▫︎-재사용-가능한-스켈레톤-컴포넌트"><a href="#▫︎-재사용-가능한-스켈레톤-컴포넌트" class="headerlink" title="▫︎ 재사용 가능한 스켈레톤 컴포넌트"></a>▫︎ <strong>재사용 가능한 스켈레톤 컴포넌트</strong></h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Skeleton.tsx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Skeleton</span> = (<span class="params">&#123; className, classNameCondition &#125;: Props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;cn(</span>&quot;<span class="attr">skeleton-style</span>&quot;, <span class="attr">className</span>, <span class="attr">classNameCondition</span>)&#125; /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>이 컴포넌트는 단순하지만 유연합니다. className prop을 통해 각 사용처에 맞는 크기와 스타일을 적용할 수 있으며, classNameCondition을 통해 조건부 스타일링도 가능합니다.</p>
+<h2 id="▫︎-실제-적용-여행-카드-스켈레톤"><a href="#▫︎-실제-적용-여행-카드-스켈레톤" class="headerlink" title="▫︎ 실제 적용 (여행 카드 스켈레톤)"></a>▫︎ 실제 적용 (여행 카드 스켈레톤)</h2><p>마이페이지에서 MyTravelCardSkeleton 을 적용한 예시입니다. 실제 데이터가 로드되기 전의 UI를 표현합니다.</p>
+<h3 id="컴포넌트에-적용할-Skeleton-UI-작성"><a href="#컴포넌트에-적용할-Skeleton-UI-작성" class="headerlink" title="컴포넌트에 적용할 Skeleton UI 작성"></a>컴포넌트에 적용할 Skeleton UI 작성</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MyTravelCardSkeleton.tsx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">MyTravelCardSkeleton</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;w-full max-w-[335px] pb-10 md:max-w-[688px] xl:max-w-[1400px]&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;grid w-full gap-5 xl:grid-cols-2 xl:gap-6&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;Array.from(&#123; length: 6 &#125;).map((_, index) =&gt; (</span></span><br><span class="line"><span class="language-xml">          // eslint-disable-next-line react/no-array-index-key</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;</span>`<span class="attr">skeleton-</span>$&#123;<span class="attr">index</span>&#125;`&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;relative flex max-w-[335px] gap-4 md:max-w-[688px] md:gap-9&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Skeleton</span> <span class="attr">className</span>=<span class="string">&quot;h-[120px] w-[100px] flex-shrink-0 rounded md:h-[160px] md:w-[223px]&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;relative flex w-full flex-col justify-between&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex flex-col gap-1&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">Skeleton</span> <span class="attr">className</span>=<span class="string">&quot;h-5 w-12 rounded-[20px]&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">Skeleton</span> <span class="attr">className</span>=<span class="string">&quot;h-6 w-full md:h-[26px]&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex flex-col gap-2.5&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">Skeleton</span> <span class="attr">className</span>=<span class="string">&quot;h-5 w-full&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">Skeleton</span> <span class="attr">className</span>=<span class="string">&quot;h-4 w-full&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Skeleton</span> <span class="attr">className</span>=<span class="string">&quot;mt-5 h-[1px] w-full max-w-[1400px]&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        ))&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="마이페이지-여행-카드에-적용"><a href="#마이페이지-여행-카드에-적용" class="headerlink" title="마이페이지 여행 카드에 적용"></a>마이페이지 여행 카드에 적용</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Upcomming</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> itemsPerPage = <span class="number">6</span>;</span><br><span class="line">  <span class="keyword">const</span> [currentPage, setCurrentPage] = <span class="title function_">useState</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">data</span>: travels, isLoading &#125; = <span class="title function_">useUpcommingTravel</span>(itemsPerPage, currentPage - <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">const</span> totalPages = travels ? <span class="title class_">Math</span>.<span class="title function_">ceil</span>(travels.<span class="property">data</span>.<span class="property">total</span> / itemsPerPage) : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">paginate</span> = (<span class="params">pageNumber: <span class="built_in">number</span></span>) =&gt; <span class="title function_">setCurrentPage</span>(pageNumber);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isLoading) <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">MyTravelCardSkeleton</span> /&gt;</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">className</span>=<span class="string">&quot;w-full max-w-[335px] pb-10 md:max-w-[688px] xl:max-w-[1400px]&quot;</span> <span class="attr">data-testid</span>=<span class="string">&quot;upcomming-travels&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;travels &amp;&amp; travels.data.total &gt; 0 ? (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;grid w-full gap-5 xl:grid-cols-2 xl:gap-6&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;travels.data?.content.map((travel: TravelCardProps) =&gt; (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;travel.travelId&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">TravelCard</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">key</span>=<span class="string">&#123;travel.travelId&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">travelId</span>=<span class="string">&#123;travel.travelId&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">travelImage</span>=<span class="string">&#123;travel.travelImage&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">isDomestic</span>=<span class="string">&#123;travel.isDomestic&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">travelName</span>=<span class="string">&#123;travel.travelName&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">travelLocation</span>=<span class="string">&#123;travel.travelLocation&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">maxTravelMateCount</span>=<span class="string">&#123;travel.maxTravelMateCount&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">currentTravelMateCount</span>=<span class="string">&#123;travel.currentTravelMateCount&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">startAt</span>=<span class="string">&#123;travel.startAt&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">endAt</span>=<span class="string">&#123;travel.endAt&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">bookmarkFlag</span>=<span class="string">&#123;travel.bookmarkFlag&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">formattedStartDate</span>=<span class="string">&#123;checkTomorrow(travel.startAt)&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              /&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">HorizontalDivider</span> <span class="attr">className</span>=<span class="string">&quot;mt-5 xl:mt-6&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ))&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      ) : (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">NoTravel</span> <span class="attr">message</span>=<span class="string">&quot;아직 참여한 여행이 없어요!&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Pagination</span> <span class="attr">totalPages</span>=<span class="string">&#123;totalPages&#125;</span> <span class="attr">currentPage</span>=<span class="string">&#123;currentPage&#125;</span> <span class="attr">paginate</span>=<span class="string">&#123;paginate&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>이 컴포넌트는 실제 여행 카드 리스트와 동일한 레이아웃을 가지며, 반응형 디자인을 지원합니다. 6개의 더미 카드를 생성하여 데이터 로딩 중에도 페이지의 구조를 명확히 보여줍니다.</p>
+<h2 id="▫︎-완성된-Skeleton-UI"><a href="#▫︎-완성된-Skeleton-UI" class="headerlink" title="▫︎ 완성된 Skeleton UI"></a>▫︎ 완성된 Skeleton UI</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/9360c31a-bde2-404e-8f58-a4a0c28f1b19/image.gif" alt="image.png"></p>
+<h1 id="▪︎-효과"><a href="#▪︎-효과" class="headerlink" title="▪︎ 효과"></a>▪︎ 효과</h1><p>스켈레톤 UI 구현은 Core Web Vitals를 포함한 주요 웹 성능 메트릭스의 개선에 큰 영향을 미쳤습니다. 성능의 개선은 사용자 경험 향상으로도 이어집니다.</p>
+<h2 id="▫︎-FCP-First-Contentful-Paint-최적화"><a href="#▫︎-FCP-First-Contentful-Paint-최적화" class="headerlink" title="▫︎ FCP(First Contentful Paint) 최적화"></a>▫︎ <strong>FCP(First Contentful Paint) 최적화</strong></h2><p>스켈레톤 UI는 FCP 개선에도 기여합니다. 페이지의 첫 번째 의미 있는 콘텐츠가 그려지는 시점이 빨라지기 때문입니다.</p>
+<ul>
+<li><strong>즉각적인 시각적 피드백</strong>: 스켈레톤 UI는 실제 콘텐츠보다 훨씬 가벼워, 페이지 진입 시 즉시 렌더링됩니다.</li>
+<li><strong>점진적 로딩</strong>: 메인 콘텐츠가 로드되는 동안 의미 있는 UI를 제공하여 체감 LCP를 개선합니다.</li>
+<li><strong>레이아웃 안정성</strong>: CLS(Cumulative Layout Shift) 또한 개선되어, 콘텐츠 로드 시 레이아웃 변화를 최소화합니다.</li>
+</ul>
+<p>!<a target="_blank" rel="noopener" href="https://velog.velcdn.com/images/vbghdl/post/6091e539-ba73-431b-af15-f0ebd88f1de3/image.png">https://velog.velcdn.com/images/vbghdl/post/6091e539-ba73-431b-af15-f0ebd88f1de3/image.png</a></p>
+<p>Chrome Dev Tools의 성능 탭에서 같은 조건으로 확인해봤을 때 다음과 같은 차이가 있었습니다. 생각보다 큰 차이가 있어 놀랐습니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[스켈레톤 UI 적용 전]</span><br><span class="line">FCP: 559.8ms</span><br><span class="line"></span><br><span class="line">[스켈레톤 UI 적용 후]</span><br><span class="line">FCP: 119ms (약 80% 개선)</span><br></pre></td></tr></table></figure>
+
+<p>이러한 성능 개선은 특히 모바일 사용자와 불안정한 네트워크 환경에서 더욱 큰 효과를 발휘합니다. Google의 Core Web Vitals 지표 개선은 검색 엔진 최적화(SEO)에도 긍정적인 영향을 미치며, 이는 결과적으로 웹사이트의 가시성 향상으로 이어집니다.</p>
+<h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>스켈레톤 UI 구현을 통해 다음과 같은 효과를 얻을 수 있었습니다:</p>
+<ol>
+<li><strong>인지된 성능 향상</strong><ul>
+<li>사용자는 빈 화면이나 로딩 스피너 대신 콘텐츠의 구조를 즉시 확인할 수 있습니다.</li>
+<li>이는 실제 로딩 시간이 동일하더라도 더 빠르게 느껴지는 효과를 줍니다.</li>
+</ul>
+</li>
+<li><strong>자연스러운 전환</strong><ul>
+<li>스켈레톤에서 실제 콘텐츠로의 전환이 부드럽게 이루어집니다.</li>
+<li>레이아웃 시프트가 최소화되어 더 안정적인 사용자 경험을 제공합니다.</li>
+</ul>
+</li>
+<li><strong>프로그레시브 로딩</strong><ul>
+<li>페이지의 구조가 먼저 로드되어 사용자가 전체적인 레이아웃을 파악할 수 있습니다.</li>
+<li>이는 특히 모바일 환경에서 중요한 이점을 제공합니다.</li>
+</ul>
+</li>
+<li><strong>반응형 디자인 지원</strong><ul>
+<li>스켈레톤 UI도 실제 컴포넌트와 동일한 반응형 규칙을 따릅니다.</li>
+<li>모든 화면 크기에서 일관된 로딩 경험을 제공합니다.</li>
+<li></li>
+</ul>
+</li>
+</ol>
+<p>이러한 스켈레톤 UI 구현은 단순한 시각적 개선을 넘어 전반적인 사용자 경험 향상에 기여했습니다.</p>
+<p>특히 네트워크 상태가 불안정한 모바일 환경에서 더욱 효과적으로 작동하며, 사용자의 이탈률을 줄이는 데 도움이 될 것이라 생각합니다.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEGO/" rel="tag"># WEGO</a>
+              <a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag"># 프로젝트</a>
+              <a href="/tags/Skeleton-UI/" rel="tag"># Skeleton UI</a>
+              <a href="/tags/FCP-%EC%B5%9C%EC%A0%81%ED%99%94/" rel="tag"># FCP 최적화</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/17/project/wego/%EC%9D%B8%EC%A6%9D%ED%8F%BC%EA%B5%AC%ED%98%84/" rel="prev" title="WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화">
+                  <i class="fa fa-angle-left"></i> WEGO ) 커스텀 훅을 활용한 인증 폼 구현과 리렌더링 최적화
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Namgung Jong Min</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"namgungjongmin","count":true,"lazylaod":false,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

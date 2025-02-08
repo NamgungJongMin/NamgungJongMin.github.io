@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">79</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,134 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/" class="post-title-link" itemprop="url">논리연산자를 활용한 단축 평가</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-07-18 13:01:50" itemprop="dateCreated datePublished" datetime="2023-07-18T13:01:50+09:00">2023-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/07/18/js/6_%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90_%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/18/js/6_논리연산자_단축평가/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<h1 id="논리합-x2F-논리곱-연산자"><a href="#논리합-x2F-논리곱-연산자" class="headerlink" title="논리합 &#x2F; 논리곱 연산자"></a>논리합 &#x2F; 논리곱 연산자</h1><p>우리는 학창 시절 집합을 배우면서 합집합과 교집합을 통해 논리합과 논리곱에 대한 감을 잡았고, 이후 이산 수학을 통해 두 명제에 대한 논리 연산으로 이해를 확장시켰습니다.</p>
+<ul>
+<li><p>논리합 (A or B)<br>A와 B의 각 명제 중 하나라도 ‘참’일 경우 두 명제의 논리합은 ‘참’이 된다.<br>(두 명제 모두 ‘거짓’일 때만 논리합이 ‘거짓’이 된다.)</p>
+</li>
+<li><p>논리곱 (A and B)<br>A와 B의 각 명제가 모두 ‘참’일 때만 논리곱은 ‘참’이 된다.<br>(두 명제 중 하나라도 ‘거짓’일 경우 논리곱은 ‘거짓’이 된다.)</p>
+</li>
+</ul>
+<p>자바스크립트의 논리 연산도 동일한 원리로 동작합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> testTrue = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> testFalse = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(testTrue || testFalse); <span class="comment">// output: true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(testTrue &amp;&amp; testFalse); <span class="comment">// output: false</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="논리합-x2F-논리곱을-사용한-단축-평가"><a href="#논리합-x2F-논리곱을-사용한-단축-평가" class="headerlink" title="논리합 &#x2F; 논리곱을 사용한 단축 평가"></a>논리합 &#x2F; 논리곱을 사용한 단축 평가</h1><p>자바스크립트 동작에서 우리가 주목할 특징은 <strong>“논리 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로만 평가된다.”</strong> 라는 점입니다. 그리고 논리 연산의 결과를 결정한 대상을 타입 변환없이 그대로 반환하게 됩니다.</p>
+<p>이 때 평가의 결과가 확정되었다면, 나머지 평가 과정을 생략하게 되는데 이를 <strong>단축평가</strong> 라고 합니다.</p>
+<h2 id="논리합-연산자의-평가-대상-A-B"><a href="#논리합-연산자의-평가-대상-A-B" class="headerlink" title="논리합 연산자의 평가 대상 (A || B)"></a>논리합 연산자의 평가 대상 (A || B)</h2><p>논리합 연산자는 두 피연사자 중 하나만 true여도 true를 반환합니다. 따라서 앞의 항 A의 값이 true라면 위에 말한 단축 평가의 동작 원리대로 나머지 평가 과정을 멈추고 A를 평가한 값을 그대로 반환하게 됩니다.<br><code>반환 결과: 평가된 A</code></p>
+<p>만약 A의 값이 false라면 논리합의 결과를 알기 위해서는 B의 값을 평가해야 합니다. B가 false라면 false를 반환, B가 true라면 true를 반환하게 됩니다. 즉 논리 연산의 결과는 B의 값에 따라 결정됩니다.<br><code>반환 결과: 평가된 B</code></p>
+<p>이를 활용하여 저희는 A의 평가 결과를 조건으로 반환 대상을 결정하는 코드를 if else문을 대체하여 표현식으로 사용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line">&#123;</span><br><span class="line">  !dirty || error ? <span class="language-xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span>&#x27;Error&#x27;<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span> : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드는 dirty의 값이 ‘참’일 때만 error 여부를 판별하여 error가 ‘참’일 경우 ‘Error’ 문자열을 렌더링하는 코드입니다. dirty의 값이 ‘거짓’일 경우 error 여부와 관계없이 ‘Error’ 문자열을 렌더링합니다.</p>
+<h3 id="null-병합-연산자-A-B"><a href="#null-병합-연산자-A-B" class="headerlink" title="*null 병합 연산자 (A ?? B)"></a>*null 병합 연산자 (A ?? B)</h3><p>논리합 연산자를 사용할 때 주의할 점은 연산자가 각 피연산자의 Truthy &#x2F; Falsy 값을 판단한다는 점입니다. 위 논리합 연산자의 예시에서 dirty값이 string 데이터 타입이라고 가정해봅시다.</p>
+<p><strong>개발자가 빈 문자열 또한 dirty 값이 있다고 가정</strong> 한다해도 빈 문자열 ‘’은 Falsy 값으로 판단되어 자바스크립트는 B를 평가하게 됩니다. 이것은 개발자의 의도대로 동작한 것이 아닙니다.</p>
+<p>Truty &#x2F; Falsy 값을 판별하는게 아니라 값 자체가 할당되지 않았거나(undefined) 명시적으로 빈 값이라고 표현된 요소(null)를 판단하고 싶다면 <strong>null 병합 연산자</strong> 를 사용할 수 있습니다. null 병합 연산자를 사용하면 피연산자가 null 또는 undefined인지 여부만을 판단하게 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line">&#123;</span><br><span class="line">  !dirty ?? error ? <span class="language-xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span>&#x27;Error&#x27;<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span> : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="논리곱-연산자의-평가-대상-A-amp-amp-B"><a href="#논리곱-연산자의-평가-대상-A-amp-amp-B" class="headerlink" title="논리곱 연산자의 평가 대상 (A &amp;&amp; B)"></a>논리곱 연산자의 평가 대상 (A &amp;&amp; B)</h2><p>논리곱 연산자는 두 피연산자가 모두 true일 경우만 true를 반환합니다. 따라서 앞의 항의 값이 false라면 위에 말한 단축 평가의 동작 원리대로 나머지 평가 과정을 멈추고 A를 평가한 값을 그대로 반환하게 됩니다.<br><code>반환 결과: 평가된 A</code></p>
+<p>만약 A의 값이 true라면 논리곱 연산자의 결과를 알기 위해서는 B의 값을 평가해야 합니다. B가 true라면 true를 반환 B가 false라면 false를 반환하게 됩니다. 즉 논리 연산의 결과는 B의 값에 따라 결정됩니다.<br><code>반환 결과: 평가된 B</code></p>
+<p>논리합 연산자와 마찬가지로 A의 평가 결과를 조건으로 반환 대상을 결정하는 코드를 if else문을 대체하여 표현식으로 사용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="comment">// dirty 값이 &#x27;참&#x27;일 경우에만 remove 버튼을 렌더링</span></span><br><span class="line">&#123;</span><br><span class="line">  dirty &amp;&amp; (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">className</span>=<span class="string">&#123;styles.removeBtn&#125;</span> <span class="attr">onClick</span>=<span class="string">&#123;resetEmail&#125;</span> <span class="attr">tabIndex</span>=<span class="string">&#123;-1&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">InputRemove</span> <span class="attr">className</span>=<span class="string">&#123;styles.removeBtn__icon&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="옵셔널-체이닝-연산자"><a href="#옵셔널-체이닝-연산자" class="headerlink" title="옵셔널 체이닝 연산자"></a>옵셔널 체이닝 연산자</h1><p>옵셔널 체이닝 연산자는 자바스크립트의 메서드 체이닝 여부를 대상 객체의 평가 결과에 따라 결정할 수 있는 방법입니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="keyword">const</span> data = axios.<span class="title function_">get</span>(<span class="string">&#x27;http://test/posts.com&#x27;</span>) <span class="comment">// [element1,element2,...]</span></span><br><span class="line"><span class="comment">// ... 생략</span></span><br><span class="line">&#123;data.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>)=&gt;</span> ...)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드의 경우 만약 http 요청으로 받아온 data의 값이 없을 경우 에러를 출력하여 페이지 렌더링이 불가능합니다. 만약 data가 있을 경우 해당 요소를 렌더링하고, 없다면 저 부분만을 제외한 상태로 정상적인 렌더링을 하기 위해 옵셔널 체이닝 연산자를 활용할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// react</span></span><br><span class="line"><span class="keyword">const</span> data = axios.<span class="title function_">get</span>(<span class="string">&#x27;http://test/posts.com&#x27;</span>) <span class="comment">// null / undefined</span></span><br><span class="line"><span class="comment">// ... 생략</span></span><br><span class="line">&#123;data?.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>)=&gt;</span> ...)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>옵셔널 체이닝 연산자를 사용하면 data의 값이 null이나 undefined인 경우에는 forEach 메서드를 실행하지 않고, 평가를 종료합니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 

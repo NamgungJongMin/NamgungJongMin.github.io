@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">79</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,118 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/03/25/algorithm/%EA%B7%B8%EB%9E%98%ED%94%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/03/25/algorithm/%EA%B7%B8%EB%9E%98%ED%94%84/" class="post-title-link" itemprop="url">그래프 ) 배열 데이터로 정제하기</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-03-25 14:35:52" itemprop="dateCreated datePublished" datetime="2024-03-25T14:35:52+09:00">2024-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/03/25/algorithm/%EA%B7%B8%EB%9E%98%ED%94%84/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/25/algorithm/그래프/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
+<p>코딩테스트에서 그래프와 관련된 문제를 만났을 때, 해당 그래프를 순회하고 조작할 수 있는 정제된 형태의 데이터로 만들 필요가 있습니다. 이번 포스트에서는 여러 그래프의 종료들의 분석하는 방법과 함께 그래프 정보를 인접행렬 &#x2F; 인접리스트 데이터로 정제하는 방법에 대해 다뤄보겠습니다.</p>
+</blockquote>
+<h1 id="▪︎-무방향-그래프"><a href="#▪︎-무방향-그래프" class="headerlink" title="▪︎ 무방향 그래프"></a>▪︎ 무방향 그래프</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/f238072b-4c39-49e0-9a55-b049eecd5750/image.png" alt="image.png"></p>
+<p>무방향 그래프는 노드가 서로 양방향으로 연결되어있는 형태로 방향에 상관없이 연결된 노드에 접근이 가능한 구조입니다. 행을 타겟 노드로, 열을 접근할 노드로 하는 인접행렬 데이터를 배열로 만들어 순회할 수 있습니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 무방향 그래프</span></span><br><span class="line"><span class="keyword">const</span> N = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> input = [</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> graph = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="title class_">Array</span>(N + <span class="number">1</span>), <span class="function">() =&gt;</span> <span class="title class_">Array</span>(N + <span class="number">1</span>).<span class="title function_">fill</span>(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">forEach</span>(<span class="function">(<span class="params">array</span>) =&gt;</span> &#123;</span><br><span class="line">  graph[array[<span class="number">0</span>]][array[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">  graph[array[<span class="number">1</span>]][array[<span class="number">0</span>]] = <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(graph);</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-방향-그래프"><a href="#▪︎-방향-그래프" class="headerlink" title="▪︎ 방향 그래프"></a>▪︎ 방향 그래프</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/55c2451c-d4c9-447c-8b82-cbd9bcdef88d/image.png" alt="image.png"></p>
+<p>방향 그래프는 노드가 단방향으로 연결되어있는 형태로 한쪽 방향으로만 연결된 노드에 접근할 수 있습니다. 입력된 그래프 데이터에서 노드가 가리키는 다른 노드의 위치에 대한 정보만을 인접행렬에 저장합니다. (입력 데이터 각 배열의 인덱스의 값의 순서가 의미를 가집니다.)</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 방향 그래프</span></span><br><span class="line"><span class="keyword">const</span> N = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> input = [</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> graph = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="title class_">Array</span>(N + <span class="number">1</span>), <span class="function">() =&gt;</span> <span class="title class_">Array</span>(N + <span class="number">1</span>).<span class="title function_">fill</span>(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">forEach</span>(<span class="function">(<span class="params">array</span>) =&gt;</span> &#123;</span><br><span class="line">  graph[array[<span class="number">0</span>]][array[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(graph);</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-가중치-그래프"><a href="#▪︎-가중치-그래프" class="headerlink" title="▪︎ 가중치 그래프"></a>▪︎ 가중치 그래프</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/7601dc13-cef7-4d7a-9ced-03d1bd1acdd7/image.png" alt="image.png"></p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/afb6628e-d06b-437f-a4d0-b0c342c642e3/image.png" alt="image.png"></p>
+<p>가중치 그래프는 노드끼리에 연결에 가중치가 붙어있는 구조입니다. 입력 데이터에 [1, 3, 3]과 같이 가중치에 대한 정보가 추가로 들어있습니다. 구현 방법은 위와 같으며 연결된 노드에 1이 아닌 가중치를 저장해주면 됩니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 가중치 무방향 그래프</span></span><br><span class="line"><span class="keyword">const</span> N = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> input1 = [</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> graph1 = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="title class_">Array</span>(N + <span class="number">1</span>), <span class="function">() =&gt;</span> <span class="title class_">Array</span>(N + <span class="number">1</span>).<span class="title function_">fill</span>(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">input1.<span class="title function_">forEach</span>(<span class="function">(<span class="params">array</span>) =&gt;</span> &#123;</span><br><span class="line">  graph1[array[<span class="number">0</span>]][array[<span class="number">1</span>]] = array[<span class="number">2</span>];</span><br><span class="line">  graph1[array[<span class="number">1</span>]][array[<span class="number">0</span>]] = array[<span class="number">2</span>];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(graph1);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* --------------------------------------------------------------------- */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 가중치 방향 그래프</span></span><br><span class="line"><span class="keyword">const</span> input2 = [</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> graph2 = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="title class_">Array</span>(N + <span class="number">1</span>), <span class="function">() =&gt;</span> <span class="title class_">Array</span>(N + <span class="number">1</span>).<span class="title function_">fill</span>(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">input2.<span class="title function_">forEach</span>(<span class="function">(<span class="params">array</span>) =&gt;</span> &#123;</span><br><span class="line">  graph2[array[<span class="number">0</span>]][array[<span class="number">1</span>]] = array[<span class="number">2</span>];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(graph2);</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-노드-개수가-많을-때"><a href="#▪︎-노드-개수가-많을-때" class="headerlink" title="▪︎ 노드 개수가 많을 때"></a>▪︎ 노드 개수가 많을 때</h1><p>노드의 개수가 적을 때에는 인접 행렬 데이터로 변환하여 문제를 풀 수 있지만, 노드의 개수가 많아질수록 그래프 크기가 커져 재귀의 동작이 많아져 문제를 푸는데 어려움이 생깁니다. 이럴 때는 인접행렬 대신 인접리스트를 사용하여 문제를 풀 수 있습니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/f9ba602a-af2f-45a3-ba4d-bdfae53610aa/image.png" alt="image.png"></p>
+<p>인접리스트에서는 graph의 행의 인덱스 만이 노드를 키값으로 의미를 지니게 되고, 열의 인덱스는 인접행렬과 달리 의미를 지니지 않습니다. 각 노드 행에 연결된 노드에 대한 정보를 push해주면 됩니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 인접리스트</span></span><br><span class="line"><span class="keyword">const</span> N = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> input = [</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">2</span>],</span><br><span class="line">  [<span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> graph = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="title class_">Array</span>(N + <span class="number">1</span>), <span class="function">() =&gt;</span> <span class="title class_">Array</span>(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> &#123;</span><br><span class="line">  graph[el[<span class="number">0</span>]].<span class="title function_">push</span>(el[<span class="number">1</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(graph);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1228,123 +1340,6 @@
 <p>드디어 부트캠프를 수료하게 되었네요. 7개월이 짧은 시간은 아니지만 저에게는 정말 순식간에 지나간 것 같습니다. 그만큼 부트캠프에 몰입하고 있었던 것 같아요. 좋은 사람들을 많이 만날 수 있었고, 함께 성장할 수 있었어요. 이런 기회를 준 패스트캠퍼스에 정말 감사하는 마음 뿐이랍니다.</p>
 <p><img src="https://velog.velcdn.com/images/vbghdl/post/ae938868-7fcd-48e2-94bc-d34ddb98eb52/image.png"></p>
 <h1 id="내가-최우수-수료생"><a href="#내가-최우수-수료생" class="headerlink" title="내가 최우수 수료생!!"></a>내가 최우수 수료생!!</h1><p>너무나 감사하게도 이번 부트캠프 최우수 수료생으로 선정되었습니다. 과정 진행 동안의 프로젝트와 과제, 퀴즈 등을 종합하여 선정되었는데, 정말 수강생 분들끼리의 점수 차이가 미미하더라구요. 운이 좋았다는 생각과 동시에 그만큼 열심히 한 나 자신을 칭찬해주고 싶었습니다. 최우수 수료생에게는 모의 면접과 모의 코딩테스트 등 여러가지 취업을 위한 추가적인 혜택이 있었어요. 잘 활용해서 꼭 원하는 곳에 취업하도록 노력하겠습니다. 그 동안 감사했습니다!</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/01/31/fc-yanolja/retrospective_final/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/01/31/fc-yanolja/retrospective_final/" class="post-title-link" itemprop="url">패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_파이널 프로젝트 회고</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2024-01-31 23:34:13" itemprop="dateCreated datePublished" datetime="2024-01-31T23:34:13+09:00">2024-01-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%EC%95%BC%EB%86%80%EC%9E%90-%ED%85%8C%ED%81%AC%EC%8A%A4%EC%BF%A8/" itemprop="url" rel="index"><span itemprop="name">야놀자 테크스쿨</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2024/01/31/fc-yanolja/retrospective_final/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/01/31/fc-yanolja/retrospective_final/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/5e1e2ac9-3a7a-4a13-89bd-fa4abc0b669a/image.png"></p>
-<blockquote>
-<p>돌아온 패스트캠퍼스 X 야놀자 부트캠프 포스팅입니다! 2024년의 새로운 해의 시작과 함께 1월부터 저희 부트캠프에서는 ‘파이널 프로젝트’를 진행했습니다. 이번 프로젝트에서는 기획, 디자인, 백엔드, 프론트 각 포지션들이 하나의 팀을 이루어 진행하게 되었습니다. 저번 미니 프로젝트에서는 백엔드와 프론트 두 포지션만이 있었기 때문에 개발 외적으로도 디자인이나 앱 기획 등을 신경쓸게 많았는데요! 이번 파이널 프로젝트에서는 기획분들의 요청에 맞추어 구현만 하면되었기 때문에 개발에만 집중할 수 있어서 정말 좋았던 것 같아요.</p>
-</blockquote>
-<h1 id="기업-연계-프로젝트"><a href="#기업-연계-프로젝트" class="headerlink" title="기업 연계 프로젝트"></a>기업 연계 프로젝트</h1><p>이번 프로젝트는 야놀자의 기업 RFP를 제안서를 토대로 개발이 이루어졌습니다. 패스트 캠퍼스 X 야놀자 부트캠프에서만 경험할 수 있는 최고의 프로젝트라고 생각했어요. 실제 기업의 문제 및 니즈를 분석하고 스스로 해결책을 개발하는 과정을 경험할 수 있었습니다. 개발 중간 중간 야놀자 실무진분들의 멘토링을 받을 수 있었고, 주마다 꾸준하게 진행사항들을 확인하고 그에 대한 의문점이나 조언들을 멘토님에게 얻을 수 있었습니다.</p>
-<h1 id="팀-결성"><a href="#팀-결성" class="headerlink" title="팀 결성!"></a>팀 결성!</h1><p>저희 팀은 ‘여행 여정 공유 플랫폼’을 주제로 개발을 진행하게 되었습니다. 팀 구성은 디자이너 1명, PM 4명, 프론트엔드 6명, 백엔드 5명으로 이루어지게 되었습니다. 미니에 비해 규모가 확 커졌다는 것이 느껴졌어요. 기획분들과 디자이너분이 추가된만큼 피그마도 엄청 무섭게 커졌습니다. 처음엔 와 우리가 저걸 개발할 수 있을까? 싶을정도로요..</p>
-<p>프로젝트 기획과 디자인은 피그마를 통해 진행되었습니다. 디자이너와 기획분들과는 피그마 내의 댓글을 통해 기능들을 구체화하고 완성시켰어요. 각자 작업하면서 의문이 드는 부분이나 수정이 필요하다고 생각되는 부분들은 댓글로 달아놓아 확인할 수 있게 하였고, 구체적인 상의는 매일 있는 코어 타임과 주 한번의 팀 미팅을 통해 방향을 정했습니다.</p>
-<p>디자인의 경우 전체적인 앱의 통일성을 위해 글꼴과 크기, 볼드값을 사용될 컴포넌트별로 정리해주셨고, 앱 전반적으로 사용될 토스트나 알림모달, 그리고 박스들의 형태또한 정해서 전해주셨습니다. 이번 프로젝트에서 저희는 sass를 사용하기 때문에 미리 저렇게 정리해서 주시니 변수들과 함수에 적용시켜 개발을 정말 편하게 할 수 있었어요.</p>
-<h2 id="와이어프레임"><a href="#와이어프레임" class="headerlink" title="와이어프레임"></a>와이어프레임</h2><p><a target="_blank" rel="noopener" href="https://www.figma.com/file/oeQ2vOcyO3SuInuMf3Dlj8/%EC%B5%9C%EC%A2%85-%ED%99%94%EB%A9%B4(PM)?type=design&amp;node-id=0-1&amp;mode=design&amp;t=nZD111AWFn7ozFJx-0">https://www.figma.com/file/oeQ2vOcyO3SuInuMf3Dlj8/%EC%B5%9C%EC%A2%85-%ED%99%94%EB%A9%B4(PM)?type=design&amp;node-id=0-1&amp;mode=design&amp;t=nZD111AWFn7ozFJx-0</a></p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/4e5289a3-9ced-4cd1-9a32-0855acff9a36/image.png"><br><img src="https://velog.velcdn.com/images/vbghdl/post/a815031a-8123-4363-a3f5-50cd4b95ef3d/image.png"></p>
-<blockquote>
-<p>확실히 디자인, 기획 분들과 함께하는 프로젝트다보니 피그마 규모 부터가 저번 프로젝트랑 다릅니다…ㅠ (내가 할 수 있을까 걱정도 많이 했어요)</p>
-</blockquote>
-<h2 id="디자인가이드"><a href="#디자인가이드" class="headerlink" title="디자인가이드"></a>디자인가이드</h2><p><a target="_blank" rel="noopener" href="https://www.figma.com/file/ypTLv92s72sihUApnxjP5C/%EA%B0%95%EC%9E%90%EB%B0%AD-%ED%94%BC%EA%B7%B8%EB%A7%88?type=design&amp;node-id=40-2&amp;mode=design&amp;t=Jf8iEjAoqYVNtYJX-0">https://www.figma.com/file/ypTLv92s72sihUApnxjP5C/%EA%B0%95%EC%9E%90%EB%B0%AD-%ED%94%BC%EA%B7%B8%EB%A7%88?type=design&amp;node-id=40-2&amp;mode=design&amp;t=Jf8iEjAoqYVNtYJX-0</a></p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/c654d8fa-fcb2-43d4-87a1-88607add869c/image.png"></p>
-<blockquote>
-<p>디자인 분께서 각 컴포넌트별로 세세하고 통일감있게 작성해주셨어요. 덕분에 미리 sass 변수와 mixin에 등록하고 뽑아쓰면서 편하게 개발에 집중할 수 있었습니다!</p>
-</blockquote>
-<h1 id="개발-진행"><a href="#개발-진행" class="headerlink" title="개발 진행"></a>개발 진행</h1><h2 id="Sass-변수-및-mixin-적용"><a href="#Sass-변수-및-mixin-적용" class="headerlink" title="Sass 변수 및 mixin 적용"></a>Sass 변수 및 mixin 적용</h2><p>디자이너분의 디자인 가이드를 바탕으로 sass 변수에 색상과 글씨를 선언해주었습니다. 특히 font size, font weight, line height의 경우 sass 맵을 생성하고 mixin 내에서 불러와 적용할 수 있도록 하였습니다.</p>
-<p>실제 스타일이 적용되는 부분에서는 @include typography(headline) 처럼 작성해주면 디자이너분이 headline에 적용되길 기대한 글씨에 대한 모든 값들이 한번에 적용되었습니다!! 확실히 이전 프로젝트들과 달리 디자이너분이 디자인 시스템을 갖추어주시니 개발이 너무 편해졌어요.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/b23be087-aa52-4bdc-8454-3c42ed9fe3bd/image.png"></p>
-<h2 id="MSW-적용"><a href="#MSW-적용" class="headerlink" title="MSW 적용"></a>MSW 적용</h2><p>프론트엔드의 가장 이상적인 개발 진행은 백엔드 API가 완성되어 거기에 맞춰 데이터 페칭을 하고 그에따른 UI를 화면에 출력하는 것이라고 생각합니다. 하지만… 같이 시작한 프로젝트에서 저희가 백엔드의 완성만을 기다릴 수는 없어요. 그래서 MSW를 적용했습니다!</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/977c3f4d-c83f-4f6b-bd01-e2669df4275b/image.png"></p>
-<p>개발 환경에서는 MSW가 api 요청을 탈취해서 모킹 서버로부터 저희가 정한 응답을 받고 데이터들을 페이지에 렌더링할 수 있습니다. 이게 정말 좋았던게 백엔드와의 협의를 통해 엔드포인트만 정해둔다면 이후 배포시에도 코드의 변경없이 실제 서버로 그대로 요청을 보낼 수 있다는 것이 신세계였습니다.</p>
-<p>프로젝트 막바지에는 위의 이미지처럼 모킹 함수 내에 return문을 추가시켜서 모킹하지 않고 바로 서버로 요청을 보내보면서 테스트 해볼 수 있었어요!</p>
-<h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><p>파이널 프로젝트도 끝나가고 이제는 수료도 코앞으로 다가왔습니다. 6개월 가량 정말 길거라고 생각한 것이 무색하게 후딱 지나가버렸어요. 패스트캠퍼스 X 야놀자 부트캠프 덕분에 스스로 자신감도 생기고 무엇보다 어떻게 개발자로서 발전해나갈지 깨닫는 계기가 된 것 같아요. 이번 마지막 프로젝트도 잘 마치고 다음 포스팅엔 마지막으로 부트캠프를 진행하며 느꼈던 총 후기로 돌아오겠습니다.</p>
 
       
     </div>
