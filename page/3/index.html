@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">82</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,123 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/02/14/algorithm/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/02/14/algorithm/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/" class="post-title-link" itemprop="url">완전탐색 ) 1초 제한시간 기준을 통한 적용 여부 판별</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-02-14 15:16:15" itemprop="dateCreated datePublished" datetime="2024-02-14T15:16:15+09:00">2024-02-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/02/14/algorithm/%EC%99%84%EC%A0%84%ED%83%90%EC%83%89/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/02/14/algorithm/완전탐색/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
+<p>코딩테스트 대부분의 문제에서 주어진 자료를 순회하여 답을 도출하는 경우가 많습니다. 이 때 어떠한 알고리즘으로 순회를 하여 문제에 접근하는 것이 좋을지 1초의 제한 시간 기준을 통해 판별하는 방법을 정리한 글입니다.</p>
+</blockquote>
+<h1 id="▪︎-시간-복잡도를-고려한-기준-적용"><a href="#▪︎-시간-복잡도를-고려한-기준-적용" class="headerlink" title="▪︎ 시간 복잡도를 고려한 기준 적용"></a>▪︎ 시간 복잡도를 고려한 기준 적용</h1><p>대부분의 코딩테스트 시험의 시간 제한 조건은 1초~5초 내외입니다. 따라서 실행 시간을 1초 내로 줄이는 것을 목표로 문제에 접근하는 것이 코딩테스트를 준비하는 데 있어 합리적입니다.</p>
+<p>테스트를 하는 각 서버의 CPU에 따라서 같은 코드라도 실행 시간이 천차 만별이므로 “엄격하게 시간 복잡도를 몇으로 해야된다”라고 규정하는 것은 어렵습니다. 그러나 관행적으로 10^8 이내의 시행 횟수를 1초 내외의 제한 시간을 통과한 것으로 인정하고 그에 맞게 설계를 하는 편입니다.</p>
+<p>데이터를 순회하여 정답을 도출해야하는 문제에서는 제일 먼저 완전 탐색(Brute Force)을 고려합니다. 이 때 전체적인 풀이의 흐름을 그려보고 시행 횟수를 빠르게 판단해보는 것이 좋습니다. 10^8 이내의 시행 횟수로 정답 도출이 가능하다면 완전 탐색을 적용하고, 불가능하다면 다른 알고리즘을 고려해보아야 합니다.</p>
+<h1 id="▪︎-Example-of-Apply"><a href="#▪︎-Example-of-Apply" class="headerlink" title="▪︎ Example of Apply"></a>▪︎ Example of Apply</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/e9d6afc6-dd84-4a94-83bd-7ccda4919c61/image.png" alt="Untitled"></p>
+<h2 id="▫︎-문제-접근"><a href="#▫︎-문제-접근" class="headerlink" title="▫︎ 문제 접근"></a>▫︎ 문제 접근</h2><p>이 문제에서 우리는 총 3번의 순회가 필요합니다.</p>
+<ol>
+<li>2번의 반복문을 통한 멘토 학생과 멘티 학생이 매칭</li>
+<li>1번의 반복문을 통한 테스트 결과 순회</li>
+</ol>
+<p>가장 먼저 완전 탐색을 고려하여 10^8 이내의 시행 횟수로 정답 도출이 가능한지 확인합니다. 제시된 입력 설명에서 최악의 시행 횟수 경우를 산정해보면 20<em>20</em>10 입니다. 따라서 다른 알고리즘의 고려 없이 바로 완전 탐색을 적용 가능합니다.</p>
+<h2 id="▫︎-풀이"><a href="#▫︎-풀이" class="headerlink" title="▫︎ 풀이"></a>▫︎ 풀이</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">test</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= test[<span class="number">0</span>].<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt;= test[<span class="number">0</span>].<span class="property">length</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i === j) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> isMatched = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; test.<span class="property">length</span>; k++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (test[k].<span class="title function_">indexOf</span>(i) &gt; test[k].<span class="title function_">indexOf</span>(j)) &#123;</span><br><span class="line">          isMatched = <span class="literal">false</span>;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isMatched) answer += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-시간복잡도가-충분하지-않다면"><a href="#▫︎-시간복잡도가-충분하지-않다면" class="headerlink" title="▫︎ 시간복잡도가 충분하지 않다면"></a>▫︎ 시간복잡도가 충분하지 않다면</h2><ol>
+<li>포인터 두 개로 두번의 순회를 한번으로 줄일 수 있다면 ⇒ 투포인터 사용</li>
+<li>순회 내에서 배열의 조작 메서드의 O(n)의 시간복잡도를 그 이하로 낮추려면 ⇒ 자료구조 사용<ul>
+<li>우선순위 큐 &#x2F; 연결리스트</li>
+</ul>
+</li>
+<li>배열 탐색을 O(1)로 하고 싶다면 ⇒ 해시 (Map 함수) 사용</li>
+<li>정렬된 데이터를 기준으로 답을 찾을 수 있을 것 같다면 ⇒ 이진 검색 사용</li>
+</ol>
+<p>위의 예시들은 제가 코딩테스트에서 완전 탐색으로 접근할 때 시행횟수가 크다면 고려하는 다음 접근들입니다. 각 케이스 별 정리와 예시 문제 풀이는 알고리즘 카테고리 내 포스팅에서 확인하실 수 있습니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1293,106 +1410,6 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; userId &#125; = <span class="keyword">await</span> <span class="title function_">promiseGet</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/posts/1`</span>);</span><br><span class="line">    <span class="keyword">const</span> userInfo = <span class="keyword">await</span> <span class="title function_">promiseGet</span>(<span class="string">`<span class="subst">$&#123;url&#125;</span>/users/<span class="subst">$&#123;userId&#125;</span>`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(userInfo);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 
 <p>async&#x2F;await는 Promise를 가독성 좋게 사용할 수 있는 방법입니다. 비동기 코드를 동기 코드 처럼 동작하도록 구현할 수 있습니다. 이것은 에러처리에서 기존 비동기적 특성 때문에 사용하지 못했던 try&#x2F;catch 문 또한 사용할 수 있다는 것을 의미합니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/31/algorithm/replace%20%ED%99%9C%EC%9A%A9%20%EC%95%9E%EB%92%A4%20%EB%8C%80%EC%83%81%20%EC%A7%80%EC%9A%B0%EA%B8%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/31/algorithm/replace%20%ED%99%9C%EC%9A%A9%20%EC%95%9E%EB%92%A4%20%EB%8C%80%EC%83%81%20%EC%A7%80%EC%9A%B0%EA%B8%B0/" class="post-title-link" itemprop="url">method ) replace를 활용한 숫자 앞 뒤 대상 지우기</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2023-08-31 15:33:19" itemprop="dateCreated datePublished" datetime="2023-08-31T15:33:19+09:00">2023-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/08/31/algorithm/replace%20%ED%99%9C%EC%9A%A9%20%EC%95%9E%EB%92%A4%20%EB%8C%80%EC%83%81%20%EC%A7%80%EC%9A%B0%EA%B8%B0/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/31/algorithm/replace 활용 앞뒤 대상 지우기/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
-<h1 id="▪︎-적용할-정규식-개념"><a href="#▪︎-적용할-정규식-개념" class="headerlink" title="▪︎ 적용할 정규식 개념"></a>▪︎ 적용할 정규식 개념</h1><h2 id="▫︎-검색-기준-패턴"><a href="#▫︎-검색-기준-패턴" class="headerlink" title="▫︎ 검색 기준 패턴"></a>▫︎ 검색 기준 패턴</h2><p>^문자열 특정 문자열로 시작합니다. (시작점)</p>
-<p>문자열$ 특정 문자열로 끝납니다. (종착점)</p>
-<h2 id="▫︎-갯수-반복-패턴"><a href="#▫︎-갯수-반복-패턴" class="headerlink" title="▫︎ 갯수 반복 패턴"></a>▫︎ 갯수 반복 패턴</h2><ul>
-<li>최소 한개 or 여러개</li>
-</ul>
-<h1 id="▪︎-숫자-앞-뒤의-반복되는-9를-제거하기"><a href="#▪︎-숫자-앞-뒤의-반복되는-9를-제거하기" class="headerlink" title="▪︎ 숫자 앞 뒤의 반복되는 9를 제거하기"></a>▪︎ 숫자 앞 뒤의 반복되는 9를 제거하기</h1><h2 id="▫︎-숫자-앞의-반복되는-9-제거"><a href="#▫︎-숫자-앞의-반복되는-9-제거" class="headerlink" title="▫︎ 숫자 앞의 반복되는 9 제거"></a>▫︎ 숫자 앞의 반복되는 9 제거</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> num = <span class="number">99193</span>;</span><br><span class="line"><span class="keyword">const</span> changedNum = <span class="title class_">Number</span>(<span class="title class_">String</span>(num).<span class="title function_">replace</span>(<span class="regexp">/^9+/</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(changedNum); <span class="comment">// output: 193</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="▫︎-숫자-뒤의-반복되는-9-제거"><a href="#▫︎-숫자-뒤의-반복되는-9-제거" class="headerlink" title="▫︎ 숫자 뒤의 반복되는 9 제거"></a>▫︎ 숫자 뒤의 반복되는 9 제거</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> num = <span class="number">19399</span>;</span><br><span class="line"><span class="keyword">const</span> changedNum = <span class="title class_">Number</span>(<span class="title class_">String</span>(num).<span class="title function_">replace</span>(<span class="regexp">/9+$/</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(changedNum); <span class="comment">// output: 193</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
