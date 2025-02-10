@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,135 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/" class="post-title-link" itemprop="url">전역 변수의 문제점과 해결 방안</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-07-20 23:41:21" itemprop="dateCreated datePublished" datetime="2023-07-20T23:41:21+09:00">2023-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/07/20/js/7_%EC%A0%84%EC%97%AD%EB%B3%80%EC%88%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/20/js/7_전역변수 문제점/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<p>전역 변수의 사용은 위험합니다. 따라서 반드시 전역 변수를 사용해야 할 이유가 있는 것이 아니라면 지역 변수를 사용해야 합니다. 이번 주제에서 전역 변수의 사용이 왜 위험하며, 그러면 어떠한 방식으로 전역 변수의 사용을 최소화할 수 있는지 알아보겠습니다.</p>
+<hr>
+<h1 id="변수의-생명-주기"><a href="#변수의-생명-주기" class="headerlink" title="변수의 생명 주기"></a>변수의 생명 주기</h1><p>변수는 선언에 의해 생성되고 할당을 통해 값을 갖게 됩니다. 그리고 언젠가 소멸합니다. 즉 생물과 유사한, 생성되고 소멸되는 생명 주기가 있습니다. 전역 변수의 문제점을 알아보기에 앞서 내용의 이해와 공감을 위해 지역 변수와의 생명 주기를 비교해보겠습니다.</p>
+<h1 id="지역-변수의-생명-주기"><a href="#지역-변수의-생명-주기" class="headerlink" title="지역 변수의 생명 주기"></a>지역 변수의 생명 주기</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>)&#123;</span><br><span class="line">  ---------------------------------- ①</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&#x27;local&#x27;</span>; ----------------- ②</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">  ---------------------------------- ③</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure>
+
+<p>지역 변수 x는 함수가 호출되기 이전까지는 생성되지 않습니다. foo 함수를 호출하지 않으면 함수 내부의 변수 선언문이 실행되지 않기 때문입니다. 변수 x의 선언은 함수가 호출되어 함수 몸체의 코드가 한 줄씩 실행되기 직전에 자바스크립트 엔진에 의해 실행됩니다.</p>
+<p>위 코드의 경우 ①에서 x 변수가 선언되고 undefined로 초기화됩니다. 이후 함수 몸체를 구성하는 문들이 순차적으로 실행되면서 ②에서 변수에 값이 할당 됩니다. 그리고 함수 몸체의 모든 코드를 실행하고 (③) 함수가 종료되면 x 변수도 소멸되어 생명 주기가 종료됩니다.</p>
+<p>따라서 함수 내부에서 선언된 지역 변수 x는 함수가 호출되어 실행되는 동안에만 유효하고 이는 지역 변수의 생명 주기가 함수의 생명 주기와 일치한다는 것을 말해줍니다.</p>
+<p>또한 지역 변수의 선언은 스코프 단위로 동작하게 됩니다. 이는 각 함수가 실행되는 시점의 지역 변수의 식별자 이름이 같다 하더라도 서로를 간섭하지 않는다는 것을 의미합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">&quot;global&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&quot;local&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="string">&quot;local2&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">//output: &#x27;local2&#x27;</span></span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>();</span><br><span class="line"><span class="title function_">bar</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="전역-변수의-생명-주기"><a href="#전역-변수의-생명-주기" class="headerlink" title="전역 변수의 생명 주기"></a>전역 변수의 생명 주기</h1><p>함수와 달리 전역 코드는 명시적인 호출 없이 실행됩니다. 즉 전역 코드는 어떠한 진입점이 없고 코드가 로드되자마자 곧바로 해석되고 실행됩니다. 함수가 함수 몸체의 모든 문이 실행되거나 반환문이 실행 되면 종료되는 것에 반해 전역 코드는 자바스크립트의 모든 코드가 실행되어 더 이상 실행할 문이 없을 때 종료됩니다.</p>
+<p>var 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 됩니다. 이는 전역 변수의 생명 주기가 전역 객체의 생명 주기와 일치한다는 것을 말합니다. 또한 let과 const 키워드로 선언한 전역 변수가 저장된 렉시컬 환경이 전역 객체와 연결되어 있기 때문에 마찬가지로 전역 객체와 생명 주기가 같습니다.</p>
+<p>브라우저 환경에서 전역 객체는 window이므로 전역 변수는 웹페이지를 닫을 때까지 유효합니다.</p>
+<hr>
+<h1 id="전역-변수의-문제점"><a href="#전역-변수의-문제점" class="headerlink" title="전역 변수의 문제점"></a>전역 변수의 문제점</h1><h2 id="암묵적-결합"><a href="#암묵적-결합" class="headerlink" title="암묵적 결합"></a>암묵적 결합</h2><p>전역 변수를 선언한 의도는 ‘코드 어디서든 참조하고 할당할 수 있는 변수를 사용하겠다.’ 라는 것입니다. 이는 모든 코드가 전역 변수를 참조하고 변경할 수 있는 <strong>암묵적 결합</strong> 을 허용하는 것입니다. 변수의 유효 범위가 크면 클 수록 코드의 가독성은 나빠지고 의도치 않은 변수의 접근이나 변경이 일어날 위험성도 증가합니다.</p>
+<h2 id="메모리-리소스의-증가"><a href="#메모리-리소스의-증가" class="headerlink" title="메모리 리소스의 증가"></a>메모리 리소스의 증가</h2><p>전역 변수는 생명주기가 깁니다. 웹페이지가 종료될 때까지 전역 변수의 정보를 메모리에 저장해두어야 합니다.</p>
+<h2 id="느린-참조-속도"><a href="#느린-참조-속도" class="headerlink" title="느린 참조 속도"></a>느린 참조 속도</h2><p>자바스크립트는 식별자를 검색할 때 현재 실행중인 실행 컨텍스트 스택의 렉시컬 환경에서 상위 컨텍스트의 렉시컬 환경으로 스코프 체인을 따라 검색을 실행합니다. 따라서 전역 변수는 스코프 체인 상의 종점에 존재하기 때문에 변수를 참조하기 위한 검색 속도가 가장 느립니다.</p>
+<h2 id="네임스페이스-오염"><a href="#네임스페이스-오염" class="headerlink" title="네임스페이스 오염"></a>네임스페이스 오염</h2><p>자바스크립트는 파일이 분리되어 있다 하더라도 전역 스코프를 공유합니다. 따라서 스크립트 파일들의 규모가 커지면 커질 수록 다른 파일들 내에서 동일한 이름으로 명명된 전역 변수나 전역 함수가 같은 스코프 내에 존재할 위험이 있으며, 이로 인한 의도치 않은 결과를 가져올 수 있습니다.</p>
+<h2 id="Injection-공격에-취약"><a href="#Injection-공격에-취약" class="headerlink" title="Injection 공격에 취약"></a>Injection 공격에 취약</h2><p>앞서 전역 변수의 생명 주기의 설명에서 전역 변수는 웹페이지를 닫을 때까지 유효하다고 했습니다. 이것은 웹페이지 내에서 여러 변수에 접근이 가능하다는 위험성을 내포합니다. 즉 XXS와 같은 Injection 공격에 취약합니다.</p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/ef0b07bd-318f-4413-acfd-804cf1aaba12/image.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;testForm&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>결과 보기<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border: 5px solid red; height: 40px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> $form = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;testForm&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> $textArea = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> $result = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;result&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> secretKey = <span class="string">&quot;abcd1234ImportantKey&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  $form.<span class="title function_">addEventListener</span>(<span class="string">&quot;submit&quot;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    e.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">    $result.<span class="property">innerHTML</span> = e.<span class="property">target</span>.<span class="property">test</span>.<span class="property">value</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>위 예시는 XXS 공격을 통해 자바스크립트 변수에 액세스하는 상황을 구현해본 것입니다. 이처럼 전역 변수는 웹페이지가 닫힐 때까지 유효하기 때문에 중요한 정보를 저장해둔다면 여러 스크립트 공격에 의해 정보가 탈취될 수 있습니다.</p>
+<hr>
+<h1 id="전역-변수의-사용을-억제하는-방법"><a href="#전역-변수의-사용을-억제하는-방법" class="headerlink" title="전역 변수의 사용을 억제하는 방법"></a>전역 변수의 사용을 억제하는 방법</h1><p>앞서 말한 내용들을 통해 전역 변수의 사용을 지양해야 된다는 것을 확인해보았습니다. 전역 변수를 반드시 사용해야 할 이유가 없다면 지역 변수를 사용해야 합니다. 변수의 스코프는 좁을 수록 좋습니다. 전역 변수의 사용을 억제하고 생명 주기를 짧게 가져가는 몇 가지 방법에 대해 알아보겠습니다.</p>
+<h2 id="즉시-실행-함수"><a href="#즉시-실행-함수" class="headerlink" title="즉시 실행 함수"></a>즉시 실행 함수</h2><p>즉시 실행 함수는 함수 정의와 동시에 런타임 내 단 한번만 호출되는 함수입니다. 모든 코드를 즉시 실행 함수로 감싸면 모든 변수는 즉시 실행 함수의 지역 변수가 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> foo = <span class="number">10</span>;</span><br><span class="line">  <span class="comment">// ... 생략</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>이 방법을 사용하면 추가적인 스크립트의 스코프를 전역 스코프에서 분리할 수 있습니다. 따라서 여러 스크립트 간 식별자의 충돌을 피하기 위해 라이브러리 등에서 자주 사용됩니다.</p>
+<h2 id="모듈-패턴"><a href="#모듈-패턴" class="headerlink" title="모듈 패턴"></a>모듈 패턴</h2><p>모듈 패턴은 클래스를 모방해서 관련이 있는 변수와 함수를 모아 즉시 실행 함수로 감싸 하나의 모듈을 만듭니다. 모듈 패턴은 클로저를 기반으로 동작합니다.</p>
+<p>모듈 패턴을 사용하면 전역 변수의 사용을 억제할뿐만 아니라 캡슐화까지 구현할 수 있습니다. 캡슐화를 통해 코드 내에서 변수에 접근하는 것 자체를 차단할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> $counter = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.counter&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="title function_">increase</span>(<span class="params"></span>) &#123;</span><br><span class="line">      count += <span class="number">1</span>;</span><br><span class="line">      $counter.<span class="property">textContent</span> = count;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">decrease</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (count &gt; <span class="number">0</span>) count -= <span class="number">1</span>;</span><br><span class="line">      $counter.<span class="property">textContent</span> = count;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.increase&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, counter.<span class="property">increase</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.decrease&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, counter.<span class="property">decrease</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="ES6-모듈"><a href="#ES6-모듈" class="headerlink" title="ES6 모듈"></a>ES6 모듈</h2><p>ES6 모듈을 사용하면 더는 전역 변수를 사용할 수 없습니다. ES6모듈은 파일 자체의 독자적인 모듈 스코프를 제공합니다. 따라서 모듈 내에서 선언한 변수들은 더 이상 전역 변수가 아니며 window 객체의 프로퍼티도 아닙니다.</p>
+<p>모던 브라우저에서 ES6 모듈을 사용할 수 있는데 script 태그에 type&#x3D;”module” 어트리뷰트를 추가하면 로드된 자바스크립트 파일은 모듈로서 동작합니다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;app.mjs&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;lib.mjs&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
