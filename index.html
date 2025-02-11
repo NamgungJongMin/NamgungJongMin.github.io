@@ -169,274 +169,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/12/30/project/wego/https/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/12/30/project/wego/https/" class="post-title-link" itemprop="url">WEGO ) 개발 환경에 HTTPS 및 Custom Domain 설정하기</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2025-12-30 16:32:33" itemprop="dateCreated datePublished" datetime="2025-12-30T16:32:33+09:00">2025-12-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2025/12/30/project/wego/https/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/12/30/project/wego/https/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
-<blockquote>
-<p>Next.js 프론트엔드 개발 중 백엔드와의 쿠키 공유 이슈를 해결하기 위해 HTTPS 를 설정하게 되었습니다. <code>SameSite=None</code>, <code>Secure</code> 설정이 된 쿠키를 저장하기 위해서는 HTTPS 를 사용해야합니다.</p>
-</blockquote>
-<h1 id="▪︎-Window-에서-localhost를-HTTPS-로-설정하는-방법"><a href="#▪︎-Window-에서-localhost를-HTTPS-로-설정하는-방법" class="headerlink" title="▪︎ Window 에서 localhost를 HTTPS 로 설정하는 방법"></a>▪︎ Window 에서 localhost를 HTTPS 로 설정하는 방법</h1><p>1️⃣ <strong>Chocolatey 설치</strong></p>
-<p>PowerShell을 관리자 권한으로 실행하여 다음 명령어를 입력합니다.</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> Bypass <span class="literal">-Scope</span> <span class="keyword">Process</span> <span class="literal">-Force</span>; [<span class="type">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span class="type">System.Net.ServicePointManager</span>]::SecurityProtocol <span class="operator">-bor</span> <span class="number">3072</span>; <span class="built_in">iex</span> ((<span class="built_in">New-Object</span> System.Net.WebClient).DownloadString(<span class="string">&#x27;https://community.chocolatey.org/install.ps1&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<p>2️⃣ <strong>mkcert 설치</strong></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install mkcert</span><br></pre></td></tr></table></figure>
-
-<p>3️⃣ <strong>Local CA 설치</strong></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert <span class="literal">-install</span></span><br></pre></td></tr></table></figure>
-
-<p>4️⃣ <strong>localhost 인증서 생성</strong></p>
-<p>프로젝트 루트로 이동하여 다음 명령어를 입력합니다.</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert localhost</span><br></pre></td></tr></table></figure>
-
-<p>위 단계를 정상적으로 마쳤다면 <code>localhost.pem</code> 과 <code>localhost-key.pem</code> 파일이 생성됩니다.</p>
-<p>여기서 생성된 인증서의 개인키는 절대 공유되어서는 안되며 프로젝트의 모든 팀원들이 각자의 시스템에 개별적으로 설치하여야 합니다.</p>
-<p>5️⃣ <strong>Github 에 공유되는 것을 막기 위해 .gitignore 파일에 다음 텍스트를 추가</strong></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SSL Certificate</span></span><br><span class="line">*.pem</span><br><span class="line">*.key</span><br><span class="line">*.crt</span><br><span class="line">*.cert</span><br></pre></td></tr></table></figure>
-
-<p>6️⃣ <strong>package.json 의 script에 개발 환경 테스트 명령어를 수정</strong></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next dev -H [개발 도메인 주소] --experimental-https&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="▪︎-호스트에-Custom-Domain을-설정하는-방법"><a href="#▪︎-호스트에-Custom-Domain을-설정하는-방법" class="headerlink" title="▪︎ 호스트에 Custom Domain을 설정하는 방법"></a>▪︎ 호스트에 Custom Domain을 설정하는 방법</h1><blockquote>
-<p>호스트 파일을 수정하여 <code>Custom Domain</code>을 설정하면 개발 환경에서 <code>localhost</code> 대신 지정한 도메인을 사용하여 애플리케이션에 접근할 수 있습니다. 이를 통해 프론트엔드와 백엔드가 동일한 베이스 도메인 하에서 동작하게 되어 쿠키 설정 시 도메인 불일치 문제를 해결할 수 있습니다.</p>
-</blockquote>
-<p>1️⃣ <strong>&#x2F;etc&#x2F;hosts 파일을 수정</strong></p>
-<p>호스트 파일을 수정함으로써 특정 도메인을 localhost (127.0.0.1)로 매핑할 수 있습니다.</p>
-<ol>
-<li>vscode와 같은 에디터를 관리자 권한으로 실행합니다.</li>
-<li>open file 클릭 후 ****<code>C:\Windows\System32\drivers\etc</code> ****경로에서 hosts 파일을 실행합니다.</li>
-<li>코드 맨 아래에 <strong>127.0.0.1 front.we-go.world</strong> 를 추가합니다.</li>
-</ol>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/a458a16b-795b-4cbc-9cfc-0be69f50d912/image.png" alt="image.png"></p>
-<p>2️⃣ <strong>package.json 파일의 script의 dev 명령어에서 도메인을 수정</strong></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;next dev -H front.we-go.world --experimental-https&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="확인"><a href="#확인" class="headerlink" title="확인"></a>확인</h3><p><img src="https://velog.velcdn.com/images/vbghdl/post/a7cce7c5-fc0a-43c2-8c4c-69c46b32c1c1/image.png" alt="image.png"></p>
-<p>실행 시 다음과 같이 설정한 도메인의 개발 환경에서 테스트를 할 수 있다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/12/29/project/wego/cookie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/12/29/project/wego/cookie/" class="post-title-link" itemprop="url">WEGO ) 프론트의 개발환경에서 현재 배포된 백엔드 서버의 쿠키 공유가 불가능한 이슈</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2025-12-29 11:12:53" itemprop="dateCreated datePublished" datetime="2025-12-29T11:12:53+09:00">2025-12-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2025/12/29/project/wego/cookie/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/12/29/project/wego/cookie/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
-<h1 id="▪︎-백엔드-서버와의-쿠키-공유"><a href="#▪︎-백엔드-서버와의-쿠키-공유" class="headerlink" title="▪︎ 백엔드 서버와의 쿠키 공유"></a>▪︎ 백엔드 서버와의 쿠키 공유</h1><h2 id="▫︎-개발-환경에서-Set-Cookie로-받은-쿠키가-사라진다"><a href="#▫︎-개발-환경에서-Set-Cookie로-받은-쿠키가-사라진다" class="headerlink" title="▫︎ 개발 환경에서 Set-Cookie로 받은 쿠키가 사라진다?"></a>▫︎ 개발 환경에서 Set-Cookie로 받은 쿠키가 사라진다?</h2><p>우리 프로젝트에서는 로그인을 하면 서버에서 <code>Set-Cookie</code>를 통해 인증 토큰을 심어주고, 이후 인증이 필요한 요청 (로그인이 필요한 요청) 시 서버에서 프론트 요청의 쿠키를 읽어 인증 여부를 검증하고 그에 따른 응답을 반환하도록 설계되어있다.</p>
-<p>배포 환경에서는 해당 로직이 잘 동작하였으나 개발 환경에서 받아온 쿠키가 계속해서 사라지는 현상이 일어났다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/ec9762b5-d607-4581-8570-ac1caf60161c/image.png" alt="image.png"></p>
-<h2 id="▫︎-문제-찾아보기"><a href="#▫︎-문제-찾아보기" class="headerlink" title="▫︎ 문제 찾아보기"></a>▫︎ 문제 찾아보기</h2><p><strong>1️⃣ cors 설정이 제대로 안되어있는 것은 아닐까?</strong></p>
-<p>우선 백엔드 측에 <code>cors</code> 설정이 되어있는지를 확인해보았다. 백엔드 측에서는 개발환경과 배포환경에 대해 조건부로 잘 설정해주었다고 답변받았다. 혹시 실수가 있었던 것은 아닐까? next.js 의 <code>rewrites</code> 기능을 이용하여 프록시를 통해 <code>cors</code>를 우회하여 테스트를 해보았다.</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// next.config.ts</span></span><br><span class="line">  <span class="attr">rewrites</span>: <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">source</span>: <span class="string">&#x27;/api/:path*&#x27;</span>,</span><br><span class="line">        <span class="attr">destination</span>: <span class="string">`<span class="subst">$&#123;process.env.NEXT_PUBLIC_BASE_URL&#125;</span>/:path*`</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ];</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-
-<p><strong>$ 여전히 쿠키는 사라진다. <code>cors</code> 문제는 아니다.</strong></p>
-<hr>
-<p><strong>2️⃣ SameSite 를 None 으로 설정하면 해결되지 않을까? ( + Secure )</strong></p>
-<p>크로스 사이트 요청 시 쿠키 전송을 허가하는 설정인 <code>SameSite=None</code> 을 쿠키에 설정해주면 어떨까? 우선 <code>SameSite</code>를 설정하기 위해서는 Secure 설정또한 추가로 해줘야 한다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/3469abc1-95f6-4dc7-a642-3165ec5b4b9c/image.png" alt="image.png"></p>
-<p><strong>$ 해당 설정을 해주어도 동일한 현상이 일어났다.</strong></p>
-<hr>
-<p><strong>3️⃣ HTTP 의 문제</strong></p>
-<p>문제 해결을 위해 쿠키의 각 속성에 대한 정보를 찾아보았다. <code>Secure</code> 설정을 위해서는 반드시 <code>HTTPS</code> 요청이 필요하다. <code>HTTP</code>와 <code>HTTPS</code> 간의 scheme 차이 때문에 발생하는 문제였다는 것을 찾아냈다.</p>
-<p>정리해보자면 <code>SameSite=None</code>을 사용하기 위해서는 반드시 <code>Secure</code> 플래그가 필요하고, 이를 위해서는 다시 <code>HTTPS</code>가 필요하다.</p>
-<p><code>mkcert</code> 로 로컬 인증서를 생성하고 <code>pakage.json</code>의 script에서 “dev” 명령어에 <code>—experimental-https</code> 옵션을 사용하여 <strong><a target="_blank" rel="noopener" href="https://localhost:3000/">https://localhost:3000</a></strong> 에서 요청을 보내보았다.</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;next dev -H localhost --experimental-https&quot;</span>,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p><strong>$ https 설정을 하여 SameSite&#x3D;None, Secure 설정을 해줘도 쿠키는 사라졌다.</strong></p>
-<hr>
-<p><strong>4️⃣ 크로스 도메인 문제인 것 같다. 쿠키를 구워줄 때, 개발환경에서의 요청이라면 Domain 값을</strong></p>
-<pre><code>    **localhost로 설정하면 되지 않을까?**
-</code></pre>
-<p>마지막으로 살펴볼만한 문제는 쿠키의 <code>Domain</code> 속성이다. 쿠키의 도메인은 .<a target="_blank" rel="noopener" href="http://we-go.world/">we-go.world</a> 로 되어있다. 배포 주소가 <strong>we-go.world</strong> 이기 때문에 배포 사이트에서는 정상적으로 동작하고, <code>localhost</code> 인 개발환경에서는 정상적으로 동작하지 않는 것이 아닐까?</p>
-<p>백엔드와 상황을 공유하니 백엔드에서 요청한 클라이언트의 <code>Origin</code>을 읽어 그에 따라 조건부로 <code>Domain</code>을 설정해주기로 했다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CookieProvider</span> &#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;cookie.domain&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String domain;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;security.jwt.token.expire-length&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String accessTokenExpire;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ResponseCookie <span class="title function_">accessTokenCookie</span><span class="params">(String accessToken, HttpServletRequest request)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">origin</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;Origin&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">referer</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;Referer&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isLocalhost</span> <span class="operator">=</span> (origin != <span class="literal">null</span> &amp;&amp; (origin.contains(<span class="string">&quot;localhost&quot;</span>) || origin.contains(<span class="string">&quot;127.0.0.1&quot;</span>)))</span><br><span class="line">            || (referer != <span class="literal">null</span> &amp;&amp; (referer.contains(<span class="string">&quot;localhost&quot;</span>) || referer.contains(<span class="string">&quot;127.0.0.1&quot;</span>)));</span><br><span class="line"></span><br><span class="line">        ResponseCookie.<span class="type">ResponseCookieBuilder</span> <span class="variable">cookieBuilder</span> <span class="operator">=</span> ResponseCookie.from(<span class="string">&quot;accessToken&quot;</span>, accessToken)</span><br><span class="line">            .httpOnly(<span class="literal">true</span>)</span><br><span class="line">            .secure(<span class="literal">true</span>)</span><br><span class="line">            .path(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">            .maxAge(Duration.ofSeconds(Long.parseLong(accessTokenExpire)))</span><br><span class="line">            .sameSite(<span class="string">&quot;None&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isLocalhost) &#123;</span><br><span class="line">            cookieBuilder.domain(domain);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cookieBuilder.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>그러나 동일하게 쿠키의 <code>Domain</code> 부분에는 <strong>.we-go.world</strong> 가 설정되어있다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/d48f76de-7a87-4f59-9045-ebf3e5e1d434/image.png" alt="image.png"></p>
-<hr>
-<p>5️⃣ <strong>서버는 자신의 도메인이 아닌 다른 도메인에 쿠키를 설정할 수 없다.</strong></p>
-<p>api 요청 시 백엔드도 <code>localhost</code> 에서 실행되었을 때에는 쿠키가 정상적으로 설정되었겠지만, 우리는 지금 배포된 백엔드에 테스트를 하려고 했다. 그래서 <code>Domain</code>이 우리가 의도한 대로 설정되지 않았다.</p>
-<hr>
-<p>6️⃣ <strong>로컬 호스트 환경에서도 도메인 일치를 위해 Custom Domain을 설정하자.</strong></p>
-<p>프론트의 로컬 호스트 환경에서 <code>Custom Domain</code>을 설정하여 프론트와 백엔드가 동일한 베이스 도메인 하에서 테스트할 수 있다면 해결되지 않을까?</p>
-<p><strong>&#x2F;etc&#x2F;hosts</strong> 파일을 수정하여 <code>localhost</code> 도메인을 <strong>front.we-go.world</strong>로 설정하고, 추가로 개발 모드 실행에서 도메인을 명시해주었다.</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">...</span><br><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;next dev -H front.we-go.world --experimental-https&quot;</span>,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/3036a22c-0aa9-4619-96fa-24f8e22cc4d5/image.png" alt="image.png"></p>
-<h1 id="▪︎-정리"><a href="#▪︎-정리" class="headerlink" title="▪︎ 정리"></a>▪︎ 정리</h1><p>프론트와 백엔드 간의 쿠키 공유를 위해서는 서로의 베이스 도메인을 일치시켜야한다. 또한 서로가 동일한 도메인이 아닌 경우, 쿠키의 <code>SameSite=None</code> 과 <code>Secure</code> 설정이 필요하며 이를 위해서는 프론트의 개발 환경에서 <code>HTTPS</code> 를 사용해야만 한다.</p>
-<p><a href="%EB%A7%81%ED%81%AC">포스팅: 개발 환경에 HTTPS 및 Custom Domain 설정하기</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/23/project/wego/customfetcher/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1672,6 +1404,281 @@
 </ol>
 <p>이러한 접근 방식은 단순히 스타일링 문제를 해결하는 것을 넘어서, 확장 가능하고 유지보수하기 좋은 컴포넌트 시스템을 구축하는 데 큰 도움이 되었습니다. 특히 팀 단위의 개발에서 일관성을 유지하면서도 유연한 확장이 가능한 구조를 만들 수 있었다는 점에서 큰 의미가 있었습니다.</p>
 <p>앞으로도 이러한 경험을 바탕으로, 더 나은 컴포넌트 시스템을 구축해 나가도록 하겠습니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/" class="post-title-link" itemprop="url">WEGO ) Next.js 미들웨어를 활용한 유저 인증 플로우 구현</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-08 23:12:21" itemprop="dateCreated datePublished" datetime="2025-01-08T23:12:21+09:00">2025-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/08/project/wego/%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/08/project/wego/미들웨어/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<blockquote>
+<p>웹 애플리케이션에서 인증된 사용자와 비인증 사용자에 대한 페이지 접근 제어는 매우 중요합니다. 특히 사용자 경험(UX)을 해치지 않으면서 안전하게 구현하는 것이 핵심인데요. 이번 글에서는 Next.js의 미들웨어를 활용해 어떻게 더 나은 인증 플로우를 구현했는지 공유하고자 합니다.</p>
+</blockquote>
+<h1 id="▪︎-기존-인증-구현의-문제점"><a href="#▪︎-기존-인증-구현의-문제점" class="headerlink" title="▪︎ 기존 인증 구현의 문제점"></a>▪︎ <strong>기존 인증 구현의 문제점</strong></h1><p>유저의 인증 여부를 판단하기 위해 token 검증만을 위한 api를 백엔드 측에 요청했습니다. 백엔드 측에서는 요청의 쿠키에서 accessToken을 읽어 그 검증 여부에 따라 결과를 반환해줬습니다. 우리 프론트에서는 인가 필요 페이지에서 그 결과가 성공이면 페이지를 보여주고, 실패면 로그인 페이지로 리다이렉트 시키는 로직이 필요했습니다.</p>
+<p>처음에는 컴포넌트 내부에서 api 요청을 하고 그 결과에 따라 리다이렉트 여부를 결정했습니다. 그러나 이 경우 api 요청에 대한 결과를 받는 동안 잠깐동안 페이지의 레이아웃이 보여지는 플리킹 현상이 발생했습니다. 추가로 각 컴포넌트마다 토큰 인증에 따른 리다이렉트 로직을 작성해주어야 했습니다.</p>
+<h2 id="▫︎-깜빡임-현상-Flash-of-Unauthorized-Content"><a href="#▫︎-깜빡임-현상-Flash-of-Unauthorized-Content" class="headerlink" title="▫︎ 깜빡임 현상 (Flash of Unauthorized Content)"></a>▫︎ <strong>깜빡임 현상 (Flash of Unauthorized Content)</strong></h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 컴포넌트 내부에서 인증 체크 시 발생하는 문제</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ProtectedPage</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 인증 체크 후 리다이렉트</span></span><br><span class="line">    <span class="keyword">if</span> (!isAuthenticated) &#123;</span><br><span class="line">      router.<span class="title function_">push</span>(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>보호된 콘텐츠<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>; <span class="comment">// 잠깐 보였다가 사라짐</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-중복-코드-발생"><a href="#▫︎-중복-코드-발생" class="headerlink" title="▫︎ 중복 코드 발생"></a>▫︎ <strong>중복 코드 발생</strong></h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 여러 서버 컴포넌트에서 반복되는 인증 체크 로직</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">Page1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = <span class="keyword">await</span> <span class="title function_">checkAuth</span>();</span><br><span class="line">  <span class="keyword">if</span> (!isAuthenticated) &#123;</span><br><span class="line">    <span class="title function_">redirect</span>(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">Page2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = <span class="keyword">await</span> <span class="title function_">checkAuth</span>();</span><br><span class="line">  <span class="keyword">if</span> (!isAuthenticated) &#123;</span><br><span class="line">    <span class="title function_">redirect</span>(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-미들웨어를-활용한-해결-방안"><a href="#▪︎-미들웨어를-활용한-해결-방안" class="headerlink" title="▪︎ 미들웨어를 활용한 해결 방안"></a>▪︎ 미들웨어를 활용한 해결 방안</h1><h2 id="▫︎-중앙-집중화된-인증-로직"><a href="#▫︎-중앙-집중화된-인증-로직" class="headerlink" title="▫︎ 중앙 집중화된 인증 로직"></a>▫︎ <strong>중앙 집중화된 인증 로직</strong></h2><p>미들웨어의 가장 큰 장점은 모든 페이지 요청에 대해 선제적으로 실행된다는 점입니다. 이를 활용하여 인증 로직을 중앙에서 관리할 수 있습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// middleware.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">middleware</span> = (<span class="params">request: NextRequest</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 정적 파일 요청은 미들웨어 처리하지 않음</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    request.<span class="property">nextUrl</span>.<span class="property">pathname</span>.<span class="title function_">startsWith</span>(<span class="string">&quot;/_next&quot;</span>) ||</span><br><span class="line">    request.<span class="property">nextUrl</span>.<span class="property">pathname</span>.<span class="title function_">includes</span>(<span class="string">&quot;/api/&quot;</span>) ||</span><br><span class="line">    request.<span class="property">nextUrl</span>.<span class="property">pathname</span>.<span class="title function_">match</span>(<span class="regexp">/\.(ico|png|svg|jpg|jpeg|gif)$/</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">NextResponse</span>.<span class="title function_">next</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> response = <span class="title class_">NextResponse</span>.<span class="title function_">next</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 로그인 여부에 따라 리다이렉트</span></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">authRedirect</span>(request, response);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 주목할 점은 다음과 같습니다.</p>
+<ul>
+<li><strong>성능 최적화</strong>: 정적 파일에 대한 요청은 미들웨어를 거치지 않도록 처리했습니다. 이는 불필요한 인증 검사를 줄여 성능을 향상시킵니다.</li>
+<li><strong>확장성</strong>: authRedirect 함수를 별도로 분리하여, 추후 인증 로직이 변경되거나 추가되어도 유연하게 대응할 수 있습니다.</li>
+<li><strong>유지보수성</strong>: 인증 관련 로직이 한 곳에 집중되어 있어, 변경이 필요할 때 이 파일만 수정하면 됩니다.</li>
+</ul>
+<h2 id="▫︎-환경별-토큰-검증-전략"><a href="#▫︎-환경별-토큰-검증-전략" class="headerlink" title="▫︎ 환경별 토큰 검증 전략"></a>▫︎ <strong>환경별 토큰 검증 전략</strong></h2><p>개발 환경과 프로덕션 환경에서의 토큰 검증 방식을 분리하여 관리했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">authRedirect</span> = <span class="keyword">async</span> (<span class="params">request: NextRequest, response: NextResponse</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> verifyResponse =</span><br><span class="line">    process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;development&quot;</span> ? <span class="keyword">await</span> <span class="title function_">verifyTokenMock</span>(request) : <span class="keyword">await</span> <span class="title function_">verifyToken</span>(request);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 토큰 유효성 검증이 필요한 페이지 처리</span></span><br><span class="line">  <span class="keyword">if</span> ((<span class="title class_">Object</span>.<span class="title function_">values</span>(<span class="variable constant_">NEED_LOGIN_PATH</span>) <span class="keyword">as</span> <span class="built_in">string</span>[]).<span class="title function_">includes</span>(request.<span class="property">nextUrl</span>.<span class="property">pathname</span>)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (verifyResponse.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> loginUrl = <span class="keyword">new</span> <span class="title function_">URL</span>(<span class="string">&quot;/login&quot;</span>, request.<span class="property">nextUrl</span>.<span class="property">origin</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">NextResponse</span>.<span class="title function_">redirect</span>(loginUrl);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 로그인된 사용자가 접근하면 안 되는 페이지 처리</span></span><br><span class="line">  <span class="keyword">if</span> ((<span class="title class_">Object</span>.<span class="title function_">values</span>(<span class="variable constant_">NEED_LOGOUT_PATH</span>) <span class="keyword">as</span> <span class="built_in">string</span>[]).<span class="title function_">includes</span>(request.<span class="property">nextUrl</span>.<span class="property">pathname</span>)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (verifyResponse.<span class="property">status</span> !== <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> mainUrl = <span class="keyword">new</span> <span class="title function_">URL</span>(<span class="string">&quot;/&quot;</span>, request.<span class="property">nextUrl</span>.<span class="property">origin</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">NextResponse</span>.<span class="title function_">redirect</span>(mainUrl);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>환경 분기</strong>: process.env.NODE_ENV를 통해 개발&#x2F;프로덕션 환경을 구분하여 적절한 검증 로직을 실행합니다.</li>
+<li><strong>페이지 접근 제어</strong>:<ul>
+<li>NEED_LOGIN_PATH: 로그인이 필요한 페이지들 (예: 마이페이지, 리뷰 작성 등)</li>
+<li>NEED_LOGOUT_PATH: 비로그인 상태에서만 접근 가능한 페이지들 (예: 로그인, 회원가입)</li>
+</ul>
+</li>
+<li><strong>명확한 리다이렉션</strong>: 인증 상태에 따라 적절한 페이지로 리다이렉트합니다.</li>
+</ul>
+<h2 id="▫︎-구현-시-고려-사항"><a href="#▫︎-구현-시-고려-사항" class="headerlink" title="▫︎ 구현 시 고려 사항"></a>▫︎ 구현 시 고려 사항</h2><h3 id="1-성능-최적화"><a href="#1-성능-최적화" class="headerlink" title="1. 성능 최적화"></a>1. 성능 최적화</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="attr">matcher</span>: [<span class="string">&quot;/((?!api|_next/static|_next/image|favicon.ico).*)&quot;</span>],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>선택적 실행</strong>: 모든 요청이 아닌, 필요한 경로에 대해서만 미들웨어가 실행되도록 설정</li>
+<li><strong>정적 리소스 제외</strong>: 이미지, 스타일시트 등 정적 리소스는 미들웨어 처리에서 제외</li>
+</ul>
+<h3 id="2-서버-컴포넌트-지원"><a href="#2-서버-컴포넌트-지원" class="headerlink" title="2. 서버 컴포넌트 지원"></a>2. <strong>서버 컴포넌트 지원</strong></h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">setPathnameHeader</span> = (<span class="params">request: NextRequest, response: NextResponse</span>) =&gt; &#123;</span><br><span class="line">  response.<span class="property">headers</span>.<span class="title function_">set</span>(<span class="string">&quot;x-pathname&quot;</span>, request.<span class="property">nextUrl</span>.<span class="property">pathname</span>);</span><br><span class="line">  <span class="keyword">return</span> response;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>경로 정보 전달</strong>: 서버 컴포넌트에서 현재 경로 정보가 필요한 경우를 위해 헤더에 포함</li>
+<li><strong>확장성</strong>: 추후 서버 컴포넌트에서 필요한 추가 정보도 헤더를 통해 전달 가능</li>
+</ul>
+<h1 id="▪︎-미들웨어의-Edge-Runtime을-고려한-모킹-시스템"><a href="#▪︎-미들웨어의-Edge-Runtime을-고려한-모킹-시스템" class="headerlink" title="▪︎ 미들웨어의 Edge Runtime을 고려한 모킹 시스템"></a>▪︎ 미들웨어의 <strong>Edge Runtime을 고려한 모킹 시스템</strong></h1><p>Next.js 미들웨어는 Edge Runtime에서 실행되기 때문에, api 모킹을 위해 개발 환경에서 사용하고 있던 MSW와 같은 모킹 도구를 사용할 수 없었습니다. 이를 해결하기 위한 전용 모킹 시스템을 구현했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// middleware-mock.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mockResponses = &#123;</span><br><span class="line">  <span class="string">&quot;/auth/token/verify&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">success</span>: &#123;</span><br><span class="line">      <span class="attr">status</span>: <span class="number">200</span>,</span><br><span class="line">      <span class="attr">body</span>: &#123; <span class="attr">ok</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;Token is valid&quot;</span> &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">error</span>: &#123;</span><br><span class="line">      <span class="attr">status</span>: <span class="number">401</span>,</span><br><span class="line">      <span class="attr">body</span>: &#123; <span class="attr">ok</span>: <span class="literal">false</span>, <span class="attr">message</span>: <span class="string">&quot;Unauthorized&quot;</span> &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">mockFetch</span> = <span class="keyword">async</span> (<span class="params">url: <span class="built_in">string</span>, options?: RequestInit</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> endpoint = <span class="keyword">new</span> <span class="title function_">URL</span>(url).<span class="property">pathname</span>;</span><br><span class="line">  <span class="keyword">const</span> mock = mockResponses[endpoint <span class="keyword">as</span> keyof <span class="keyword">typeof</span> mockResponses];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!mock) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">fetch</span>(url); <span class="comment">// 모킹되지 않은 엔드포인트는 실제 요청 수행</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> cookies = options?.<span class="property">headers</span> &amp;&amp; <span class="string">&quot;Cookie&quot;</span> <span class="keyword">in</span> options.<span class="property">headers</span> ? options.<span class="property">headers</span>.<span class="property">Cookie</span> : <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">const</span> hasAccessToken = cookies.<span class="title function_">includes</span>(<span class="string">&quot;accessToken=&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 쿠키의 토큰 존재 여부에 따라 적절한 응답 반환</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Response</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(hasAccessToken ? mock.<span class="property">success</span>.<span class="property">body</span> : mock.<span class="property">error</span>.<span class="property">body</span>), &#123;</span><br><span class="line">    <span class="attr">status</span>: hasAccessToken ? mock.<span class="property">success</span>.<span class="property">status</span> : mock.<span class="property">error</span>.<span class="property">status</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123; <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span> &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-모킹-시스템의-주요-특징"><a href="#▫︎-모킹-시스템의-주요-특징" class="headerlink" title="▫︎ 모킹 시스템의 주요 특징:"></a>▫︎ <strong>모킹 시스템의 주요 특징</strong>:</h2><ul>
+<li><strong>엔드포인트 기반 모킹</strong>: 각 엔드포인트별로 성공&#x2F;실패 응답을 미리 정의합니다.</li>
+<li><strong>토큰 기반 응답</strong>: 쿠키의 토큰 존재 여부에 따라 다른 응답을 반환합니다.</li>
+<li><strong>유연한 확장</strong>: 새로운 엔드포인트 추가가 용이한 구조입니다.</li>
+<li><strong>폴백 메커니즘</strong>: 모킹되지 않은 엔드포인트는 실제 API를 호출합니다.</li>
+<li><strong>이러한 모킹 시스템의 장점</strong>:<ul>
+<li>개발 효율성: 백엔드 API 완성 전에도 프론트엔드 개발 진행 가능</li>
+<li>안정성: 예측 가능한 응답으로 일관된 개발 환경 제공</li>
+<li>디버깅 용이성: 인증 관련 문제 발생 시 빠른 원인 파악 가능</li>
+</ul>
+</li>
+</ul>
+<h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>Next.js의 미들웨어를 활용한 인증 플로우 구현은 단순히 기능적인 요구사항을 충족시키는 것을 넘어, 사용자 경험과 코드 품질 모두를 개선하는 결과를 가져왔습니다. 특히 페이지 전환 시의 깜빡임 현상 제거와 인증 로직의 중앙 집중화는 프로젝트의 품질을 한 단계 높이는 중요한 요소가 되었습니다.</p>
+<p>앞으로도 사용자 경험을 해치지 않으면서도 안전한 인증 시스템을 구축하기 위한 고민을 계속해 나갈 예정입니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/08/project/wego/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BD%94%EB%93%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/08/project/wego/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BD%94%EB%93%9C/" class="post-title-link" itemprop="url">WEGO ) 테스트 코드로 더 안정적인 프로젝트 만들기: Jest를 활용한 실전 테스트 적용</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-08 20:42:24" itemprop="dateCreated datePublished" datetime="2025-01-08T20:42:24+09:00">2025-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/08/project/wego/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BD%94%EB%93%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/08/project/wego/테스트코드/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<blockquote>
+<p>프로젝트를 진행하면서 가장 중요하게 생각했던 것 중 하나는 코드의 안정성이었습니다. 특히 여행 관련 서비스를 개발하면서, 사용자 경험에 직접적인 영향을 미치는 UI 컴포넌트들의 안정성은 매우 중요했습니다.</p>
+</blockquote>
+<h1 id="▪︎-테스트-코드의-필요성"><a href="#▪︎-테스트-코드의-필요성" class="headerlink" title="▪︎ 테스트 코드의 필요성"></a>▪︎ <strong>테스트 코드의 필요성</strong></h1><h2 id="▫︎-복잡한-UI-상태-관리"><a href="#▫︎-복잡한-UI-상태-관리" class="headerlink" title="▫︎ 복잡한 UI 상태 관리"></a>▫︎ <strong>복잡한 UI 상태 관리</strong></h2><p>여행 서비스의 특성상 다양한 상태를 가진 컴포넌트들이 많았습니다. 예를 들어 리뷰 카드의 경우 아래와 같은 복잡한 상태들을 수동으로 테스트하는 것은 비효율적이며, 실수하기 쉬웠습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;리뷰 카드 컴포넌트&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> props = &#123;</span><br><span class="line">    <span class="attr">reviewId</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">profileImage</span>: <span class="string">&#x27;/user.jpg&#x27;</span>,</span><br><span class="line">    <span class="attr">reviewImage</span>: <span class="string">&#x27;/test.png&#x27;</span>,</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;테스트 리뷰&#x27;</span>,</span><br><span class="line">    <span class="attr">content</span>: <span class="string">&#x27;이것은 테스트 리뷰 내용입니다.&#x27;</span>,</span><br><span class="line">    <span class="attr">starRating</span>: <span class="number">4.5</span>,</span><br><span class="line">    <span class="attr">travelLocation</span>: <span class="string">&#x27;서울&#x27;</span>,</span><br><span class="line">    <span class="attr">createdAt</span>: <span class="string">&#x27;2023-10-10&#x27;</span>,</span><br><span class="line">    <span class="attr">likesFlag</span>: <span class="literal">false</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">it</span>(<span class="string">&#x27;리뷰 카드가 올바르게 렌더링되어야 합니다 (리뷰 페이지)&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewCard</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">nickname</span>=<span class="string">&quot;테스터&quot;</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&#x27;테스트 리뷰&#x27;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(</span><br><span class="line">      screen.<span class="title function_">getByText</span>(<span class="string">&#x27;이것은 테스트 리뷰 내용입니다.&#x27;</span>),</span><br><span class="line">    ).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&#x27;테스터&#x27;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&#x27;4.5&#x27;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">it</span>(<span class="string">&#x27;리뷰 카드가 올바르게 렌더링되어야 합니다 (마이페이지)&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewCard</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&#x27;테스트 리뷰&#x27;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(</span><br><span class="line">      screen.<span class="title function_">getByText</span>(<span class="string">&#x27;이것은 테스트 리뷰 내용입니다.&#x27;</span>),</span><br><span class="line">    ).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&#x27;4.5&#x27;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&#x27;서울&#x27;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">it</span>(<span class="string">&#x27;이미지가 올바르게 표시되어야 합니다&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewCard</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> image = screen.<span class="title function_">getByAltText</span>(<span class="string">&#x27;테스트 리뷰&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(image).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-비동기-데이터-처리의-안정성"><a href="#▫︎-비동기-데이터-처리의-안정성" class="headerlink" title="▫︎ 비동기 데이터 처리의 안정성"></a>▫︎ <strong>비동기 데이터 처리의 안정성</strong></h2><p>API 호출과 같은 비동기 작업이 많은 서비스 특성상, 데이터 로딩, 에러 상태 등 다양한 상황에 대한 테스트가 필요했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&quot;로딩 중일 때 스켈레톤 UI를 표시한다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (useReview <span class="keyword">as</span> jest.<span class="property">Mock</span>).<span class="title function_">mockReturnValue</span>(&#123;</span><br><span class="line">    <span class="attr">isLoading</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; container &#125; = <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewContents</span> /&gt;</span></span>);</span><br><span class="line">  <span class="comment">// 스켈레톤 UI의 특정 클래스명을 기준으로 요소를 찾습니다.</span></span><br><span class="line">  <span class="keyword">const</span> skeletonElements = container.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.skeleton-style&quot;</span>);</span><br><span class="line">  <span class="title function_">expect</span>(skeletonElements.<span class="property">length</span>).<span class="title function_">toBeGreaterThan</span>(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">it</span>(<span class="string">&quot;리뷰 데이터가 있을 때 리뷰 카드가 렌더링된다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (useReview <span class="keyword">as</span> jest.<span class="property">Mock</span>).<span class="title function_">mockReturnValue</span>(&#123;</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">pages</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">data</span>: &#123;</span><br><span class="line">            <span class="attr">content</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">id</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="attr">nickname</span>: <span class="string">&quot;사용자1&quot;</span>,</span><br><span class="line">                <span class="attr">profileImage</span>: <span class="string">&quot;https://example.com/profile1.jpg&quot;</span>,</span><br><span class="line">                <span class="attr">reviewImage</span>: <span class="string">&quot;https://example.com/review1.jpg&quot;</span>,</span><br><span class="line">                <span class="attr">title</span>: <span class="string">&quot;리뷰 제목 1&quot;</span>,</span><br><span class="line">                <span class="attr">content</span>: <span class="string">&quot;리뷰 내용 1&quot;</span>,</span><br><span class="line">                <span class="attr">starRating</span>: <span class="number">5</span>,</span><br><span class="line">                <span class="attr">travelLocation</span>: <span class="string">&quot;서울&quot;</span>,</span><br><span class="line">                <span class="attr">createdAt</span>: <span class="string">&quot;2023-10-01&quot;</span>,</span><br><span class="line">                <span class="attr">isLiked</span>: <span class="literal">true</span>,</span><br><span class="line">              &#125;,</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">isLoading</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">isError</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">hasNextPage</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">fetchNextPage</span>: jest.<span class="title function_">fn</span>(),</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; getByText &#125; = <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewContents</span> /&gt;</span></span>);</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">getByText</span>(<span class="string">&quot;리뷰 제목 1&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">getByText</span>(<span class="string">&quot;리뷰 내용 1&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">it</span>(<span class="string">&quot;리뷰 데이터가 없을 때 아무것도 렌더링하지 않는다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (useReview <span class="keyword">as</span> jest.<span class="property">Mock</span>).<span class="title function_">mockReturnValue</span>(&#123;</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">pages</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">data</span>: &#123;</span><br><span class="line">            <span class="attr">content</span>: [],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">isLoading</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">isError</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">hasNextPage</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">fetchNextPage</span>: jest.<span class="title function_">fn</span>(),</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; queryByText &#125; = <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewContents</span> /&gt;</span></span>);</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">queryByText</span>(<span class="regexp">/리뷰 제목 1/i</span>)).<span class="property">not</span>.<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-테스트-코드-작성-전략"><a href="#▪︎-테스트-코드-작성-전략" class="headerlink" title="▪︎ 테스트 코드 작성 전략"></a>▪︎ 테스트 코드 작성 전략</h1><h2 id="▫︎-테스트-시나리오-구성"><a href="#▫︎-테스트-시나리오-구성" class="headerlink" title="▫︎ 테스트 시나리오 구성"></a>▫︎ <strong>테스트 시나리오 구성</strong></h2><p>테스트 코드는 크게 세 가지 관점에서 작성했습니다.</p>
+<h3 id="1-기본-렌더링-테스트"><a href="#1-기본-렌더링-테스트" class="headerlink" title="1. 기본 렌더링 테스트"></a>1. 기본 렌더링 테스트</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&quot;ReviewComment&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">it</span>(<span class="string">&quot;리뷰 작성칸을 렌더링합니다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewComment</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&quot;여행에 대한 후기를 남겨주세요!&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByLabelText</span>(<span class="string">&quot;최대 20자 입력 가능 textarea&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByPlaceholderText</span>(<span class="string">&quot;여행 제목을 입력해 주세요.&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByLabelText</span>(<span class="string">&quot;최대 100자 입력 가능 textarea&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">    <span class="title function_">expect</span>(screen.<span class="title function_">getByPlaceholderText</span>(<span class="string">&quot;여행에 대한 다양한 후기를 공유해 주세요!&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-사용자-인터렉션-테스트"><a href="#2-사용자-인터렉션-테스트" class="headerlink" title="2. 사용자 인터렉션 테스트"></a>2. 사용자 인터렉션 테스트</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&quot;페이지 버튼 클릭 시 paginate 함수가 호출된다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> paginateMock = jest.<span class="title function_">fn</span>();</span><br><span class="line">  <span class="keyword">const</span> &#123; getByText &#125; = <span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">Pagination</span> <span class="attr">totalPages</span>=<span class="string">&#123;4&#125;</span> <span class="attr">currentPage</span>=<span class="string">&#123;1&#125;</span> <span class="attr">paginate</span>=<span class="string">&#123;paginateMock&#125;</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">  fireEvent.<span class="title function_">click</span>(<span class="title function_">getByText</span>(<span class="string">&quot;2&quot;</span>));</span><br><span class="line">  <span class="title function_">expect</span>(paginateMock).<span class="title function_">toHaveBeenCalledWith</span>(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-엣지-케이스-테스트"><a href="#3-엣지-케이스-테스트" class="headerlink" title="3. 엣지 케이스 테스트"></a>3. 엣지 케이스 테스트</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&quot;리뷰 데이터가 없을 때 빈 상태 메시지를 렌더링한다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (useMyReview <span class="keyword">as</span> jest.<span class="property">Mock</span>).<span class="title function_">mockReturnValue</span>(&#123;</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">content</span>: [],</span><br><span class="line">        <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">renderWithProvider</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">Written</span> /&gt;</span></span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="string">&quot;아직 작성한 리뷰가 없어요!&quot;</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-비동기-테스트-처리"><a href="#▫︎-비동기-테스트-처리" class="headerlink" title="▫︎ 비동기 테스트 처리"></a>▫︎ <strong>비동기 테스트 처리</strong></h2><h3 id="1-로딩-상태-처리"><a href="#1-로딩-상태-처리" class="headerlink" title="1. 로딩 상태 처리"></a>1. <strong>로딩 상태 처리</strong></h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&quot;로딩 중일 때 스켈레톤 UI를 표시한다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (useReview <span class="keyword">as</span> jest.<span class="property">Mock</span>).<span class="title function_">mockReturnValue</span>(&#123;</span><br><span class="line">    <span class="attr">isLoading</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; container &#125; = <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">ReviewContents</span> /&gt;</span></span>);</span><br><span class="line">  <span class="comment">// 스켈레톤 UI의 특정 클래스명을 기준으로 요소를 찾습니다.</span></span><br><span class="line">  <span class="keyword">const</span> skeletonElements = container.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.skeleton-style&quot;</span>);</span><br><span class="line">  <span class="title function_">expect</span>(skeletonElements.<span class="property">length</span>).<span class="title function_">toBeGreaterThan</span>(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-데이터-페칭-결과-처리"><a href="#2-데이터-페칭-결과-처리" class="headerlink" title="2. 데이터 페칭 결과 처리"></a>2. <strong>데이터 페칭 결과 처리</strong></h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&quot;여행 데이터가 있을 때 여행 카드가 렌더링된다&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  (usePastTravel <span class="keyword">as</span> jest.<span class="property">Mock</span>).<span class="title function_">mockReturnValue</span>(&#123;</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">content</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">travelId</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">travelName</span>: <span class="string">&quot;과거 여행 1&quot;</span>,</span><br><span class="line">            <span class="attr">maxTravelMateCount</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="attr">currentTravelMateCount</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="attr">isDomestic</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">location</span>: <span class="string">&quot;서울&quot;</span>,</span><br><span class="line">            <span class="attr">image</span>: <span class="string">&quot;https://example.com/image.jpg&quot;</span>,</span><br><span class="line">            <span class="attr">startAt</span>: <span class="string">&quot;2023-10-01&quot;</span>,</span><br><span class="line">            <span class="attr">endAt</span>: <span class="string">&quot;2023-10-10&quot;</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">total</span>: <span class="number">1</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; getByText &#125; = <span class="title function_">renderWithQueryClient</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">PastTravel</span> /&gt;</span></span>);</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">getByText</span>(<span class="regexp">/과거 여행 1/i</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-에러-상태-처리"><a href="#3-에러-상태-처리" class="headerlink" title="3. 에러 상태 처리"></a>3. 에러 상태 처리</h3><p>추가로 각 컴포넌트에서 발생할 수 있는 에러 상황을 고려하여 테스트케이스를 작성했습니다.</p>
+<h2 id="▫︎-모킹-전략-활용"><a href="#▫︎-모킹-전략-활용" class="headerlink" title="▫︎ 모킹 전략 활용"></a>▫︎ 모킹 전략 활용</h2><p>외부 의존성이 있는 컴포넌트의 경우, 적절한 모킹을 통해 테스트의 안정성을 확보했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jest.<span class="title function_">mock</span>(<span class="string">&quot;next/navigation&quot;</span>, <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">useRouter</span>: <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">push</span>: jest.<span class="title function_">fn</span>(),</span><br><span class="line">    <span class="attr">replace</span>: jest.<span class="title function_">fn</span>(),</span><br><span class="line">    <span class="attr">back</span>: jest.<span class="title function_">fn</span>(),</span><br><span class="line">    <span class="comment">// 필요한 다른 router 메서드들...</span></span><br><span class="line">  &#125;),</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-테스트-코드-작성-시-중점-사항"><a href="#▪︎-테스트-코드-작성-시-중점-사항" class="headerlink" title="▪︎ 테스트 코드 작성 시 중점 사항"></a>▪︎ <strong>테스트 코드 작성 시 중점 사항</strong></h1><h2 id="▫︎-테스트-가독성"><a href="#▫︎-테스트-가독성" class="headerlink" title="▫︎ 테스트 가독성"></a>▫︎ <strong>테스트 가독성</strong></h2><p>각 테스트 케이스의 의도가 명확히 드러나도록 작성했습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&#x27;기본적으로 &quot;myTravel&quot; 탭이 선택되어야 한다&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">renderWithQueryClient</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">MainTab</span> <span class="attr">selectedTab</span>=<span class="string">&quot;myTravel&quot;</span> <span class="attr">setSelectedTab</span>=<span class="string">&#123;setSelectedTabMock&#125;</span> <span class="attr">setSelectedSubTab</span>=<span class="string">&#123;setSelectedSubTabMock&#125;</span> /&gt;</span></span></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="title function_">expect</span>(screen.<span class="title function_">getByText</span>(<span class="regexp">/나의 여행/i</span>)).<span class="title function_">toBeInTheDocument</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-테스트-유지보수성"><a href="#▫︎-테스트-유지보수성" class="headerlink" title="▫︎ 테스트 유지보수성"></a>▫︎ <strong>테스트 유지보수성</strong></h2><p>반복되는 테스트 로직은 유틸리티 함수로 분리하여 재사용성을 높였습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">renderWithProvider</span> = (<span class="params">ui: React.ReactNode</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">QueryClientProvider</span> <span class="attr">client</span>=<span class="string">&#123;queryClient&#125;</span>&gt;</span>&#123;ui&#125;<span class="tag">&lt;/<span class="name">QueryClientProvider</span>&gt;</span></span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>테스트 코드 작성은 단순히 버그를 잡기 위한 도구가 아닌, 더 나은 설계를 위한 도구이자 문서의 역할도 수행했습니다. 특히 비동기 처리가 많은 현대 웹 애플리케이션에서 다양한 상황에 대한 테스트 케이스를 작성함으로써, 더 안정적인 서비스를 제공할 수 있었습니다.</p>
+<p>앞으로도 테스트 커버리지를 높이고, 더 효율적인 테스트 전략을 발전시켜 나갈 예정입니다.</p>
 
       
     </div>
