@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,150 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2025/01/23/project/wego/customfetcher/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/23/project/wego/customfetcher/" class="post-title-link" itemprop="url">WEGO ) Custom Fetcher를 작성하여 API 공통 로직을 중앙 집중화하기!</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2025-01-23 13:32:33" itemprop="dateCreated datePublished" datetime="2025-01-23T13:32:33+09:00">2025-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2025/01/23/project/wego/customfetcher/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/23/project/wego/customfetcher/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/921dd816-acad-468d-b160-8e912a3d9f5f/image.png"></p>
+<blockquote>
+<p>API 통신은 현대 웹 애플리케이션의 핵심 요소입니다. 하지만 기본적인 fetch API를 직접 사용하면 다양한 문제점들이 발생할 수 있습니다. 이번 포스트에서는 우리 프로젝트에 Custom Fetcher를 도입하게 된 이유와 구현 방식, 효과에 대해 살펴보겠습니다.</p>
+</blockquote>
+<h1 id="▪︎-기존-fetch-사용-방식의-단점"><a href="#▪︎-기존-fetch-사용-방식의-단점" class="headerlink" title="▪︎ 기존 fetch 사용 방식의 단점"></a>▪︎ 기존 fetch 사용 방식의 단점</h1><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getReview = <span class="keyword">async</span> (&#123; pageParam, sortOrder &#125;: <span class="title class_">ReviewParams</span>): <span class="title class_">Promise</span>&lt;<span class="title class_">ReviewResponse</span>&gt; =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`/api/reviews?page=<span class="subst">$&#123;pageParam&#125;</span>&amp;sortBy=<span class="subst">$&#123;sortOrder&#125;</span>&amp;limit=12`</span>, &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="attr">credentials</span>: <span class="string">&quot;include&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!res.<span class="property">ok</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> error = <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;Login failed&quot;</span>) <span class="keyword">as</span> <span class="title class_">ReviewError</span>;</span><br><span class="line">    error.<span class="property">status</span> = res.<span class="property">status</span>;</span><br><span class="line">    error.<span class="property">message</span> = <span class="string">`Server error: <span class="subst">$&#123;res.status&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">throw</span> error;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res.<span class="title function_">json</span>();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>기존에 API 요청 코드들을 작성할 때에는 각 요청마다 method와 credentials와 같은 config 코드들을 작성해야 했고, 반환할 에러 타입들도 각각 작성해주어야 했습니다. 추가로 Next.js의 서버 컴포넌트와 같이 쿠키가 자동으로 실려가지 않는 상황에 대비하기 위한 코드들도 작성해야 했습니다.</p>
+<p>따라서 API 관련 코드를 작성하는 개발자들은 각 API가 어디서 쓰일지, 어떤 설정이 필요한지를 매번 생각하고 코드에 적용해야 했습니다. 또한 이러한 API 요청 코드 구조의 변화가 있을 경우, 각 API 요청 코드를 전부 찾아가 일일이 수정해주어야 했습니다. 뿐만아니라 각 개발자마다 다른 구현 방식으로 인해 코드의 일관성이 떨어졌고, 이는 가독성을 저해하는 요소였습니다.</p>
+<p>정리해보자면 다음과 같은 문제점들이 있었습니다.</p>
+<ol>
+<li>반복적인 코드<ul>
+<li>기본 URL 설정</li>
+<li>헤더 설정</li>
+<li>에러 처리</li>
+<li>응답 파싱</li>
+</ul>
+</li>
+<li>일관성 부족<ul>
+<li>개발자마다 다른 구현 방식</li>
+<li>에러 처리 방식의 차이</li>
+<li>타입 처리의 비일관성</li>
+</ul>
+</li>
+<li>유지보수의 어려움<ul>
+<li>API 로직 변경 시 여러 곳에 전체적인 수정 필요</li>
+</ul>
+</li>
+</ol>
+<p>위와 같은 기본 fetcher의 단점을 극복하기 위해 우리 프로젝트에 Custom Fetcher를 만들었습니다.</p>
+<h1 id="▪︎-Custom-Fetcher-구현"><a href="#▪︎-Custom-Fetcher-구현" class="headerlink" title="▪︎ Custom Fetcher 구현"></a>▪︎ Custom Fetcher 구현</h1><h2 id="▫︎-전체-코드"><a href="#▫︎-전체-코드" class="headerlink" title="▫︎ 전체 코드"></a>▫︎ 전체 코드</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">FetcherError</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@/@types/api&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getAccessTokenFromCookies &#125; <span class="keyword">from</span> <span class="string">&quot;@/utils/cookies&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">HTTPMethod</span> = <span class="string">&quot;GET&quot;</span> | <span class="string">&quot;POST&quot;</span> | <span class="string">&quot;PUT&quot;</span> | <span class="string">&quot;DELETE&quot;</span> | <span class="string">&quot;PATCH&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">FetcherConfig</span> <span class="keyword">extends</span> <span class="title class_">RequestInit</span> &#123;</span><br><span class="line">  <span class="attr">method</span>: <span class="title class_">HTTPMethod</span>;</span><br><span class="line">  credentials?: <span class="title class_">RequestCredentials</span>;</span><br><span class="line">  headers?: <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;;</span><br><span class="line">  body?: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">BASE_URL</span> = process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_BASE_URL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * HTTP 요청을 처리하는 기본 fetcher 함수</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> <span class="variable">endpoint</span> - API 엔드포인트 경로</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> <span class="variable">config</span> - fetch 설정 객체</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span> Promise&lt;T&gt; - API 응답 데이터</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> <span class="variable">FetcherError</span> - API 요청 실패 시 발생하는 에러</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> fetcher&lt;T&gt;(<span class="attr">endpoint</span>: <span class="built_in">string</span>, config?: <span class="title class_">FetcherConfig</span>): <span class="title class_">Promise</span>&lt;T&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="attr">defaultConfig</span>: <span class="title class_">FetcherConfig</span> = &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="attr">credentials</span>: <span class="string">&quot;include&quot;</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;</span><br><span class="line">      <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> accessToken = <span class="keyword">typeof</span> <span class="variable language_">window</span> === <span class="string">&quot;undefined&quot;</span> ? <span class="keyword">await</span> <span class="title function_">getAccessTokenFromCookies</span>() : <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> mergedConfig = &#123;</span><br><span class="line">    ...defaultConfig,</span><br><span class="line">    ...config,</span><br><span class="line">    <span class="attr">headers</span>: <span class="title class_">Object</span>.<span class="title function_">fromEntries</span>(</span><br><span class="line">      <span class="title class_">Object</span>.<span class="title function_">entries</span>(&#123;</span><br><span class="line">        ...defaultConfig.<span class="property">headers</span>,</span><br><span class="line">        ...config?.<span class="property">headers</span>,</span><br><span class="line">        ...(accessToken ? &#123; <span class="title class_">Cookie</span>: <span class="string">`accessToken=<span class="subst">$&#123;accessToken&#125;</span>`</span> &#125; : &#123;&#125;),</span><br><span class="line">        <span class="comment">// eslint-disable-next-line</span></span><br><span class="line">      &#125;).<span class="title function_">filter</span>(<span class="function">(<span class="params">[key, value]</span>) =&gt;</span> value !== <span class="literal">undefined</span>)</span><br><span class="line">    ),</span><br><span class="line">  &#125; <span class="keyword">as</span> <span class="title class_">FetcherConfig</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (mergedConfig.<span class="property">body</span> <span class="keyword">instanceof</span> <span class="title class_">FormData</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (mergedConfig.<span class="property">headers</span>) &#123;</span><br><span class="line">      <span class="keyword">delete</span> mergedConfig.<span class="property">headers</span>[<span class="string">&quot;Content-Type&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mergedConfig.<span class="property">body</span>) &#123;</span><br><span class="line">    mergedConfig.<span class="property">body</span> = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(mergedConfig.<span class="property">body</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`<span class="subst">$&#123;BASE_URL&#125;</span><span class="subst">$&#123;endpoint&#125;</span>`</span>, mergedConfig);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (endpoint === <span class="string">&quot;/auth/token/verification&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">status</span>: response.<span class="property">status</span> &#125; <span class="keyword">as</span> T;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> error = <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;API request failed&quot;</span>) <span class="keyword">as</span> <span class="title class_">FetcherError</span>;</span><br><span class="line">    error.<span class="property">status</span> = response.<span class="property">status</span>;</span><br><span class="line">    error.<span class="property">message</span> = <span class="string">`Server error: <span class="subst">$&#123;response.status&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">throw</span> error;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response.<span class="title function_">json</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 편의성 메서드</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> http = &#123;</span><br><span class="line">  <span class="attr">get</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">post</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, data?: <span class="built_in">any</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span> | <span class="string">&quot;body&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>, <span class="attr">body</span>: data &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">put</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, data?: <span class="built_in">any</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span> | <span class="string">&quot;body&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;PUT&quot;</span>, <span class="attr">body</span>: data &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">delete</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;DELETE&quot;</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">patch</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, data?: <span class="built_in">any</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span> | <span class="string">&quot;body&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;PATCH&quot;</span>, <span class="attr">body</span>: data &#125;),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="▫︎-기본-구조-설정"><a href="#▫︎-기본-구조-설정" class="headerlink" title="▫︎ 기본 구조 설정"></a>▫︎ 기본 구조 설정</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">HTTPMethod</span> = <span class="string">&quot;GET&quot;</span> | <span class="string">&quot;POST&quot;</span> | <span class="string">&quot;PUT&quot;</span> | <span class="string">&quot;DELETE&quot;</span> | <span class="string">&quot;PATCH&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">FetcherConfig</span> <span class="keyword">extends</span> <span class="title class_">RequestInit</span> &#123;</span><br><span class="line">  <span class="attr">method</span>: <span class="title class_">HTTPMethod</span>;</span><br><span class="line">  credentials?: <span class="title class_">RequestCredentials</span>;</span><br><span class="line">  headers?: <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;;</span><br><span class="line">  body?: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">BASE_URL</span> = process.<span class="property">env</span>.<span class="property">NEXT_PUBLIC_BASE_URL</span>;</span><br></pre></td></tr></table></figure>
+
+<p>우선 Custom Fetcher의 기본 구조를 타입스크립트를 통해 설정했습니다. 이를 통해 HTTP 메서드의 타입 안정성을 확보하였고, 설정 객체의 타입 또한 명확하게 정의했습니다.</p>
+<h2 id="▫︎-핵심-Fetcher-함수"><a href="#▫︎-핵심-Fetcher-함수" class="headerlink" title="▫︎ 핵심 Fetcher 함수"></a>▫︎ 핵심 Fetcher 함수</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> fetcher&lt;T&gt;(<span class="attr">endpoint</span>: <span class="built_in">string</span>, config?: <span class="title class_">FetcherConfig</span>): <span class="title class_">Promise</span>&lt;T&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="attr">defaultConfig</span>: <span class="title class_">FetcherConfig</span> = &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="attr">credentials</span>: <span class="string">&quot;include&quot;</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;</span><br><span class="line">      <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// SSR을 고려한 토큰 처리</span></span><br><span class="line">  <span class="keyword">const</span> accessToken = <span class="keyword">typeof</span> <span class="variable language_">window</span> === <span class="string">&quot;undefined&quot;</span> ? <span class="keyword">await</span> <span class="title function_">getAccessTokenFromCookies</span>() : <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> mergedConfig = &#123;</span><br><span class="line">    ...defaultConfig,</span><br><span class="line">    ...config,</span><br><span class="line">    <span class="attr">headers</span>: <span class="title class_">Object</span>.<span class="title function_">fromEntries</span>(</span><br><span class="line">      <span class="title class_">Object</span>.<span class="title function_">entries</span>(&#123;</span><br><span class="line">        ...defaultConfig.<span class="property">headers</span>,</span><br><span class="line">        ...config?.<span class="property">headers</span>,</span><br><span class="line">        ...(accessToken ? &#123; <span class="title class_">Cookie</span>: <span class="string">`accessToken=<span class="subst">$&#123;accessToken&#125;</span>`</span> &#125; : &#123;&#125;),</span><br><span class="line">        <span class="comment">// eslint-disable-next-line</span></span><br><span class="line">      &#125;).<span class="title function_">filter</span>(<span class="function">(<span class="params">[key, value]</span>) =&gt;</span> value !== <span class="literal">undefined</span>)</span><br><span class="line">    ),</span><br><span class="line">  &#125; <span class="keyword">as</span> <span class="title class_">FetcherConfig</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 특수 케이스 처리</span></span><br><span class="line">  <span class="keyword">if</span> (mergedConfig.<span class="property">body</span> <span class="keyword">instanceof</span> <span class="title class_">FormData</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (mergedConfig.<span class="property">headers</span>) &#123;</span><br><span class="line">      <span class="keyword">delete</span> mergedConfig.<span class="property">headers</span>[<span class="string">&quot;Content-Type&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mergedConfig.<span class="property">body</span>) &#123;</span><br><span class="line">    mergedConfig.<span class="property">body</span> = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(mergedConfig.<span class="property">body</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`<span class="subst">$&#123;BASE_URL&#125;</span><span class="subst">$&#123;endpoint&#125;</span>`</span>, mergedConfig);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (endpoint === <span class="string">&quot;/auth/token/verification&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">status</span>: response.<span class="property">status</span> &#125; <span class="keyword">as</span> T;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 커스텀 에러 객체를 사용하여 일관된 에러 형식 제공</span></span><br><span class="line">  <span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> error = <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;API request failed&quot;</span>) <span class="keyword">as</span> <span class="title class_">FetcherError</span>;</span><br><span class="line">    error.<span class="property">status</span> = response.<span class="property">status</span>;</span><br><span class="line">    error.<span class="property">message</span> = <span class="string">`Server error: <span class="subst">$&#123;response.status&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">throw</span> error;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response.<span class="title function_">json</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fetcher 함수에서는 타입스크립트 제네릭을 통해 응답 타입을 보장할 수 있도록 하였습니다. 또한 기본적인 설정에 사용자 설정을 병합하도록 하여 보다 유연하고 확장성있게 사용될 수 있도록 하였습니다. 뿐만아니라 Next.js SSR 환경을 고려한 토큰 처리도 해주었습니다.</p>
+<h3 id="특수케이스-처리"><a href="#특수케이스-처리" class="headerlink" title="특수케이스 처리"></a>특수케이스 처리</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mergedConfig.<span class="property">body</span> <span class="keyword">instanceof</span> <span class="title class_">FormData</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (mergedConfig.<span class="property">headers</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> mergedConfig.<span class="property">headers</span>[<span class="string">&quot;Content-Type&quot;</span>];</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (mergedConfig.<span class="property">body</span>) &#123;</span><br><span class="line">  mergedConfig.<span class="property">body</span> = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(mergedConfig.<span class="property">body</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>우리 앱에서 기본적으로 사용되는 api 의 content type인 application&#x2F;json이 아닌 회원가입, 여행 만들기 등에 활용되는 FormData 타입일 때 content type을 바꿔주도록 구성했습니다. FormData 처리를 위해 Content-Type을 자동으로 제거하였고, JSON 데이터를 자동으로 직렬화하도록 하였습니다.</p>
+<h3 id="에러-처리"><a href="#에러-처리" class="headerlink" title="에러 처리"></a>에러 처리</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!response.<span class="property">ok</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> error = <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;API request failed&quot;</span>) <span class="keyword">as</span> <span class="title class_">FetcherError</span>;</span><br><span class="line">  error.<span class="property">status</span> = response.<span class="property">status</span>;</span><br><span class="line">  error.<span class="property">message</span> = <span class="string">`Server error: <span class="subst">$&#123;response.status&#125;</span>`</span>;</span><br><span class="line">  <span class="keyword">throw</span> error;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>에러처리는 Tanstack Query와의 조합을 생각하여 Query를 작성할 때 가독성이 좋을 것이라고 판단한 구조로 커스텀 에러 객체를 반환하도록 하였습니다. 이를 통해 HTTP 상태 코드를 포함한 객체와 메시지로 일관된 에러 형식을 제공할 수 있었습니다.</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">useMutation</span>(&#123;</span><br><span class="line">    <span class="attr">mutationFn</span>: login,</span><br><span class="line">    <span class="attr">onError</span>: <span class="function">(<span class="params">error: QueryError</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">switch</span> (error.<span class="property">status</span>) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">401</span>:</span><br><span class="line">          <span class="title function_">showToast</span>(<span class="string">&#x27;잘못된 이메일 또는 비밀번호입니다.&#x27;</span>, <span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">500</span>:</span><br><span class="line">          <span class="title function_">showToast</span>(<span class="string">&#x27;네트워크를 확인해주세요.&#x27;</span>, <span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="attr">default</span>:</span><br><span class="line">          <span class="title function_">showToast</span>(<span class="string">&#x27;알 수 없는 에러가 발생했습니다.&#x27;</span>, <span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">onSuccess</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      router.<span class="title function_">push</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>백엔드에서 반환하는 response의 status를 바로 읽어 에러객체에 저장해주었고 실제 Tanstack Query에 사용할 때에는 에러 객체에서 status를 읽는 방식으로 가독성을 높이고 구조를 통일했습니다.</p>
+<h2 id="▫︎-편의성-메서드"><a href="#▫︎-편의성-메서드" class="headerlink" title="▫︎ 편의성 메서드"></a>▫︎ 편의성 메서드</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> http = &#123;</span><br><span class="line">  <span class="attr">get</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">post</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, data?: <span class="built_in">any</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span> | <span class="string">&quot;body&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>, <span class="attr">body</span>: data &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">put</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, data?: <span class="built_in">any</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span> | <span class="string">&quot;body&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;PUT&quot;</span>, <span class="attr">body</span>: data &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">delete</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;DELETE&quot;</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">patch</span>: &lt;T,&gt;<span class="function">(<span class="params">endpoint: <span class="built_in">string</span>, data?: <span class="built_in">any</span>, config?: Omit&lt;FetcherConfig, <span class="string">&quot;method&quot;</span> | <span class="string">&quot;body&quot;</span>&gt;</span>) =&gt;</span></span><br><span class="line">    fetcher&lt;T&gt;(endpoint, &#123; ...config, <span class="attr">method</span>: <span class="string">&quot;PATCH&quot;</span>, <span class="attr">body</span>: data &#125;),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>위에 서술한 fetcher함수를 이용하여 편의성 메서드를 작성하였습니다. 이를 통해 메서드별 타입을 최적화하고, 팀원들에게 간결한 사용법을 통한 일관된 인터페이스를 제공할 수 있었습니다.</p>
+<h1 id="▪︎-실제-사용-예시"><a href="#▪︎-실제-사용-예시" class="headerlink" title="▪︎ 실제 사용 예시"></a>▪︎ 실제 사용 예시</h1><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">getMyReview</span> = (<span class="params">limit: <span class="built_in">number</span>, offset: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> http.<span class="property">get</span>&lt;<span class="title class_">ListResponse</span>&lt;<span class="title class_">Review</span>&gt;&gt;(<span class="string">`/reviews/mine?size=<span class="subst">$&#123;limit&#125;</span>&amp;page=<span class="subst">$&#123;offset&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">getReviewDetail</span> = (<span class="params">reviewId: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> http.<span class="property">get</span>&lt;<span class="title class_">BaseResponse</span>&lt;<span class="title class_">Review</span>&gt;&gt;(<span class="string">`/reviews/<span class="subst">$&#123;reviewId&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">postReviewLike</span> = (<span class="params">reviewId: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> http.<span class="property">post</span>&lt;<span class="title class_">BaseResponse</span>&lt;<span class="built_in">unknown</span>&gt;&gt;(<span class="string">`/reviews/<span class="subst">$&#123;reviewId&#125;</span>/likes`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">deleteReviewLike</span> = (<span class="params">reviewId: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> http.<span class="property">delete</span>&lt;<span class="title class_">BaseResponse</span>&lt;<span class="built_in">unknown</span>&gt;&gt;(<span class="string">`/reviews/<span class="subst">$&#123;reviewId&#125;</span>/likes`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>처음 소개했던 기존 방식에 비해 훨씬 간결하고 가독성있게 API 요청 코드를 관리할 수 있게 되었습니다. API 설정 관련하여 고민하며 작성했던 기존 코드에 비해 중앙 집중화되어 관리되는 Custom Fetcher를 통해 실제 팀원들이 API 요청을 작성할 때에는 “메서드”, “엔드포인트”, “반환 타입”만 신경쓴다면 바로 쉽게 사용할 수 있었습니다.</p>
+<h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>Custom Fetcher는 단순한 HTTP 클라이언트를 넘어 애플리케이션의 데이터 통신 계층을 체계화합니다. 타입 안정성, 코드 재사용성, 유지보수성을 모두 고려한 설계로, 개발 생산성을 크게 향상시킬 수 있습니다. 특히 Next.js의 서버 컴포넌트와 미들웨어 환경에서도 원활하게 동작하도록 구현되어, 현대적인 웹 애플리케이션 개발에 매우 적합합니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -418,9 +562,9 @@
 <h3 id="해결-방안-2-Skeleton-UI"><a href="#해결-방안-2-Skeleton-UI" class="headerlink" title="해결 방안 2) Skeleton UI"></a>해결 방안 2) Skeleton UI</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">   <span class="keyword">if</span> (isLoading) <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">ReviewSkeleton</span> /&gt;</span></span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
 <p>데이터 페칭이 진행중일 때, 스크롤바가 생길 정도의 데이터만큼 스켈레톤 UI를 렌더링하여 스크롤바가 존재하도록 하였습니다.</p>
-<ul>
-<li>위 두가지 방법을 통해 페이지 초기 로드 시부터 스크롤바 공간을 확보하여 레이아웃의 변화가 없도록 하였고 일관된 사용자 경험을 제공할 수 있었습니다.</li>
-</ul>
+<blockquote>
+<p>위 두가지 방법을 통해 페이지 초기 로드 시부터 스크롤바 공간을 확보하여 레이아웃의 변화가 없도록 하였고 일관된 사용자 경험을 제공할 수 있었습니다.</p>
+</blockquote>
 <h3 id="개선-이후-측정-결과"><a href="#개선-이후-측정-결과" class="headerlink" title="개선 이후 측정 결과"></a>개선 이후 측정 결과</h3><p><img src="https://velog.velcdn.com/images/vbghdl/post/fd4f4a7e-44e8-4050-b2f2-ad8af599ccc2/image.png" alt="image.png"></p>
 <h2 id="▫︎-이미지-시프팅"><a href="#▫︎-이미지-시프팅" class="headerlink" title="▫︎ 이미지 시프팅"></a>▫︎ 이미지 시프팅</h2><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Image</span></span><br><span class="line">  src=&#123;travelImage&#125;</span><br><span class="line">  alt=&#123;<span class="string">`<span class="subst">$&#123;travelName&#125;</span> - <span class="subst">$&#123;travelLocation&#125;</span> 여행 이미지`</span>&#125;</span><br><span class="line">  width=&#123;<span class="number">300</span>&#125;</span><br><span class="line">  height=&#123;<span class="number">300</span>&#125;</span><br><span class="line">  className=<span class="string">&quot;h-full w-full rounded object-cover&quot;</span> <span class="comment">// 이미지 로드 전후로 스타일 변경</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 
@@ -1535,133 +1679,6 @@
 
 <h1 id="▪︎-마치며"><a href="#▪︎-마치며" class="headerlink" title="▪︎ 마치며"></a>▪︎ 마치며</h1><p>테스트 코드 작성은 단순히 버그를 잡기 위한 도구가 아닌, 더 나은 설계를 위한 도구이자 문서의 역할도 수행했습니다. 특히 비동기 처리가 많은 현대 웹 애플리케이션에서 다양한 상황에 대한 테스트 케이스를 작성함으로써, 더 안정적인 서비스를 제공할 수 있었습니다.</p>
 <p>앞으로도 테스트 커버리지를 높이고, 더 효율적인 테스트 전략을 발전시켜 나갈 예정입니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/04/16/algorithm/kmp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/16/algorithm/kmp/" class="post-title-link" itemprop="url">KMP 알고리즘 ) 문자열에서 특정한 문자열을 찾는 것을 O(N)으로 해결하기</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2024-04-16 16:25:46" itemprop="dateCreated datePublished" datetime="2024-04-16T16:25:46+09:00">2024-04-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2024/04/16/algorithm/kmp/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/04/16/algorithm/kmp/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
-<h1 id="부분문자열-찾기"><a href="#부분문자열-찾기" class="headerlink" title="부분문자열 찾기"></a>부분문자열 찾기</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/b197faaf-f92e-4f97-bdfa-c09bb9bbe970/image.png" alt="image.png"></p>
-<blockquote>
-<p>위 이미지와 같은 문제에서 어떠한 문자열 내에서 특정한 다른 문자열을 찾을 때 가장 단순한 방법은 두 문자열의 각 문자들을 비교하는 것입니다. 그러나 이 경우 각 문자열의 모든 문자들을 매칭하여 탐색해야하기 때문에 효율성이 낮습니다. 따라서 대상 문자열의 크기가 크거나 효율성을 높이고 싶다면 KMP 알고리즘을 고려해볼 수 있습니다. 위 사진을 예시로하여 문자열을 찾는 두가지 방법에 대해 밑에서 알아보겠습니다.</p>
-</blockquote>
-<h1 id="▪︎-두-문자열의-각-문자-비교"><a href="#▪︎-두-문자열의-각-문자-비교" class="headerlink" title="▪︎ 두 문자열의 각 문자 비교"></a>▪︎ 두 문자열의 각 문자 비교</h1><p>str을 기준으로 각 문자를 순회하되 해당 문자가 subStr의 첫 문자와 같다면 그 다음 문자들을 비교하는 방식으로 이루어집니다. 이 경우 str을 순회하는 start 포인터와 str과 subStr의 일치여부 확인을 위한 위치 포인터가 필요하기 때문에 O(NM)의 시간복잡도를 가집니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/9cf5f140-18fa-46f1-be7a-67fbc4c0888f/image.png" alt="image.png"></p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&quot;ABCABCABBD&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> subStr = <span class="string">&quot;ABCABB&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> answerIdx = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> isMatched = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; subStr.<span class="property">length</span>; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str[i + j] !== subStr[j]) &#123;</span><br><span class="line">      isMatched = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isMatched) answerIdx.<span class="title function_">push</span>(i + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answerIdx); <span class="comment">// output: [4] 4번째 문자로 시작하는 하나의 같은 문자열이 존재</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="▪︎-KMP-알고리즘"><a href="#▪︎-KMP-알고리즘" class="headerlink" title="▪︎ KMP 알고리즘"></a>▪︎ KMP 알고리즘</h1><p>위 방법을 개선하여 효율성 높게 문자열을 찾는 방법이 KMP 알고리즘입니다. KMP 알고리즘은 무려 O(N+M)의 시간복잡도로 해결이 가능합니다. 어떻게 그것이 가능할까요? 문자열들의 각 문자들을 비교하는 방법에서는 버려지는 정보들을 활용하기 때문입니다. 위의 예시를 다시 가져와보겠습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/48c12352-403e-4c82-87ad-0b78085edc8e/image.png" alt="image.png"></p>
-<p>두 문자열을 비교하던 중 매칭이되지 않은 문자들을 만났습니다. 이 때 우리는 ABCABC가 ABCABB가 아니라는 것을 확인함과 동시에 ABCABB의 앞쪽 문자들과 매칭되는 부분(index 3 ~ 4)이 있다는 정보를 얻게되었습니다. 이 정보를 활용하면 str문자열의 각 문자를 시작으로 하는 문자열을 전부 확인하는 것이 아니라 subStr의 앞쪽 부분과 매칭되는 index 3에서부터 다시 비교를 시작할 수 있습니다.</p>
-<p>이 원리를 이용하면 str을 이중 순회하는 것이 아닌 한번의 순회만으로 문자열을 찾아낼 수 있습니다. subStr을 문자열의 접두사이면서 접미사인 부분 문자열들에 대한 정보와 매칭하고 그 정보를 이용하여 str의 문자를 순회하는 동안 subStr의 포인터를 이동시켜 같은 문자열인지를 판단합니다.</p>
-<p>KMP 알고리즘은 다음 단계를 통해 구현할 수 있습니다.</p>
-<ol>
-<li>subStr의 접두사,접미사 관련 정보를 담은 pi를 생성합니다.</li>
-<li>str을 순회하며 각 문자열의 pointer 이동합니다.</li>
-<li>subStr의 포인터가 끝으로 이동했을 때에 문자끼리 같다면 동일 문자열입니다.</li>
-</ol>
-<h2 id="▫︎-failure-함수를-통해-pi-배열-생성"><a href="#▫︎-failure-함수를-통해-pi-배열-생성" class="headerlink" title="▫︎ failure 함수를 통해 pi 배열 생성"></a>▫︎ failure 함수를 통해 pi 배열 생성</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/703259a6-44a5-46a1-bb38-1287d68adcfa/image.png" alt="image.png"></p>
-<p>pi 배열은 subStr의 접두사와 접미사를 확인하여 같은 길이를 값으로 가지는 배열입니다. pi의 index 0은 0으로 시작하며 이후부터는 해당 인덱스까지의 부분문자열의 접두사와 접미사가 같은 길이를 값으로 가집니다. <strong>pi 배열은 failure함수를 통해 만들 수 있습니다.</strong></p>
-<p>“ABCA”의 경우 앞 뒤 “A”가 같기 때문에 1을 값으로 가집니다.</p>
-<p>“ABCAB”의 경우 앞 뒤 “AB”가 같기 때문에 2를 값으로 가집니다.</p>
-<h3 id="failure-함수의-동작"><a href="#failure-함수의-동작" class="headerlink" title="failure 함수의 동작"></a>failure 함수의 동작</h3><ol>
-<li>첫 인덱스 값을 0으로하는 subStr 길이와 같은 배열을 생성합니다.</li>
-<li>새로운 포인터 k를 선언하고 subStr을 순회하면서 다음 동작을 반복합니다.<ul>
-<li>subStr[k]와 subStr[i]가 같은 경우 pi[i]에 k+1을 저장하고 k와 i 인덱스를 모두 증가시킵니다.</li>
-<li>다를경우 k에 pi[k-1] 위치에 있는 값을 재할당합니다. (이 동작을 subStr[k]와 subStr[i]가 같아지거나 k가 0이 될 때까지 반복합니다) 이후 i 인덱스만 증가시킵니다.</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> subStr = <span class="string">&quot;ABCABB&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> pi = <span class="title class_">Array</span>(subStr.<span class="property">length</span>).<span class="title function_">fill</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> k = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; subStr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; subStr[k] !== subStr[i]) &#123;</span><br><span class="line">    k = pi[k - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (subStr[k] === subStr[i]) &#123;</span><br><span class="line">    pi[i] = k + <span class="number">1</span>;</span><br><span class="line">    k++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(pi); <span class="comment">// [0,0,0,1,2,0]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="▫︎-pi배열과-두-문자열을-이용해-문자열-찾기"><a href="#▫︎-pi배열과-두-문자열을-이용해-문자열-찾기" class="headerlink" title="▫︎ pi배열과 두 문자열을 이용해 문자열 찾기"></a>▫︎ pi배열과 두 문자열을 이용해 문자열 찾기</h2><p>이제 pi 배열을 이용해서 문자열을 찾아보겠습니다. str과 subStr의 각 포인터들을 이동시키면서 str을 순회합니다. 아래 그림과 같은 방식으로 동작합니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/231216cb-a99e-4582-bab3-f4550e5f5bd6/image.png" alt="image.png"></p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&quot;ABCABCABBD&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> subStr = <span class="string">&quot;ABCABB&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> pi = <span class="title class_">Array</span>(subStr.<span class="property">length</span>).<span class="title function_">fill</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// failure 함수를 통해 pi 배열 설정</span></span><br><span class="line"><span class="keyword">let</span> k = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; subStr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; subStr[k] !== subStr[i]) &#123;</span><br><span class="line">    k = pi[k - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (subStr[k] === subStr[i]) &#123;</span><br><span class="line">    pi[i] = k + <span class="number">1</span>;</span><br><span class="line">    k++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pi 배열을 이용해 문자열 찾기</span></span><br><span class="line"><span class="keyword">let</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> answerIdx = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; str.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; subStr[j] !== str[i]) &#123;</span><br><span class="line">    j = pi[j - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (subStr[j] === str[i]) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j === subStr.<span class="property">length</span> - <span class="number">1</span>) &#123;</span><br><span class="line">      answerIdx.<span class="title function_">push</span>(i - subStr.<span class="property">length</span> + <span class="number">2</span>);</span><br><span class="line">      j = pi[j];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(answerIdx); <span class="comment">// output: [4] 4번째 문자로 시작하는 하나의 같은 문자열이 존재</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
