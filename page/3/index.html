@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">96</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,144 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2024/03/02/algorithm/%ED%95%B4%EC%8B%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/03/02/algorithm/%ED%95%B4%EC%8B%9C/" class="post-title-link" itemprop="url">해시 ) KEY 값에 문자열을 부여해 데이터를 저장하는 방법</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2024-03-02 22:42:24" itemprop="dateCreated datePublished" datetime="2024-03-02T22:42:24+09:00">2024-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/03/02/algorithm/%ED%95%B4%EC%8B%9C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/02/algorithm/해시/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/e0ccaaba-5d36-47b1-b7ec-e658aad36afe/image.png"></p>
+<blockquote>
+<p>코딩 테스트 문제 중에 데이터를 순회화며 결과를 키 값에 저장해야 할 때가 있습니다. 배열의 인덱스처럼 의미를 부여하여 사용하는 것이 아닌 의미를 지닌 키 값에 직접적으로 데이터를 매칭시킬 수 있는 방법이며, 검색에서의 시간복잡도 또한 O(1)로 효율적인 알고리즘입니다.</p>
+</blockquote>
+<h1 id="▪︎-해시-알고리즘-Hash"><a href="#▪︎-해시-알고리즘-Hash" class="headerlink" title="▪︎ 해시 알고리즘 (Hash)"></a>▪︎ 해시 알고리즘 (Hash)</h1><p>기본적으로 배열에 key: value 값으로 데이터를 저장하면 구현이 가능합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hashArray = [];</span><br><span class="line"></span><br><span class="line">hashArray[<span class="string">&quot;bus&quot;</span>] = <span class="number">5</span>;</span><br><span class="line">hashArray[<span class="string">&quot;price&quot;</span>] = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hashArray[<span class="string">&quot;bus&quot;</span>]); <span class="comment">// output: 5</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hashArray); <span class="comment">// output: [ &quot;bus&quot;: 5, &quot;price&quot;: 1000 ]</span></span><br></pre></td></tr></table></figure>
+
+<p>자바스크립트의 배열은 다른 언어의 배열과는 다릅니다. 다른 언어의 경우는 데이터가 연속적으로 나열되어 구성되는 밀집 배열이고, 자바스크립트는 희소 배열입니다. 즉 여러 개의 자료형을 허락하며 각 자료가 차지하는 메모리 공간 또한 불규칙 할 수 있습니다. 때문에 위의 방식으로도 배열을 만들 수가 있습니다.</p>
+<p>그러나 자바스크립트에서는 더 쉽게 테이블을 사용할 수 있게하는 Map이라는 내장 함수가 있습니다. Map에서 제공되는 여러 프로토타입 메서드를 활용하면 해시 구조에서 원하는 기능을 보다 쉽게 사용할 수 있습니다.</p>
+<h2 id="▫︎-Map-함수의-여러-메서드"><a href="#▫︎-Map-함수의-여러-메서드" class="headerlink" title="▫︎ Map 함수의 여러 메서드"></a>▫︎ Map 함수의 여러 메서드</h2><ol>
+<li>new Map() : 새로운 Map 객체를 만듭니다.</li>
+<li>map.set(key, value) : Map 객체 내의 key와 value를 매핑하여 저장합니다.</li>
+<li>map.get(key) : Map 객체에서 key에 해당하는 value를 반환합니다.</li>
+<li>map.has(key) : Map 객체 내에 key가 존재한다면 true, 존재하지 않는다면 false를 반환합니다.</li>
+<li>map.delete(key) : Map 객체 내에서 key와 매핑된 value 모두를 삭제합니다.</li>
+<li>map.size : Map 객체의 요소 수를 반환합니다.</li>
+<li>map.forEach(callbackFn(key, value)) : 각 value와 key마다 callbackFn을 삽입한 순서대로 실행합니다.</li>
+</ol>
+<h1 id="▪︎-Example-of-Apply-1"><a href="#▪︎-Example-of-Apply-1" class="headerlink" title="▪︎ Example of Apply 1"></a>▪︎ Example of Apply 1</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/a6f8e97b-881b-494c-8c68-123a2544cbc3/image.png" alt="Untitled"></p>
+<h2 id="▫︎-문제-접근"><a href="#▫︎-문제-접근" class="headerlink" title="▫︎ 문제 접근"></a>▫︎ 문제 접근</h2><ol>
+<li>각 후보에 대한 데이터를 생성한다.</li>
+<li>각 후보가 투표를 받을 때마다 데이터를 갱신한다.</li>
+<li>가장 큰 값을 가진 후보를 출력합니다.</li>
+</ol>
+<p>위 문제에서 후보에 대한 정보를 저장할 때 key 값으로 후보를 지정하는 것이 좋아보입니다. ( 배열의 index에 의미를 부여하여 사용할 수 있지만 가독성이 좋지 않습니다.) Map 객체를 만들고 각 key 값으로 후보를 등록한 뒤 주어진 개표 결과를 순회하며 value를 업데이트 시켜주면 쉽게 풀 수 있습니다. 이후에는 map.forEach 메서드를 통해 Map 객체를 순회하며 가장 높은 value를 지닌 key를 답으로 등록합니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">solution</span>(<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> answer = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">let</span> max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> arr = s.<span class="title function_">split</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"></span><br><span class="line">  arr.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> map.<span class="title function_">set</span>(el, map.<span class="title function_">get</span>(el) + <span class="number">1</span> || <span class="number">1</span>));</span><br><span class="line">  map.<span class="title function_">forEach</span>(<span class="function">(<span class="params">value, key</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (value &gt; max) &#123;</span><br><span class="line">      answer = key;</span><br><span class="line">      max = value;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="▪︎-Example-of-Apply-2"><a href="#▪︎-Example-of-Apply-2" class="headerlink" title="▪︎ Example of Apply 2"></a>▪︎ Example of Apply 2</h1><blockquote>
+<p>첫 번째 예시 문제가 key : value 형태로 데이터를 저장하기 위해 Map을 사용했다면, 이번 예시는 key에 접근할 때 효율성을 높여 시간복잡도를 줄이기 위해 적용하는 문제 예시를 보겠습니다.</p>
+</blockquote>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/3f079d73-7378-4a1e-a5e6-3bba18b0f2e1/image.png" alt="image.png"></p>
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/5607d50a-c95e-43a8-850c-0bc8f91c76e2/image.png" alt="image.png"></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.acmicpc.net/problem/1920">https://www.acmicpc.net/problem/1920</a></li>
+</ul>
+<p>위 문제는 [4, 1, 5, 2, 3] &#x2F; [1, 3, 7, 9, 5] 두 배열을 순회하여 겹치는지 확인만하면 되는 간단한 문제입니다. 그런데 N의 입력값 범위를 살펴보면</p>
+<p>1 ≤ N ≤ 100,000 으로 이중 순회로 구현하여 O(n^2)의 시간복잡도로 풀 경우, 시간 제한에 걸리게 됩니다. Map 내장 함수의 경우 key에 접글할 때 O(1)의 시간복잡도를 가지기 때문에 하나의 배열을 Map으로 만들고 나머지 배열 하나를 순회하며 Map에 key 값이 있는지 여부만 판단하면 조건에 맞게 풀 수 있습니다.</p>
+<ul>
+<li>이중 순회로 구현 (시간 초과)</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> input = fs.<span class="title function_">readFileSync</span>(<span class="string">&quot;dev/stdin&quot;</span>).<span class="title function_">toString</span>().<span class="title function_">trim</span>().<span class="title function_">split</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> N = input[<span class="number">1</span>].<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">v</span>) =&gt;</span> +v);</span><br><span class="line"><span class="keyword">const</span> M = input[<span class="number">3</span>].<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">v</span>) =&gt;</span> +v);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; M.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  N.<span class="title function_">includes</span>(M[i]) ? <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>) : <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>array.prototype.includes() 메서드는 O(N)의 시간복잡도를 가진다.</li>
+<li>Map 함수 적용하여 구현 (조건 통과)</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> input = fs.<span class="title function_">readFileSync</span>(<span class="string">&quot;dev/stdin&quot;</span>).<span class="title function_">toString</span>().<span class="title function_">trim</span>().<span class="title function_">split</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> N = input[<span class="number">1</span>].<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">v</span>) =&gt;</span> +v);</span><br><span class="line"><span class="keyword">const</span> M = input[<span class="number">3</span>].<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">v</span>) =&gt;</span> +v);</span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"></span><br><span class="line">N.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> map.<span class="title function_">set</span>(el, <span class="literal">true</span>));</span><br><span class="line">M.<span class="title function_">forEach</span>(<span class="function">(<span class="params">el</span>) =&gt;</span> (map.<span class="title function_">has</span>(el) ? <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>) : <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span>)));</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1210,140 +1348,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/10/13/fc-yanolja/workshop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/13/fc-yanolja/workshop/" class="post-title-link" itemprop="url">패스트캠퍼스X야놀자 프론트엔드 개발 부트캠프_워크샵 & 멘토링</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2023-10-13 23:01:29" itemprop="dateCreated datePublished" datetime="2023-10-13T23:01:29+09:00">2023-10-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%EC%95%BC%EB%86%80%EC%9E%90-%ED%85%8C%ED%81%AC%EC%8A%A4%EC%BF%A8/" itemprop="url" rel="index"><span itemprop="name">야놀자 테크스쿨</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/10/13/fc-yanolja/workshop/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/10/13/fc-yanolja/workshop/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/5e1e2ac9-3a7a-4a13-89bd-fa4abc0b669a/image.png"></p>
-<blockquote>
-<p>저번 포스팅에서 그룹스터디 팀 결성과 진행 방식 그리고 후기를 알려드렸었어요. 패스트캠퍼스 X 야놀자 부트캠프에서는 각 팀 별 그룹스터디만 진행되는 것이 아니라 주기적으로 워크샵을 통해 부트캠프를 함께 하는 동기생들이 어떤 방식으로 공부를 이어나가고 있는지 이야기를 나눠볼 수 있는 시간이 있었습니다. 오늘은 두번에 걸쳐 진행된 워크샵 후기와 함께 저번에 말씀드렸던 패스트캠퍼스 X 야놀자 부트캠프의 장점이라고 언급했던 멘토링 후기에 대해서 이야기하려 합니다.</p>
-</blockquote>
-<h1 id="1차-부트캠프-워크샵"><a href="#1차-부트캠프-워크샵" class="headerlink" title="1차 부트캠프 워크샵"></a>1차 부트캠프 워크샵</h1><p>7월 24일에 그룹스터디 워크샵을 가졌습니다. 이번 워크샵에서는 각 그룹스터디 별로 어떻게 진행되어 가는지, 느낀점들이나 공유하고 싶은 내용등을 자유롭게 이야기하는 시간이었습니다. 각 그룹스터디 별로 스터디 주제나 진행 방식들이 차이가 있어서 좋은점들은 우리 스터디에도 적용하고 싶은 마음에 정말 열심히 들었던 것 같습니다. 뿐만아니라 우리 스터디에서 잘 적용되고 있는 방식들을 자랑하고 싶은 마음도 있었던 것 같아요!</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/50a48252-2ce3-415d-a3fd-aa59a79a1c0c/image.png"></p>
-<p>저희 조는 노션을 통해 발표자료를 준비해 워크샵을 준비했습니다. 저희 조원들 소개와 스터디 진행방식 그리고 느낀점들을 발표자료로 준비했습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/1cf733f9-082d-4e32-afef-bd7355f6b6fc/image.png"></p>
-<p>저번 포스팅에서 다뤘던 코딩테스트 스터디에 대한 발표 자료네요. 백준을 통해 각 알고리즘별로 이론 공부와 더불어 대표 문제들을 학습했습니다.</p>
-<blockquote>
-<p>이제는 알고리즘 별 대표문제들을 쭉 훑고나서 프로그래머스에서 기출문제들 위주로 코딩테스트 스터디를 진행하고 있어요!! 확실히 알고리즘별로 학습을 탄탄히 한 뒤에 기출문제 풀이로 넘어가니 문제를 접근하는 방식이나 풀이에 있어서 도움을 많이 받는 것 같습니다.</p>
-</blockquote>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/4c07f09c-28a5-4c9c-8792-6f8bf1c1483a/image.png"></p>
-<p>다음으로는 자바스크립트 딥다이브 스터디에 대한 발표 자료인데요, 각자 발표를 준비한다는 마음으로 책을 정독하고 뽑기로 걸린 팀원이 주제들에 대해 설명한다는 방식은 다른 많은 팀들에게 좋은 호응을 얻었습니다! 그분들 스터디에도 적용하는 것을 고민한다는 이야기도 들었어요.</p>
-<p>사실 900쪽이 넘어가는 이 두꺼운 책을 팀원들과 언제 다 읽을 수 있을까 걱정이 많았는데 지금 이 글을 쓰는 지금은 벌써 완독을 눈앞에 두고 있답니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/c2c9ec52-96bb-4ead-8abb-1367ba435ab4/image.png"></p>
-<p>저희 그룹 뿐만아니라 다름 스터디그룹에서도 정말 열심히 스터디를 진행하고 계신거 같더라구요. 저희와 다른 방식을 선택한 그룹이나 저도 꼭 해보고 싶은 주제를 선정해 스터디를 진행하는 팀들도 있었습니다. 특히 그룹원들끼리 토이프로젝트를 진행하는 팀이 흥미로워서 주기적으로 팀 노션을 눈팅해왔는데, 이번 워크샵을 통해 어떤 결과물들을 만들고 있는지 자세히 소개해주셔서 너무 재밌었던 것 같아요.</p>
-<h1 id="2차-부트캠프-워크샵"><a href="#2차-부트캠프-워크샵" class="headerlink" title="2차 부트캠프 워크샵"></a>2차 부트캠프 워크샵</h1><p>8월 25일에는 두번째 워크샵이 진행되었습니다. 이전 그룹스터디 워크샵과는 다르게 각 개인이 그 동안 부트캠프를 진행하면서 느낀점이나 배운점들 또는 공유하고 싶은 주제들에 대해서 이야기하는 시간이었습니다. 추가로 진행된 ‘천하제일 내 꿀통 자랑대회’ !!!<br>주제를 선정해 발표하고 참여자 전원 상품까지 얻어갈 수 있는 좋은 기회였습니다. 한치의 고민도 없이 바로 참여했습니다 😁</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/eea7ef38-8c78-4a72-a4a5-62a9d74519d5/image.png"></p>
-<p>발표자 분들이 생각보다 많이 적었어요. 저를 포함해 네분이 발표를 진행하셨습니다. 아마 발표에 대해 부담감이 있으신 분들이 있으셨던 것 같아요. 그 동안 눈팅해온 동기생분들 중에는 정말 실력자분들이 많으셔서 기대했는데 아쉬웠습니다 ㅠㅠ.</p>
-<h2 id="천하제일-내-꿀통-자랑대회-발표"><a href="#천하제일-내-꿀통-자랑대회-발표" class="headerlink" title="천하제일 내 꿀통 자랑대회 발표"></a>천하제일 내 꿀통 자랑대회 발표</h2><p><img src="https://velog.velcdn.com/images/vbghdl/post/fea9756d-d132-4866-be3a-2731b48ada2b/image.png"></p>
-<p>저는 웹 성능과 성능 지표를 활용한 최적화라는 주제로 발표를 했습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/a37446ab-99af-491b-a395-ac1b6f45a7eb/image.png"></p>
-<p>우선 성능에 대한 전반적인 설명에 앞서 필요한 지식인 렌더링 과정에 대해서 이야기하고, 성능 개선의 필요성을 설명한 뒤 다양한 성능 지표에 대해 소개하고 그 지표를 기반으로한 최적화 방안에 대해 이야기했습니다.</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/a6128709-f2dd-4aa0-b693-95c44044c095/image.png"></p>
-<p>성능 개선의 필요성을 엘레베이터 닫기 버튼을 누르는 우리의 모습과 연관지어 설명해보았는데 참 괜찮은 예시였던 것 같아요^^.</p>
-<p>많이 떨리기도 했지만 한편으로는 설렘 가운데서 발표를 잘 마무리할 수 있었습니다.</p>
-<blockquote>
-<p>마지막 발표인데다 다른 분들에 비해 긴 시간의 발표여서 더 떨렸던 것 같아요. 시간이 너무 길까 말도 너무 빨랐던 것 같고… 경험삼아 다음번엔 더 잘할 수 있겠죠?</p>
-</blockquote>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/e1fcbe2e-c1bb-4fcd-b83f-cbe4db63b0a1/image.png"></p>
-<p>다른 분들의 발표 중에 특히 어승준님의 optimistic ui 와 pasimistic ui에 대한 발표는 정말 유익했습니다. 부트캠프의 장점! 동기생들과의 연결. 바로 DM을 드려 이야기를 나누고 발표자료들을 교환한 뒤 주말에 공부했습니다. 너무 너무 유익했습니다.</p>
-<p>워크샵이 잘 마무리되고 상품도 잘 받았답니다. 아! 저는 ‘개발자의 글쓰기’라는 책을 선택해서 받았어요!</p>
-<p><img src="https://velog.velcdn.com/images/vbghdl/post/cc77e27b-9190-4f15-b536-5562542ea4cd/image.png"></p>
-<h1 id="그룹스터디-멘토링"><a href="#그룹스터디-멘토링" class="headerlink" title="그룹스터디 멘토링"></a>그룹스터디 멘토링</h1><p><img src="https://velog.velcdn.com/images/vbghdl/post/883458f4-9840-4217-ad1e-43eeac5ec1f3/image.png"></p>
-<p>패스트캠퍼스 X 야놀자 부트캠프의 큰 장점이라고 저번 포스팅에서 이야기 했던 멘토링입니다. 공부를 하면서 모르는 내용들 궁금한 내용들을 그때마다 요청서에 적어두면 현직 멘토님의 답변과 함께 일주일에 한번 있는 멘토링 시간에 이야기를 나눠볼 수 있었습니다.</p>
-<blockquote>
-<p>사실 처음에는 멘토링이라는 것이 이 정도로 좋을지 몰랐어요. 우리가 공부를 하다가 궁금한 것이 생기면 질문하고 답변을 기다리기 보다는 구글링등을 통해 바로바로 알고 해결하려고 하잖아요. 그런데 꼭 개발 지식에 관련된 내용이 아니더라도 직접 취업 후 경험을 통해 알 수있는 내용들이나 질문하기 어려운 추상적인 것들도 대화를 통해 충족시킬 수 있다는 점이 너무나도 좋았습니다.</p>
-</blockquote>
-<p>질문이 없을 때 이 귀중한 멘토링 시간을 어떻게 써야할지는 항상 고민이었습니다. 그래서 멘토님과의 이야기를 통해 남는 시간은 저희 면접 준비를 도와주시기로 하셨어요! 멘토님께서 직접 경험하셨던 면접 질문들이나 실제 팀원을 뽑으실 때 물어볼 것 같은 질문들을 저희에게 제시해주시고 답변을 들어주시며 교정해주시는데 너무나 유익한 것 같습니다.</p>
-<h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><p>패스트캠퍼스 X 야놀자 부트캠프를 진행하면서 부트캠프로 이곳을 선택한 것이 정말 확실한 선택이었다는 것을 요즘 계속해서 느끼고 있습니다. 과정 중 진행되는 앞서 소개한 여러가지들 중 도움이 되지 않는 것이 단 하나도 없는 것 같아요. 제가 쓰는 후기들이 국비지원이나 부트캠프를 고려하는 다른 학우분들께 도움이 되셨으면 좋겠습니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="이전 페이지" aria-label="이전 페이지" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="다음 페이지" aria-label="다음 페이지" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="이전 페이지" aria-label="이전 페이지" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="다음 페이지" aria-label="다음 페이지" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
