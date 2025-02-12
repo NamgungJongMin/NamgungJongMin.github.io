@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">97</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -160,6 +160,122 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/08/20/js/25_%EC%9D%B4%EB%B2%A4%ED%8A%B8%ED%95%B8%EB%93%A4%EB%A7%81%EB%B0%A9%EC%8B%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
+      <meta itemprop="name" content="Namgung Jong Min">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Namgung Jong Min">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/20/js/25_%EC%9D%B4%EB%B2%A4%ED%8A%B8%ED%95%B8%EB%93%A4%EB%A7%81%EB%B0%A9%EC%8B%9D/" class="post-title-link" itemprop="url">이벤트 핸들러 프로퍼티와 addEventListener 메서드의 차이점</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-08-20 17:22:41" itemprop="dateCreated datePublished" datetime="2023-08-20T17:22:41+09:00">2023-08-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/08/20/js/25_%EC%9D%B4%EB%B2%A4%ED%8A%B8%ED%95%B8%EB%93%A4%EB%A7%81%EB%B0%A9%EC%8B%9D/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/08/20/js/25_이벤트핸들링방식/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://velog.velcdn.com/images/vbghdl/post/3e2bea4f-7465-4e21-a3e6-9992d35bfbbb/image.png"></p>
+<p>이벤트 핸들러는 이벤트가 발생했을 때 브라우저에 호출을 위임한 함수입니다. 이벤트가 발생하면 자바스크립트 엔진은 브라우저에게 이벤트 핸들러의 호출을 위임하게 하는 것을 이벤트 핸들러 등록이라고 합니다. 이벤트 핸들러를 등록하는 방법은 총 3가지입니다. ‘이벤트 핸들러 어트리뷰트 방식’, ‘이벤트 핸들러 프로퍼티 방식’, ‘addEventListener 방식’으로 이벤트 핸들러를 등록합니다.</p>
+<p>이벤트 핸들러 어트리뷰트 방식은 오래된 코드에서 간혹 확인해볼 수 있기 때문에 이런 것이 있다고만 알아두는 것이 좋습니다. HTML과 자바스크립트는 마크업과 Interection이라는 서로 다른 관심사를 가지고 있기 때문에 혼재하는 것보다는 분리하는 것이 좋습니다. 이번 포스팅에서는 자바스크립트 내에서 핸들러를 등록하는 두가지 방식을 중점적으로 비교하겠습니다.</p>
+<hr>
+<h1 id="이벤트-핸들러-등록"><a href="#이벤트-핸들러-등록" class="headerlink" title="이벤트 핸들러 등록"></a>이벤트 핸들러 등록</h1><h2 id="이벤트-핸들러-어트리뷰트-방식"><a href="#이벤트-핸들러-어트리뷰트-방식" class="headerlink" title="이벤트 핸들러 어트리뷰트 방식"></a>이벤트 핸들러 어트리뷰트 방식</h2><p>위에 서술한대로 예전 DOM level0 때나 관심사의 분리를 통한 웹 구성을 하기 이전의 레거시 코드로 남아있는 경우가 많습니다. 그러나 모던 자바스크립트에서는 이벤트 핸들러 어트리뷰트 방식을 사용하는 경우가 있기 때문에 알아둘 필요는 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--<span class="title class_">Angular</span> --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;handleClick($event)&quot;</span>&gt;</span>button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&#123; <span class="comment">/* React */</span>&#125;</span><br><span class="line">&lt;button onClick=<span class="string">&quot;handleClick($event)&quot;</span>&gt;button&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="이벤트-핸들러-프로퍼티-방식"><a href="#이벤트-핸들러-프로퍼티-방식" class="headerlink" title="이벤트 핸들러 프로퍼티 방식"></a>이벤트 핸들러 프로퍼티 방식</h2><p>DOM 노드 객체는 이벤트에 대응하는 이벤트 핸들러 프로퍼티를 가지고 있으며, onclick과 같이 on 접두사와 이벤트의 종류를 나타내는 이벤트 타입으로 이루어져있습니다. 이벤트 핸들러를 등록하기 위해 이벤트를 발생시킬 대상 (이벤트 타깃)과 이벤트의 종류 (이벤트 타입) 그리고 이밴트 핸들러를 지정해주어야 합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$button.<span class="property">onclick</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Clicked!&quot;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="addEventListener-메서드-방식"><a href="#addEventListener-메서드-방식" class="headerlink" title="addEventListener 메서드 방식"></a>addEventListener 메서드 방식</h2><p>DOM Level 2에서 도입된 addEventListener 메서드 방식은 메서드를 사용하여 이벤트 핸들러를 등록할 수 있습니다. 첫번째 매개변수로 이벤트의 종류를 나타내는 이벤트 타입, 두번째 매개변수로 이벤트 핸들러를 전달합니다. 마지막 매개변수에는 이벤트를 캐치할 이벤트 전파단계를 지정합니다. 생략하거나 false를 지정하면 버블링 단계에서 이벤트를 캐치하고, true를 지정하면 캡처링 단계에서 이벤트를 캐치합니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $button = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;button&quot;</span>);</span><br><span class="line"></span><br><span class="line">$button.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="이벤트-핸들러-프로퍼티와-addEventListener-메서드의-차이점"><a href="#이벤트-핸들러-프로퍼티와-addEventListener-메서드의-차이점" class="headerlink" title="이벤트 핸들러 프로퍼티와 addEventListener 메서드의 차이점"></a>이벤트 핸들러 프로퍼티와 addEventListener 메서드의 차이점</h1><p>스크립트 내에서 이벤트를 등록하는 두 방식에는 이벤트의 누적 여부, 이벤트 전파 정의 등의 차이가 있습니다.</p>
+<h2 id="이벤트-누적-여부"><a href="#이벤트-누적-여부" class="headerlink" title="이벤트 누적 여부"></a>이벤트 누적 여부</h2><p>이벤트 핸들러 프로퍼티는 이벤트 객체를 하나만 등록 가능합니다. 만약 2개의 이벤트 핸들러를 등록하게 되면 가장 마지막에 추가한 이벤트 핸들러가 이전 이벤트 핸들러를 덮어쓰게 됩니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $test = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func1</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test1&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func2</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func3</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test3&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$test.<span class="property">onclick</span> = func1;</span><br><span class="line">$test.<span class="property">onclick</span> = func2;</span><br><span class="line">$test.<span class="property">onclick</span> = func3;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/a0c6baf0-96a5-4ea7-95e1-de6152a4fca2/image.png"></p>
+<p>그러나 addEventListener 메서드 방식의 경우 이벤트 핸들러가 누적되어 이벤트가 모두 실행되는 것을 확인할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $test = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func1</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test1&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func2</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func3</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test3&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$test.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, func1);</span><br><span class="line">$test.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, func2);</span><br><span class="line">$test.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, func3);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://velog.velcdn.com/images/vbghdl/post/270bbedb-7f54-4628-86db-e607728c1d02/image.png"></p>
+<h2 id="이벤트-전파-정의"><a href="#이벤트-전파-정의" class="headerlink" title="이벤트 전파 정의"></a>이벤트 전파 정의</h2><p>이벤트 핸들러 프로퍼티 방식과 달리 addEventListener 메서드 방식은 세 번째 매개변수로 버블링으로 작동될지, 캡쳐링으로 작동될지의 여부를 지정할 수 있습니다. 세 번째 매개변수가 true일 경우 캡쳐링을 사용하고false일 경우 버블링을 사용합니다.</p>
+<p>따라서 이벤트 핸들러 프로퍼티 방식은 기존 이벤트 타입별 기본 적용된 전파 방식을 그대로 따라야 하는 반면 addEventListener 방식은 필요에 따라 전파 방식을 지정하여 유연한 코드 작성이 가능합니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1411,220 +1527,6 @@
 <p>다만 여기서 원격 저장소에서 삭제한 브랜치는 로컬 저장소에 반영이 되지 않기 때문에 수동적으로 지워주셔야 합니다.</p>
 <p>git branch -D 명령어를 이용합니다.<br><img src="/../images/230712/2023-07-12-16-34-26.png"></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://namgungjongmin.github.io/2023/07/11/git1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://velog.velcdn.com/images/vbghdl/post/75242f2f-e7d2-4cd3-995b-c9cdd98b91e4/image.jpeg">
-      <meta itemprop="name" content="Namgung Jong Min">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Namgung Jong Min">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/11/git1/" class="post-title-link" itemprop="url">Git / Github (기본)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2023-07-11 23:11:55" itemprop="dateCreated datePublished" datetime="2023-07-11T23:11:55+09:00">2023-07-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Git-Github/" itemprop="url" rel="index"><span itemprop="name">Git / Github</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2023/07/11/git1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/07/11/git1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://velog.velcdn.com/images/vbghdl/post/de3743e2-1a36-4b65-a97d-e6205280f31b/image.png"></p>
-<h1 id="cli와-gui의-차이"><a href="#cli와-gui의-차이" class="headerlink" title="cli와 gui의 차이"></a>cli와 gui의 차이</h1><p>cli: command line &#x2F; 시각적인 요소가 아닌 명령어를 통해 컴퓨터와 상호작용하는 방식입니다.</p>
-<p>gui: graphic user interface &#x2F; 평소에 폴더를 클릭하고, 그 폴더 안의 파일을 클릭해서 컴퓨터를 활용하는 방식입니다.</p>
-<blockquote>
-<p>글로만 이루어진 화면을 토대로 어떤 폴더에 들어와있는지 구별할 줄 알고, 어떤 명령어를 입력했을 때 어떤 동작이 수행되는 지를 알아야 합니다.</p>
-</blockquote>
-<h1 id="기본-명령어"><a href="#기본-명령어" class="headerlink" title="기본 명령어"></a>기본 명령어</h1><p>ls : 현재 경로의 모든 파일&#x2F;폴더들을 리스팅<br><img src="/../images/2023-07-11-14-20-10.png"></p>
-<p>cd (경로) : 경로로 이동 &#x2F; cd .. : 이전 경로로 이동</p>
-<p><img src="/../images/2023-07-11-14-24-34.png"></p>
-<p>절대경로 vs 상대경로</p>
-<p>절대경로 : 내가 위치한 곳과 상관없이, 특정한 폴더&#x2F;파일이 위치한 경로의 전체 주소를 말합니다.<br>절대 경로는 앞에 ‘&#x2F;‘를 붙습니다.</p>
-<p>상대경로 : 내가 위치한 곳에서의 본 특정한 폴더&#x2F;파일의 경로를 말합니다.</p>
-<p>mkdir (폴더명) : 새 폴더 생성<br><img src="/../images/2023-07-11-14-28-47.png"></p>
-<p>mv 이동 &#x2F; rm 삭제 &#x2F; cp 복사 등의 여러 명령어가 있습니다.</p>
-<blockquote>
-<p>깃관련 오류가 생겼을 때 현재 자신이 있는 경로가 잘못되어있는 경우가 많다. 항상 자신의 경로를 먼저 확인하도록 한다.</p>
-</blockquote>
-<h1 id="Git이란"><a href="#Git이란" class="headerlink" title="Git이란"></a>Git이란</h1><p>버전 관리를 위한 프로그램입니다.<br>버전 관리라는건 특정한 프로젝트 등을 진행할 때, 진행 상황을 수시로 기록하면서, 필요할 때는 이전 상황으로 돌아갈 수 있게 해주는 등 종합적으로 폴더&#x2F;파일의 수정 사항을 관리하는 것을 말합니다. 만약 자기소개서를 작성한다 가정해보겠습니다.</p>
-<p>[1차 완]</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">안녕하세요</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>[2차 완]</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">안녕하세요. 제이름은</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>[최종]</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">안녕하세요. 제이름은남궁종민 입니다.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>[찐 최종]</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">안녕하세요. 제 이름은 남궁종민 입니다.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>이런식으로 수정의 수정을 거듭하면서 작성을 하게 되는데 이렇게 각각의 수정 사항을 원할 때마다 수시로 기록하면서 이전 수정 상태로 돌아갈 수 있도록 하는 기능이 바로 Git입니다!</p>
-<h1 id="Git-사용해보기"><a href="#Git-사용해보기" class="headerlink" title="Git 사용해보기"></a>Git 사용해보기</h1><h2 id="git-사용-개괄적으로-살펴보기"><a href="#git-사용-개괄적으로-살펴보기" class="headerlink" title="git 사용 개괄적으로 살펴보기"></a>git 사용 개괄적으로 살펴보기</h2><p>git add 명령어를 통해 어떤 파일을 관리할지 지정하고,<br>git commit 명령어로 현재 관리중인 파일을 하나의 버전으로 저장</p>
-<p><img src="/../images/2023-07-11-15-05-05.png"></p>
-<p>git은 아직 git add 를 통해 관리되기 전 파일을 untracked file 이라고 말하고, 관리되는 파일을 tracked file이라고 말합니다.<br>commit이 되기 전 상태를 staged 상태라고 말합니다.</p>
-<h2 id="버전-관리-시작"><a href="#버전-관리-시작" class="headerlink" title="버전 관리 시작"></a>버전 관리 시작</h2><p>우선 vscode를 실행하여 hello.txt라는 파일을 하나 만들고 ‘안녕하세요’라는 텍스트를 입력합니다.</p>
-<p><img src="/../images/2023-07-11-15-09-21.png"></p>
-<hr>
-<h2 id="git-폴더-설정"><a href="#git-폴더-설정" class="headerlink" title="git 폴더 설정"></a>git 폴더 설정</h2><p>git init 명령어를 통해 git 저장소를 처음으로 만들어줍니다.</p>
-<p>현재 폴더 자체를 git이 관리하고 있는 상태지만 아직 untracked 상태로 파일을 지켜보고 있지는 않은 상태입니다.</p>
-<p><img src="/../images/2023-07-11-15-14-10.png"></p>
-<hr>
-<p>git으로 폴더를 관리하는 순간 .git이라는 숨김 파일이 생성되고 git 관련 버전등이 파일 안에서 관리되게 됩니다.</p>
-<p><img src="/../images/2023-07-11-15-15-55.png"></p>
-<hr>
-<h2 id="git-상태-확인하기-x2F-추가하기"><a href="#git-상태-확인하기-x2F-추가하기" class="headerlink" title="git 상태 확인하기&#x2F;추가하기"></a>git 상태 확인하기&#x2F;추가하기</h2><p>git status 명령어를 통해 보면 폴더 내 파일들이 어떤 상태인지 확인할 수 있다. untracked 상태의 hello.txt 파일을 add하여 깃이 바라보게 해봅시다.</p>
-<p><img src="/../images/2023-07-11-15-19-35.png"></p>
-<blockquote>
-<p>git 으로 staged 상태로 올려야 할 파일이 많을 때 git add . 을 입력하면 폴더 내 모든 파일을 관리하게 할 수 있지만, 각각의 기능 별로 add commit을 하는 실무의 특성상 좋은 습관은 아니다.</p>
-</blockquote>
-<hr>
-<h2 id="git-상태-되돌리기"><a href="#git-상태-되돌리기" class="headerlink" title="git 상태 되돌리기"></a>git 상태 되돌리기</h2><p>git reset 명령어를 사용하면 staged 상태의 파일을 untracked 상태로 되돌릴 수 있습니다.</p>
-<p><img src="/../images/2023-07-11-15-24-32.png"></p>
-<hr>
-<h2 id="git-commit-하기"><a href="#git-commit-하기" class="headerlink" title="git commit 하기"></a>git commit 하기</h2><p>이후에는 git commit 명령어를 통해 버전으로 저장합니다.</p>
-<p><img src="/../images/2023-07-11-15-30-18.png"></p>
-<p><img src="/../images/2023-07-11-15-31-57.png"></p>
-<p>제 경우에는 git 에디터 기본으로 vim으로 설정되어 있기 때문에 vim창이 떴지만 일반 유저 분들은 git commit -m “{커밋 메시지}” 를 적어주시면 됩니다.</p>
-<p><img src="/../images/2023-07-11-15-36-40.png"></p>
-<p>commit이 정상적으로 진행 되었다는 메시지를 확인할 수 있습니다.</p>
-<blockquote>
-<p>commit 관련해서도 지켜야할 규칙이나 컨벤션이 존재하지만 이는 기업 컨벤션마다 다르고 일반적인 규칙 등은 차후 다루겠습니다.</p>
-</blockquote>
-<h2 id="git-commit-메시지-수정하기"><a href="#git-commit-메시지-수정하기" class="headerlink" title="git commit 메시지 수정하기"></a>git commit 메시지 수정하기</h2><p>git commit –amend 명령어를 통해 수정할 수 있습니다.</p>
-<p><img src="/../images/2023-07-11-15-40-50.png"></p>
-<p>가장 최근 커밋을 불러와 내가 원하는 방식으로 바꿀 수 있습니다.</p>
-<p><img src="/../images/2023-07-11-15-41-42.png"></p>
-<hr>
-<h2 id="추가-커밋하고-버전-확인하기"><a href="#추가-커밋하고-버전-확인하기" class="headerlink" title="추가 커밋하고 버전 확인하기"></a>추가 커밋하고 버전 확인하기</h2><p>text 내용을 바꾸고 추가로 add 후 commit을 해주었습니다.</p>
-<p><img src="/../images/2023-07-11-15-44-31.png"></p>
-<p>추가로 커밋한 버전이 로그에 잘 올라와있나 확인해봅시다.</p>
-<p><img src="/../images/2023-07-11-15-45-16.png"></p>
-<p>변경한 텍스트의 버전과 변경하기 전 텍스트 버전이 둘다 로그에 남아있는 것을 확인할 수 있습니다. 업데이트 하기 전 버전으로 돌아가고 싶다면 로그에 나와있는 커밋 정보를 활용해 명령어를 사용하면 되겠죠?</p>
-<hr>
-<blockquote>
-<p>커밋은 기능단위로 하는 것이 원칙입니다!! 여러가지 파일이 있다면 각 파일의 기능 단위로 add와 commit을 진행해야 합니다.</p>
-</blockquote>
-<blockquote>
-<p>모든 수정사항을 하나의 커밋으로 저장하게 된다면 커밋에 여러 기능에 대한 업데이트가 혼재하는 상황이 발생하게 됩니다. 이것은 추후 작업의 진행사항을 파악하고, 버그를 찾아내는 것에 큰 걸림돌이 될 수 있습니다.</p>
-</blockquote>
-<h2 id="버전-되돌리기"><a href="#버전-되돌리기" class="headerlink" title="버전 되돌리기"></a>버전 되돌리기</h2><p>우선 커밋 버전으로 돌아가려면 각 커밋 버전을 지칭하는 대상을 알아야 합니다.<br><img src="/../images/2023-07-11-16-10-40.png"><br>로그를 통해 커밋의 고유 번호를 확인할 수 있습니다.</p>
-<p>2가지 방식이 있습니다.</p>
-<h3 id="revert-현재까지의-commit-기록을-유지하면서-특정한-commit-이전으로-되돌리는-명령어입니다"><a href="#revert-현재까지의-commit-기록을-유지하면서-특정한-commit-이전으로-되돌리는-명령어입니다" class="headerlink" title="revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다."></a>revert - 현재까지의 commit 기록을 유지하면서, 특정한 commit 이전으로 되돌리는 명령어입니다.</h3><p><img src="/../images/2023-07-11-16-12-39.png"></p>
-<p>“추가수정사항” 이라는 텍스트를 추가하고 커밋했습니다. 세번째 줄이 없던 버전으로 돌아가고 싶다면</p>
-<p><img src="/../images/2023-07-11-16-13-19.png"><br>로그의 가장 최근 커밋이 없었던 때로 돌아가야 합니다.</p>
-<p>git revert [해당 커밋 고유번호] 를 입력하면 최근 수정사항의 커밋이 없던 때로 돌아가기 때문에 세번째 텍스트가 사라지게 됩니다.</p>
-<p><img src="/../images/2023-07-11-16-16-57.png"></p>
-<p>로그를 살펴보면 어떤 커밋을 없던 상태로 되돌렸는지 있었던 커밋, 되돌린 커밋 또한 로그에서 확인할 수 있습니다.</p>
-<p><img src="/../images/2023-07-11-16-19-57.png"></p>
-<h3 id="reset-특정-커밋으로-돌아가면서-그-커밋-이후의-커밋-기록을-삭제하는-명령어입니다-마치-그-이후의-커밋이-없었던-것처럼-만들어주는-것입니다"><a href="#reset-특정-커밋으로-돌아가면서-그-커밋-이후의-커밋-기록을-삭제하는-명령어입니다-마치-그-이후의-커밋이-없었던-것처럼-만들어주는-것입니다" class="headerlink" title="reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다"></a>reset - 특정 커밋으로 돌아가면서, 그 커밋 이후의 커밋 기록을 삭제하는 명령어입니다. 마치 그 이후의 커밋이 없었던 것처럼 만들어주는 것입니다</h3><p>soft &#x2F; hard &#x2F; mixed 세가지의 옵션이 있습니다.</p>
-<p>soft - 파일은 그대로 두면서 커밋 기록만 되돌아갑니다. 수정 사항은 staged 상태가 됩니다.</p>
-<p>hard - 파일도 함께 되돌아갑니다.</p>
-<p>mixed - 파일을 그대로 두면서 커밋 기록이 돌아가는데 수정사항을 staged 상태가 아닌 untracked 상태로 둡니다.</p>
-<hr>
-<h1 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h1><p>git을 통해 관리하는 컴퓨터 내의 저장소를 local저장소라 합니다.</p>
-<p><img src="/../images/2023-07-11-17-01-54.png"></p>
-<p>github 사이트를 통해 관리하는 곳을 원격저장소 remote 저장소라고 합니다. github 사이트에서 새로운 레포지토리를 만들었습니다.</p>
-<h2 id="원격저장소와-연결하기"><a href="#원격저장소와-연결하기" class="headerlink" title="원격저장소와 연결하기"></a>원격저장소와 연결하기</h2><p>git remote add origin [깃허브 클론주소] 명령어를 입력하여 github와 연동시켜줍니다.</p>
-<p><img src="/../images/2023-07-11-17-07-07.png"></p>
-<p><img src="/../images/2023-07-11-17-07-28.png"></p>
-<hr>
-<p>연결 후에 git push origin main 명령어를 통해 원격 저장소의 main 브랜치에 연동된 local 저장소를 푸시해봅니다.</p>
-<p><img src="/../images/2023-07-11-17-22-26.png"></p>
-<p>원격 저장소에 로컬 저장소의 파일들이 업로드 된 것을 확인할 수 있습니다.</p>
-<hr>
-<p>마크다운 관련 수업</p>
-<p>(배지 찾기 사이트)<br><a target="_blank" rel="noopener" href="https://github.com/alexandresanlim/Badges4-README.md-Profile">https://github.com/alexandresanlim/Badges4-README.md-Profile</a></p>
-<hr>
-<h2 id="원격-저장소의-버전을-로컬로-가져오기"><a href="#원격-저장소의-버전을-로컬로-가져오기" class="headerlink" title="원격 저장소의 버전을 로컬로 가져오기"></a>원격 저장소의 버전을 로컬로 가져오기</h2><p>md파일을 원격 저장소에서 수정해봅시다.</p>
-<p><img src="/../images/2023-07-11-17-45-36.png"></p>
-<p>수정된 원격 저장소의 버전과 로컬 저장소의 버전이 다르기 때문에 동기화를 시켜주기 위해서는 pull시켜 주어야 합니다.</p>
-<p>명령어 git pull origin main을 통해 동기화 시켜줍니다.</p>
-<p><img src="/../images/2023-07-11-17-46-40.png"></p>
-<p>로컬 저장소의 상태가 원격 저장소와 완전히 같아졌습니다!</p>
-<hr>
-<h2 id="github로-협업하기"><a href="#github로-협업하기" class="headerlink" title="github로 협업하기"></a>github로 협업하기</h2><p>clone &#x2F; fork 두가지 방법</p>
-<h2 id="clone-하나의-레포지토리로-여러명이서-작업합니다-원격-저장소-1개에-같이-작업할-사람을-collaborator-로-추가하여-함께-작업합니다"><a href="#clone-하나의-레포지토리로-여러명이서-작업합니다-원격-저장소-1개에-같이-작업할-사람을-collaborator-로-추가하여-함께-작업합니다" class="headerlink" title="clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다."></a>clone : 하나의 레포지토리로 여러명이서 작업합니다. 원격 저장소 1개에 같이 작업할 사람을 collaborator 로 추가하여 함께 작업합니다.</h2><p>git clone은 깃허브에 있는 저장소를 그대로 내 컴퓨터로 가져오고 싶을 때 쓰는 명령어입니다.</p>
-<p>단순히 파일 다운로드만을 하는 것이 아니라 commit 기록과 역사까지 전부 가져오기 때문에 이전 기록으로 돌아갈 수도 있고, pull &#x2F; push 등을 통해 실제 저장소에 반영할 수도 있습니다.</p>
-<p><img src="/../images/2023-07-11-18-18-41.png"></p>
-<p>원격 저장소를 클론했습니다. 그리고 원격 저장소에서 수정을 거친 뒤 pull을 받아보겠습니다.</p>
-<p>git pull origin main 명령어를 수행하면</p>
-<p><img src="/../images/2023-07-11-18-19-58.png"></p>
-<p>수정된 사항이 로컬 저장소에도 적용되는 것을 볼 수 있습니다.</p>
-<p>개발단위가 작은 소규모 개발팀 등에서 사용하는 방식입니다.</p>
-<h2 id="fork-하나의-레포지토리를-각자가-복사하여-자기-레포지토리에서-작업하고-원본-레포지토리에-요청을-보내-합쳐가면서-작업합니다"><a href="#fork-하나의-레포지토리를-각자가-복사하여-자기-레포지토리에서-작업하고-원본-레포지토리에-요청을-보내-합쳐가면서-작업합니다" class="headerlink" title="fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다."></a>fork : 하나의 레포지토리를 각자가 복사하여 자기 레포지토리에서 작업하고 원본 레포지토리에 요청을 보내 합쳐가면서 작업합니다.</h2>
       
     </div>
 
